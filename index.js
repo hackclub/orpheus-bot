@@ -25,16 +25,8 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 });
 
-controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
-  const { text, user } = message
 
-  // ignore threaded messages
-  if (_.has(message.event, 'parent_user_id')) return
-
-  bot.replyInThread(message, 'Not sure what that means...')
-})
-
-bot.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
+controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
 
   // ignore threaded messages
@@ -55,3 +47,13 @@ const startCheckInConversation() = user => {
     })
   })
 }
+
+// catch-all
+controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
+  const { text, user } = message
+
+  // ignore threaded messages
+  if (_.has(message.event, 'parent_user_id')) return
+
+  bot.replyInThread(message, 'Not sure what that means...')
+})
