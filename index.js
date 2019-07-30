@@ -37,7 +37,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   startCheckInConversation(user)
 })
 
-const startCheckInConversation() = user => {
+const startCheckInConversation = user => {
   console.log(JSON.stringify(user))
 
   bot.startPrivateConversation(user, (err, convo) => {
