@@ -2,7 +2,7 @@ const Botkit = require('botkit')
 const Airtable = require('airtable')
 const _ = require('lodash')
 
-const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
+// const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 
 const redisConfig = {
   url: process.env.REDISCLOUD_URL
