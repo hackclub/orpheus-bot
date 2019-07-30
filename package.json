@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "node index.js"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "botkit": "0.7.4",
+    "airtable": "0.5.9",
+    "botkit-storage-redis": "^1.1.0"
+  }
+}
