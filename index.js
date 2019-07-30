@@ -37,7 +37,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
   bot.replyInThread(message, "I'll send you a check-in right now!")
 
-  bot.startConversation(message, (err, convo) => {
+  bot.startPrivateConversation(user, (err, convo) => {
     if(err) {console.log(err)}
     convo.say({
       delay: 2000,
