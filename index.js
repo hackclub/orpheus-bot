@@ -12,7 +12,7 @@ const redisStorage = require('botkit-storage-redis')(redisConfig)
 console.log("reticulating splines...")
 console.log("booting dinosaur...")
 
-const bot = Botkit.slackbot({
+const controller = Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
