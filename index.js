@@ -38,12 +38,27 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 })
 
 const startCheckInConversation = user => {
-  console.log(JSON.stringify(user))
-
   bot.startPrivateConversation(user, (err, convo) => {
-    convo.say({
-      delay: 2000,
-      text: `Howdy, I'm the sheriff of checking in`
+    base('Leaders').find(user, (err, record) => {
+      convo.say({
+        delay: 2000,
+        text: `Give me a sec... let me pull up my database`
+      })
+      convo.say({
+        delay: 2000,
+        text: `*typewriter noises*`
+      })
+      if (err) {
+        convo.say({
+          delay: 2000,
+          text: `I don't have any record of you being a club leader (ಠ_ಠ)`
+        })
+      } else {
+        convo.say({
+          delay: 2000,
+          text: `Found you! It's **${record['Full Name']}**, right?`
+        })
+      }
     })
   })
 }
