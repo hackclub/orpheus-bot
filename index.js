@@ -2,7 +2,7 @@ const Botkit = require('botkit')
 const Airtable = require('airtable')
 const _ = require('lodash')
 
-// const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
+const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 
 const redisConfig = {
   url: process.env.REDISCLOUD_URL
@@ -33,3 +33,25 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
 
   bot.replyInThread(message, 'Not sure what that means...')
 })
+
+bot.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
+  const { text, user } = message
+
+  // ignore threaded messages
+  if (_.has(message.event, 'parent_user_id')) return
+
+  bot.replyInThread(message, "I'll send you a check-in right now!")
+
+  startCheckInConversation(user)
+})
+
+const startCheckInConversation() = user => {
+  console.log(JSON.stringify(user))
+
+  bot.startPrivateConversation(user, (err, convo) => {
+    convo.say({
+      delay: 2000,
+      text: `Howdy, I'm the sheriff of checking in`
+    })
+  })
+}
