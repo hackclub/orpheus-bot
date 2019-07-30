@@ -68,5 +68,13 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
 
-  bot.replyInThread(message, 'Not sure what that means...')
+  const response = _.sample([
+    `*slowly blinks one eye*`,
+    `*stares off into the distance, dazed*`,
+    `*eyes slowly glaze over in boredom*`,
+    `*tilts head in confusion*`,
+    `*UWU*`
+  ])
+
+  bot.replyInThread(message, response)
 })
