@@ -26,25 +26,24 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 });
 
 
-controller.hears('checkin', 'direct_message,direct_mention', async(bot, message) => {
+controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
 
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
 
-  await bot.replyInThread(message, "I'll send you a check-in right now!")
+  bot.replyInThread(message, "I'll send you a check-in right now!")
 
-  await bot.startPrivateConversation(user, (err, convo) => {
-    console.log(convo)
+  bot.startPrivateConversation(user, (err, convo) => {
+    convo.say({
+      delay: 2000,
+      text: `Give me a sec... let me pull up my database`
+    })
+    convo.say({
+      delay: 2000,
+      text: `*typewriter noises*`
+    })
     base('Leaders').find(user, (err, record) => {
-      convo.say({
-        delay: 2000,
-        text: `Give me a sec... let me pull up my database`
-      })
-      convo.say({
-        delay: 2000,
-        text: `*typewriter noises*`
-      })
       if (err) {
         convo.say({
           delay: 2000,
