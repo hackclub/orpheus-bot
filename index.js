@@ -33,9 +33,9 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
 
-  //bot.replyInThread(message, "I'll send you a check-in right now!")
+  bot.replyInThread(message, "I'll send you a check-in right now!")
 
-  bot.startPrivateConversation(message.user, (err, convo) => {
+  bot.startPrivateConversation(message, (err, convo) => {
     if(err) {console.log(err)}
     convo.say({
       delay: 2000,
