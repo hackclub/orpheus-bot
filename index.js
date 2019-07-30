@@ -28,6 +28,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
+  console.log(text, user, message)
 
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
