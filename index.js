@@ -34,10 +34,6 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
   bot.replyInThread(message, "I'll send you a check-in right now!")
 
-  startCheckInConversation(bot, user)
-})
-
-const startCheckInConversation = (bot, user) => {
   bot.startPrivateConversation(user, (err, convo) => {
     base('Leaders').find(user, (err, record) => {
       convo.say({
@@ -61,7 +57,7 @@ const startCheckInConversation = (bot, user) => {
       }
     })
   })
-}
+})
 
 // catch-all
 controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
