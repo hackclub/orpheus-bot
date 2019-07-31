@@ -97,7 +97,7 @@ controller.on('slash_command', (bot, message) => {
         getInfoForUser(user).then(info => {
           console.log(info)
           setTimeout(() => {
-            updateResponse(`Aquired info for ${info.leader['Full Name']}`, err => {
+            updateResponse(`Aquired info for ${info.leader.fields['Full Name']}`, err => {
               console.error(err)
             })
           }, 2000)
