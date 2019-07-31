@@ -234,9 +234,9 @@ const graphUrl = info => {
       datasets: [{
         label: info.club.fields['Name'],
         data: attendance,
-        backgroundColor: 'white'
+        backgroundColor: 'rgb(228,45,66)'
       }]
     }
   }
-  return encodeURI(`https://quickchart.io/chart?width=500&height=300&backgroundColor=rgb(228,45,66)&c=${JSON.stringify(config)}`)
+  return encodeURI(`https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`)
 }
