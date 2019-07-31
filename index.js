@@ -77,10 +77,10 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.on('slash_command', (bot, message) => {
   const { command, text, user } = message
-  console.log(message)
+  console.log(`Received ${command} command from user ${user}`)
 
   switch (command) {
-    case 'stats':
+    case '/stats':
       bot.replyPublic(message, 'heard the stats command!')
       break;
   
