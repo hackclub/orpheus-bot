@@ -75,6 +75,19 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   })
 })
 
+controller.on('slash_command', (bot, message) => {
+  const { command, text, user } = message
+
+  switch (command) {
+    case 'stats':
+      bot.replyPublic(message, 'heard the stats command!')
+      break;
+  
+    default:
+      break;
+  }
+})
+
 // catch-all
 controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
