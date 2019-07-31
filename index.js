@@ -121,13 +121,6 @@ controller.on('slash_command', (bot, message) => {
                   },
                   image_url: graphUrl(info),
                   alt_text: "attendance"
-                },
-                {
-                  type: 'section',
-                  text: {
-                    type: 'mrkdwn',
-                    text: info.history.filter(h => h.fields['Attendance']).map(h => `* meeting w/ ${h.fields['Attendance']} members on ${h.fields['Date']}`).join('\n')
-                  }
                 }
               ]
             }
@@ -240,9 +233,10 @@ const graphUrl = info => {
       labels: dates,
       datasets: [{
         label: info.club.fields['Name'],
-        data: attendance
+        data: attendance,
+        backgroundColor: 'white'
       }]
     }
   }
-  return encodeURI(`https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`)
+  return encodeURI(`https://quickchart.io/chart?width=500&height=300&backgroundColor=rgb(89,18,26)&c=${JSON.stringify(config)}`)
 }
