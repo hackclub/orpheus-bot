@@ -94,10 +94,12 @@ controller.on('slash_command', (bot, message) => {
       bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
         if (err) console.error(err)
         getInfoForUser(user).then(info => {
-          updateResponse(`Aquired info for ${info.leader['Full Name']}`, err => {
-            console.error(err)
-          })
-        })
+          setTimeout(() => {
+            updateResponse(`Aquired info for ${info.leader['Full Name']}`, err => {
+              console.error(err)
+            })
+          }, 200)
+        }).catch(err => console.error(err))
       })
       // bot.replyPublic(message, `:beachball: _${loadingMessage}_`)
       // getInfoForUser(user).then(info => {
