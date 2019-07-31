@@ -116,8 +116,7 @@ controller.on('slash_command', (bot, message) => {
                   type: "image",
                   title: {
                     type: "plain_text",
-                    text: "attendance",
-                    emoji: true
+                    text: "attendance"
                   },
                   image_url: graphUrl(info),
                   alt_text: "attendance"
