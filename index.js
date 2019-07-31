@@ -143,7 +143,7 @@ controller.hears('hello', ['ambient'], function(bot, msg) {
       updateResponse('hello', function(err) {
         console.error(err)
       });
-    }, 3000)
+    }, 5000)
   });
 })
 
