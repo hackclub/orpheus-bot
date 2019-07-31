@@ -118,8 +118,7 @@ controller.on('slash_command', (bot, message) => {
                     type: "plain_text",
                     text: "attendance"
                   },
-                  image_url: "http://placekitten.com/500/500",
-                  // image_url: graphUrl(info),
+                  image_url: graphUrl(info),
                   alt_text: "attendance"
                 },
                 {
