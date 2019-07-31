@@ -85,14 +85,22 @@ controller.on('slash_command', (bot, message) => {
     'gurgling the bits',
     'juggling the electrons',
     'reticulating the splines',
+    'rolling down data hills',
+    'skiing the data slopes',
   ])
 
   switch (command) {
     case '/stats':
-      bot.replyPublic(message, `${loadingMessage}:beachball:`)
-      getInfoForUser(user).then(info => {
-        bot.replyPublicDelayed(message, `Aquired info for ${info.leader.full_name}`)
+      bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
+        if (err) console.error(err)
+        getInfoForUser(user).then(info => {
+          updateResponse(`Aquired info for ${info.leader.full_name}`)
+        })
       })
+      // bot.replyPublic(message, `:beachball: _${loadingMessage}_`)
+      // getInfoForUser(user).then(info => {
+      //   bot.replyPublicDelayed(message, `Aquired info for ${info.leader.full_name}`)
+      // })
       break;
   
     default:
