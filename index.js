@@ -48,6 +48,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
     })
 
     getInfoForUser(user).then(({leader, club, history}) => {
+      console.log(history)
       if (leader) {
         convo.say({
           delay: 2000,
@@ -100,11 +101,12 @@ const getLeaderFrom = user => new Promise((resolve, reject) => {
       console.error(err)
       reject(err)
     }
-    resolve({record: records[0]})
+    resolve(records[0])
   })
 })
 
 const getClubFrom = leader => new Promise((resolve, reject) => {
+  if (!leader) {resolve(nil)}
   base('Clubs').select({
     filterByFormula: `SEARCH("${leader.fields['ID']}", ARRAYJOIN(Leaders))`
   }).firstPage((err, records) => {
@@ -112,12 +114,13 @@ const getClubFrom = leader => new Promise((resolve, reject) => {
       console.error(err)
       reject(err)
     }
-    resolve({leader, record: records[0]})
+    resolve(records[0])
   })
 })
 
 const getHistoryFrom = club => new Promise((resolve, reject) => {
   const result = []
+  if (!club) {resolve(nil)}
   base('History').select({
     filterByFormula: `Club = "${club.id}"`
   }).eachPage((records, fetchNextPage) => {
