@@ -79,12 +79,24 @@ controller.on('slash_command', (bot, message) => {
   const { command, text, user } = message
   console.log(`Received ${command} command from user ${user}`)
 
+  const loadingMessage = _.sample([
+    'chugging the data juice',
+    'crunching the numbers',
+    'gurgling the bits',
+    'juggling the electrons',
+    'reticulating the splines',
+  ])
+
   switch (command) {
     case '/stats':
-      bot.replyPublic(message, 'heard the stats command!')
+      bot.replyPublic(message, `${loadingMessage}:beachball:`)
+      getInfoForUser(user).then(info => {
+        bot.replyPublicDelayed(message, `Aquired info for ${info.leader.full_name}`)
+      })
       break;
   
     default:
+      bot.replyPrivate(message, `I don't know how to do that ¯\_(ツ)_/¯`)
       break;
   }
 })
