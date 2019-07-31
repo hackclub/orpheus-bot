@@ -37,6 +37,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
   bot.startConversationInThread(message, (err, convo) => {
     if(err) {console.log(err)}
+
     convo.say({
       delay: 2000,
       text: `Give me a sec... let me pull up my database`
@@ -46,7 +47,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
       text: `*typewriter noises*`
     })
 
-    getLeader(user, leader => {
+    getLeaderFrom(user).then(leader => {
       if (leader) {
         convo.say({
           delay: 2000,
@@ -82,14 +83,30 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
 
 
 
-function getLeader(user, cb = () => {}) {
+const getLeaderFrom = user => new Promise((resolve, reject) => {
   base('Leaders').select({
     filterByFormula: `{Slack ID} = "${user}"`
   }).firstPage((err, records) => {
     if (err) {
       console.error(err)
-      return
+      reject(err)
     }
-    cb(records[0])
+    resolve(records[0])
   })
-}
+})
+
+// const getClub = user => new Promise((resolve, reject) => {
+//   getLeader(user).then(leader => new Promise((resolve, reject) => {
+//     base('Clubs').select({
+//       filterByFormula: `{}`
+//     })
+//   }))
+// })
+// function getClub(user, cb = () => {}) {
+
+//   getLeader(user, leader => {
+//     if (!leader) { return }
+
+//     base('Club').
+//   })
+// }
