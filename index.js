@@ -136,6 +136,17 @@ controller.on('slash_command', (bot, message) => {
   }
 })
 
+controller.hears('hello', ['ambient'], function(bot, msg) {
+  // send a message back: "hellp"
+  bot.replyAndUpdate(msg, 'hellp', function(err, src, updateResponse) {
+    if (err) console.error(err);
+    // oh no, "hellp" is a typo - let's update the message to "hello"
+    updateResponse('hello', function(err) {
+      console.error(err)
+    });
+  });
+})
+
 // catch-all
 controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
