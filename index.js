@@ -92,6 +92,7 @@ controller.on('slash_command', (bot, message) => {
 
   switch (command) {
     case '/stats':
+      bot.replyAcknowledge()
       bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
         if (err) console.error(err)
         getInfoForUser(user).then(info => {
