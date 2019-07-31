@@ -50,7 +50,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
       if (leader) {
         convo.say({
           delay: 2000,
-          text: `Found you! It's **${record.fields['Full Name']}**, right?`
+          text: `Found you! It's **${leader.fields['Full Name']}**, right?`
         })
       } else {
         convo.say({
