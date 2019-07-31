@@ -139,9 +139,11 @@ controller.hears('hello', ['ambient'], function(bot, msg) {
   bot.replyAndUpdate(msg, 'hellp', function(err, src, updateResponse) {
     if (err) console.error(err);
     // oh no, "hellp" is a typo - let's update the message to "hello"
-    updateResponse('hello', function(err) {
-      console.error(err)
-    });
+    setTimeout(() => {
+      updateResponse('hello', function(err) {
+        console.error(err)
+      });
+    }, 3000)
   });
 })
 
