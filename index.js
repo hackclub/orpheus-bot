@@ -234,7 +234,7 @@ const graphUrl = info => {
       datasets: [{
         label: info.club.fields['Name'],
         data: attendance,
-        backgroundColor: 'rgb(228,45,66)'
+        backgroundColor: 'rgba(228,45,66,0.5)'
       }]
     }
   }
