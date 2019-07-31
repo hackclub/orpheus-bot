@@ -77,6 +77,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.on('slash_command', (bot, message) => {
   const { command, text, user } = message
+  console.log(message)
 
   switch (command) {
     case 'stats':
