@@ -156,7 +156,7 @@ const getHistoryFrom = club => new Promise((resolve, reject) => {
   const result = []
   if (!club) {resolve(null)}
   base('History').select({
-    filterByFormula: `Club = "${club.id}"`
+    filterByFormula: `Club = "${club.fields['ID']}"`
   }).eachPage((records, fetchNextPage) => {
     records.forEach(record => result.push(record))
     fetchNextPage()
