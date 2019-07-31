@@ -132,7 +132,7 @@ controller.on('slash_command', (bot, message) => {
                 }
               ]
             }
-            console.log(graphUrl(info))
+            console.log(JSON.stringify(graphUrl(info)))
             updateResponse(content, err => {
               console.error(err)
             })
