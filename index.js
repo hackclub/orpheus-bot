@@ -54,10 +54,17 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
           text: `Found you! It's **${leader.fields['Full Name']}**, right?`
         })
         getClub(leader).then(club => {
-          convo.say({
-            delay: 2000,
-            text: `From ${club.fields['Name']}`
-          })
+          if (club) {
+            convo.say({
+              delay: 2000,
+              text: `From ${club.fields['Name']}`
+            })
+          } else {
+            convo.say({
+              delay: 4000,
+              text: `Hmmm.... I don't see a club record under your name`
+            })
+          }
         })
       } else {
         convo.say({
@@ -86,8 +93,6 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
 
   bot.replyInThread(message, response)
 })
-
-
 
 const getLeaderFrom = user => new Promise((resolve, reject) => {
   base('Leaders').select({
