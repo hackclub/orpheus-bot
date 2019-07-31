@@ -116,7 +116,7 @@ controller.on('slash_command', (bot, message) => {
                   type: 'section',
                   text: {
                     type: 'mrkdwn',
-                    text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}\n`)
+                    text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}`).join('\n')
                   }
                 },
                 {
