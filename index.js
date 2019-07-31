@@ -47,7 +47,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
       text: `*typewriter noises*`
     })
 
-    getInfoFrom(user).then(({leader, club}) => {
+    getInfoForUser(user).then(({leader, club, history}) => {
       if (leader) {
         convo.say({
           delay: 2000,
@@ -116,8 +116,28 @@ const getClubFrom = leader => new Promise((resolve, reject) => {
   })
 })
 
-const getInfoFrom = user => new Promise((resolve, reject) => {
-  getLeaderFrom(user).then(leader => getClubFrom(leader)).then(info => {
-    resolve(info)
+const getHistoryFrom = club => new Promise((resolve, reject) => {
+  const result = []
+  base('History').select({
+    filterByFormula: `Club = "${club.id}"`
+  }).eachPage((records, fetchNextPage) => {
+    records.forEach(record => result.push(record))
+    fetchNextPage()
+  }, err => {
+    if (err) {reject(err)}
+    resolve(result)
   })
+})
+
+const getInfoForUser = user => new Promise((resolve, reject) => {
+  const results = {}
+  
+  return getLeaderFrom(user)
+    .then(leader => results[leader] = leader)
+    .then(() => getClubFrom(results[leader]))
+    .then(club => results[club] = club)
+    .then(() => getHistoryFrom(results[club]))
+    .then(history => results[history] = history)
+    .then(() => resolve(results))
+    .catch(e => reject(e))
 })
