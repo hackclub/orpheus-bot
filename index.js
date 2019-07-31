@@ -95,37 +95,35 @@ controller.on('slash_command', (bot, message) => {
       bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
         if (err) console.error(err)
         getInfoForUser(user).then(info => {
-          if (!user.leader) {
-            updateResponse()
+          if (!info.leader) {
+            updateResponse("You aren't a club leader")
           }
 
-          setTimeout(() => {
-            const content = {
-              blocks: [
-                {
-                  type: 'section',
-                  text: {
-                    type: 'mrkdwn',
-                    text: `Stats for *${info.club.fields['Name']}*`
-                  }
-                },
-                {
-                  type: 'divider'
-                },
-                {
-                  type: 'section',
-                  text: {
-                    type: 'mrkdwn',
-                    // text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}`).join('\n')
-                    text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
-                  }
+          const content = {
+            blocks: [
+              {
+                type: 'section',
+                text: {
+                  type: 'mrkdwn',
+                  text: `Stats for *${info.club.fields['Name']}*`
                 }
-              ]
-            }
-            updateResponse(content, err => {
-              console.error(err)
-            })
-          }, 2000)
+              },
+              {
+                type: 'divider'
+              },
+              {
+                type: 'section',
+                text: {
+                  type: 'mrkdwn',
+                  // text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}`).join('\n')
+                  text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
+                }
+              }
+            ]
+          }
+          updateResponse(content, err => {
+            console.error(err)
+          })
         }).catch(err => console.error(err))
       })
       break;
