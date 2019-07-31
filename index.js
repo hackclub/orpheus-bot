@@ -86,6 +86,7 @@ controller.on('slash_command', (bot, message) => {
     'reticulating the splines',
     'rolling down data hills',
     'skiing the data slopes',
+    'zooming through the cyber-pipes',
     'grabbing the stats'
   ])
 
@@ -125,8 +126,8 @@ controller.on('slash_command', (bot, message) => {
                   type: 'section',
                   text: {
                     type: 'mrkdwn',
-                    // text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}`).join('\n')
-                    text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
+                    text: info.history.filter(h => h.fields['Attendance']).map(h => `${h.fields['Attendance']}`).join(' ')
+                    // text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
                   }
                 }
               ]
