@@ -95,9 +95,42 @@ controller.on('slash_command', (bot, message) => {
       bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
         if (err) console.error(err)
         getInfoForUser(user).then(info => {
-          console.log(info)
+          if (!user.leader) {
+            updateResponse()
+          }
+
           setTimeout(() => {
-            updateResponse(`Aquired info for ${info.leader.fields['Full Name']}`, err => {
+            const content = {
+              blocks: [
+                {
+                  type: 'section',
+                  text: {
+                    type: 'mrkdwn',
+                    text: `Stats for *${info.club.fields['Name']}*`
+                  }
+                },
+                {
+                  type: 'divider'
+                },
+                {
+                  type: 'section',
+                  text: {
+                    type: 'mrkdwn',
+                    text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}\n`)
+                  }
+                },
+                {
+                  type: 'context',
+                  elements: [
+                    {
+                      type: 'mrkdwn',
+                      text: 'See any info misreported? Let the staff know'
+                    }
+                  ]
+                }
+              ]
+            }
+            updateResponse(content, err => {
               console.error(err)
             })
           }, 2000)
