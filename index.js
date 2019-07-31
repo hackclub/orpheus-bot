@@ -235,7 +235,7 @@ const graphUrl = info => {
   const attendance = meetings.map(h => h.fields['Attendance'])
   const dates = meetings.map(h => h.fields['Date'])
   const config = {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: dates,
       datasets: [{
@@ -244,5 +244,5 @@ const graphUrl = info => {
       }]
     }
   }
-  return encodeURI(`https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`)
+  return encodeURI(`https://quickchart.io/chart?width=500&height=300&backgroundColor="#e42d42"&c=${JSON.stringify(config)}`)
 }
