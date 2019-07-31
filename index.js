@@ -47,25 +47,23 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
       text: `*typewriter noises*`
     })
 
-    getLeaderFrom(user).then(leader => {
+    getInfoFrom(user).then(({leader, club}) => {
       if (leader) {
         convo.say({
           delay: 2000,
           text: `Found you! It's **${leader.fields['Full Name']}**, right?`
         })
-        getClub(leader).then(club => {
-          if (club) {
-            convo.say({
-              delay: 2000,
-              text: `From ${club.fields['Name']}`
-            })
-          } else {
-            convo.say({
-              delay: 4000,
-              text: `Hmmm.... I don't see a club record under your name`
-            })
-          }
-        })
+        if (club) {
+          convo.say({
+            delay: 2000,
+            text: `From ${club.fields['Name']}`
+          })
+        } else {
+          convo.say({
+            delay: 4000,
+            text: `Hmmm.... I don't see a club record under your name`
+          })
+        }
       } else {
         convo.say({
           delay: 2000,
@@ -102,11 +100,11 @@ const getLeaderFrom = user => new Promise((resolve, reject) => {
       console.error(err)
       reject(err)
     }
-    resolve(records[0])
+    resolve({record: records[0]})
   })
 })
 
-const getClub = leader => new Promise((resolve, reject) => {
+const getClubFrom = leader => new Promise((resolve, reject) => {
   base('Clubs').select({
     filterByFormula: `SEARCH("${leader.fields['ID']}", ARRAYJOIN(Leaders))`
   }).firstPage((err, records) => {
@@ -114,19 +112,12 @@ const getClub = leader => new Promise((resolve, reject) => {
       console.error(err)
       reject(err)
     }
-    resolve(records[0])
+    resolve({leader, record: records[0]})
   })
 })
 
-const getClubFrom = user => (
-  getLeaderFrom(user).then(leader => getClub(leader))
-)
-
-// const getClub = user => new Promise((resolve, reject) => {
-//   getLeader(user).then(leader => new Promise((resolve, reject) => {
-//     base('Clubs').select({
-//       filterByFormula: `{}`
-//     })
-//   }))
-// })
-// function getClub(user, cb = () => {}) {
+const getInfoFrom = user => new Promise((resolve, reject) => {
+  getLeaderFrom(user).then(leader => getClubFrom(leader)).then(info => {
+    resolve(info)
+  })
+})
