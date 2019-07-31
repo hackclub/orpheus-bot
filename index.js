@@ -126,8 +126,7 @@ controller.on('slash_command', (bot, message) => {
                   type: 'section',
                   text: {
                     type: 'mrkdwn',
-                    text: info.history.filter(h => h.fields['Attendance']).map(h => `- meeting w/ ${h.fields['Attendance']} members on ${h.fields['Date']}`).join('\n')
-                    // text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
+                    text: info.history.filter(h => h.fields['Attendance']).map(h => `* meeting w/ ${h.fields['Attendance']} members on ${h.fields['Date']}`).join('\n')
                   }
                 }
               ]
@@ -232,13 +231,16 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
 })
 
 const graphUrl = info => {
+  const meetings = info.history.filter(h => h.fields['Attendance'])
+  const attendance = meetings.map(h => h.fields['Attendance'])
+  const dates = meetings.map(h => h.fields['Date'])
   const config = {
     type: 'bar',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May'],
+      labels: dates,
       datasets: [{
         label: info.club.fields['Name'],
-        data: [ 50, 60, 70, 180, 190 ]
+        data: attendance
       }]
     }
   }
