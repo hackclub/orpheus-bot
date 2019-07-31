@@ -231,7 +231,7 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
 })
 
 const graphUrl = info => {
-  const meetings = info.history.filter(h => h.fields['Attendance']).sort((a,b) => Date.parse(b.fields['Date']) - Date.parse(a.fields['Date']))
+  const meetings = info.history.filter(h => h.fields['Attendance']).sort((a,b) => Date.parse(a.fields['Date']) - Date.parse(b.fields['Date']))
   const attendance = meetings.map(h => h.fields['Attendance'])
   const dates = meetings.map(h => h.fields['Date'])
   const config = {
