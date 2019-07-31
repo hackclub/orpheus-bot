@@ -48,7 +48,6 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
     })
 
     getInfoForUser(user).then(({leader, club, history}) => {
-      console.log(history)
       if (leader) {
         convo.say({
           delay: 2000,
@@ -96,35 +95,47 @@ controller.on('slash_command', (bot, message) => {
       bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
         if (err) console.error(err)
         getInfoForUser(user).then(info => {
-          if (!info.leader) {
-            updateResponse("You aren't a club leader")
-          }
+          setTimeout(() => {
+            if (!info.leader) {
+              updateResponse("You aren't a club leader")
+            }
 
-          const content = {
-            blocks: [
-              {
-                type: 'section',
-                text: {
-                  type: 'mrkdwn',
-                  text: `Stats for *${info.club.fields['Name']}*`
+            const content = {
+              blocks: [
+                {
+                  type: 'section',
+                  text: {
+                    type: 'mrkdwn',
+                    text: `Stats for *${info.club.fields['Name']}*`
+                  }
+                },
+                {
+                  type: 'divider'
+                },
+                {
+                  type: "image",
+                  title: {
+                    type: "plain_text",
+                    text: "attendance",
+                    emoji: true
+                  },
+                  image_url: graphUrl(info),
+                  alt_text: "attendance"
+                },
+                {
+                  type: 'section',
+                  text: {
+                    type: 'mrkdwn',
+                    // text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}`).join('\n')
+                    text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
+                  }
                 }
-              },
-              {
-                type: 'divider'
-              },
-              {
-                type: 'section',
-                text: {
-                  type: 'mrkdwn',
-                  // text: info.history.filter(h => h.fields['Attendance']).map(h => `- Meeting with ${h.fields['Attendance']} on ${h['Date']}`).join('\n')
-                  text: `${info.history.filter(h => h.fields['Attendance']).length} meetings recorded`
-                }
-              }
-            ]
-          }
-          updateResponse(content, err => {
-            console.error(err)
-          })
+              ]
+            }
+            updateResponse(content, err => {
+              console.error(err)
+            })
+          }, 2000)
         }).catch(err => console.error(err))
       })
       break;
@@ -218,3 +229,17 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
+
+const graphUrl = info => {
+  const config = {
+    type: 'bar',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May'],
+      datasets: [{
+        label: info.club.fields['Name'],
+        data: [ 50, 60, 70, 180, 190 ]
+      }]
+    }
+  }
+  return `https://quickchart.io/chart?width=500&height=300&c=${config}`
+}
