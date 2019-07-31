@@ -238,5 +238,5 @@ const graphUrl = info => {
       }]
     }
   }
-  return encodeURI(`https://quickchart.io/chart?width=500&height=300&backgroundColor=rgb(89,18,26)&c=${JSON.stringify(config)}`)
+  return encodeURI(`https://quickchart.io/chart?width=500&height=300&backgroundColor=rgb(228,45,66)&c=${JSON.stringify(config)}`)
 }
