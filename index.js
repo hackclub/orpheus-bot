@@ -132,7 +132,7 @@ controller.on('slash_command', (bot, message) => {
                 }
               ]
             }
-            console.log(JSON.stringify(graphUrl(info)))
+            console.log(graphUrl(info))
             updateResponse(content, err => {
               console.error(err)
             })
@@ -242,5 +242,5 @@ const graphUrl = info => {
       }]
     }
   }
-  return `https://quickchart.io/chart?width=500&height=300&c=${config}`
+  return `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`
 }
