@@ -87,6 +87,7 @@ controller.on('slash_command', (bot, message) => {
     'reticulating the splines',
     'rolling down data hills',
     'skiing the data slopes',
+    'grabbing the stats'
   ])
 
   switch (command) {
@@ -161,6 +162,7 @@ const getHistoryFrom = club => new Promise((resolve, reject) => {
     records.forEach(record => result.push(record))
     fetchNextPage()
   }, err => {
+    console.log(result, err)
     if (err) {reject(err)}
     resolve(result)
   })
@@ -169,15 +171,12 @@ const getHistoryFrom = club => new Promise((resolve, reject) => {
 const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
   
-  return getLeaderFrom(user)
+  getLeaderFrom(user)
     .then(leader => results.leader = leader)
-    .then(() => console.log(results))
     .then(() => getClubFrom(results.leader))
     .then(club => results.club = club)
-    .then(() => console.log(results))
     .then(() => getHistoryFrom(results.club))
     .then(history => results.history = history)
-    .then(() => console.log(results))
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
