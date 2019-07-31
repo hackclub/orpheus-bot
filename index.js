@@ -106,7 +106,7 @@ const getLeaderFrom = user => new Promise((resolve, reject) => {
 })
 
 const getClubFrom = leader => new Promise((resolve, reject) => {
-  if (!leader) {resolve(nil)}
+  if (!leader) {resolve(null)}
   base('Clubs').select({
     filterByFormula: `SEARCH("${leader.fields['ID']}", ARRAYJOIN(Leaders))`
   }).firstPage((err, records) => {
@@ -120,7 +120,7 @@ const getClubFrom = leader => new Promise((resolve, reject) => {
 
 const getHistoryFrom = club => new Promise((resolve, reject) => {
   const result = []
-  if (!club) {resolve(nil)}
+  if (!club) {resolve(null)}
   base('History').select({
     filterByFormula: `Club = "${club.id}"`
   }).eachPage((records, fetchNextPage) => {
