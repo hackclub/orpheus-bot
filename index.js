@@ -133,11 +133,11 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
   
   return getLeaderFrom(user)
-    .then(leader => results[leader] = leader)
-    .then(() => getClubFrom(results[leader]))
-    .then(club => results[club] = club)
-    .then(() => getHistoryFrom(results[club]))
-    .then(history => results[history] = history)
+    .then(leader => results.leader = leader)
+    .then(() => getClubFrom(results.leader))
+    .then(club => results.club = club)
+    .then(() => getHistoryFrom(results.club))
+    .then(history => results.history = history)
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
