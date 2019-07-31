@@ -90,8 +90,6 @@ function getLeader(user, cb = () => {}) {
       console.error(err)
       return
     }
-    console.log(`{Slack ID} = "${user}"`)
-    console.log("found records:", records)
-    cb(records[0])
+    cb(records[0].fields)
   })
 }
