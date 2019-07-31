@@ -101,10 +101,6 @@ controller.on('slash_command', (bot, message) => {
           }, 200)
         }).catch(err => console.error(err))
       })
-      // bot.replyPublic(message, `:beachball: _${loadingMessage}_`)
-      // getInfoForUser(user).then(info => {
-      //   bot.replyPublicDelayed(message, `Aquired info for ${info.leader.full_name}`)
-      // })
       break;
   
     default:
@@ -175,10 +171,13 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
   
   return getLeaderFrom(user)
     .then(leader => results.leader = leader)
+    .then(() => console.log(results))
     .then(() => getClubFrom(results.leader))
     .then(club => results.club = club)
+    .then(() => console.log(results))
     .then(() => getHistoryFrom(results.club))
     .then(history => results.history = history)
+    .then(() => console.log(results))
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
