@@ -132,6 +132,7 @@ controller.on('slash_command', (bot, message) => {
                 }
               ]
             }
+            console.log(graphUrl(info))
             updateResponse(content, err => {
               console.error(err)
             })
