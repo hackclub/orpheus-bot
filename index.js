@@ -53,6 +53,12 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
           delay: 2000,
           text: `Found you! It's **${leader.fields['Full Name']}**, right?`
         })
+        getClub(leader).then(club => {
+          convo.say({
+            delay: 2000,
+            text: `From ${club.fields['Name']}`
+          })
+        })
       } else {
         convo.say({
           delay: 2000,
@@ -95,6 +101,22 @@ const getLeaderFrom = user => new Promise((resolve, reject) => {
   })
 })
 
+const getClub = leader => new Promise((resolve, reject) => {
+  base('Clubs').select({
+    filterByFormula: `SEARCH("${leader.fields['ID']}", ARRAYJOIN(Leaders))`
+  }).firstPage((err, records) => {
+    if (err) {
+      console.error(err)
+      reject(err)
+    }
+    resolve(records[0])
+  })
+})
+
+const getClubFrom = user => (
+  getLeaderFrom(user).then(leader => getClub(leader))
+)
+
 // const getClub = user => new Promise((resolve, reject) => {
 //   getLeader(user).then(leader => new Promise((resolve, reject) => {
 //     base('Clubs').select({
@@ -103,10 +125,3 @@ const getLeaderFrom = user => new Promise((resolve, reject) => {
 //   }))
 // })
 // function getClub(user, cb = () => {}) {
-
-//   getLeader(user, leader => {
-//     if (!leader) { return }
-
-//     base('Club').
-//   })
-// }
