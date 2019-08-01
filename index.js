@@ -287,6 +287,7 @@ const graphUrl = info => {
 }
 
 function commitHash() {
+  const fs = require('fs')
   const rev = fs.readFileSync('.git/HEAD').toString();
   if (rev.indexOf(':') === -1) {
     return rev;
