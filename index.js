@@ -51,12 +51,36 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
       if (leader) {
         convo.say({
           delay: 2000,
-          text: `Found you! It's **${leader.fields['Full Name']}**, right?`
+          text: `Found you! It's *${leader.fields['Full Name']}*, right?`
         })
         if (club) {
           convo.say({
             delay: 2000,
             text: `From ${club.fields['Name']}`
+          }, 'checkin_w_leader')
+
+          convo.ask({
+            attachments: [
+              {
+                title: 'Do you want to interact with my buttons?',
+                callback_id: '123',
+                attachment_type: 'default',
+                actions: [
+                    {
+                        "name":"yes",
+                        "text": "Yes",
+                        "value": "yes",
+                        "type": "button",
+                    },
+                    {
+                        "name":"no",
+                        "text": "No",
+                        "value": "no",
+                        "type": "button",
+                    }
+                ]
+              }
+            ]
           })
         } else {
           convo.say({
