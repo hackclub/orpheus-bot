@@ -12,19 +12,15 @@ const { BotkitCMSHelper } = require('botkit-plugin-cms');
 
 const { SlackAdapter, SlackMessageTypeMiddleware, SlackEventMiddleware } = require('botbuilder-adapter-slack');
 
-const { MongoDbStorage } = require('botbuilder-storage-mongodb');
+const { RedisStorage } = require('botbuilder-storage-redis');
 
 // Load process.env values from .env file
 require('dotenv').config();
 
-let storage = null;
-if (process.env.MONGO_URI) {
-    storage = mongoStorage = new MongoDbStorage({
-        url : process.env.MONGO_URI,
-    });
+redisConfig = {
+  url: process.env.REDISCLOUD_URL
 }
-
-
+const storage = require('botkit-storage-redis')(redisConfig);
 
 const adapter = new SlackAdapter({
     // REMOVE THIS OPTION AFTER YOU HAVE CONFIGURED YOUR APP!

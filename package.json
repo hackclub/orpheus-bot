@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "botbuilder-adapter-slack": "^1.0.4",
-    "botbuilder-storage-mongodb": "^0.9.5",
     "botkit": "^4.5.0",
     "botkit-plugin-cms": "^1.0.2",
+    "botkit-storage-redis": "^1.1.0",
     "dotenv": "^7.0.0"
   }
 }
