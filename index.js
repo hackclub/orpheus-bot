@@ -31,7 +31,7 @@ function helloWorld() {
   const user = 'U0C7B14Q3'
   controller.spawn(user, bot => {
     console.log(bot)
-    bot.say(`Version ${commitHash()} has hatched!`)
+    bot.say(`Version ${Date.now()} has hatched!`)
   })
   // bot.api.im.open({ user }, (err, res) => {
   //   if (err) { console.error(err) }
@@ -284,14 +284,4 @@ const graphUrl = info => {
     }
   }
   return encodeURI(`https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`)
-}
-
-function commitHash() {
-  const fs = require('fs')
-  const rev = fs.readFileSync('.git/HEAD').toString();
-  if (rev.indexOf(':') === -1) {
-    return rev;
-  } else {
-    return fs.readFileSync('.git/' + rev.substring(5)).toString();
-  }
 }
