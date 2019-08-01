@@ -27,6 +27,15 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 });
 
+function helloWorld() {
+  controller.spawn().then(bot => {
+    bot.startConversationWithUser('U0C7B14Q3')
+    bot.say('Hello world!')
+  })
+}
+
+helloWorld()
+
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
 
