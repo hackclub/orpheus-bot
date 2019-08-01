@@ -285,3 +285,12 @@ const graphUrl = info => {
   }
   return encodeURI(`https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`)
 }
+
+const commitHash = () => {
+  const rev = fs.readFileSync('.git/HEAD').toString();
+  if (rev.indexOf(':') === -1) {
+    return rev;
+  } else {
+    return fs.readFileSync('.git/' + rev.substring(5)).toString();
+  }
+}
