@@ -28,8 +28,8 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 });
 
 function helloWorld() {
-  controller.spawn().then(bot => {
-    bot.startConversationWithUser('U0C7B14Q3')
+  const bot = controller.spawn()
+  bot.startConversation({userid: 'U0C7B14Q3'}, (err, convo) => {
     bot.say('Hello world!')
   })
 }
