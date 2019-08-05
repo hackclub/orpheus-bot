@@ -113,6 +113,12 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
                 bot.replyInteractive(response, '_and no button clicking was had_')
                 convo.goToThread('no_meeting_thread')
               }
+            },
+            {
+              default: true,
+              callback: (response, convo) => {
+                console.log(response, convo)
+              }
             }
           ])
 
