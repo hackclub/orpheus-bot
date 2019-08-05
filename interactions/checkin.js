@@ -72,6 +72,8 @@ const interactionCheckin = (bot, message) => {
             convo.setVar('date', 'today')
             bot.replyInteractive(response, '_You tell orpheus you met today_')
             convo.addMessage(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`, 'date')
+            convo.next()
+
             convo.gotoThread('attendance')
           }
         },
@@ -86,11 +88,11 @@ const interactionCheckin = (bot, message) => {
 
       convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
         const attendance = +response.text
-        console.log('attendance:', attendance)
-        console.log('response', response)
-        console.log('convo', convo)
+        console.log(`*User said they had "${response.text}" in attendance`)
 
         convo.addMessage(`I parsed that as *${attendance}* hackers`, 'attendance')
+        convo.next()
+
         convo.gotoThread('done')
       }, {}, 'attendance')
 
