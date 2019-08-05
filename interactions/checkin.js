@@ -71,7 +71,7 @@ const interactionCheckin = (bot, message) => {
             console.log('*User met today*')
             convo.setVar('date', 'today')
             bot.replyInteractive(response, '_You tell orpheus you met today_')
-            convo.say(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`)
+            convo.sayFirst(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`)
 
             convo.gotoThread('attendance')
           }
@@ -89,7 +89,7 @@ const interactionCheckin = (bot, message) => {
         const attendance = +response.text
         console.log(`*User said they had "${response.text}" in attendance`)
 
-        convo.say(`I parsed that as *${attendance}* hackers`)
+        convo.sayFirst(`I parsed that as *${attendance}* hackers`)
 
         convo.gotoThread('done')
       }, {}, 'attendance')
