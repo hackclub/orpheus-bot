@@ -94,7 +94,7 @@ const interactionCheckin = (bot, message) => {
         convo.gotoThread('')
       }, {}, 'attendance')
 
-      convo.gotoThread('done')
+      convo.gotoThread('found')
     })
   })
 }
