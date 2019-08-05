@@ -27,27 +27,6 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 });
 
-function helloWorld() {
-  const user = 'U0C7B14Q3'
-  controller.spawn(user, bot => {
-    console.log(bot)
-    bot.say(`Version ${Date.now()} has hatched!`)
-  })
-  // bot.api.im.open({ user }, (err, res) => {
-  //   if (err) { console.error(err) }
-  //   console.log('Dinosaur has awoken!');
-  //   bot.startConversation({
-  //     user,
-  //     channel: res.channel.id,
-  //     text: `Dinosaur has awoken!`
-  //   }, (err, convo) => {
-  //     convo.say(`Version ${commitHash()} has hatched!`)
-  //   });
-  // })
-}
-
-helloWorld()
-
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
 
