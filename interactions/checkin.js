@@ -18,7 +18,6 @@ const interactionCheckin = (bot, message) => {
     convo.addMessage('What day was it on?', 'date')
 
     convo.addQuestion({
-      delay: 2000,
       text: 'When was your meeting?',
       blocks: [{
           "type": "section",
@@ -57,7 +56,7 @@ const interactionCheckin = (bot, message) => {
       }
     ], {}, 'date')
 
-    convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
+    convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, c) => {
       const attendance = +response.text
 
       convo.say(`I parsed that as *${attendance}* hackers`)
@@ -75,7 +74,7 @@ const interactionCheckin = (bot, message) => {
         convo.say({
           delay: 2000,
           text: `I don't have any record of you being a club leader (ಠ_ಠ)`
-        }, 'loading')
+        })
         convo.stop()
       } else {
         convo.addMessage({
