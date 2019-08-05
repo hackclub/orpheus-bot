@@ -46,6 +46,77 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
       delay: 2000,
       text: `*typewriter noises*`
     })
+    // ########################################################
+    convo.ask({
+      delay: 2000,
+      text: 'test test test',
+      blocks: [
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "_look at my_ *BUTTONS*"
+          }
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "actions",
+          "elements": [
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "I see them"
+              },
+              "value": "yes"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "what buttons?"
+              },
+              "value": "no"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "just chill fam :dark_sunglasses:",
+                "emoji": true
+              },
+              "value": "chill"
+            }
+          ]
+        }
+      ]
+    }, [
+      {
+        pattern: 'yes',
+        callback: function(response, convo) {
+          console.log('someone sees my buttons _heart flutters_')
+          bot.replyInteractive(response, `_You tell orpheus that you see those buttons._`)
+          bot.say(`orpheus squeals in delight`)
+        },
+      },
+      {
+        pattern: 'no',
+        callback: function(response, convo) {
+          console.log(``)
+          bot.replyInteractive(response, `_You tell orpheus that your laptop is trying to kill you._`)
+          bot.say(`Snarky, ain'tya?`)
+        },
+      },
+      {
+        pattern: 'chill',
+        callback: function(response, convo) {
+          bot.replyInteractive(response, `_You tell orpheus to chill, bruh._`)
+        },
+      }
+    ])
+    // ########################################################
 
     getInfoForUser(user).then(({leader, club, history}) => {
       if (leader) {
