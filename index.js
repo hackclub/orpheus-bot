@@ -2,7 +2,7 @@ const Botkit = require('botkit')
 const Airtable = require('airtable')
 const _ = require('lodash')
 
-const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
+const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
 const redisConfig = {
   url: process.env.REDISCLOUD_URL
@@ -18,14 +18,14 @@ const controller = new Botkit.slackbot({
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
   scopes: ['bot', 'chat:write:bot'],
   storage: redisStorage
-});
+})
 
 controller.startTicking()
 
 controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createWebhookEndpoints(controller.webserver)
   controller.createOauthEndpoints(controller.webserver)
-});
+})
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
@@ -62,62 +62,28 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
           convo.ask({
             delay: 2000,
             text: 'Have you had a club meeting since then?',
-            blocks: [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "Want to add another meeting?"
-                }
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "actions",
-                "elements": [
-                  {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "Yep :hack_club:",
-                      "emoji": true
-                    },
-                    "value": "yes"
-                  },
-                  {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "No :laptop_fire:",
-                      "emoji": true
-                    },
-                    "value": "no"
-                  }
-                ]
-              }
-            ]
           }, [
             {
               pattern: bot.utterances.yes,
               callback: (response, convo) => {
-                console.log('*User clicks the yes button*')
-                bot.replyInteractive(response, '*you do want to click the buttons*')
+                console.log('*User says they have a meeting*')
                 convo.gotoThread('new_meeting_thread')
               }
             },
             {
               pattern: bot.utterances.no,
               callback: (response, convo) => {
-                console.log('*User clicks the no button*')
-                bot.replyInteractive(response, '_and no button clicking was had_')
+                console.log(`*User says they haven't had a club meeting*`)
                 convo.goToThread('no_meeting_thread')
               }
             },
             {
               default: true,
               callback: (response, convo) => {
-                console.log(response, convo)
+                console.log(`*User did something I don't understand*`)
+                console.log(response)
+                convo.repeat()
+                convo.next()
               }
             }
           ])
@@ -135,8 +101,11 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
         })
       }
     })
+    convo.addMessage({text: 'you said you had a new meeting', delay: 200}, 'new_meeting_thread')
   })
 })
+
+
 
 controller.on('slash_command', (bot, message) => {
   const { command, text, user } = message
