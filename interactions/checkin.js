@@ -65,6 +65,7 @@ const interactionCheckin = (bot, message) => {
           callback: (response, convo) => {
             console.log('*User met today*')
             bot.replyInteractive(response, '_You tell orpheus you met today_')
+            convo.gotoThread('attendance')
           }
         },
         {
@@ -80,7 +81,7 @@ const interactionCheckin = (bot, message) => {
         const attendance = +response.text
 
         convo.say(`I parsed that as *${attendance}* hackers`)
-      })
+      }, 'attendance')
     })
   })
 }
