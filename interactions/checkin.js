@@ -1,6 +1,6 @@
 const { getInfoForUser } = require('../utils.js')
 
-export default function interactionCheckin(message, bot) {
+const interactionCheckin = (message, bot) => {
   bot.startConversation(message, (err, convo) => {
     if(err) {console.log(err)}
 
@@ -101,3 +101,5 @@ export default function interactionCheckin(message, bot) {
     })
   })
 }
+
+module.exports = interactionCheckin

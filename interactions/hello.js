@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-export default function interactionHello(message, bot ) {
+const interactionHello = (message, bot ) => {
   const mispellings = [
     'hellp',
     'hwllo',
@@ -21,3 +21,5 @@ export default function interactionHello(message, bot ) {
     }, Math.random() * 5000 + 2000)
   });
 }
+
+module.exports = interactionHello

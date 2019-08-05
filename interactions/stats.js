@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const { getInfoForUser } = require('../utils.js')
 
-export default function interactionStats(message, bot) {
+const interactionStats = (message, bot) => {
 
   bot.replyAcknowledge()
 
@@ -73,3 +73,5 @@ const graphUrl = info => {
   }
   return encodeURI(`https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(config)}`)
 }
+
+module.exports = interactionStats

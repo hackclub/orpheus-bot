@@ -41,7 +41,7 @@ const getHistoryFrom = club => new Promise((resolve, reject) => {
   })
 })
 
-export const getInfoForUser = user => new Promise((resolve, reject) => {
+const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
   
   getLeaderFrom(user)
@@ -53,3 +53,5 @@ export const getInfoForUser = user => new Promise((resolve, reject) => {
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
+
+module.exports = { getInfoForUser }
