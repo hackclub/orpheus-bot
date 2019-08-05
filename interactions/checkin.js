@@ -43,6 +43,70 @@ const interactionCheckin = (bot, message) => {
         text: 'done!'
       }, 'done')
 
+      convo.addQuestion({
+        text: 'Is this correct?',
+        blocks: [{
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.meetingDate}}"
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "Just to double check, this is what I'm about to submit to your club history record"
+          }
+        },
+        {
+          "type": "actions",
+          "elements": [{
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "✅ submit",
+                "emoji": true
+              },
+              "value": "submit"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "↩️ restart",
+                "emoji": true
+              },
+              "value": "restart"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "⛔️ cancel",
+                "emoji": true
+              },
+              "value": "cancel"
+            }
+          ]
+        }]
+      }, [{
+        pattern: 'submit',
+        callback: (response, convo) => {
+          console.log('*user submitted their checkin!*')
+        }
+      }, {
+        pattern: 'restart',
+        callback: (response, convo) => {
+          console.log('*user wants to restart their checkin*')
+        }
+      }, {
+        pattern: 'cancel',
+        callback: (response, convo) => {
+          console.log('*user clicked "cancel"*')
+        }
+      }], {}, 'double_check')
+
       convo.addMessage('What day was it on?', 'date')
       convo.addQuestion({
         text: 'When was your meeting?',
@@ -90,10 +154,11 @@ const interactionCheckin = (bot, message) => {
       convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
         const attendance = +response.text
         console.log(`*User said they had "${response.text}" in attendance`)
+        convo.setVar('attendance', attendance)
 
         convo.say({
           text: `I parsed that as *${attendance}* hackers`,
-          action: 'done'
+          action: 'double_check'
         })
         convo.next()
       }, {}, 'attendance')
