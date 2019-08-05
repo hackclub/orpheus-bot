@@ -15,16 +15,6 @@ const interactionCheckin = (bot, message) => {
       text: `*typewriter noises*`
     }, 'loading')
 
-    convo.addMessage({
-      delay: 2000,
-      text: `Found you! It's *${leader.fields['Full Name']}*, right?`
-    }, 'found')
-    convo.addMessage({
-      delay: 2000,
-      text: `From ${club.fields['Name']}`,
-      action: 'attendance'
-    }, 'found')
-
     convo.addQuestion({
       delay: 2000,
       text: 'When was your meeting?',
@@ -76,7 +66,6 @@ const interactionCheckin = (bot, message) => {
     convo.activate()
     convo.gotoThread('loading')
 
-    let leader, club, history
     getInfoForUser(message.user).then(({
       leader,
       club,
@@ -89,9 +78,16 @@ const interactionCheckin = (bot, message) => {
         }, 'loading')
         convo.stop()
       } else {
-        leader = leader
-        club = club
-        history = history
+        convo.addMessage({
+          delay: 2000,
+          text: `Found you! It's *${leader.fields['Full Name']}*, right?`
+        }, 'found')
+        convo.addMessage({
+          delay: 2000,
+          text: `From ${club.fields['Name']}`,
+          action: 'attendance'
+        }, 'found')
+
         convo.gotoThread('found')
       }
     })
