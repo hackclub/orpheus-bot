@@ -38,6 +38,11 @@ const interactionCheckin = (bot, message) => {
         action: 'date'
       }, 'found')
 
+      convo.addMessage({
+        delay: 2000,
+        text: 'done!'
+      }, 'done')
+
       convo.addMessage('What day was it on?', 'date')
       convo.addQuestion({
         text: 'When was your meeting?',
@@ -89,7 +94,7 @@ const interactionCheckin = (bot, message) => {
         convo.gotoThread('')
       }, {}, 'attendance')
 
-      convo.gotoThread('found')
+      convo.gotoThread('done')
     })
   })
 }
