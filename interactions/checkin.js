@@ -41,13 +41,10 @@ const interactionCheckin = (bot, message) => {
       ]
     }, [{
         pattern: 'today',
-        callback: (response, convo) => {
+        callback: (response, c) => {
           console.log('*User met today*')
           bot.replyInteractive(response, '_You tell orpheus you met today_')
-          convo.say({
-            text: `Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`,
-            action: 'attendance'
-          })
+          convo.say(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`)
         }
       },
       {
