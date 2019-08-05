@@ -204,15 +204,23 @@ controller.on('slash_command', (bot, message) => {
 })
 
 controller.hears('hello', ['ambient'], function(bot, msg) {
-  // send a message back: "hellp"
-  bot.replyAndUpdate(msg, 'hellp', function(err, src, updateResponse) {
+  const mispellings = [
+    'hellp',
+    'helllo',
+    'hello',
+    'helli',
+    'helo',
+    'hell',
+  ]
+  // send a message back with a typo
+  bot.replyAndUpdate(msg, _.sample(mispellings), function(err, src, updateResponse) {
     if (err) console.error(err);
     // oh no, "hellp" is a typo - let's update the message to "hello"
     setTimeout(() => {
       updateResponse('hello', function(err) {
         console.error(err)
       });
-    }, 5000)
+    }, Math.random() * 5000 + 2000)
   });
 })
 
