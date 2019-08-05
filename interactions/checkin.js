@@ -132,7 +132,7 @@ const interactionCheckin = (bot, message) => {
       //     }
       //   }
       // ], {}, 'date')
-      convo.beforeThread('date', threads.date(convo, bot))
+      convo.beforeThread('date', (convo, next) => threads.date(convo, bot))
 
       convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
         const attendance = +response.text
