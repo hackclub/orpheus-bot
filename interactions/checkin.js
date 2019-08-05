@@ -1,6 +1,6 @@
 const { getInfoForUser } = require('../utils.js')
 
-const interactionCheckin = (message, bot) => {
+const interactionCheckin = (bot, message) => {
   bot.startConversation(message, (err, convo) => {
     if(err) {console.log(err)}
 

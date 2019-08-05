@@ -1,6 +1,6 @@
 const _ = require('lodash')
 
-const interactionHello = (message, bot ) => {
+const interactionHello = (bot, message) => {
   const mispellings = [
     'hellp',
     'hwllo',
