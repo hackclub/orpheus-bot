@@ -1,17 +1,11 @@
 {
-  "name": "botkit-orpheus",
-  "version": "0.0.0",
-  "description": "",
-  "main": "bot.js",
   "scripts": {
-    "start": "node bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
+  "main": "index.js",
   "dependencies": {
-    "botbuilder-adapter-slack": "^1.0.4",
-    "botbuilder-storage-mongodb": "^0.9.5",
-    "botkit": "^4.5.0",
-    "botkit-plugin-cms": "^1.0.2",
-    "dotenv": "^7.0.0"
+    "botkit": "0.7.4",
+    "airtable": "0.5.9",
+    "botkit-storage-redis": "^1.1.0"
   }
 }
