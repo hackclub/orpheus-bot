@@ -45,6 +45,7 @@ const interactionCheckin = (bot, message) => {
           console.log('*User met today*')
           bot.replyInteractive(response, '_You tell orpheus you met today_')
           convo.say(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`)
+          convo.gotoThread('attendance')
         }
       },
       {
