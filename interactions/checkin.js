@@ -1,52 +1,5 @@
 const { getInfoForUser } = require('../utils.js')
 
-const threads = {
-  date: (convo, bot) => {
-    convo.say('What day was it on?', 'date')
-    convo.ask({
-        text: 'When was your meeting?',
-        blocks: [{
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "(You can tell me a date in `YYYY-MM-DD` format, or click a shortcut button"
-            }
-          },
-          {
-            "type": "actions",
-            "elements": [{
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": `Today (${new Date(Date.now()).toLocaleDateString('en-us', { weekday: 'long' })})`
-              },
-              "value": "today"
-            }]
-          }
-        ]
-      }, [{
-        pattern: 'today',
-        callback: (response, convo) => {
-          console.log('*User met today*')
-          console.log('vars:', convo.vars)
-
-          convo.setVar('date', 'today')
-          bot.replyInteractive(response, '_You tell orpheus you met today_')
-          convo.say(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`, 'date')
-          convo.gotoThread('attendance')
-        }
-      },
-      {
-        default: true,
-        callback: (response, convo) => {
-          console.log(response, convo)
-          threads.date(convo, bot)
-        }
-      }
-    ])
-  }
-}
-
 const interactionCheckin = (bot, message) => {
   bot.startConversation(message, (err, convo) => {
     if (err) {
@@ -90,56 +43,53 @@ const interactionCheckin = (bot, message) => {
         text: 'done!'
       }, 'done')
 
-      // convo.addMessage('What day was it on?', 'date')
-      // convo.addQuestion({
-      //   text: 'When was your meeting?',
-      //   blocks: [{
-      //       "type": "section",
-      //       "text": {
-      //         "type": "mrkdwn",
-      //         "text": "(You can tell me a date in `YYYY-MM-DD` format, or click a shortcut button"
-      //       }
-      //     },
-      //     {
-      //       "type": "actions",
-      //       "elements": [{
-      //         "type": "button",
-      //         "text": {
-      //           "type": "plain_text",
-      //           "text": `Today (${new Date(Date.now()).toLocaleDateString('en-us', { weekday: 'long' })})`
-      //         },
-      //         "value": "today"
-      //       }]
-      //     }
-      //   ]
-      // }, [{
-      //     pattern: 'today',
-      //     callback: (response, convo) => {
-      //       console.log('*User met today*')
-      //       convo.setVar('date', 'today')
-      //       bot.replyInteractive(response, '_You tell orpheus you met today_')
-      //       convo.addMessage(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`, 'date')
-      //       convo.next()
+      convo.addMessage('What day was it on?', 'date')
+      convo.addQuestion({
+        text: 'When was your meeting?',
+        blocks: [{
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "(You can tell me a date in `YYYY-MM-DD` format, or click a shortcut button"
+            }
+          },
+          {
+            "type": "actions",
+            "elements": [{
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": `Today (${new Date(Date.now()).toLocaleDateString('en-us', { weekday: 'long' })})`
+              },
+              "value": "today"
+            }]
+          }
+        ]
+      }, [{
+          pattern: 'today',
+          callback: (response, convo) => {
+            console.log('*User met today*')
+            convo.setVar('date', 'today')
+            bot.replyInteractive(response, '_You tell orpheus you met today_')
+            convo.say(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`)
 
-      //       convo.gotoThread('attendance')
-      //     }
-      //   },
-      //   {
-      //     default: true,
-      //     callback: (response, convo) => {
-      //       console.log(response, convo)
-      //       convo.repeat()
-      //     }
-      //   }
-      // ], {}, 'date')
-      convo.beforeThread('date', (convo, next) => threads.date(convo, bot))
+            convo.gotoThread('attendance')
+          }
+        },
+        {
+          default: true,
+          callback: (response, convo) => {
+            console.log(response, convo)
+            convo.repeat()
+          }
+        }
+      ], {}, 'date')
 
       convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
         const attendance = +response.text
         console.log(`*User said they had "${response.text}" in attendance`)
 
-        convo.addMessage(`I parsed that as *${attendance}* hackers`, 'attendance')
-        convo.next()
+        convo.say(`I parsed that as *${attendance}* hackers`)
 
         convo.gotoThread('done')
       }, {}, 'attendance')
