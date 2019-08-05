@@ -76,6 +76,7 @@ const interactionCheckin = (bot, message) => {
     convo.activate()
     convo.gotoThread('loading')
 
+    let leader, club, history
     getInfoForUser(message.user).then(({
       leader,
       club,
@@ -88,6 +89,9 @@ const interactionCheckin = (bot, message) => {
         }, 'loading')
         convo.stop()
       } else {
+        leader = leader
+        club = club
+        history = history
         convo.gotoThread('found')
       }
     })
