@@ -94,6 +94,15 @@ const interactionCheckin = (bot, message) => {
         pattern: 'submit',
         callback: (response, convo) => {
           console.log('*user submitted their checkin!*')
+          bot.replyInteractive(response, '_You confirm everything is accurate_')
+
+          response.say("I'll write it in my notepad...")
+          setTimeout(() => {
+            response.say({
+              text: "Got it recorded",
+              action: 'done'
+            })
+          }, 2000)
         }
       }, {
         pattern: 'restart',
@@ -104,6 +113,8 @@ const interactionCheckin = (bot, message) => {
         pattern: 'cancel',
         callback: (response, convo) => {
           console.log('*user clicked "cancel"*')
+          bot.replyInteractive(response, '_You ask orpheus to cancel the checkin_')
+          convo.gotoThread('done')
         }
       }], {}, 'double_check')
 
