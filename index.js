@@ -101,6 +101,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
             {
               pattern: bot.utterances.yes,
               callback: (response, convo) => {
+                console.log('*User clicks the yes button*')
                 bot.replyInteractive(response, '*you do want to click the buttons*')
                 convo.gotoThread('new_meeting_thread')
               }
@@ -108,6 +109,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
             {
               pattern: bot.utterances.no,
               callback: (response, convo) => {
+                console.log('*User clicks the no button*')
                 bot.replyInteractive(response, '_and no button clicking was had_')
                 convo.goToThread('no_meeting_thread')
               }
