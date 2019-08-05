@@ -99,14 +99,14 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
             ]
           }, [
             {
-              pattern: 'yes',
+              pattern: bot.utterances.yes,
               callback: (response, convo) => {
                 bot.replyInteractive(response, '*you do want to click the buttons*')
                 convo.gotoThread('new_meeting_thread')
               }
             },
             {
-              pattern: 'no',
+              pattern: bot.utterances.no,
               callback: (response, convo) => {
                 bot.replyInteractive(response, '_and no button clicking was had_')
                 convo.goToThread('no_meeting_thread')
