@@ -58,8 +58,10 @@ const interactionCheckin = (bot, message) => {
 
     convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, c) => {
       const attendance = +response.text
+      console.log(attendance, response, c)
 
       convo.say(`I parsed that as *${attendance}* hackers`)
+      convo.gotoThread('')
     }, {}, 'attendance')
 
     convo.activate()
