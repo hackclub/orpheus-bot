@@ -49,7 +49,7 @@ const interactionCheckin = (bot, message) => {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.meetingDate}}"
+            "text": "> *Attendance:* {{convo.vars.attendance}} hackers\n> *Meeting date:* {{convo.vars.meetingDate}}"
           }
         },
         {
@@ -94,26 +94,28 @@ const interactionCheckin = (bot, message) => {
         pattern: 'submit',
         callback: (response, convo) => {
           console.log('*user submitted their checkin!*')
-          bot.replyInteractive(response, '_You confirm everything is accurate_')
+          bot.replyInteractive(response, '_✅ You confirm everything is accurate_')
 
-          response.say("I'll write it in my notepad...")
+          convo.say("I'll write it in my notepad...")
           setTimeout(() => {
-            response.say({
+            convo.say({
               text: "Got it recorded",
               action: 'done'
             })
+            convo.next()
           }, 2000)
         }
       }, {
         pattern: 'restart',
         callback: (response, convo) => {
           console.log('*user wants to restart their checkin*')
+          bot.replyInteractive(response, '_↩️ You ask orpheus to start again')
         }
       }, {
         pattern: 'cancel',
         callback: (response, convo) => {
           console.log('*user clicked "cancel"*')
-          bot.replyInteractive(response, '_You ask orpheus to cancel the checkin_')
+          bot.replyInteractive(response, '_⛔ You ask orpheus to cancel the checkin_')
           convo.gotoThread('done')
         }
       }], {}, 'double_check')
