@@ -40,7 +40,7 @@ const interactionCheckin = (bot, message) => {
       ]
     }, [{
         pattern: 'today',
-        callback: (response, c) => {
+        callback: (response, convo) => {
           console.log('*User met today*')
           bot.replyInteractive(response, '_You tell orpheus you met today_')
           convo.say(`Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`)
@@ -56,9 +56,11 @@ const interactionCheckin = (bot, message) => {
       }
     ], {}, 'date')
 
-    convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, c) => {
+    convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
       const attendance = +response.text
-      console.log(attendance, response, c)
+      console.log('attendance:', attendance)
+      console.log('response', response)
+      console.log('convo', c)
 
       convo.say(`I parsed that as *${attendance}* hackers`)
       convo.gotoThread('')
