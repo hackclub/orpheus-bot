@@ -55,13 +55,13 @@ const interactionCheckin = (bot, message) => {
           convo.repeat()
         }
       }
-    ], 'attendance')
+    ], {}, 'date')
 
     convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
       const attendance = +response.text
 
       convo.say(`I parsed that as *${attendance}* hackers`)
-    }, 'attendance')
+    }, {}, 'attendance')
 
     convo.activate()
     convo.gotoThread('loading')
@@ -85,7 +85,7 @@ const interactionCheckin = (bot, message) => {
         convo.addMessage({
           delay: 2000,
           text: `From ${club.fields['Name']}`,
-          action: 'attendance'
+          action: 'date'
         }, 'found')
 
         convo.gotoThread('found')
