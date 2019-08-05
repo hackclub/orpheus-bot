@@ -13,7 +13,7 @@ const interactionCheckin = (bot, message) => {
       text: `*typewriter noises*`
     })
 
-    getInfoForUser(user).then(({leader, club, history}) => {
+    getInfoForUser(message.user).then(({leader, club, history}) => {
       if (leader) {
         convo.say({
           delay: 2000,
@@ -23,7 +23,7 @@ const interactionCheckin = (bot, message) => {
           convo.say({
             delay: 2000,
             text: `From ${club.fields['Name']}`
-          }, 'checkin_w_leader')
+          })
 
           convo.ask({
             delay: 2000,
