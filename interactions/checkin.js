@@ -60,7 +60,7 @@ const interactionCheckin = (bot, message) => {
       const attendance = +response.text
       console.log('attendance:', attendance)
       console.log('response', response)
-      console.log('convo', c)
+      console.log('convo', convo)
 
       convo.say(`I parsed that as *${attendance}* hackers`)
       convo.gotoThread('')
