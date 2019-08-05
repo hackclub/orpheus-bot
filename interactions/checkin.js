@@ -15,6 +15,8 @@ const interactionCheckin = (bot, message) => {
       text: `*typewriter noises*`
     }, 'loading')
 
+    convo.addMessage('What day was it on?', 'date')
+
     convo.addQuestion({
       delay: 2000,
       text: 'When was your meeting?',
@@ -22,7 +24,7 @@ const interactionCheckin = (bot, message) => {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "What day was it on? (You can tell me a date in `YYYY-MM-DD` format, or click a shortcut button"
+            "text": "(You can tell me a date in `YYYY-MM-DD` format, or click a shortcut button"
           }
         },
         {
@@ -42,7 +44,7 @@ const interactionCheckin = (bot, message) => {
         callback: (response, convo) => {
           console.log('*User met today*')
           bot.replyInteractive(response, '_You tell orpheus you met today_')
-          convo.addMessage({
+          convo.say({
             text: `Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`,
             action: 'attendance'
           })
