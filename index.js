@@ -62,41 +62,41 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
           convo.ask({
             delay: 2000,
             text: 'Have you had a club meeting since then?',
-            blocks: [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "Want to add another meeting?"
-                }
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "actions",
-                "elements": [
-                  {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "Yep :hack_club:",
-                      "emoji": true
-                    },
-                    "value": "yes"
-                  },
-                  {
-                    "type": "button",
-                    "text": {
-                      "type": "plain_text",
-                      "text": "No :laptop_fire:",
-                      "emoji": true
-                    },
-                    "value": "no"
-                  }
-                ]
-              }
-            ]
+            // blocks: [
+            //   {
+            //     "type": "section",
+            //     "text": {
+            //       "type": "mrkdwn",
+            //       "text": "Want to add another meeting?"
+            //     }
+            //   },
+            //   {
+            //     "type": "divider"
+            //   },
+            //   {
+            //     "type": "actions",
+            //     "elements": [
+            //       {
+            //         "type": "button",
+            //         "text": {
+            //           "type": "plain_text",
+            //           "text": "Yep :hack_club:",
+            //           "emoji": true
+            //         },
+            //         "value": "yes"
+            //       },
+            //       {
+            //         "type": "button",
+            //         "text": {
+            //           "type": "plain_text",
+            //           "text": "No :laptop_fire:",
+            //           "emoji": true
+            //         },
+            //         "value": "no"
+            //       }
+            //     ]
+            //   }
+            // ]
           }, [
             {
               pattern: bot.utterances.yes,
