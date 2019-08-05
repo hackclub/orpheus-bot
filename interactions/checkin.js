@@ -91,7 +91,7 @@ const interactionCheckin = (bot, message) => {
         console.log('convo', convo)
 
         convo.say(`I parsed that as *${attendance}* hackers`)
-        convo.gotoThread('')
+        convo.gotoThread('done')
       }, {}, 'attendance')
 
       convo.gotoThread('found')
