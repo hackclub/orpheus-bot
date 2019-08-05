@@ -60,28 +60,60 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
           }, 'checkin_w_leader')
 
           convo.ask({
-            attachments: [
+            delay: 2000,
+            text: 'Have you had a club meeting since then?',
+            blocks: [
               {
-                title: 'Do you want to interact with my buttons?',
-                callback_id: '123',
-                attachment_type: 'default',
-                actions: [
-                    {
-                        "name":"yes",
-                        "text": "Yes",
-                        "value": "yes",
-                        "type": "button",
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "Want to add another meeting?"
+                }
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "actions",
+                "elements": [
+                  {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "Yep :hack_club:",
+                      "emoji": true
                     },
-                    {
-                        "name":"no",
-                        "text": "No",
-                        "value": "no",
-                        "type": "button",
-                    }
+                    "value": "yes"
+                  },
+                  {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "No :laptop_fire:",
+                      "emoji": true
+                    },
+                    "value": "no"
+                  }
                 ]
               }
             ]
-          })
+          }, [
+            {
+              pattern: 'yes',
+              callback: (response, convo) => {
+                bot.replyInteractive(response, '*you do want to click the buttons*')
+                convo.gotoThread('new_meeting_thread')
+              }
+            },
+            {
+              pattern: 'no',
+              callback: (response, convo) => {
+                bot.replyInteractive(response, '_and no button clicking was had_')
+                convo.goToThread('no_meeting_thread')
+              }
+            }
+          ])
+
         } else {
           convo.say({
             delay: 4000,
