@@ -108,6 +108,15 @@ const interactionCheckin = (bot, message) => {
         callback: (response, convo) => {
           console.log('*user wants to restart their checkin*')
           bot.replyInteractive(response, '_↩️ You ask orpheus to start again')
+          bot.replyAndUpdate(response, `:beachball: _resetting time_`, (err, src, updateResponse) => {
+            if (err) console.error(err)
+
+            setTimeout(() => {
+              updateResponse("Ok, you got me– I don't actually know how to restart this conversation currently")
+              convo.gotoThread('done')
+              convo.next()
+            }, 5000)
+          })
         }
       }, {
         pattern: 'cancel',
