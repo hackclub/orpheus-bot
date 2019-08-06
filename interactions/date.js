@@ -7,3 +7,5 @@ const interactionDate = (bot, message) => {
     bot.reply(message, `I parsed that as ${meetingDate}`)
   // }
 }
+
+module.exports = interactionDate
