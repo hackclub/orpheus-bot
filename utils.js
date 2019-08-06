@@ -63,7 +63,7 @@ const recordMeeting = (club, meeting, cb) => {
     "Notes": `@orpheus-bot created this entry from a Slack checkin`
   }, (err, record) => {
     if (err) {
-      console.err(err)
+      console.error(err)
     }
     cb(record.fields)
   })
