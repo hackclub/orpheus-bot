@@ -2,6 +2,7 @@ const _ = require('lodash')
 const { getInfoForUser } = require('../utils.js')
 
 const interactionStats = (bot, message) => {
+  const { user } = message
 
   bot.replyAcknowledge()
 
