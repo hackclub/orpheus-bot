@@ -180,7 +180,7 @@ const interactionCheckin = (bot, message) => {
               "type": "button",
               "text": {
                 "type": "plain_text",
-                "text": `Today (${getToday(user)})`
+                "text": `Today (${getToday(message.user)})`
               },
               "value": 'today'
             }]
