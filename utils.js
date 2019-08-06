@@ -61,7 +61,7 @@ const recordMeeting = (club, meeting, cb) => {
     "Club": [club.fields['ID']],
     "Date": meeting.date,
     "Attendance": meeting.attendance,
-    "Notes": `@orpheus-bot created this entry from a Slack checkin with ${user}`
+    "Notes": `@orpheus-bot created this entry from a Slack checkin`
   }, (err, record) => {
     if (err) {
       console.err(err)
