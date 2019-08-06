@@ -1,6 +1,8 @@
 const Botkit = require('botkit')
 const _ = require('lodash')
 
+var STARTUP_TIME = Date.now()
+
 const redisConfig = {
   url: process.env.REDISCLOUD_URL
 }
@@ -16,8 +18,6 @@ const controller = new Botkit.slackbot({
   scopes: ['bot', 'chat:write:bot'],
   storage: redisStorage
 })
-
-const STARTUP_TIME = Date.now()
 
 controller.startTicking()
 
