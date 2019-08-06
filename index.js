@@ -35,6 +35,10 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   require('./interactions/checkin')(bot, message)
 })
 
+controller.hears('date', 'direct_mention', (bot, message) => {
+  require('./interactions/date')(bot, message)
+})
+
 controller.hears('info', 'direct_message,direct_mention', (bot, message) => {
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
