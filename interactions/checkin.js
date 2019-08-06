@@ -141,7 +141,7 @@ const interactionCheckin = (bot, message) => {
         }
       }], {}, 'confirm')
 
-      convo.addMessage('What day was it on?', 'date')
+      convo.addMessage('What day was your meeting on?', 'date')
       convo.addQuestion({
         text: 'When was your meeting?',
         blocks: [{
