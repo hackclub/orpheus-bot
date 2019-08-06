@@ -17,6 +17,8 @@ const controller = new Botkit.slackbot({
   storage: redisStorage
 })
 
+const STARTUP_TIME = Date.now()
+
 controller.startTicking()
 
 controller.setupWebserver(process.env.PORT, function(err,webserver) {
@@ -25,14 +27,19 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 })
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
-  const { text, user } = message
-
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
 
   bot.replyInThread(message, "I'll send you a check-in right now!")
 
   require('./interactions/checkin')(bot, message)
+})
+
+controller.hears('info', 'direct_message,direct_mention', (bot, message) => {
+  // ignore threaded messages
+  if (_.has(message.event, 'parent_user_id')) return
+
+  require('./interactions/info')(bot, message)
 })
 
 controller.on('slash_command', (bot, message) => {
