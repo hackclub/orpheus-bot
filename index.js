@@ -71,7 +71,7 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
     ])
 
     bot.replyInThread(message, response)
-
+  } else {
     bot.api.reactions.add({
       timestamp: message.ts,
       channel: message.channel,
