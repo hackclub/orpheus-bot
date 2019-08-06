@@ -189,7 +189,7 @@ const interactionCheckin = (bot, message) => {
       }, [{
           pattern: 'today',
           callback: (response, convo) => {
-            const today = getToday(user)
+            const today = getToday(message.user)
             console.log(`*User met today, ${today}*`)
             convo.setVar('date', today)
             bot.replyInteractive(response, '_You tell orpheus you met today_')
