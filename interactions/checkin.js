@@ -202,7 +202,7 @@ const interactionCheckin = (bot, message) => {
               convo.setVar('date', today)
               bot.replyInteractive(response, '_You tell orpheus you met today_')
               convo.say({
-                text: `Ok, I'll record that you met today, *{{{vars.date}}}*`,
+                text: `Ok, I'll record that you met today, *{{vars.date.dayName}}*`,
                 action: 'attendance'
               })
               convo.next()
@@ -216,7 +216,7 @@ const interactionCheckin = (bot, message) => {
               if (meetingDate) {
                 convo.setVar('date', meetingDate)
                 convo.say({
-                  text: `Ok, I'll record that you met today, *{{{vars.date}}}*`,
+                  text: `Ok, I'll record that you met *{{vars.date.dayName}} ({{{vars.date.mmddyyyy}}})*`,
                   action: 'attendance'
                 })
               convo.next()
