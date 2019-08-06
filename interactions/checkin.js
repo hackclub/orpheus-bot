@@ -165,6 +165,7 @@ const interactionCheckin = (bot, message) => {
       }], {}, 'confirm')
 
       convo.addMessage('What day was your meeting on?', 'date')
+      const today = await getToday(message.user)
       convo.addQuestion({
         text: 'When was your meeting?',
         blocks: [{
@@ -180,7 +181,7 @@ const interactionCheckin = (bot, message) => {
               "type": "button",
               "text": {
                 "type": "plain_text",
-                "text": `Today (${getToday(message.user)})`
+                "text": `Today (${today})`
               },
               "value": 'today'
             }]
@@ -189,7 +190,6 @@ const interactionCheckin = (bot, message) => {
       }, [{
           pattern: 'today',
           callback: (response, convo) => {
-            const today = getToday(message.user)
             console.log(`*User met today, ${today}*`)
             convo.setVar('date', today)
             bot.replyInteractive(response, '_You tell orpheus you met today_')
