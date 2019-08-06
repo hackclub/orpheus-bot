@@ -190,32 +190,20 @@ const interactionCheckin = (bot, message) => {
             }
           ]
         }, [
-          // {
-          //   pattern: 'today',
-          //   callback: (response, convo) => {
-          //     console.log(`*User met today, ${today}*`)
-          //     convo.setVar('date', today)
-          //     bot.replyInteractive(response, '_You tell orpheus you met today_')
-          //     convo.say({
-          //       text: `Ok, I'll record that you met today, *{{vars.date.dayName}}*`,
-          //       action: 'attendance'
-          //     })
-          //     convo.next()
-          //   }
-          // },
           {
             default: true,
             callback: (response, convo) => {
               // attempt to parse
               const meetingDate = chrono.parseDate(`${response.text} ${timeZone}`)
               if (Object.prototype.toString.call(meetingDate) === '[object Date]') {
+                bot.replyInteractive(response, `_You tell orpheus you met ${response.text}_`)
                 convo.setVar('date', {
                   full: meetingDate,
                   dayName: meetingDate.toLocaleDateString('en-us', { weekday: 'long', timeZone }),
                   mmddyyyy: meetingDate.toLocaleDateString('en-us', {timeZone})
                 })
                 convo.say({
-                  text: `Ok, I'll record that you met *{{vars.date.day}} ({{{vars.date.mmddyyyy}}})*`,
+                  text: `Ok, I'll record that you met *{{vars.date.dayName}} ({{{vars.date.mmddyyyy}}})*`,
                   action: 'attendance'
                 })
               convo.next()
