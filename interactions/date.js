@@ -5,7 +5,7 @@ const interactionDate = (bot, message) => {
     const msg = `${message.text.replace('date', '')} ${res.user.tz}`
     const meetingDate = chrono.parseDate(msg)
     bot.reply(message, `I parsed input ${msg} as ${meetingDate}`)
-  }
+  })
 }
 
 module.exports = interactionDate 
