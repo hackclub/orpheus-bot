@@ -95,7 +95,8 @@ const interactionCheckin = (bot, message) => {
           bot.replyInteractive(response, '_✅ You confirm everything is accurate_')
 
           convo.say("I'll write it in my notepad...")
-          recordMeeting(club, meeting, (meetingRecord) => {
+          const { date, attendance } = convo.vars
+          recordMeeting(club, { date, attendance }, (meetingRecord) => {
             console.log(meetingRecord)
             convo.say({
               text: "Got it recorded",
