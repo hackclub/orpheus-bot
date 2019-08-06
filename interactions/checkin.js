@@ -40,7 +40,19 @@ const interactionCheckin = (bot, message) => {
 
       convo.addMessage({
         delay: 2000,
-        text: 'done!'
+        text: _.sample([
+          'done!',
+          'finished!',
+          'pleasure doing business with you!',
+          'See ya!',
+          'cya!',
+          'aloha!',
+          'bye!',
+          'bye bye!',
+          'come back soon!',
+          'until next time!',
+          'adios!'
+        ])
       }, 'done')
 
       convo.addMessage({
