@@ -2,24 +2,18 @@ const { getInfoForUser, recordMeeting } = require('../utils.js')
 const _ = require('lodash')
 const chrono = require('chrono-node')
 
-const getToday = (bot, user) => new Promise((resolve, reject) => {
+const getTz = (bot, user) => new Promise((resolve, reject) => {
   bot.api.users.info({ user }, (err, res) => {
     if (err) {
       console.error(err)
       reject(err)
     }
-    const timeZone = res.user.tz
-    const today = new Date(Date.now())
-    resolve({
-      timeZone,
-      dayName: today.toLocaleDateString('en-us', { weekday: 'long', timeZone }),
-      mmddyyyy: today.toLocaleDateString('en-us', { timeZone })
-    })
+    resolve(res.user.tz)
   })
 })
 
 const interactionCheckin = (bot, message) => {
-  getToday(bot, message.user).then((today) => {
+  getTz(bot, message.user).then((tz) => {
     bot.startConversation(message, (err, convo) => {
       if (err) {
         console.log(err)
@@ -76,7 +70,7 @@ const interactionCheckin = (bot, message) => {
 
         convo.addMessage({
           delay: 2000, 
-          text: 'Ok, just to confirm...\n> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{{vars.date.mmddyyyy}}}'
+          text: 'Ok, just to confirm...\n> Attendance: *{{vars.attendance}} hackers*\n> Meeting date: *{{vars.date.dayName}} ({{{vars.date.mmddyyyy}}})*'
         }, 'confirm')
         convo.addQuestion({
           text: 'Is this correct?',
@@ -189,34 +183,39 @@ const interactionCheckin = (bot, message) => {
                 "type": "button",
                 "text": {
                   "type": "plain_text",
-                  "text": `Today (${today.dayName}, ${today.mmddyyyy})`
+                  "text": `Today`
                 },
                 "value": 'today'
               }]
             }
           ]
-        }, [{
-            pattern: 'today',
-            callback: (response, convo) => {
-              console.log(`*User met today, ${today}*`)
-              convo.setVar('date', today)
-              bot.replyInteractive(response, '_You tell orpheus you met today_')
-              convo.say({
-                text: `Ok, I'll record that you met today, *{{vars.date.dayName}}*`,
-                action: 'attendance'
-              })
-              convo.next()
-            }
-          },
+        }, [
+          // {
+          //   pattern: 'today',
+          //   callback: (response, convo) => {
+          //     console.log(`*User met today, ${today}*`)
+          //     convo.setVar('date', today)
+          //     bot.replyInteractive(response, '_You tell orpheus you met today_')
+          //     convo.say({
+          //       text: `Ok, I'll record that you met today, *{{vars.date.dayName}}*`,
+          //       action: 'attendance'
+          //     })
+          //     convo.next()
+          //   }
+          // },
           {
             default: true,
             callback: (response, convo) => {
               // attempt to parse
-              const meetingDate = chrono.parseDate(response.text)
-              if (meetingDate) {
-                convo.setVar('date', meetingDate)
+              const meetingDate = chrono.parseDate(`${response.text} ${timeZone}`)
+              if (Object.prototype.toString.call(meetingDate) === '[object Date]') {
+                convo.setVar('date', {
+                  full: meetingDate,
+                  dayName: meetingDate.toLocaleDateString('en-us', { weekday: 'long', timeZone }),
+                  mmddyyyy: today.toLocaleDateString('en-us', {timeZone})
+                })
                 convo.say({
-                  text: `Ok, I'll record that you met *{{vars.date.dayName}} ({{{vars.date.mmddyyyy}}})*`,
+                  text: `Ok, I'll record that you met *{{vars.date.day}} ({{{vars.date.mmddyyyy}}})*`,
                   action: 'attendance'
                 })
               convo.next()
