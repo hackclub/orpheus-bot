@@ -61,13 +61,28 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
 
-  const response = _.sample([
-    `*slowly blinks one eye*`,
-    `*stares off into the distance, dazed*`,
-    `*eyes slowly glaze over in boredom*`,
-    `*tilts head in confusion*`,
-    `*UWU*`
-  ])
+  if (Math.random() > 0.5) {
+    const response = _.sample([
+      `*slowly blinks one eye*`,
+      `*stares off into the distance, dazed*`,
+      `*eyes slowly glaze over in boredom*`,
+      `*tilts head in confusion*`,
+      `*UWU*`
+    ])
 
-  bot.replyInThread(message, response)
+    bot.replyInThread(message, response)
+
+    bot.api.reactions.add({
+      timestamp: message.ts,
+      channel: message.channel,
+      name: _.sample([
+        'parrot_confused',
+        'confused-dino',
+        'question',
+        'grey_question'
+      ]),
+    }, (err, res) => {
+      if (err) console.error(err)
+    })
+  }
 })
