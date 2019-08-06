@@ -1,4 +1,4 @@
-const { getInfoForUser } = require('../utils.js')
+const { getInfoForUser, recordMeeting } = require('../utils.js')
 
 const interactionCheckin = (bot, message) => {
   bot.startConversation(message, (err, convo) => {
@@ -95,13 +95,14 @@ const interactionCheckin = (bot, message) => {
           bot.replyInteractive(response, '_✅ You confirm everything is accurate_')
 
           convo.say("I'll write it in my notepad...")
-          setTimeout(() => {
+          recordMeeting(club, meeting, (meetingRecord) => {
+            console.log(meetingRecord)
             convo.say({
               text: "Got it recorded",
               action: 'done'
             })
             convo.next()
-          }, 2000)
+          })
         }
       }, {
         pattern: 'restart',

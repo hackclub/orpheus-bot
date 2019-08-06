@@ -54,4 +54,20 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
     .catch(e => reject(e))
 })
 
+const recordMeeting = (club, meeting, cb) => {
+  console.log(club, user, meeting)
+  base('History').create({
+    "Type": ["Meeting"],
+    "Club": [club.fields['ID']],
+    "Date": meeting.date,
+    "Attendance": meeting.attendance,
+    "Notes": `@orpheus-bot created this entry from a Slack checkin with ${user}`
+  }, (err, record) => {
+    if (err) {
+      console.err(err)
+    }
+    cb(record.fields)
+  })
+}
+
 module.exports = { getInfoForUser }
