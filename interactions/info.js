@@ -9,4 +9,4 @@ const interactionInfo = (bot, message) => {
   })
 }
 
-module.exports = interactionInfo
+export default interactionInfo

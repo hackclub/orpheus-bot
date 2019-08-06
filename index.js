@@ -1,22 +1,20 @@
-const Botkit = require('botkit')
-const _ = require('lodash')
-
 process.env.STARTUP_TIME = Date.now()
+import Botkit from 'botkit'
+import redisStorage from 'botkit-storage-redis'
+import _ from 'lodash'
 
-const redisConfig = {
-  url: process.env.REDISCLOUD_URL
-}
-const redisStorage = require('botkit-storage-redis')(redisConfig)
-
-console.log("reticulating splines...")
-console.log("booting dinosaur...")
+import checkinInteraction from './interactions/checkin'
+import dateInteraction from './interactions/checkin'
+import infoInteraction from './interactions/info'
+import statsInteraction from './interactions/stats'
+import helloInteraction from './interactions/hello'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
   scopes: ['bot', 'chat:write:bot'],
-  storage: redisStorage
+  storage: redisStorage({ url: process.env.REDISCLOUD_URL })
 })
 
 controller.startTicking()
@@ -32,18 +30,18 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
   bot.replyInThread(message, "I'll send you a check-in right now!")
 
-  require('./interactions/checkin')(bot, message)
+  checkinInteraction(bot, message)
 })
 
 controller.hears('date', 'direct_mention', (bot, message) => {
-  require('./interactions/date')(bot, message)
+  dateInteraction(bot, message)
 })
 
 controller.hears('info', 'direct_message,direct_mention', (bot, message) => {
   // ignore threaded messages
   if (_.has(message.event, 'parent_user_id')) return
 
-  require('./interactions/info')(bot, message)
+  infoInteraction(bot, message)
 })
 
 controller.on('slash_command', (bot, message) => {
@@ -52,7 +50,7 @@ controller.on('slash_command', (bot, message) => {
 
   switch (command) {
     case '/stats':
-      require('./interactions/stats')(bot, message)
+      statsInteraction(bot, message)
       break
   
     default:
@@ -62,7 +60,7 @@ controller.on('slash_command', (bot, message) => {
 })
 
 controller.hears('hello', ['ambient'], function(bot, message) {
-  require('./interactions/hello')(bot, message)
+  helloInteraction(bot, message)
 })
 
 // catch-all

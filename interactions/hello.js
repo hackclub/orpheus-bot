@@ -1,7 +1,7 @@
-const _ = require('lodash')
+import { sample } from 'lodash'
 
 const interactionHello = (bot, message) => {
-  const mispellings = [
+  const mispelling = sample([
     'hellp',
     'hwllo',
     'helllo',
@@ -9,9 +9,9 @@ const interactionHello = (bot, message) => {
     'helli',
     'helo',
     'hell',
-  ]
+  ])
   // send a message back with a typo
-  bot.replyAndUpdate(message, _.sample(mispellings), function(err, src, updateResponse) {
+  bot.replyAndUpdate(message, mispelling, function(err, src, updateResponse) {
     if (err) console.error(err)
     // oh no, "hellp" is a typo - let's update the message to "hello"
     setTimeout(() => {
@@ -22,4 +22,4 @@ const interactionHello = (bot, message) => {
   })
 }
 
-module.exports = interactionHello
+export default interactionHello

@@ -1,6 +1,6 @@
-const { getInfoForUser, recordMeeting } = require('../utils.js')
-const _ = require('lodash')
-const chrono = require('chrono-node')
+import { getInfoForUser, recordMeeting } from '../utils'
+import { parseDate } from 'chrono-node'
+import { sample } from 'lodash'
 
 const getTz = (bot, user) => new Promise((resolve, reject) => {
   bot.api.users.info({ user }, (err, res) => {
@@ -53,7 +53,7 @@ const interactionCheckin = (bot, message) => {
 
         convo.addMessage({
           delay: 2000,
-          text: _.sample([
+          text: sample([
             'done!',
             'finished!',
             'pleasure doing business with you!',
@@ -117,7 +117,7 @@ const interactionCheckin = (bot, message) => {
           pattern: 'submit',
           callback: (response, convo) => {
             console.log('*user submitted their checkin!*')
-            const reply = _.sample([
+            const reply = sample([
               'grins with delight',
               'fidgets in mild excitement',
               'fumbles around with her large stubby arms for a pencil and paper',
@@ -156,7 +156,7 @@ const interactionCheckin = (bot, message) => {
           callback: (response, convo) => {
             console.log('*user clicked "cancel"*')
 
-            const reply = _.sample([
+            const reply = sample([
               'She looks slightly crestfallen',
               'She promptly tears up the paper on her desk and eats it',
               'She tosses the notes on her desk into her mouth and starts chewing',
@@ -194,7 +194,7 @@ const interactionCheckin = (bot, message) => {
             default: true,
             callback: (response, convo) => {
               // attempt to parse
-              const meetingDate = chrono.parseDate(`${response.text} ${timeZone}`)
+              const meetingDate = parseDate(`${response.text} ${timeZone}`)
               if (Object.prototype.toString.call(meetingDate) === '[object Date]') {
                 bot.replyInteractive(response, `_You tell orpheus you met ${response.text}_`)
                 convo.setVar('date', {
@@ -233,4 +233,4 @@ const interactionCheckin = (bot, message) => {
   })
 }
 
-module.exports = interactionCheckin
+export default interactionCheckin
