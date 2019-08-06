@@ -55,7 +55,7 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
 })
 
 const recordMeeting = (club, meeting, cb) => {
-  console.log(club, user, meeting)
+  console.log(club, meeting)
   base('History').create({
     "Type": ["Meeting"],
     "Club": [club.fields['ID']],
