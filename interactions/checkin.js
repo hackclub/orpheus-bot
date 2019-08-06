@@ -14,7 +14,7 @@ const getToday = (bot, user) => new Promise((resolve, reject) => {
 })
 
 const interactionCheckin = (bot, message) => {
-  getToday(bot, message.user).then((timeZone) => {
+  getToday(bot, message.user).then((today) => {
     bot.startConversation(message, (err, convo) => {
       if (err) {
         console.log(err)
