@@ -57,7 +57,7 @@ const recordMeeting = (club, meeting, cb) => {
   console.log(club, meeting)
   base('History').create({
     "Type": ["Meeting"],
-    "Club": [club.fields['ID']],
+    "Club": [club.id],
     "Date": meeting.date,
     "Attendance": meeting.attendance,
     "Notes": `@orpheus-bot created this entry from a Slack checkin`
@@ -65,7 +65,7 @@ const recordMeeting = (club, meeting, cb) => {
     if (err) {
       console.error(err)
     }
-    cb(record.fields)
+    cb(record)
   })
 }
 
