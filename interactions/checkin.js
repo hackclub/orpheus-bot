@@ -1,8 +1,6 @@
 const { getInfoForUser, recordMeeting } = require('../utils.js')
 const _ = require('lodash')
 
-const interactionCheckin = (bot, message) => {
-  const getToday = async (user) => (
     bot.api.users.info({ user }, (err, res) => {
       if (err) console.error(err)
       const timeZone = res.user.tz
