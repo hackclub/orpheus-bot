@@ -1,4 +1,4 @@
-const chrono = require('chrono')
+const chrono = require('chrono-node')
 
 const interactionDate = (bot, message) => {
   console.log(`"${message.text}" parsed as ${meetingDate}`)
