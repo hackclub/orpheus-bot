@@ -20,10 +20,11 @@ const interactionStats = (bot, message) => {
 
   bot.replyAndUpdate(message, `:beachball: _${loadingMessage}_`, (err, src, updateResponse) => {
     if (err) console.error(err)
-    getInfoForUser(user).then(info => {
+    getInfoForUser(user).then(({leader, club, history}) => {
       setTimeout(() => {
-        if (!info.leader) {
+        if (!leader || !club) {
           updateResponse("You aren't a club leader")
+          return
         }
 
         const content = {
@@ -31,7 +32,7 @@ const interactionStats = (bot, message) => {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: `Stats for *${info.club.fields['Name']}*`
+                text: `Stats for *${club.fields['Name']}*`
               }
             },
             {
@@ -43,12 +44,12 @@ const interactionStats = (bot, message) => {
                 type: "plain_text",
                 text: "attendance"
               },
-              image_url: graphUrl(info),
+              image_url: graphUrl(history),
               alt_text: "attendance"
             }
           ]
         }
-        console.log(graphUrl(info))
+        console.log(graphUrl(history, club))
         updateResponse(content, err => {
           console.error(err)
         })
@@ -57,8 +58,8 @@ const interactionStats = (bot, message) => {
   })
 }
 
-const graphUrl = info => {
-  const meetings = info.history.filter(h => h.fields['Attendance']).sort((a,b) => Date.parse(a.fields['Date']) - Date.parse(b.fields['Date']))
+const graphUrl = (history, club) => {
+  const meetings = history.filter(h => h.fields['Attendance']).sort((a,b) => Date.parse(a.fields['Date']) - Date.parse(b.fields['Date']))
   const attendance = meetings.map(h => h.fields['Attendance'])
   const dates = meetings.map(h => h.fields['Date'])
   const config = {
@@ -66,7 +67,7 @@ const graphUrl = info => {
     data: {
       labels: dates,
       datasets: [{
-        label: info.club.fields['Name'],
+        label: club.fields['Name'],
         data: attendance,
         backgroundColor: 'rgba(228,45,66,0.5)'
       }]
