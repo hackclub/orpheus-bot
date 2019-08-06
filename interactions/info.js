@@ -1,5 +1,6 @@
 const interactionInfo = (bot, message) => {
-  bot.reply(`_Dino started at ${STARTUP_TIME} (${Date.now() - STARTUP_TIME} milliseconds since last incident)_`)
+  const ts = process.env.STARTUP_TIME
+  bot.reply(`_Dino started at ${ts} (${Date.now() - ts} milliseconds since last incident)_`)
 }
 
 module.exports = interactionInfo

@@ -1,7 +1,7 @@
 const Botkit = require('botkit')
 const _ = require('lodash')
 
-var STARTUP_TIME = Date.now()
+process.env.STARTUP_TIME = Date.now()
 
 const redisConfig = {
   url: process.env.REDISCLOUD_URL
