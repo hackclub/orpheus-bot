@@ -1,12 +1,10 @@
 const chrono = require('chrono-node')
 
 const interactionDate = (bot, message) => {
-  const trimmedMessage = message.text.replace('date', '')
-  console.log(trimmedMessage)
+    const trimmedMessage = message.text.replace('date', '')
   // bot.api.users.info({ user: message.user }, (err, res) => {
-    const meetingDate = chrono.parse(trimmedMessage)
-    console.log(`"${trimmedMessage}" parsed as ${JSON.stringify(meetingDate)}`)
-    bot.reply(message, "I parsed that as `" + JSON.stringify(meetingDate) + "`")
+    const meetingDate = chrono.parseDate(trimmedMessage)
+    bot.reply(message, `I parsed that as ${meetingDate}`)
   // }
 }
 
