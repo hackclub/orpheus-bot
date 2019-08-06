@@ -105,7 +105,13 @@ const interactionCheckin = (bot, message) => {
         pattern: 'submit',
         callback: (response, convo) => {
           console.log('*user submitted their checkin!*')
-          bot.replyInteractive(response, '_✅ You confirm everything is accurate_')
+          const reply = _.sample([
+            'grins with delight',
+            'fidgets in mild excitement',
+            'fumbles around with her large stubby arms for a pencil and paper',
+            'sifts through the Permian layer to find her notes'
+          ])
+          bot.replyInteractive(response, `_✅ You confirm everything is accurate as orpheus ${reply}._`)
 
           convo.say("I'll write it in my notepad...")
           const { date, attendance } = convo.vars
@@ -137,7 +143,14 @@ const interactionCheckin = (bot, message) => {
         pattern: 'cancel',
         callback: (response, convo) => {
           console.log('*user clicked "cancel"*')
-          bot.replyInteractive(response, '_⛔ You ask orpheus to cancel the checkin_')
+
+          const reply = _.sample([
+            'She looks slightly crestfallen',
+            'She promptly tears up the paper on her desk and eats it',
+            'She tosses the notes on her desk into her mouth and starts chewing',
+            '*VRRRRR* She raises her arm and swipes all the papers off the table into the hungry paper shredder lying by her table.',
+          ])
+          bot.replyInteractive(response, `_⛔ You ask orpheus to cancel the checkin. ${reply}._`)
           convo.gotoThread('done')
         }
       }], {}, 'confirm')
