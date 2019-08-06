@@ -43,18 +43,10 @@ const interactionCheckin = (bot, message) => {
         text: 'done!'
       }, 'done')
 
-      convo.addMessage('{{1 + 1}}', 'double_check')
-      convo.addMessage('{{vars.attendance}} hackers', 'double_check')
-
+      convo.addMessage("> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.meetingDate}}")
       convo.addQuestion({
         text: 'Is this correct?',
-        blocks: [{
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.meetingDate}}"
-          }
-        },
+        blocks: [
         {
           "type": "section",
           "text": {
@@ -121,7 +113,7 @@ const interactionCheckin = (bot, message) => {
           bot.replyInteractive(response, '_⛔ You ask orpheus to cancel the checkin_')
           convo.gotoThread('done')
         }
-      }], {}, 'double_check')
+      }], {}, 'confirm')
 
       convo.addMessage('What day was it on?', 'date')
       convo.addQuestion({
@@ -174,7 +166,7 @@ const interactionCheckin = (bot, message) => {
 
         convo.say({
           text: `I parsed that as *${attendance}* hackers`,
-          action: 'double_check'
+          action: 'confirm'
         })
         convo.next()
       }, {}, 'attendance')
