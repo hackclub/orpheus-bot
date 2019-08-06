@@ -107,7 +107,7 @@ const interactionCheckin = (bot, message) => {
         pattern: 'restart',
         callback: (response, convo) => {
           console.log('*user wants to restart their checkin*')
-          bot.replyInteractive(response, '_↩️ You ask orpheus to start again')
+          bot.replyInteractive(response, '_↩️ You ask orpheus to start again_')
           bot.replyAndUpdate(response, `:beachball: _resetting time_`, (err, src, updateResponse) => {
             if (err) console.error(err)
 
