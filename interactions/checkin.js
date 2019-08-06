@@ -2,6 +2,15 @@ const { getInfoForUser, recordMeeting } = require('../utils.js')
 const _ = require('lodash')
 
 const interactionCheckin = (bot, message) => {
+  const getToday = async (user) => (
+    bot.api.users.info({ user }, (err, res) => {
+      if (err) console.error(err)
+      const timeZone = res.user.tz
+      const today = new Date(Date.now())
+      return today.toLocaleDateString('en-us', { weekday: 'long', timeZone })
+    })
+  )
+
   bot.startConversation(message, (err, convo) => {
     if (err) {
       console.log(err)
@@ -171,17 +180,18 @@ const interactionCheckin = (bot, message) => {
               "type": "button",
               "text": {
                 "type": "plain_text",
-                "text": `Today (${new Date(Date.now()).toLocaleDateString('en-us', { weekday: 'long' })})`
+                "text": `Today (${getToday(user)})`
               },
-              "value": "today"
+              "value": 'today'
             }]
           }
         ]
       }, [{
           pattern: 'today',
           callback: (response, convo) => {
-            console.log('*User met today*')
-            convo.setVar('date', new Date(Date.now()).toLocaleDateString())
+            const today = getToday(user)
+            console.log(`*User met today, ${today}*`)
+            convo.setVar('date', today)
             bot.replyInteractive(response, '_You tell orpheus you met today_')
             convo.say({
               text: `Ok, I'll record that you met today, *{{{vars.date}}}*`,
