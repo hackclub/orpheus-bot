@@ -35,7 +35,6 @@ const getHistoryFrom = club => new Promise((resolve, reject) => {
     records.forEach(record => result.push(record))
     fetchNextPage()
   }, err => {
-    console.log(result, err)
     if (err) {reject(err)}
     resolve(result)
   })
