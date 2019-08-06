@@ -1,5 +1,6 @@
 const { getInfoForUser, recordMeeting } = require('../utils.js')
 const _ = require('lodash')
+const chrono = require('chrono-node')
 
 const getToday = (bot, user) => new Promise((resolve, reject) => {
   bot.api.users.info({ user }, (err, res) => {
@@ -9,7 +10,11 @@ const getToday = (bot, user) => new Promise((resolve, reject) => {
     }
     const timeZone = res.user.tz
     const today = new Date(Date.now())
-    resolve(today.toLocaleDateString('en-us', { weekday: 'long', timeZone }))
+    resolve({
+      timeZone,
+      dayName: today.toLocaleDateString('en-us', { weekday: 'long', timeZone }),
+      mmddyyyy: today.toLocaleDateString('en-us', { timeZone })
+    })
   })
 })
 
@@ -175,7 +180,7 @@ const interactionCheckin = (bot, message) => {
               "type": "section",
               "text": {
                 "type": "mrkdwn",
-                "text": "(You can tell me a date in `YYYY-MM-DD` format, or click a shortcut button"
+                "text": "(You can tell me a date in `YYYY-MM-DD` format, say things like `last tuesday`, or click a shortcut button"
               }
             },
             {
@@ -184,7 +189,7 @@ const interactionCheckin = (bot, message) => {
                 "type": "button",
                 "text": {
                   "type": "plain_text",
-                  "text": `Today (${today})`
+                  "text": `Today (${today.dayName}, ${today.mmddyyyy})`
                 },
                 "value": 'today'
               }]
@@ -207,9 +212,14 @@ const interactionCheckin = (bot, message) => {
             default: true,
             callback: (response, convo) => {
               // attempt to parse
-              const meetingdate = 1
+              const meetingDate = chrono.parseDate(response.text)
               if (meetingDate) {
-
+                convo.setVar('date', meetingDate)
+                convo.say({
+                  text: `Ok, I'll record that you met today, *{{{vars.date}}}*`,
+                  action: 'attendance'
+                })
+              convo.next()
               } else {
                 console.log(response, convo)
                 convo.repeat()
