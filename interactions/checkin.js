@@ -76,7 +76,7 @@ const interactionCheckin = (bot, message) => {
 
         convo.addMessage({
           delay: 2000, 
-          text: 'Ok, just to confirm...\n> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{{vars.date}}}'
+          text: 'Ok, just to confirm...\n> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{{vars.date.mmddyyyy}}}'
         }, 'confirm')
         convo.addQuestion({
           text: 'Is this correct?',
