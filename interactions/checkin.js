@@ -1,4 +1,5 @@
 const { getInfoForUser, recordMeeting } = require('../utils.js')
+const _ = require('lodash')
 
 const interactionCheckin = (bot, message) => {
   bot.startConversation(message, (err, convo) => {
