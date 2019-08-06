@@ -43,7 +43,10 @@ const interactionCheckin = (bot, message) => {
         text: 'done!'
       }, 'done')
 
-      convo.addMessage("> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.meetingDate}}", 'confirm')
+      convo.addMessage({
+        delay: 2000, 
+        text: "Ok, just to confirm...\n> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.date}}"
+      }, 'confirm')
       convo.addQuestion({
         text: 'Is this correct?',
         blocks: [
