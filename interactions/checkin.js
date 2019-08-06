@@ -45,7 +45,7 @@ const interactionCheckin = (bot, message) => {
 
       convo.addMessage({
         delay: 2000, 
-        text: 'Ok, just to confirm...\n> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.date}}'
+        text: 'Ok, just to confirm...\n> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{{vars.date}}}'
       }, 'confirm')
       convo.addQuestion({
         text: 'Is this correct?',
@@ -158,7 +158,7 @@ const interactionCheckin = (bot, message) => {
             convo.setVar('date', new Date(Date.now()).toLocaleDateString())
             bot.replyInteractive(response, '_You tell orpheus you met today_')
             convo.say({
-              text: `Ok, I'll record that you met today, *{{vars.date}}*`,
+              text: `Ok, I'll record that you met today, *{{{vars.date}}}*`,
               action: 'attendance'
             })
             convo.next()
