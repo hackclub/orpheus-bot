@@ -212,7 +212,7 @@ const interactionCheckin = (bot, message) => {
                 convo.setVar('date', {
                   full: meetingDate,
                   dayName: meetingDate.toLocaleDateString('en-us', { weekday: 'long', timeZone }),
-                  mmddyyyy: today.toLocaleDateString('en-us', {timeZone})
+                  mmddyyyy: meetingDate.toLocaleDateString('en-us', {timeZone})
                 })
                 convo.say({
                   text: `Ok, I'll record that you met *{{vars.date.day}} ({{{vars.date.mmddyyyy}}})*`,
