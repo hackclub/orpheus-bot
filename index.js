@@ -42,11 +42,11 @@ controller.on('slash_command', (bot, message) => {
   switch (command) {
     case '/stats':
       require('./interactions/stats')(bot, message)
-      break;
+      break
   
     default:
       bot.replyPrivate(message, `I don't know how to do that ¯\_(ツ)_/¯`)
-      break;
+      break
   }
 })
 
