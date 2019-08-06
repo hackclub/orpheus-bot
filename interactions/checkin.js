@@ -155,7 +155,7 @@ const interactionCheckin = (bot, message) => {
           pattern: 'today',
           callback: (response, convo) => {
             console.log('*User met today*')
-            convo.setVar('date', 'today')
+            convo.setVar('date', new Date(Date.now()).toLocaleDateString())
             bot.replyInteractive(response, '_You tell orpheus you met today_')
             convo.say({
               text: `Ok, I'll record that you met today, *${new Date(Date.now()).toLocaleDateString()}*`,
