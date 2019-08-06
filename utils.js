@@ -70,4 +70,4 @@ const recordMeeting = (club, meeting, cb) => {
   })
 }
 
-module.exports = { getInfoForUser }
+module.exports = { getInfoForUser, recordMeeting }
