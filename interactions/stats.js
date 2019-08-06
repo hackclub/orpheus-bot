@@ -23,7 +23,11 @@ const interactionStats = (bot, message) => {
     getInfoForUser(user).then(({leader, club, history}) => {
       setTimeout(() => {
         if (!leader || !club) {
-          updateResponse("You aren't a club leader")
+          updateResponse(_.sample([
+            ":confused-dino: I can't find you in my files",
+            ":confused-dino-2: I don't see your records",
+            ":angry-dino: you aren't a registered leader– what are you trying to pull here?"
+          ]))
           return
         }
 
