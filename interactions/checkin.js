@@ -43,13 +43,16 @@ const interactionCheckin = (bot, message) => {
         text: 'done!'
       }, 'done')
 
+      convo.addMessage('{{1 + 1}}', 'double_check')
+      convo.addMessage('{{vars.attendance}} hackers', 'double_check')
+
       convo.addQuestion({
         text: 'Is this correct?',
         blocks: [{
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "> *Attendance:* {{convo.vars.attendance}} hackers\n> *Meeting date:* {{convo.vars.meetingDate}}"
+            "text": "> *Attendance:* {{vars.attendance}} hackers\n> *Meeting date:* {{vars.meetingDate}}"
           }
         },
         {
