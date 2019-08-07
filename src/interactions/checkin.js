@@ -56,6 +56,10 @@ const interactionCheckin = (bot, message) => {
         }, 'found')
 
         convo.addMessage({
+          delay: 1500,
+          text: "You can see your meeting history with the `/stats` command"
+        }, 'done')
+        convo.addMessage({
           delay: 2000,
           text: sample([
             'done!',
@@ -70,10 +74,6 @@ const interactionCheckin = (bot, message) => {
             'until next time!',
             'adios!'
           ])
-        }, 'done')
-        convo.addMessage({
-          delay: 1500,
-          text: "You can see your club stats with the `/stats` command"
         }, 'done')
 
         convo.addMessage({
