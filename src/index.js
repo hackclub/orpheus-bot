@@ -26,13 +26,12 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 })
 
 const init = () => {
-  controller.spawn({}, (bot) => {
-    const message = {
-      channel: 'C0P5NE354'
-    }
-    bot.say(message, `Build timestamp ${process.env.STARTUP_TIME}`)
-    bot.say(message, '_out of the ashes a small dinosaur pops its head out of the ground. the cycle goes on_')
+  const bot = controller.spawn()
+  bot.say({
+    text:`Build timestamp ${process.env.STARTUP_TIME}`,
+    channel: 'C0P5NE354'
   })
+  // bot.say(message, '_out of the ashes a small dinosaur pops its head out of the ground. the cycle goes on_')
 }
 init()
 
