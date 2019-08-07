@@ -3,6 +3,10 @@ import { parseDate } from 'chrono-node'
 import { sample } from 'lodash'
 
 const getTz = (bot, user) => new Promise((resolve, reject) => {
+  const log = (x) => {
+    console.log(user, x)
+  }
+
   bot.api.users.info({ user }, (err, res) => {
     if (err) {
       console.error(err)
@@ -116,7 +120,7 @@ const interactionCheckin = (bot, message) => {
         }, [{
           pattern: 'submit',
           callback: (response, convo) => {
-            console.log('*user submitted their checkin!*')
+            log('*user submitted their checkin!*')
             const reply = sample([
               'grins with delight',
               'fidgets in mild excitement',
@@ -128,7 +132,7 @@ const interactionCheckin = (bot, message) => {
             convo.say("I'll write it in my notepad...")
             const { date, attendance } = convo.vars
             recordMeeting(club, { date, attendance }, (meetingRecord) => {
-              console.log(meetingRecord)
+              log(meetingRecord)
               convo.say({
                 text: "Got it recorded",
                 action: 'done'
@@ -139,7 +143,7 @@ const interactionCheckin = (bot, message) => {
         }, {
           pattern: 'restart',
           callback: (response, convo) => {
-            console.log('*user wants to restart their checkin*')
+            log('*user wants to restart their checkin*')
             bot.replyInteractive(response, '_↩️ You ask orpheus to start again_')
             bot.replyAndUpdate(response, `:beachball: _resetting time_`, (err, src, updateResponse) => {
               if (err) console.error(err)
@@ -154,7 +158,7 @@ const interactionCheckin = (bot, message) => {
         }, {
           pattern: 'cancel',
           callback: (response, convo) => {
-            console.log('*user clicked "cancel"*')
+            log('*user clicked "cancel"*')
 
             const reply = sample([
               'She looks slightly crestfallen',
@@ -219,7 +223,7 @@ const interactionCheckin = (bot, message) => {
           const attendance = +response.text
 
           if (attendance > 0 && attendance % 1 === 0) {
-            console.log(`*User said they had "${response.text}" in attendance, which is valid`)
+            log(`*User said they had "${response.text}" in attendance, which is valid`)
             convo.setVar('attendance', attendance)
             convo.say({
               text: `I parsed that as *{{vars.attendance}}* hackers`,
@@ -227,7 +231,7 @@ const interactionCheckin = (bot, message) => {
             })
             convo.next()
           } else {
-            console.log(`*User said they had "${response.text}" in attendance, which is invalid`)
+            log(`*User said they had "${response.text}" in attendance, which is invalid`)
             convo.say({
               text: "_orpheus scrunches her face, eyeing your input with suspicion. looks like that wasn't what she was looking for_"
             })
