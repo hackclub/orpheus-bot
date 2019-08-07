@@ -4,7 +4,7 @@ import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
 
 import checkinInteraction from './interactions/checkin'
-import dateInteraction from './interactions/checkin'
+import dateInteraction from './interactions/date'
 import infoInteraction from './interactions/info'
 import statsInteraction from './interactions/stats'
 import helloInteraction from './interactions/hello'
