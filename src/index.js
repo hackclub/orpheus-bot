@@ -18,6 +18,12 @@ const controller = new Botkit.slackbot({
   storage: redisStorage({ url: process.env.REDISCLOUD_URL })
 })
 
+const selfInitiatedBot = () => (
+  controller.spawn({
+    token: process.env.SLACK_BOT_TOKEN
+  })
+)
+
 controller.startTicking()
 
 controller.setupWebserver(process.env.PORT, function(err,webserver) {
@@ -25,14 +31,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-const init = () => {
-  const bot = controller.spawn({
-    clientId: process.env.SLACK_CLIENT_ID,
-    clientSecret: process.env.SLACK_CLIENT_SECRET,
-    clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
-    scopes: ['bot', 'chat:write:bot'],
-    storage: redisStorage({ url: process.env.REDISCLOUD_URL })
-  })
+const init = (bot=selfInitiatedBot()) => {
   bot.say({
     text:`Build timestamp ${process.env.STARTUP_TIME}`,
     channel: 'C0P5NE354'
