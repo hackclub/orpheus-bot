@@ -173,8 +173,8 @@ const interactionCheckin = (bot, message) => {
 
         let dateSuggestions = ['Today']
         if (history.meetings.length > 0) {
-          const lastMeetingDay = history.meetings[0].fields['Date']
-          if (lastMeetingDay) dateSuggestions.push(lastMeetingDate)
+          const lastMeetingDay = new Date(history.meetings[0].fields['Date']).toLocaleDateString('en-us', { weekday: 'long', timeZone })
+          if (lastMeetingDay) dateSuggestions.push(`last ${lastMeetingDay}`)
         }
         convo.addQuestion({
           text: 'When was your meeting?',
