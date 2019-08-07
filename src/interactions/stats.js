@@ -50,6 +50,15 @@ const interactionStats = (bot, message) => {
               },
               image_url: graphUrl(history, club),
               alt_text: "attendance"
+            },
+            {
+              type: "context",
+              elements: [
+                {
+                  type: "mrkdwn",
+                  text: `Requested by ${message.user}`
+                }
+              ]
             }
           ]
         }
