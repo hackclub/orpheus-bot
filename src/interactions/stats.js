@@ -64,7 +64,7 @@ const interactionStats = (bot, message) => {
 
 const graphUrl = (history, club) => {
   const attendance = history.meetings.map(h => h.fields['Attendance'])
-  const dates = meetings.map(h => h.fields['Date'])
+  const dates = history.meetings.map(h => h.fields['Date'])
   const config = {
     type: 'line',
     data: {
