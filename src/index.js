@@ -62,7 +62,7 @@ controller.hears('thump thump', 'ambient', () => {
 
     // triggerInteraction(bot, message)
     console.log(`*starting checkin w/ club in channel ${channel}*`)
-    checkinInteraction(bot, message)
+    // checkinInteraction(bot, message)
   }))
 })
 
