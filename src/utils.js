@@ -1,4 +1,5 @@
-const Airtable = require('airtable')
+import Airtable from 'airtable'
+
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
 const getLeaderFrom = user => new Promise((resolve, reject) => {
@@ -40,7 +41,7 @@ const getHistoryFrom = club => new Promise((resolve, reject) => {
   })
 })
 
-const getInfoForUser = user => new Promise((resolve, reject) => {
+export const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
   
   getLeaderFrom(user)
@@ -58,7 +59,11 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
     .catch(e => reject(e))
 })
 
-const recordMeeting = (club, meeting, cb) => {
+export const getClubList = () => (
+  base('Clubs').select().all()
+)
+
+export const recordMeeting = (club, meeting, cb) => {
   console.log(club, meeting)
   base('History').create({
     "Type": ["Meeting"],
@@ -73,5 +78,3 @@ const recordMeeting = (club, meeting, cb) => {
     cb(record)
   })
 }
-
-module.exports = { getInfoForUser, recordMeeting }

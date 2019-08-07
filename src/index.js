@@ -3,6 +3,8 @@ import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
 
+import { getAllClubs } from './utils'
+
 import checkinInteraction from './interactions/checkin'
 import dateInteraction from './interactions/date'
 import infoInteraction from './interactions/info'
@@ -45,7 +47,24 @@ const init = (bot=initBot()) => {
 }
 init()
 
-controller.hears('thump thump', 'ambient', triggerInteraction)
+controller.hears('thump thump', 'ambient', () => {
+  getAllClubs().then(clubs => clubs.forEach(club => {
+    const day = club.fields['Checkin Day']
+    const hour = club.fields['Checkin Hour']
+    const channel = club.fields['Slack Channel ID']
+
+    if (!day) { return }
+    if (!hour) { return }
+    if (!channel) { return }
+
+    const bot = initBot()
+    const message = { channel }
+
+    // triggerInteraction(bot, message)
+    console.log(`*starting checkin w/ club in channel ${channel}*`)
+    checkinInteraction(bot, message)
+  }))
+})
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   bot.replyInThread(message, "I'll send you a check-in right now!")
