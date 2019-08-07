@@ -170,6 +170,12 @@ const interactionCheckin = (bot, message) => {
         }], {}, 'confirm')
 
         convo.addMessage('What day was your meeting on?', 'date')
+
+        let dateSuggestions = ['Today']
+        if (history.meetings.length > 0) {
+          const lastMeetingDay = history.meetings[0].fields['Date']
+          if (lastMeetingDay) dateSuggestions.push(lastMeetingDate)
+        }
         convo.addQuestion({
           text: 'When was your meeting?',
           blocks: [{
@@ -181,14 +187,13 @@ const interactionCheckin = (bot, message) => {
             },
             {
               "type": "actions",
-              "elements": [{
+              "elements": dateSuggestions.map(suggestion => ({
                 "type": "button",
                 "text": {
                   "type": "plain_text",
-                  "text": `Today`
-                },
-                "value": 'today'
-              }]
+                  "text": suggestion
+                }
+              }))
             }
           ]
         }, [
@@ -233,7 +238,6 @@ const interactionCheckin = (bot, message) => {
             convo.say({
               text: "_orpheus scrunches her face, eyeing your input with suspicion. looks like that wasn't what she was looking for_"
             })
-            convo.next()
             convo.repeat()
             convo.next()
           }

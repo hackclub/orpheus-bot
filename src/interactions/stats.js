@@ -48,7 +48,7 @@ const interactionStats = (bot, message) => {
                 type: "plain_text",
                 text: "attendance"
               },
-              image_url: graphUrl(history),
+              image_url: graphUrl(history, club),
               alt_text: "attendance"
             }
           ]
@@ -63,8 +63,7 @@ const interactionStats = (bot, message) => {
 }
 
 const graphUrl = (history, club) => {
-  const meetings = history.filter(h => h.fields['Attendance']).sort((a,b) => Date.parse(a.fields['Date']) - Date.parse(b.fields['Date']))
-  const attendance = meetings.map(h => h.fields['Attendance'])
+  const attendance = history.meetings.map(h => h.fields['Attendance'])
   const dates = meetings.map(h => h.fields['Date'])
   const config = {
     type: 'line',

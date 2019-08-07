@@ -48,7 +48,12 @@ const getInfoForUser = user => new Promise((resolve, reject) => {
     .then(() => getClubFrom(results.leader))
     .then(club => results.club = club)
     .then(() => getHistoryFrom(results.club))
-    .then(history => results.history = history)
+    .then(history => {
+      results.history = {
+        records: history,
+        meetings: history.filter(h => h.fields['Attendance']).sort((a,b) => Date.parse(a.fields['Date']) - Date.parse(b.fields['Date']))
+      }
+    })
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
