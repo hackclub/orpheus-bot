@@ -15,7 +15,7 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
 const interactionCheckin = (bot, message) => {
   getTz(bot, message.user).then((timeZone) => {
     const log = (x) => {
-      console.log(user.message, x)
+      console.log(message.user, x)
     }
 
     bot.startConversation(message, (err, convo) => {
