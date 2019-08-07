@@ -219,7 +219,7 @@ const interactionCheckin = (bot, message) => {
               } else {
                 console.log(response, convo)
                 bot.replyInteractive(response, `_orpheus gives you a knowing look. she's apparently masking the fact she can't tell what day you meant_`)
-                convo.repeat()
+                convo.gotoThread('date')
                 convo.next()
               }
             }
