@@ -3,10 +3,6 @@ import { parseDate } from 'chrono-node'
 import { sample } from 'lodash'
 
 const getTz = (bot, user) => new Promise((resolve, reject) => {
-  const log = (x) => {
-    console.log(user, x)
-  }
-
   bot.api.users.info({ user }, (err, res) => {
     if (err) {
       console.error(err)
@@ -18,6 +14,10 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
 
 const interactionCheckin = (bot, message) => {
   getTz(bot, message.user).then((timeZone) => {
+    const log = (x) => {
+      console.log(user.message, x)
+    }
+
     bot.startConversation(message, (err, convo) => {
       if (err) {
         console.log(err)
