@@ -18,7 +18,9 @@ const controller = new Botkit.slackbot({
   storage: redisStorage({ url: process.env.REDISCLOUD_URL })
 })
 
-const selfInitiatedBot = () => (
+const initBot = () => (
+  // we need to create our "bot" context for interactions that aren't initiated by the user.
+  // ex. we want to send a "hello world" message on startup w/o waiting for a user to trigger it.
   controller.spawn({
     token: process.env.SLACK_BOT_TOKEN
   })
@@ -31,7 +33,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-const init = (bot=selfInitiatedBot()) => {
+const init = (bot=initBot()) => {
   bot.say({
     text:`Build timestamp ${process.env.STARTUP_TIME}`,
     channel: 'C0P5NE354'
