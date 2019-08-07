@@ -56,7 +56,7 @@ const interactionStats = (bot, message) => {
               elements: [
                 {
                   type: "mrkdwn",
-                  text: `Requested by ${message.user}`
+                  text: `Requested by <@${message.user}>`
                 }
               ]
             }
