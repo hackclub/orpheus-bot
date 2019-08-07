@@ -71,6 +71,10 @@ const interactionCheckin = (bot, message) => {
             'adios!'
           ])
         }, 'done')
+        convo.addMessage({
+          delay: 1500,
+          text: "You can see your club stats with the `/stats` command"
+        }, 'done')
 
         convo.addMessage({
           delay: 2000, 
