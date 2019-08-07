@@ -149,7 +149,9 @@ const interactionCheckin = (bot, message) => {
           callback: (response, convo) => {
             log('*user wants to restart their checkin*')
             bot.replyInteractive(response, '_↩️ You ask orpheus to start again_')
-            checkinInteraction(bot, message)
+            convo.gotoThread('found')
+            convo.vars = {}
+            convo.next()
           }
         }, {
           pattern: 'cancel',
