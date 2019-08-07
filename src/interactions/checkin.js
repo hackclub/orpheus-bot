@@ -235,6 +235,7 @@ const interactionCheckin = (bot, message) => {
             convo.say({
               text: "_orpheus scrunches her face, eyeing your input with suspicion. looks like that wasn't what she was looking for_"
             })
+            convo.next()
             convo.repeat()
             convo.next()
           }
