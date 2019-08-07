@@ -228,6 +228,9 @@ const interactionCheckin = (bot, message) => {
             convo.next()
           } else {
             console.log(`*User said they had "${response.text}" in attendance, which is invalid`)
+            convo.say({
+              text: "_orpheus scrunches her face, eyeing your input with suspicion. looks like that wasn't what she was looking for_"
+            })
             convo.repeat()
             convo.next()
           }
