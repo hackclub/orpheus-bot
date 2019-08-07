@@ -47,7 +47,15 @@ const init = (bot=initBot()) => {
 }
 init()
 
-controller.hears('thump thump', 'ambient', () => {
+controller.hears('thump thump', 'ambient', (b, m) => {
+  console.log('*orpheus hears her heart beat in her chest*')
+
+  b.api.reactions.add({
+    timestamp: m.tx,
+    channel: m.channel,
+    name: 'white_check_mark'
+  })
+
   getAllClubs().then(clubs => clubs.forEach(club => {
     const day = club.fields['Checkin Day']
     const hour = club.fields['Checkin Hour']
