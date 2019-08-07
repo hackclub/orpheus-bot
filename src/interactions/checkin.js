@@ -218,7 +218,7 @@ const interactionCheckin = (bot, message) => {
         convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
           const attendance = +response.text
 
-          if (attendance > 0) {
+          if (attendance > 0 && attendance % 1 === 0) {
             console.log(`*User said they had "${response.text}" in attendance, which is valid`)
             convo.setVar('attendance', attendance)
             convo.say({
