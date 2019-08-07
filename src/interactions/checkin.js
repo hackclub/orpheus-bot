@@ -215,10 +215,12 @@ const interactionCheckin = (bot, message) => {
                   text: `Ok, I'll record that you met *{{vars.date.dayName}} ({{{vars.date.mmddyyyy}}})*`,
                   action: 'attendance'
                 })
-              convo.next()
+                convo.next()
               } else {
                 console.log(response, convo)
+                bot.replyInteractive(response, `_orpheus gives you a knowing look. she's apparently masking the fact she can't tell what day you meant_`)
                 convo.repeat()
+                convo.next()
               }
             }
           }
