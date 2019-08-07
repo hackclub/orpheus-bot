@@ -192,7 +192,8 @@ const interactionCheckin = (bot, message) => {
                 "text": {
                   "type": "plain_text",
                   "text": suggestion
-                }
+                },
+                "value": suggestion
               }))
             }
           ]
@@ -200,6 +201,7 @@ const interactionCheckin = (bot, message) => {
           {
             default: true,
             callback: (response, convo) => {
+              log('*User responded to attendance question*')
               // attempt to parse
               const meetingDate = parseDate(`${response.text} ${timeZone}`)
               if (Object.prototype.toString.call(meetingDate) === '[object Date]') {
