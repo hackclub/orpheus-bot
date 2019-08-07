@@ -217,14 +217,20 @@ const interactionCheckin = (bot, message) => {
 
         convo.addQuestion(`How many people showed up? (please just enter digits– I'm fragile)`, (response, convo) => {
           const attendance = +response.text
-          console.log(`*User said they had "${response.text}" in attendance`)
-          convo.setVar('attendance', attendance)
 
-          convo.say({
-            text: `I parsed that as *{{vars.attendance}}* hackers`,
-            action: 'confirm'
-          })
-          convo.next()
+          if (attendance > 0) {
+            console.log(`*User said they had "${response.text}" in attendance, which is valid`)
+            convo.setVar('attendance', attendance)
+            convo.say({
+              text: `I parsed that as *{{vars.attendance}}* hackers`,
+              action: 'confirm'
+            })
+            convo.next()
+          } else {
+            console.log(`*User said they had "${response.text}" in attendance, which is invalid`)
+            convo.repeat()
+            convo.next()
+          }
         }, {}, 'attendance')
 
         convo.gotoThread('found')
