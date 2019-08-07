@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "npx babel-node ./src/index.js",
-    "start": "npm run build && node ./build/index.js",
+    "start": "node ./build/index.js",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "npx babel ./src -d ./build -s"
@@ -9,12 +9,12 @@
   "main": "src/index.js",
   "dependencies": {
     "airtable": "0.5.9",
-    "babel-cli": "^6.26.0",
     "botkit": "0.7.4",
     "botkit-storage-redis": "^1.1.0",
     "chrono-node": "^1.3.11"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0"
