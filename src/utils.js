@@ -59,7 +59,7 @@ export const getInfoForUser = user => new Promise((resolve, reject) => {
     .catch(e => reject(e))
 })
 
-export const getClubList = () => (
+export const getAllClubs = () => (
   base('Clubs').select().all()
 )
 
