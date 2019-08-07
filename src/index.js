@@ -34,15 +34,14 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 })
 
 const init = (bot=initBot()) => {
-  bot.say({
-    text:`Build timestamp ${process.env.STARTUP_TIME}`,
-    channel: 'C0P5NE354' // #bot-spam
-  })
   const reply = _.sample([
     '_out of the ashes a small dinosaur pops its head out of the ground. the cycle goes on_',
     '_the cracks in the egg gave way to a small head with curious eyes. the next iteration sets its gaze upon the world_'
   ])
-  bot.say(message, reply)
+  bot.say({
+    text: reply,
+    channel: 'C0P5NE354' // #bot-spam
+  })
 }
 init()
 
