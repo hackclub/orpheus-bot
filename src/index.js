@@ -25,7 +25,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-controller.hears('thump thump', 'direct_message, direct_mention', triggerInteraction)
+controller.hears('thump thump', 'ambient', triggerInteraction)
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   bot.replyInThread(message, "I'll send you a check-in right now!")
@@ -52,7 +52,7 @@ controller.on('slash_command', (bot, message) => {
   }
 })
 
-controller.hears('hello', ['ambient'], helloInteraction)
+controller.hears('hello', 'ambient', helloInteraction)
 
 // catch-all
 controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
