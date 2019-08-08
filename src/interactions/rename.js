@@ -3,6 +3,8 @@ import { airFind } from '../utils'
 const renameInteraction = (bot, message) => {
   const { user, channel, text } = message
 
+  bot.replyAcknowledge()
+
   airFind('Clubs', 'Slack Channel ID', channel).then(club => {
     if (!club) {
       // not a club channel
