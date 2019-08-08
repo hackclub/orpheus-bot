@@ -22,11 +22,11 @@ const renameInteraction = (bot, message) => {
         token: process.env.SLACK_TOKEN
       }, (err, res) => {
         if (err) console.error(err)
+        bot.whisper(message, `hmm... something went wrong. I tried clicking "rename" but it says "${err}" in red`)
       })
     }
   }).catch(err => {
     console.error(err)
-    bot.whisper(message, `hmm... something went wrong. I tried clicking "rename" but it says "${err}" in red`)
   })
 }
 export default renameInteraction
