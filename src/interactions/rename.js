@@ -26,6 +26,7 @@ const renameInteraction = (bot, message) => {
     }
   }).catch(err => {
     console.error(err)
+    bot.whisper(message, `hmm... something went wrong. I tried clicking "rename" but it says "${err}" in red`)
   })
 }
 export default renameInteraction
