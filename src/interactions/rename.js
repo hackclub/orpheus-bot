@@ -15,8 +15,7 @@ const renameInteraction = (bot, message) => {
       bot.api.channels.rename({
         channel,
         name: text,
-        token: process.env.SLACK_TOKEN,
-        validate: true
+        token: process.env.SLACK_TOKEN
       }, (err, res) => {
         if (err) console.error(err)
       })
