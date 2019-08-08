@@ -12,12 +12,13 @@ const renameInteraction = (bot, message) => {
       bot.whisper(message, `Only this club's leaders can run this command. You aren't marked as this club's leader.`)
     } else {
       bot.whisper(message, `You got it boss! Renaming the channel to "${text}"...`)
-      const renamedChannel = bot.api.channels.rename({
+      bot.api.channels.rename({
         channel,
         name: text,
         validate: true
+      }, (err, res) => {
+        if (err) console.error(err)
       })
-      console.log(renamedChannel)
     }
   })
 }
