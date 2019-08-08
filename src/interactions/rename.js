@@ -6,12 +6,15 @@ const renameInteraction = (bot, message) => {
   bot.replyAcknowledge()
 
   airFind('Clubs', 'Slack Channel ID', channel).then(club => {
-    if (!club) {
+    if (!club || !club.fields) {
+      console.log('*no club or fields set*')
       bot.whisper(message, `This command only works on club channels.`)
     } else if (club.fields['Leader Slack IDs'].indexOf(user) === -1) {
       // user not found in club's list of leaders
+      console.log("*user isn't a leader*")
       bot.whisper(message, `Only this club's leaders can run this command. You aren't marked as this club's leader.`)
     } else {
+      console.log(`*Renaming the channel to "${text}*`)
       bot.whisper(message, `You got it boss! Renaming the channel to "${text}"...`)
       bot.api.channels.rename({
         channel,
