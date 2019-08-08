@@ -2,6 +2,29 @@ import Airtable from 'airtable'
 
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
+// usage: airFind('Club', 'Slack Channel ID', slackChannelID)
+export const airFind = (baseName, fieldName, value) => new Promise((resolve, reject) => {
+  airGet(baseName, fieldName, value)
+    .then(results => resolve(results[0]))
+    .catch(err => reject(err))
+})
+
+export const airGet = (baseName, fieldName, value) => new Promise((resolve, reject) => {
+  const results = []
+  base(baseName).select({
+    filterByFormula: `{${fieldName}} = "${value}"`
+  }).eachPage((records, fetchNextPage) => {
+    records.forEach(record => results.push(record))
+    fetchNextPage()
+  }, err => {
+    if (err) {
+      console.error(err)
+      reject(err)
+    }
+    resolve(results)
+  })
+})
+
 const getLeaderFrom = user => new Promise((resolve, reject) => {
   base('Leaders').select({
     filterByFormula: `{Slack ID} = "${user}"`

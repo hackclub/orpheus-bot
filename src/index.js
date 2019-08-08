@@ -11,6 +11,7 @@ import infoInteraction from './interactions/info'
 import statsInteraction from './interactions/stats'
 import helloInteraction from './interactions/hello'
 import triggerInteraction from './interactions/trigger'
+import renameInteraction from './interactions/rename'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -91,6 +92,10 @@ controller.on('slash_command', (bot, message) => {
   switch (command) {
     case '/stats':
       statsInteraction(bot, message)
+      break
+    
+    case '/rename':
+      renameInteraction(bot, message)
       break
   
     default:
