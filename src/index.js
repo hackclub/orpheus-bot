@@ -94,7 +94,7 @@ controller.on('slash_command', (bot, message) => {
       statsInteraction(bot, message)
       break
     
-    case '/rename':
+    case '/rename-channel':
       renameInteraction(bot, message)
       break
   
