@@ -34,36 +34,69 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
-if (SLACK_LOGS_CHANNEL) {
-  controller.middleware.capture.use((bot, message, convo, next) => {
-    console.log("Message", message)
-    console.log("Convo", convo)
-    // const content = {
-    //   blocks: [
-    //   // {
-    //   //   type: 'mrkdwn',
-    //   //   text: message
-    //   // },
-    //   {
-    //     type: "context",
-    //     elements: [
-    //       {
-    //         type: "mrkdwn",
-    //         text: `Convo #${convo}`
-    //       }
-    //     ]
-    //   }]
-    // }
-    // bot.say({
-    //   content,
-    //   channel: SLACK_LOGS_CHANNEL
-    // })
-    next()
-  })
-} else {
-  console.log("WARN: SLACK_LOGS_CHANNEL config var unset, skipping")
-}
+// const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
+// if (SLACK_LOGS_CHANNEL) {
+//   controller.middleware.capture.use((bot, message, convo, next) => {
+//     console.log("Message", message)
+//     console.log("Convo", convo)
+
+
+//     initBot().api.user.info({ user: message.user }).then(user => {
+//       user.profile
+
+//       const attachments = [{
+//         color: convo ? `#${convo.id.toString(16)}` : null,
+//         pretext: null,
+//         author_name: user.profile
+//       }]
+//       const blocks = {}
+
+//       block.push({
+//         type: "context",
+//         elements: [{
+//           type: 'image',
+//           image_url: message.user.profile
+//         }]
+//       })
+//       if (message.event.type === 'message') {
+//         attachments.blocks.push({
+//           type: "context",
+//           elements: [{
+//             type: 'mrkdwn',
+//             text: `Convo #${convo.id}`
+//           }]
+//         })
+//       }
+//       if (convo) {
+//         block.color = `#${convo.id.toString(16)}`
+
+//         attachments.blocks.push({
+//           type: "context",
+//           elements: [{
+//             type: 'mrkdwn',
+//             text: `Convo #${convo.id}`
+//           }]
+//         })
+//       }
+//       // switch(message.event.type) {
+//       //   case 'message':
+//       //     break
+//       //   default:
+
+//       //     break
+
+//       // }
+//       bot.say({
+//         attachments: { [ block ] },
+//         channel: SLACK_LOGS_CHANNEL
+//       })
+//     })
+
+//     next()
+//   })
+// } else {
+//   console.log("WARN: SLACK_LOGS_CHANNEL config var unset, skipping")
+// }
 
 const init = (bot=initBot()) => {
   const reply = _.sample([
