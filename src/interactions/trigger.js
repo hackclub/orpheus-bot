@@ -1,3 +1,5 @@
+import { getAllClubs } from '../utils'
+
 const triggerInteraction = (bot, message) => {
   // TODO ensure triggered by admin & zap only
 
