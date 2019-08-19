@@ -135,8 +135,8 @@ const interactionCheckin = (bot, message) => {
 
             convo.say("I'll write it in my notepad...")
             const { date, attendance } = convo.vars
-            recordMeeting(club, { date, attendance }, (meetingRecord) => {
               log(meetingRecord)
+            recordMeeting(club, { date: date.full, attendance }, (meetingRecord) => {
               convo.say({
                 text: "Got it recorded",
                 action: 'done'
