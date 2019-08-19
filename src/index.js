@@ -36,7 +36,9 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 
 const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 if (SLACK_LOGS_CHANNEL) {
-    console.log("Convo", JSON.stringify(convo))
+  controller.middleware.capture.use((bot, message, convo, next) => {
+    console.log("Message", message)
+    console.log("Convo", convo)
     // const content = {
     //   blocks: [
     //   // {
@@ -57,8 +59,8 @@ if (SLACK_LOGS_CHANNEL) {
     //   content,
     //   channel: SLACK_LOGS_CHANNEL
     // })
-    // next()
-  // })
+    next()
+  })
 } else {
   console.log("WARN: SLACK_LOGS_CHANNEL config var unset, skipping")
 }
