@@ -8,7 +8,7 @@ const triggerInteraction = (bot, message) => {
   bot.api.reactions.add({
     timestamp: message.ts,
     channel: message.channel,
-    name: 'heart_pulse'
+    name: 'heartbeat'
   })
   
   getAllClubs().then(clubs => clubs.forEach(club => {
