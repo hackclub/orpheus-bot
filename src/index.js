@@ -34,6 +34,35 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
+const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
+if (SLACK_LOGS_CHANNEL) {
+  controller.middleware.capture.use((bot, message, convo, next) => {
+    console.log(JSON.stringify(convo))
+    const content = {
+      blocks: [{
+        type: 'mrkdwn',
+        text: message.text
+      },
+      {
+        type: "context",
+        elements: [
+          {
+            type: "mrkdwn",
+            text: `Convo #${convo}`
+          }
+        ]
+      }]
+    }
+    bot.say({
+      content,
+      channel: SLACK_LOGS_CHANNEL
+    })
+    next()
+  })
+} else {
+  console.log("WARN: SLACK_LOGS_CHANNEL config var unset, skipping")
+}
+
 const init = (bot=initBot()) => {
   const reply = _.sample([
     '_out of the ashes a small dinosaur pops its head out of the ground. the cycle goes on_',
