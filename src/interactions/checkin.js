@@ -140,7 +140,7 @@ const interactionCheckin = (bot, message) => {
             recordMeeting(club, { date: date.mmddyyyy, attendance }, (err, meetingRecord) => {
               if (err) {
                 convo.say({
-                  text: `Hmm.... looks like something isn't working. All it says on my end is ${err}`,
+                  text: `:warning: looks like something isn't working. All it says on my end is \`${err}\`.`,
                   action: 'done'
                 })
               } else {
