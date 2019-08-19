@@ -37,27 +37,28 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 if (SLACK_LOGS_CHANNEL) {
   controller.middleware.capture.use((bot, message, convo, next) => {
-    console.log(JSON.stringify(message))
-    console.log(JSON.stringify(convo))
-    const content = {
-      blocks: [{
-        type: 'mrkdwn',
-        text: message.text
-      },
-      {
-        type: "context",
-        elements: [
-          {
-            type: "mrkdwn",
-            text: `Convo #${convo}`
-          }
-        ]
-      }]
-    }
-    bot.say({
-      content,
-      channel: SLACK_LOGS_CHANNEL
-    })
+    console.log("Message", JSON.stringify(message))
+    console.log("Convo", JSON.stringify(convo))
+    // const content = {
+    //   blocks: [
+    //   // {
+    //   //   type: 'mrkdwn',
+    //   //   text: message
+    //   // },
+    //   {
+    //     type: "context",
+    //     elements: [
+    //       {
+    //         type: "mrkdwn",
+    //         text: `Convo #${convo}`
+    //       }
+    //     ]
+    //   }]
+    // }
+    // bot.say({
+    //   content,
+    //   channel: SLACK_LOGS_CHANNEL
+    // })
     next()
   })
 } else {
