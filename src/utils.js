@@ -98,6 +98,6 @@ export const recordMeeting = (club, meeting, cb) => {
     if (err) {
       console.error(err)
     }
-    cb(record)
+    cb(err, record)
   })
 }

@@ -134,13 +134,21 @@ const interactionCheckin = (bot, message) => {
             bot.replyInteractive(response, `_✅ You confirm everything is accurate as orpheus ${reply}._`)
 
             convo.say("I'll write it in my notepad...")
+
             const { date, attendance } = convo.vars
-              log(meetingRecord)
-            recordMeeting(club, { date: date.full, attendance }, (meetingRecord) => {
-              convo.say({
-                text: "Got it recorded",
-                action: 'done'
-              })
+
+            recordMeeting(club, { date: date.full, attendance }, (err, meetingRecord) => {
+              if (err) {
+                convo.say({
+                  text: `Hmm.... looks like something isn't working. All it says on my end is ${err}`,
+                  action: 'done'
+                })
+              } else {
+                convo.say({
+                  text: "Got it recorded",
+                  action: 'done'
+                })
+              }
               convo.next()
             })
           }
