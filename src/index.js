@@ -46,7 +46,7 @@ const init = (bot=initBot()) => {
     channel: 'C0P5NE354' // #bot-spam
   })
 }
-init()
+// init()
 
 controller.hears('thump thump', 'ambient', (b, m) => {
   console.log('*orpheus hears her heart beat in her chest*')
