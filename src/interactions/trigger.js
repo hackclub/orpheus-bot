@@ -6,7 +6,7 @@ const triggerInteraction = (bot, message) => {
   console.log('*orpheus hears her heart beat in her chest*')
 
   bot.api.reactions.add({
-    timestamp: message.tx,
+    timestamp: message.ts,
     channel: message.channel,
     name: 'white_check_mark'
   })
