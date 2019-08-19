@@ -37,6 +37,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 if (SLACK_LOGS_CHANNEL) {
   controller.middleware.capture.use((bot, message, convo, next) => {
+    console.log(JSON.stringify(message))
     console.log(JSON.stringify(convo))
     const content = {
       blocks: [{
