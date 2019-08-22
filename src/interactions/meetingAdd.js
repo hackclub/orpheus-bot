@@ -35,6 +35,9 @@ const meetingAdd = (bot, message) => {
       }
     },
     {
+      type: 'divider'
+    },
+    {
       type: 'section',
       text: {
         type: 'mrkdwn',
@@ -47,6 +50,9 @@ const meetingAdd = (bot, message) => {
         type: 'mrkdwn',
         text: `Attendance: *${attendance}*`
       }
+    },
+    {
+      type: 'divider'
     },
     {
       "type": "actions",
@@ -78,9 +84,6 @@ const meetingAdd = (bot, message) => {
           "value": "cancel"
         }]
       },
-    {
-      type: 'divider'
-    },
     {
       type: "context",
       elements: [
