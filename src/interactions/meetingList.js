@@ -2,7 +2,7 @@ import { getInfoForUser } from "../utils";
 
 const meetingListInteraction = (bot, message) => {
 
-  getInfoForUser(user).then(({ leader, club, history }) => {
+  getInfoForUser(message.user).then(({ leader, club, history }) => {
     let reply = ''
 
     if (history.meetings && history.meetings.length > 0) {
