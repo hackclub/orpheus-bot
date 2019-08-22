@@ -16,7 +16,7 @@ const meetingAdd = (bot, message) => {
   const date = parseDate(rawDate)
   const attendance = parseInt(rawAttendance.match(/(\d+)/)[0])
 
-  bot.whisper(message, { content: {
+  bot.whisper(message, {
     blocks: [{
         type: 'section',
         text: {
@@ -37,7 +37,7 @@ const meetingAdd = (bot, message) => {
         ]
       }
     ]
-  }}, (err, response) => {
+  }, (err, response) => {
     if (err) {console.error(err)}
   })
 }
