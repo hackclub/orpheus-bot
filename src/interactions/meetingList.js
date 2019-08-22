@@ -1,6 +1,7 @@
 import { getInfoForUser } from "../utils";
 
 const meetingListInteraction = (bot, message) => {
+  bot.replyAcknowledge()
 
   getInfoForUser(message.user).then(({ leader, club, history }) => {
     let reply = ''
