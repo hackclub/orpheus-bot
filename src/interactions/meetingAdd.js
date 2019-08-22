@@ -69,15 +69,6 @@ const meetingAdd = (bot, message) => {
           "type": "button",
           "text": {
             "type": "plain_text",
-            "text": "↩️ restart",
-            "emoji": true
-          },
-          "value": "restart"
-        },
-        {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
             "text": "⛔️ cancel",
             "emoji": true
           },
