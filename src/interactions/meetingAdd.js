@@ -16,28 +16,41 @@ const meetingAdd = (bot, message) => {
   const date = parseDate(rawDate)
   const attendance = parseInt(rawAttendance.match(/(\d+)/)[0])
 
-  bot.whisper(message, {
-    blocks: [{
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `This is the *CONFIRMATION STAGE*`
-        }
-      },
-      {
-        type: 'divider'
-      },
-      {
-        type: "context",
-        elements: [
-          {
-            type: "mrkdwn",
-            text: 'For help, type `/meeting-add help`'
-          }
-        ]
+  bot.whisper(message, { blocks: [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `Just to confirm, is the following correct?`
       }
-    ]
-  }, (err, response) => {
+    },
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `Date: *${date}*`
+      }
+    },
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `Attendance: *${attendance}*`
+      }
+    },
+    {
+      type: 'divider'
+    },
+    {
+      type: "context",
+      elements: [
+        {
+          type: "mrkdwn",
+          text: 'For help, type `/meeting-add help`'
+        }
+      ]
+    }
+  ]}, (err, response) => {
     if (err) {console.error(err)}
   })
 }
