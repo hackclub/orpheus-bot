@@ -11,7 +11,7 @@ const meetingListInteraction = (bot, message) => {
 
     if (history.meetings && history.meetings.length > 0) {
       reply = history.meetings.map(h =>
-        `- On *${h.fields['Date']}* _(${Date.now() - parseDate(h.fields['Date'])})_, with *${h.fields['Attendance']} attendees*`
+        `- On *${h.fields['Date']}* _(${humanizeDuration(Date.now() - parseDate(h.fields['Date']))})_, with *${h.fields['Attendance']} attendees*`
       ).join("\n")
     }
 
