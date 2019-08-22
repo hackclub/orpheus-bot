@@ -1,4 +1,7 @@
-import { getInfoForUser } from "../utils";
+import humanizeDuration from 'humanize-duration'
+import { parseDate } from 'chrono-node'
+
+import { getInfoForUser } from '../utils'
 
 const meetingListInteraction = (bot, message) => {
   bot.replyAcknowledge()
@@ -7,7 +10,9 @@ const meetingListInteraction = (bot, message) => {
     let reply = ''
 
     if (history.meetings && history.meetings.length > 0) {
-      reply = history.meetings.map(h => `- On *${h.fields['Date']}*, with *${h.fields['Attendance']} attendees*`).join("\n")
+      reply = history.meetings.map(h =>
+        `- On *${h.fields['Date']}* _(${Date.now() - parseDate(h.fields['Date'])})_, with *${h.fields['Attendance']} attendees*`
+      ).join("\n")
     }
 
     if (history.meetings && history.meetings.length === 0) {
