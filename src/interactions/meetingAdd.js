@@ -3,6 +3,16 @@ import { parseDate } from 'chrono-node'
 const meetingAdd = (bot, message) => {
   bot.replyAcknowledge()
 
+  bot.whisper(message, { blocks: [
+    {
+      type: 'context',
+      elements: [ {
+        type: 'mrkdwn',
+        text: `/meeting-add ${message.text}`
+      } ]
+    }
+  ]})
+
   if (message.text.indexOf(',') === -1) {
     // either the user typed "help" or an incorrectly formatted command
     const manual = "_Placeholder usage instructions_"
