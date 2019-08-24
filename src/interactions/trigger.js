@@ -5,6 +5,16 @@ const triggerInteraction = (bot, message) => {
 
   console.log('*orpheus hears her heart beat in her chest*')
 
+  const isAdmin = true // TODO: figure out if poster is allowed to trigger checkins
+
+  if (!isAdmin) {
+    bot.api.reactions.add({
+      timestamp: message.ts,
+      channel: message.channel,
+      name: 'broken_heart'
+    })
+    return
+  }
   bot.api.reactions.add({
     timestamp: message.ts,
     channel: message.channel,
