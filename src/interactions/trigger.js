@@ -3,7 +3,6 @@ import { getAllClubs } from '../utils'
 const triggerInteraction = (bot, message) => {
   new Promise((resolve, reject) => {
     bot.api.users.info(message, (err, res) => {
-      console.log(err, res)
       if (err) { reject(err) }
       const isAuthed = res.user.is_admin || res.user.is_owner
       resolve(isAuthed)
@@ -37,6 +36,9 @@ const triggerInteraction = (bot, message) => {
       console.log(`*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`)
       // TODO: Trigger a check-in from here
     }))
+  }).catch(err => {
+    console.error(err)
+    bot.whisper(message, `Got error: \`${err}\``)
   })
 }
 
