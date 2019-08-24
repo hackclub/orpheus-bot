@@ -8,6 +8,8 @@ const interactionStats = (bot, message) => {
 
   const loadingMessage = _.sample([
     'chugging the data juice',
+    'chugging *Stat-Cola©*, for those who want to know things™',
+    "that's numberwang!",
     'crunching the numbers',
     'gurgling the bits',
     'juggling the electrons',
