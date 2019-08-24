@@ -66,7 +66,7 @@ const interactionStats = (bot, message) => {
         }
         console.log(graphUrl(history, club))
         updateResponse(content, err => {
-          console.error(err)
+          if (err) console.error(err)
         })
       }, 2000)
     }).catch(err => console.error(err))
