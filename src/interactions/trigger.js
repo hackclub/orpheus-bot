@@ -1,11 +1,13 @@
 import { getAllClubs } from '../utils'
 
 const triggerInteraction = (bot, message) => {
-  bot.api.users.info(message, (err, res) => new Promise((resolve, reject) => {
-    if (err) { reject(err) }
-    const isAuthed = res.user.is_admin || res.user.is_owner
-    resolve(isAuthed)
-  })).then((isAuthed) => {
+  new Promise((resolve, reject) => {
+    bot.api.users.info(message, (err, res) => {
+      if (err) { reject(err) }
+      const isAuthed = res.user.is_admin || res.user.is_owner
+      resolve(isAuthed)
+    })
+  }).then((isAuthed) => {
     // ensure posted by admins
     if (!isAuthed) {
       bot.api.reactions.add({
@@ -15,7 +17,7 @@ const triggerInteraction = (bot, message) => {
       })
       return
     }
-  }).then(() => {
+
     bot.api.reactions.add({
       timestamp: message.ts,
       channel: message.channel,
