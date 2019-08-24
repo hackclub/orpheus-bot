@@ -3,6 +3,7 @@ import { getAllClubs } from '../utils'
 const triggerInteraction = (bot, message) => {
   new Promise((resolve, reject) => {
     bot.api.users.info(message, (err, res) => {
+      console.log(err, res)
       if (err) { reject(err) }
       const isAuthed = res.user.is_admin || res.user.is_owner
       resolve(isAuthed)
