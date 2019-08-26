@@ -1,8 +1,6 @@
 import { parseDate } from 'chrono-node'
 
 const meetingAdd = (bot, message) => {
-  bot.replyAcknowledge()
-
   bot.whisper(message, { blocks: [
     {
       type: 'context',

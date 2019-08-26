@@ -4,8 +4,6 @@ import { getInfoForUser } from '../utils'
 const interactionStats = (bot, message) => {
   const { user } = message
 
-  bot.replyAcknowledge()
-
   const loadingMessage = _.sample([
     'chugging the data juice',
     'chugging *Stat-Cola©*, for those who want to know things™',

@@ -128,6 +128,8 @@ controller.on('slash_command', (bot, message) => {
   const { command, user } = message
   console.log(`Received ${command} command from user ${user}`)
 
+  bot.replyAcknowledge()
+
   switch (command) {
     case '/stats':
       statsInteraction(bot, message)
