@@ -154,8 +154,7 @@ controller.on('slash_command', (bot, message) => {
 })
 
 controller.on('block_actions', (bot, message) => {
-  console.log(bot)
-  console.log(message)
+  console.log(message.actions, message.callback_id)
 })
 
 // catch-all
