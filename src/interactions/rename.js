@@ -3,7 +3,7 @@ import { airFind } from '../utils'
 const renameInteraction = (bot, message) => {
   const { user, channel, text } = message
 
-  airFind('Clubs', '{Slack Channel ID}', channel).then(club => {
+  airFind('Clubs', 'Slack Channel ID', channel).then(club => {
     if (!club || !club.fields) {
       console.log('*no club or fields set*')
       bot.whisper(message, `This command only works on club channels.`)

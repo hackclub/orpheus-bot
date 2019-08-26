@@ -1,19 +1,28 @@
 import Airtable from 'airtable'
-
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
-// usage: airFind('Club', '{Slack Channel ID}', slackChannelID)
 export const airFind = (baseName, fieldName, value) => new Promise((resolve, reject) => {
+  // see airGet() for usage
   airGet(baseName, fieldName, value)
     .then(results => resolve(results[0]))
     .catch(err => reject(err))
 })
 
 export const airGet = (baseName, fieldName=null, value=null) => new Promise((resolve, reject) => {
+  // usage:
+  // for key, value lookup: airGet('Club', 'Slack Channel ID', slackChannelID)
+  // for formula lookup: airGet('Club', '{Slack Channel ID} = BLANK()')
+
   const options = {}
-  if (fieldName != null) {
-    options.filterByFormula = `(${fieldName}) = (${value || 'TRUE()'})`
+  if (fieldName != null && value != null) {
+    // This is a key/value lookup
+    options.filterByFormula = `{${fieldName}} = "${value}"`
   }
+  if (fieldName != null) {
+    // This is a formula lookup
+    options.filterByFormula = `(${fieldName}) = TRUE()`
+  }
+
   console.log(`[QUERY] BASE="${baseName}" "${options.filterByFormula}"`)
 
   base(baseName).select(options).all((err, data) => {
@@ -29,7 +38,7 @@ export const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
 
   // Get the leader from the user
-  airFind('Leaders', '{Slack ID}', user)
+  airFind('Leaders', 'Slack ID', user)
     .then(leader => results.leader = leader)
     // Then club from leader
     .then(() => airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`))
