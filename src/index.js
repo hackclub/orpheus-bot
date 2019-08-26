@@ -125,8 +125,8 @@ controller.hears('date', 'direct_mention', dateInteraction)
 controller.hears('info', 'direct_message,direct_mention', infoInteraction)
 
 controller.on('slash_command', (bot, message) => {
-  const { command, user } = message
-  console.log(`Received ${command} command from user ${user}`)
+  const { command, user, channel } = message
+  console.log(`Received ${command} command from user ${user} in ${channel}`)
 
   bot.replyAcknowledge()
 
