@@ -60,7 +60,8 @@ const meetingAdd = (bot, message) => {
       },
       {  
         "type":"actions",
-        "elements":[  
+        "block_id": `slash-meetingAdd-confirmation-${message.ts}`,
+        "elements":[
           {  
             "type":"button",
             "text":{  
