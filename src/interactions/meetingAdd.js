@@ -42,7 +42,7 @@ const meetingAdd = (bot, message) => {
     console.log(date, attendance)
     bot.replyPrivate(message, 'test')
     
-    bot.replyPrivate({ blocks: [
+    bot.replyPrivate(message, { blocks: [
       {  
         "type":"section",
         "text":{  
