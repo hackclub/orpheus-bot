@@ -52,27 +52,27 @@ const meetingAdd = (bot, message) => {
     {
       type: 'divider'
     },
-    {
-      "type": "actions",
-      "elements": [{
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "text": "✅ submit",
-            "emoji": true
-          },
-          "value": "submit"
-        },
-        {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "text": "⛔️ cancel",
-            "emoji": true
-          },
-          "value": "cancel"
-        }]
-      },
+    // {
+    //   "type": "actions",
+    //   "elements": [{
+    //       "type": "button",
+    //       "text": {
+    //         "type": "plain_text",
+    //         "text": "✅ submit",
+    //         "emoji": true
+    //       },
+    //       "value": "submit"
+    //     },
+    //     {
+    //       "type": "button",
+    //       "text": {
+    //         "type": "plain_text",
+    //         "text": "⛔️ cancel",
+    //         "emoji": true
+    //       },
+    //       "value": "cancel"
+    //     }]
+    //   },
     {
       type: "context",
       elements: [
