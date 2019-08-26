@@ -1,20 +1,18 @@
 import { getAllClubs } from '../utils'
 
-const getUserFromSlack = (bot, user) => new Promise((resolve, reject) => {
+const getAdmin = (bot, user) => new Promise((resolve, reject) => {
   bot.api.users.info({ user }, (err, res) => {
     if (err) {
       console.error(err)
       reject(err)
     }
-    resolve(res.user)
+    resolve(res.user.is_owner)
   })
 })
 
 const triggerInteraction = (bot, message) => {
-  getUserFromSlack(bot, message.user).then((user) => {
-    const isAuthed = user.is_admin || user.is_owner
-
-    if (!isAuthed) {
+  getAdmin(bot, message.user).then((admin) => {
+    if (!admin) {
       bot.api.reactions.add({
         timestamp: message.ts,
         channel: message.channel,
@@ -23,6 +21,24 @@ const triggerInteraction = (bot, message) => {
       throw new Error('user_not_leader')
     }
 
+    bot.api.reactions.add({
+      timestamp: message.ts,
+      channel: message.channel,
+      name: 'heartbeat'
+    })
+
+    getAllClubs().then(clubs => clubs.forEach(club => {
+      const day = club.fields['Checkin Day']
+      const hour = club.fields['Checkin Hour']
+      const channel = club.fields['Slack Channel ID']
+
+      if (!day) { return }
+      if (!hour) { return }
+      if (!channel) { return }
+
+      console.log(`*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`)
+      // TODO: Trigger a check-in from here
+    }))
   }).catch(err => {
     console.error(err)
     bot.whisper(message, `Got error: \`${err}\``)
