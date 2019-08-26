@@ -40,8 +40,9 @@ const meetingAdd = (bot, message) => {
     const attendance = parseInt((rawAttendance.match(/(\d+)/) || [])[0])
     
     console.log(date, attendance)
-    bot.whisper(message, 'test')
-    bot.replyPrivate(message, 'test')
+    bot.whisper(message, 'test', (err, response) => {
+      bot.replyPrivate(response, 'edited')
+    })
     return
     
     bot.replyPrivate(message, { blocks: [
