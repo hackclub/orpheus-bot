@@ -21,8 +21,9 @@ const meetingAdd = (bot, message) => {
   }
 
   const [ rawDate, rawAttendance, ...other ] = message.text.split(',')
-  console.log(rawDate, rawAttendance)
   const date = parseDate(rawDate)
+  const dayName = meetingDate.toLocaleDateString('en-us', { weekday: 'long', timeZone })
+  const mmddyyyy = meetingDate.toLocaleDateString('en-us', {timeZone})
   const attendance = parseInt((rawAttendance.match(/(\d+)/) || [])[0])
 
   bot.whisper(message, { blocks: [
@@ -40,7 +41,7 @@ const meetingAdd = (bot, message) => {
       "type":"section",
       "text":{  
         "type":"mrkdwn",
-        "text":`Date: *${date}*\nAttendance: *${attendance}*`
+        "text":`Date: *${dayName (mmddyyyy)}*\nAttendance: *${attendance}*`
       }
     },
     {  
