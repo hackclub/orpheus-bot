@@ -4,7 +4,7 @@ const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.A
 
 // usage: airFind('Club', 'Slack Channel ID', slackChannelID)
 export const airFind = () => new Promise((resolve, reject) => {
-  airGet(arguments)
+  airGet.apply(null, arguments)
     .then(results => resolve(results[0]))
     .catch(err => reject(err))
 })
