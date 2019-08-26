@@ -9,10 +9,10 @@ export const airFind = () => new Promise((resolve, reject) => {
     .catch(err => reject(err))
 })
 
-export const airGet = (baseName, fieldName=null, value=true) => new Promise((resolve, reject) => {
+export const airGet = (baseName, fieldName=null, value=null) => new Promise((resolve, reject) => {
   const options = {}
   if (fieldName != null) {
-    options.filterByFormula = `${fieldName} = "${value}"`
+    options.filterByFormula = `(${fieldName}) = (${value || 'TRUE()'})`
   }
   console.log(`[QUERY] BASE="${baseName}" "${options.filterByFormula}"`)
 
