@@ -43,7 +43,7 @@ export const getInfoForUser = user => new Promise((resolve, reject) => {
     .then(() => airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`))
     .then(club => results.club = club)
     // Then club's history from club
-    .then(() => airGet('History', 'Club', club.fields['ID']))
+    .then(() => airGet('History', 'Club', results.club.fields['ID']))
     .then(history => {
       results.history = {
         records: history,
