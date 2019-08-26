@@ -21,6 +21,7 @@ const meetingAdd = (bot, message) => {
   }
 
   const [ rawDate, rawAttendance, ...other ] = message.text.split(',')
+  console.log(rawDate, rawAttendance)
   const date = parseDate(rawDate)
   const attendance = parseInt(rawAttendance.match(/(\d+)/)[0])
 
