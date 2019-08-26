@@ -37,6 +37,7 @@ const triggerInteraction = (bot, message) => {
       if (!channel) { return }
 
       console.log(`*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`)
+      bot.replyInThread(message, `I'm reaching out to <#${channel}> (database ID ${club.fields['ID']})`)
       // TODO: Trigger a check-in from here
     }))
   }).catch(err => {
