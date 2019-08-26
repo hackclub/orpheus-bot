@@ -1,4 +1,4 @@
-import { getAllClubs } from '../utils'
+import { airGet } from '../utils'
 
 const getAdmin = (bot, user) => new Promise((resolve, reject) => {
   bot.api.users.info({ user }, (err, res) => {
@@ -27,7 +27,7 @@ const triggerInteraction = (bot, message) => {
       name: 'heartbeat'
     })
 
-    getAllClubs().then(clubs => clubs.forEach(club => {
+    airGet('Clubs').then(clubs => clubs.forEach(club => {
       const day = club.fields['Checkin Day']
       const hour = club.fields['Checkin Hour']
       const channel = club.fields['Slack Channel ID']

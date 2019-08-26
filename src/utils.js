@@ -3,75 +3,39 @@ import Airtable from 'airtable'
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
 // usage: airFind('Club', 'Slack Channel ID', slackChannelID)
-export const airFind = (baseName, fieldName, value) => new Promise((resolve, reject) => {
-  airGet(baseName, fieldName, value)
+export const airFind = () => new Promise((resolve, reject) => {
+  airGet(arguments)
     .then(results => resolve(results[0]))
     .catch(err => reject(err))
 })
 
-export const airGet = (baseName, fieldName, value) => new Promise((resolve, reject) => {
-  const results = []
-  base(baseName).select({
-    filterByFormula: `{${fieldName}} = "${value}"`
-  }).eachPage((records, fetchNextPage) => {
-    records.forEach(record => results.push(record))
-    fetchNextPage()
-  }, err => {
+export const airGet = (baseName, fieldName=null, value=true) => new Promise((resolve, reject) => {
+  const options = {}
+  if (fieldName != null) {
+    options.filterByFormula = `${fieldName} = "${value}"`
+  }
+  console.log(`[QUERY] BASE="${baseName}" "${options.filterByFormula}"`)
+
+  base(baseName).select(options).all((err, data) => {
     if (err) {
       console.error(err)
       reject(err)
     }
-    resolve(results)
-  })
-})
-
-const getLeaderFrom = user => new Promise((resolve, reject) => {
-  base('Leaders').select({
-    filterByFormula: `{Slack ID} = "${user}"`
-  }).firstPage((err, records) => {
-    if (err) {
-      console.error(err)
-      reject(err)
-    }
-    resolve(records[0])
-  })
-})
-
-const getClubFrom = leader => new Promise((resolve, reject) => {
-  if (!leader) {resolve(null)}
-  base('Clubs').select({
-    filterByFormula: `SEARCH("${leader.fields['ID']}", ARRAYJOIN(Leaders))`
-  }).firstPage((err, records) => {
-    if (err) {
-      console.error(err)
-      reject(err)
-    }
-    resolve(records[0])
-  })
-})
-
-const getHistoryFrom = club => new Promise((resolve, reject) => {
-  const result = []
-  if (!club) {resolve(null)}
-  base('History').select({
-    filterByFormula: `Club = "${club.fields['ID']}"`
-  }).eachPage((records, fetchNextPage) => {
-    records.forEach(record => result.push(record))
-    fetchNextPage()
-  }, err => {
-    if (err) {reject(err)}
-    resolve(result)
+    resolve(data)
   })
 })
 
 export const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
-  
-  getLeaderFrom(user)
+
+  // Get the leader from the user
+  airFind('Leaders', 'Slack ID', user)
     .then(leader => results.leader = leader)
-    .then(() => getClubFrom(results.leader))
+    // Then club from leader
+    .then(() => airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`))
     .then(club => results.club = club)
-    .then(() => getHistoryFrom(results.club))
+    // Then club's history from club
+    .then(() => airGet('History', 'Club', club.fields['ID']))
     .then(history => {
       results.history = {
         records: history,
@@ -81,10 +45,6 @@ export const getInfoForUser = user => new Promise((resolve, reject) => {
     .then(() => resolve(results))
     .catch(e => reject(e))
 })
-
-export const getAllClubs = () => (
-  base('Clubs').select().all()
-)
 
 export const recordMeeting = (club, meeting, cb) => {
   console.log(club, meeting)
