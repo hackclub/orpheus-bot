@@ -3,8 +3,8 @@ import Airtable from 'airtable'
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
 // usage: airFind('Club', 'Slack Channel ID', slackChannelID)
-export const airFind = () => new Promise((resolve, reject) => {
-  airGet.apply(null, arguments)
+export const airFind = (baseName, fieldName, value) => new Promise((resolve, reject) => {
+  airGet(baseName, fieldName, value)
     .then(results => resolve(results[0]))
     .catch(err => reject(err))
 })
