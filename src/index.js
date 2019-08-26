@@ -124,6 +124,8 @@ controller.hears('date', 'direct_mention', dateInteraction)
 
 controller.hears('info', 'direct_message,direct_mention', infoInteraction)
 
+controller.hears('hello', 'ambient', helloInteraction)
+
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel } = message
   console.log(`Received ${command} command from user ${user} in ${channel}`)
@@ -151,10 +153,6 @@ controller.on('slash_command', (bot, message) => {
       bot.replyPrivate(message, "I don't know how to do that ¯\\_(ツ)_/¯")
       break
   }
-})
-
-controller.on('block_actions', (bot, message) => {
-  console.log(message.actions, message.callback_id)
 })
 
 // catch-all
