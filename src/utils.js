@@ -2,7 +2,7 @@ import Airtable from 'airtable'
 
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
-// usage: airFind('Club', 'Slack Channel ID', slackChannelID)
+// usage: airFind('Club', '{Slack Channel ID}', slackChannelID)
 export const airFind = (baseName, fieldName, value) => new Promise((resolve, reject) => {
   airGet(baseName, fieldName, value)
     .then(results => resolve(results[0]))
@@ -29,7 +29,7 @@ export const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
 
   // Get the leader from the user
-  airFind('Leaders', 'Slack ID', user)
+  airFind('Leaders', '{Slack ID}', user)
     .then(leader => results.leader = leader)
     // Then club from leader
     .then(() => airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`))
