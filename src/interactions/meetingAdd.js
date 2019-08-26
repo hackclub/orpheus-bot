@@ -63,7 +63,6 @@ const meetingAdd = (bot, message) => {
         },
         {  
           "type":"actions",
-          "block_id": blockID,
           "elements":[
             {  
               "type":"button",
