@@ -153,7 +153,10 @@ controller.on('slash_command', (bot, message) => {
   }
 })
 
-controller.hears('hello', 'ambient', helloInteraction)
+controller.on('block_actions', (bot, message) => {
+  console.log(bot)
+  console.log(message)
+})
 
 // catch-all
 controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
