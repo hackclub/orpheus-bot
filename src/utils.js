@@ -8,19 +8,18 @@ export const airFind = (baseName, fieldName, value) => new Promise((resolve, rej
     .catch(err => reject(err))
 })
 
-export const airGet = (baseName, fieldName=null, value=null) => new Promise((resolve, reject) => {
+export const airGet = (baseName, searchArg=null, tertiaryArg=null) => new Promise((resolve, reject) => {
   // usage:
-  // for key, value lookup: airGet('Club', 'Slack Channel ID', slackChannelID)
-  // for formula lookup: airGet('Club', '{Slack Channel ID} = BLANK()')
+  // for key/value lookup: `airGet('Clubs', 'Slack Channel ID', slackChannelID)`
+  // for formula lookup: `airGet('Clubs', '{Slack Channel ID} = BLANK()')`
+  // for all records: `airGet('Leaders')`
+  console.log(baseName, searchArg, tertiaryArg)
 
   const options = {}
-  if (fieldName != null && value != null) {
-    // This is a key/value lookup
-    options.filterByFormula = `{${fieldName}} = "${value}"`
-  }
-  if (fieldName != null) {
-    // This is a formula lookup
-    options.filterByFormula = `(${fieldName}) = TRUE()`
+  if (searchArg != null) {
+    options.filterByFormula = tertiaryArg != null ?
+      `{${searchArg}} = "${tertiaryArg}"` : // this is a key/value lookup
+      searchArg // this is a formula lookup
   }
 
   console.log(`[QUERY] BASE="${baseName}" "${options.filterByFormula}"`)
