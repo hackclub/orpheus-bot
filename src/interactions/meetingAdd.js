@@ -40,7 +40,7 @@ const meetingAdd = (bot, message) => {
       const mmddyyyy = date.toLocaleDateString('en-us', {timeZone})
       const attendance = parseInt((rawAttendance.match(/(\d+)/) || [])[0])
       
-      convo.ask({ is_ephemeral: true, blocks: [
+      convo.ask({ ephemeral: true, blocks: [
         {  
           "type":"section",
           "text":{  
