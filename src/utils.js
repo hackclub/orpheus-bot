@@ -13,7 +13,6 @@ export const airGet = (baseName, searchArg=null, tertiaryArg=null) => new Promis
   // for key/value lookup: `airGet('Clubs', 'Slack Channel ID', slackChannelID)`
   // for formula lookup: `airGet('Clubs', '{Slack Channel ID} = BLANK()')`
   // for all records: `airGet('Leaders')`
-  console.log(baseName, searchArg, tertiaryArg)
 
   const options = {}
   if (searchArg != null) {
@@ -22,7 +21,7 @@ export const airGet = (baseName, searchArg=null, tertiaryArg=null) => new Promis
       searchArg // this is a formula lookup
   }
 
-  console.log(`[QUERY] BASE="${baseName}" "${options.filterByFormula}"`)
+  console.log(`I wrote a query & sent it to AirTable: BASE=${baseName} FILTER=${options.filterByFormula}`)
 
   base(baseName).select(options).all((err, data) => {
     if (err) {
