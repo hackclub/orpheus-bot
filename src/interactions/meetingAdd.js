@@ -36,7 +36,6 @@ const meetingAdd = (bot, message) => {
     const dayName = date.toLocaleDateString('en-us', { weekday: 'long', timeZone })
     const mmddyyyy = date.toLocaleDateString('en-us', {timeZone})
     const attendance = parseInt((rawAttendance.match(/(\d+)/) || [])[0])
-    console.log(message)
 
     bot.whisper(message, { blocks: [
       {  
@@ -61,7 +60,7 @@ const meetingAdd = (bot, message) => {
       },
       {  
         "type":"actions",
-        "block_id": `slash-meetingAdd-confirmation-${message.ts}`,
+        "block_id": `slash-meetingAdd-confirmation-${message.trigger_id}`,
         "elements":[
           {  
             "type":"button",
