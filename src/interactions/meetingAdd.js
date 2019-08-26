@@ -13,8 +13,8 @@ const meetingAdd = (bot, message) => {
 
   if (message.text.indexOf(',') === -1) {
     // either the user typed "help" or an incorrectly formatted command
-    const manual = "_Placeholder usage instructions_"
-    bot.whisper(message, manual, (err, response) => {
+    const manualMsg = "_Placeholder usage instructions_"
+    bot.whisper(message, manualMsg, (err, response) => {
       if (err) {console.error(err)}
     })
     return
@@ -25,60 +25,55 @@ const meetingAdd = (bot, message) => {
   const attendance = parseInt(rawAttendance.match(/(\d+)/)[0])
 
   bot.whisper(message, { blocks: [
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: `Just to confirm, is the following correct?`
+    {  
+      "type":"section",
+      "text":{  
+        "type":"mrkdwn",
+        "text":"Just to confirm, is the following correct?"
       }
     },
-    {
-      type: 'divider'
+    {  
+      "type":"divider"
     },
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: `Date: *${date}*`
+    {  
+      "type":"section",
+      "text":{  
+        "type":"mrkdwn",
+        "text":`Date: *${date}*\nAttendance: *${attendance}*`
       }
     },
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: `Attendance: *${attendance}*`
-      }
+    {  
+      "type":"divider"
     },
-    {
-      type: 'divider'
+    {  
+      "type":"actions",
+      "elements":[  
+        {  
+          "type":"button",
+          "text":{  
+            "type":"plain_text",
+            "text":"✅ submit",
+            "emoji":true
+          },
+          "value":"true"
+        },
+        {  
+          "type":"button",
+          "text":{  
+            "type":"plain_text",
+            "text":"⛔️ cancel",
+            "emoji":true
+          },
+          "value":"false"
+        }
+      ]
     },
-    // {
-    //   "type": "actions",
-    //   "elements": [{
-    //       "type": "button",
-    //       "text": {
-    //         "type": "plain_text",
-    //         "text": "✅ submit",
-    //         "emoji": true
-    //       },
-    //       "value": "submit"
-    //     },
-    //     {
-    //       "type": "button",
-    //       "text": {
-    //         "type": "plain_text",
-    //         "text": "⛔️ cancel",
-    //         "emoji": true
-    //       },
-    //       "value": "cancel"
-    //     }]
-    //   },
-    {
-      type: "context",
-      elements: [
-        {
-          type: "mrkdwn",
-          text: 'For help, type `/meeting-add help`'
+    {  
+      "type":"context",
+      "elements":[  
+        {  
+          "type":"mrkdwn",
+          "text":"For help, type `/meeting-add help`"
         }
       ]
     }
