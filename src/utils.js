@@ -15,13 +15,16 @@ export const airGet = (baseName, searchArg=null, tertiaryArg=null) => new Promis
   // for all records: `airGet('Leaders')`
 
   const options = {}
-  if (searchArg != null) {
+  if (searchArg = null) {
+    console.log(`I'm asking AirTable to send me ALL records in the "${baseName}" base`)
+  } else {
     options.filterByFormula = tertiaryArg != null ?
       `{${searchArg}} = "${tertiaryArg}"` : // this is a key/value lookup
       searchArg // this is a formula lookup
+
+    console.log(`I wrote a query & sent it to AirTable: BASE=${baseName} FILTER=${options.filterByFormula}`)
   }
 
-  console.log(`I wrote a query & sent it to AirTable: BASE=${baseName} FILTER=${options.filterByFormula}`)
 
   base(baseName).select(options).all((err, data) => {
     if (err) {
