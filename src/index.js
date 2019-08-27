@@ -30,6 +30,10 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
+initBot().api.auth.test.then(resp => {
+  console.log(resp)
+})
+
 controller.on('reaction_added', (bot, message) => {
   console.log(message)
 })
