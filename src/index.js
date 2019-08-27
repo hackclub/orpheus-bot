@@ -30,12 +30,10 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-initBot().api.auth.test.then(resp => {
-  console.log(resp)
-})
-
 controller.on('reaction_added', (bot, message) => {
-  console.log(message)
+  if (bot.identity.id == message.item_user) {
+    console.log("I was reacted to")
+  }
 })
 
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
