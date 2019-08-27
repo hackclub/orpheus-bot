@@ -35,7 +35,7 @@ const triggerInteraction = (bot, message) => {
 
     airGet('Clubs', `AND(
       {Checkin Hour} = '${currentHour}',
-      {Checkin Day} = '${currentDay}'),
+      {Checkin Day} = '${currentDay}',
       {Slack Channel ID} != ''
       )`).then(clubs => clubs.forEach(club => {
 
