@@ -38,7 +38,7 @@ controller.on('reaction_added', (bot, message) => {
       count: 1,
       inclusive: true,
       latest: message.item_ts
-    }).then((err, res) => {
+    }, (err, res) => {
       if (err) { throw err }
       console.log(res)
     })
