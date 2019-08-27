@@ -34,15 +34,24 @@ controller.on('reaction_added', (bot, message) => {
   if (bot.identity.id == message.item_user) {
     console.log("I was reacted to")
     // Using init-bot b/c this endpoint isn't available to regular bot users
-    console.log(message.item)
     initBot().api.channels.history({
       channel: message.item.channel,
       count: 1,
       inclusive: true,
       latest: message.item.ts
-    }, (err, res) => {
+    }, (err, messages) => {
       if (err) { throw err }
-      console.log(res)
+      if (messages.length === 0) { throw new Error("Message not found")}
+
+      const item = messages[0]
+      const checkinNotification = ''
+
+      if (item.text != checkinNotification) { return }
+
+      bot.whisper(message, "I'll DM you now!", (err, response) => {
+        if (err) { throw err }
+        console.log(response)
+      })
     })
   }
 })
