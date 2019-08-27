@@ -39,7 +39,7 @@ controller.on('reaction_added', (bot, message) => {
       channel: message.item.channel,
       count: 1,
       inclusive: true,
-      latest: message.item.channel
+      latest: message.item.ts
     }, (err, res) => {
       if (err) { throw err }
       console.log(res)
