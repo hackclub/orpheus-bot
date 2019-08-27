@@ -31,7 +31,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 })
 
 controller.on('reaction_added', (bot, message) => {
-  console.log('RESPONDING TO REACTION')
+  console.log(message)
 })
 
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
