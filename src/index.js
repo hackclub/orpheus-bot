@@ -3,6 +3,8 @@ import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
 
+import { initBot } from './utils'
+
 import checkinInteraction from './interactions/checkin'
 import dateInteraction from './interactions/date'
 import infoInteraction from './interactions/info'
@@ -13,21 +15,13 @@ import renameInteraction from './interactions/rename'
 import meetingListInteraction from './interactions/meetingList'
 import meetingAddInteraction from './interactions/meetingAdd'
 
-const controller = new Botkit.slackbot({
+export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
   scopes: ['bot', 'chat:write:bot'],
   storage: redisStorage({ url: process.env.REDISCLOUD_URL })
 })
-
-const initBot = () => (
-  // we need to create our "bot" context for interactions that aren't initiated by the user.
-  // ex. we want to send a "hello world" message on startup w/o waiting for a user to trigger it.
-  controller.spawn({
-    token: process.env.SLACK_BOT_TOKEN
-  })
-)
 
 controller.startTicking()
 

@@ -1,3 +1,5 @@
+import { controller } from './'
+
 import Airtable from 'airtable'
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
@@ -71,3 +73,18 @@ export const recordMeeting = (club, meeting, cb) => {
     cb(err, record)
   })
 }
+
+export const initBot = () => (
+  // we need to create our "bot" context for interactions that aren't initiated by the user.
+  // ex. we want to send a "hello world" message on startup w/o waiting for a user to trigger it.
+  controller.spawn({
+    token: process.env.SLACK_BOT_TOKEN
+  })
+)
+
+// class Interaction {
+//   constructor(bot=initBot(), message, options) {
+//     self.bot = bot
+//     self.message = message
+//   }
+// }
