@@ -120,6 +120,10 @@ controller.hears('info', 'direct_message,direct_mention', infoInteraction)
 
 controller.hears('hello', 'ambient', helloInteraction)
 
+controller.hears('.*', 'reaction_added', (bot, message) => {
+  console.log(message)
+})
+
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel } = message
   console.log(`Received ${command} command from user ${user} in ${channel}`)
@@ -180,9 +184,4 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
       if (err) console.error(err)
     })
   }
-})
-
-// fire-hose
-controller.hears('.*', 'ambient', (bot, message) => {
-  console.log(message)
 })
