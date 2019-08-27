@@ -38,13 +38,12 @@ controller.on('reaction_added', (bot, message) => {
       count: 1,
       inclusive: true,
       latest: message.item.ts
-    }, (err, messages) => {
+    }, (err, res) => {
       if (err) { throw err }
-      if (messages.length === 0) { throw new Error("Message not found")}
+      if (res.messages.length === 0) { throw new Error("Message not found")}
 
-      const item = messages[0]
+      const item = res.messages[0]
       const checkinNotification = "Hey! My calendar shows you had a meeting recently. If you did you can react to this message with an emoji to let me know."
-      console.log(messages)
       console.log(item, checkinNotification)
 
       if (item.text != checkinNotification) { return }
