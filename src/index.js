@@ -35,10 +35,10 @@ controller.on('reaction_added', (bot, message) => {
     console.log("I was reacted to")
     // Using init-bot b/c this endpoint isn't available to regular bot users
     initBot().api.channels.history({
-      channel: message.channel,
+      channel: message.item.channel,
       count: 1,
       inclusive: true,
-      latest: message.item_ts
+      latest: message.item.channel
     }, (err, res) => {
       if (err) { throw err }
       console.log(res)
