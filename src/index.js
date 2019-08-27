@@ -31,10 +31,11 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 })
 
 controller.middleware.categorize.use((bot, message, next) => {
-  console.log(message.type)
-  console.log(message)
+  // console.log(message.type)
+  // console.log(message)
   next()
 })
+controller.on('.*', 'reaction_added', (bot, message) => {console.log(message)})
 
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 // if (SLACK_LOGS_CHANNEL) {
