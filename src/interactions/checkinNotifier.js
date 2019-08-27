@@ -8,8 +8,6 @@ const checkinNotifierInteraction = (bot=initBot(), message) => {
     text,
     channel: message.channel
   })
-
-  interactionCheckin(bot, message)
 }
 
 export default checkinNotifierInteraction
