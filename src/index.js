@@ -32,13 +32,13 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 
 controller.middleware.categorize.use((bot, message, next) => {
   if (message.type == 'reaction_added') {
-    message.type = 'reaction'
+    console.log('SAW REACTION!')
   }
   // console.log(message.type)
   // console.log(message)
   next()
 })
-controller.on('.*', 'reaction', (bot, message) => {console.log(message)})
+controller.on('.*', 'reaction_added', (bot, message) => {console.log('RESPONDING TO REACTION')})
 
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 // if (SLACK_LOGS_CHANNEL) {
