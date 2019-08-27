@@ -30,6 +30,12 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
+controller.middleware.categorize.user((bot, message, next) => {
+  console.log(message.type)
+  console.log(message)
+  next()
+})
+
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 // if (SLACK_LOGS_CHANNEL) {
 //   controller.middleware.capture.use((bot, message, convo, next) => {
@@ -182,6 +188,6 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   }
 })
 
-controller.hears('.*', 'direct_message,direct_mention,mention,ambient,reaction_added,message', (bot, message) => {
-  console.log(message)
-})
+// controller.hears('.*', 'direct_message,direct_mention,mention,ambient,reaction_added,message', (bot, message) => {
+//   console.log(message)
+// })
