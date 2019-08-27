@@ -51,6 +51,8 @@ controller.on('reaction_added', (bot, message) => {
       bot.whisper(message, "I'll DM you now!", (err, response) => {
         if (err) { throw err }
         console.log(response)
+
+        interactionCheckin(undefined, message)
       })
     })
   }

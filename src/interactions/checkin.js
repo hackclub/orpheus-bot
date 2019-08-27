@@ -1,4 +1,4 @@
-import { getInfoForUser, recordMeeting } from '../utils'
+import { getInfoForUser, recordMeeting, initBot } from '../utils'
 import { parseDate } from 'chrono-node'
 import { sample } from 'lodash'
 
@@ -12,12 +12,8 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
   })
 })
 
-const interactionCheckin = (bot, message) => {
+const interactionCheckin = (bot=initBot(), message) => {
   getTz(bot, message.user).then((timeZone) => {
-    const log = (x) => {
-      console.log(message.user, x)
-    }
-
     bot.startConversation(message, (err, convo) => {
       if (err) {
         console.log(err)
@@ -124,7 +120,7 @@ const interactionCheckin = (bot, message) => {
         }, [{
           pattern: 'submit',
           callback: (response, convo) => {
-            log('*user submitted their checkin!*')
+            console.log('*user submitted their checkin!*')
             const reply = sample([
               'grins with delight',
               'fidgets in mild excitement',
@@ -155,7 +151,7 @@ const interactionCheckin = (bot, message) => {
         }, {
           pattern: 'restart',
           callback: (response, convo) => {
-            log('*user wants to restart their checkin*')
+            console.log('*user wants to restart their checkin*')
             bot.replyInteractive(response, '_↩️ You ask orpheus to start again_')
             convo.gotoThread('found')
             convo.vars = {}
@@ -164,7 +160,7 @@ const interactionCheckin = (bot, message) => {
         }, {
           pattern: 'cancel',
           callback: (response, convo) => {
-            log('*user clicked "cancel"*')
+            console.log('*user clicked "cancel"*')
 
             const reply = sample([
               'She looks slightly crestfallen',
@@ -209,7 +205,7 @@ const interactionCheckin = (bot, message) => {
           {
             default: true,
             callback: (response, convo) => {
-              log('*User responded to attendance question*')
+              console.log('*User responded to attendance question*')
               // attempt to parse
               const meetingDate = parseDate(`${response.text} ${timeZone}`)
               if (Object.prototype.toString.call(meetingDate) === '[object Date]') {
@@ -238,7 +234,7 @@ const interactionCheckin = (bot, message) => {
           const attendance = +response.text
 
           if (attendance > 0 && attendance % 1 === 0) {
-            log(`*User said they had "${response.text}" in attendance, which is valid`)
+            console.log(`*User said they had "${response.text}" in attendance, which is valid`)
             convo.setVar('attendance', attendance)
             convo.say({
               text: `I parsed that as *{{vars.attendance}}* hackers`,
@@ -246,7 +242,7 @@ const interactionCheckin = (bot, message) => {
             })
             convo.next()
           } else {
-            log(`*User said they had "${response.text}" in attendance, which is invalid`)
+            console.log(`*User said they had "${response.text}" in attendance, which is invalid`)
             convo.say({
               text: "_orpheus scrunches her face, eyeing your input with suspicion. looks like that wasn't what she was looking for_"
             })

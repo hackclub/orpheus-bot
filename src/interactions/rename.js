@@ -1,4 +1,4 @@
-import { airFind } from '../utils'
+import { airFind, initBot } from '../utils'
 
 const renameInteraction = (bot, message) => {
   const { user, channel, text } = message
@@ -8,15 +8,13 @@ const renameInteraction = (bot, message) => {
       console.log('*no club or fields set*')
       bot.whisper(message, `This command only works on club channels.`)
     } else if (club.fields['Leader Slack IDs'].indexOf(user) === -1) {
-      // user not found in club's list of leaders
       console.log("*user isn't a leader*")
       bot.whisper(message, `Only this club's leaders can run this command. You aren't marked as this club's leader.`)
     } else {
       console.log(`*Renaming the channel to "${text}*`)
-      bot.api.channels.rename({
+      initBot(true).api.channels.rename({
         channel,
-        name: text,
-        token: process.env.SLACK_TOKEN
+        name: text
       }, (err, res) => {
         if (err) {
           console.error(err)
