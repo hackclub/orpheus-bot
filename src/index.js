@@ -44,11 +44,10 @@ controller.on('reaction_added', (bot, message) => {
 
       const item = res.messages[0]
       const checkinNotification = "Hey! My calendar shows you had a meeting recently. If you did you can react to this message with an emoji to let me know."
-      console.log(item, checkinNotification)
 
       if (item.text != checkinNotification) { return }
 
-      bot.whisper(message, "I'll DM you now!", (err, response) => {
+      bot.whisper({channel: message.item.channel, user: message.user}, "I'll DM you now!", (err, response) => {
         if (err) { throw err }
         console.log(response)
 
