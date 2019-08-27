@@ -30,13 +30,9 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-  if (message.type == 'reaction_added') {
-    console.log('SAW REACTION!')
-  // console.log(message.type)
-  // console.log(message)
-  next()
+controller.on('reaction_added', (bot, message) => {
+  console.log('RESPONDING TO REACTION')
 })
-controller.on('.*', 'reaction_added', (bot, message) => {console.log('RESPONDING TO REACTION')})
 
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 // if (SLACK_LOGS_CHANNEL) {
