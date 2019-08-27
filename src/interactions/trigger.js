@@ -33,12 +33,7 @@ const triggerInteraction = (bot, message) => {
     const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
     console.log(`I can hear my heart beat in my chest. The time is ${currentHour} on ${currentDay}... it fills me with determination`)
 
-    airGet('Clubs', `AND(
-      {Checkin Hour} = '${currentHour}',
-      {Checkin Day} = '${currentDay}',
-      {Slack Channel ID} != ''
-      )`).then(clubs => clubs.forEach(club => {
-
+    airGet('Clubs', `AND( {Checkin Hour} = '${currentHour}', {Checkin Day} = '${currentDay}', {Slack Channel ID} != '' )`).then(clubs => clubs.forEach(club => {
       const channel = club.fields['Slack Channel ID']
 
       console.log(`*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`)
