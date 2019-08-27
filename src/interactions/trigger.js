@@ -28,14 +28,19 @@ const triggerInteraction = (bot, message) => {
       name: 'heartbeat'
     })
 
+    const now = new Date()
+    const currentHour = now.getHours()
+    const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
+    console.log(`*orpheus hears her heart beat in her chest. The time is ${currentHour} on ${currentDay}*`)
+
     airGet('Clubs').then(clubs => clubs.forEach(club => {
       const day = club.fields['Checkin Day']
       const hour = club.fields['Checkin Hour']
       const channel = club.fields['Slack Channel ID']
 
-      if (!day) { return }
-      if (!hour) { return }
       if (!channel) { return }
+      if (!day || day != currentDay) { return }
+      if (!hour || hour != currentHour) { return }
 
       console.log(`*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`)
       bot.replyInThread(message, `I'm reaching out to <#${channel}> (database ID \`${club.fields['ID']}\`)`)
