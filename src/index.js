@@ -33,8 +33,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
 controller.on('reaction_added', (bot, message) => {
   if (bot.identity.id == message.item_user) {
     console.log("I was reacted to")
-    // Using init-bot b/c this endpoint isn't available to regular bot users
-    initBot().api.channels.history({
+    initBot(true).api.channels.history({
       channel: message.item.channel,
       count: 1,
       inclusive: true,
