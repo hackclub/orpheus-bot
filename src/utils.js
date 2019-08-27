@@ -32,7 +32,7 @@ export const airGet = (baseName, searchArg=null, tertiaryArg=null) => new Promis
       reject(err)
     }
     resolve(data)
-  }).catch(e => reject(e))
+  })
 })
 
 export const getInfoForUser = user => new Promise((resolve, reject) => {
