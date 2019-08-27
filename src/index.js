@@ -30,10 +30,8 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-controller.middleware.categorize.use((bot, message, next) => {
   if (message.type == 'reaction_added') {
     console.log('SAW REACTION!')
-  }
   // console.log(message.type)
   // console.log(message)
   next()
