@@ -30,7 +30,7 @@ controller.setupWebserver(process.env.PORT, function(err,webserver) {
   controller.createOauthEndpoints(controller.webserver)
 })
 
-controller.middleware.categorize.user((bot, message, next) => {
+controller.middleware.categorize.use((bot, message, next) => {
   console.log(message.type)
   console.log(message)
   next()
