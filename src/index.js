@@ -42,6 +42,7 @@ controller.on('reaction_added', (bot, message) => {
       if (err) { throw err }
       if (messages.length === 0) { throw new Error("Message not found")}
 
+      console.log(messages)
       const item = messages[0]
       const checkinNotification = ''
 
