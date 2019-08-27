@@ -1,5 +1,5 @@
 import { airGet } from '../utils'
-import checkinNotifier from './checkinNotifier'
+import checkinNotifierInteraction from './checkinNotifier'
 
 const getAdmin = (bot, user) => new Promise((resolve, reject) => {
   bot.api.users.info({ user }, (err, res) => {
@@ -39,7 +39,7 @@ const triggerInteraction = (bot, message) => {
       console.log(`*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`)
       bot.replyInThread(message, `I'm reaching out to <#${channel}> (database ID \`${club.fields['ID']}\`)`)
 
-      checkinNotifier(null, { channel })
+      checkinNotifierInteraction(undefined, { channel })
     }))
   }).catch(err => {
     console.error(err)
