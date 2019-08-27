@@ -31,7 +31,7 @@ const triggerInteraction = (bot, message) => {
     const now = new Date()
     const currentHour = now.getHours()
     const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
-    console.log(`*orpheus hears her heart beat in her chest. The time is ${currentHour} on ${currentDay}*`)
+    console.log(`I can hear my heart beat in my chest. The time is ${currentHour} on ${currentDay}... it fills me with determination`)
 
     airGet('Clubs').then(clubs => clubs.forEach(club => {
       const day = club.fields['Checkin Day']
