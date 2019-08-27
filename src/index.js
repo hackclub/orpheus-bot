@@ -149,7 +149,7 @@ controller.on('slash_command', (bot, message) => {
   }
 })
 
-// catch-all
+// catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   const { text, user } = message
 
@@ -180,4 +180,9 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
       if (err) console.error(err)
     })
   }
+})
+
+// fire-hose
+controller.hears('.*', 'ambient', (bot, message) => {
+  console.log(message)
 })
