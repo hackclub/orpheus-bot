@@ -182,6 +182,6 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
   }
 })
 
-controller.hears('.*', '.*', (bot, message) => {
+controller.hears('.*', 'direct_message,direct_mention,mention,ambient,reaction_added,message', (bot, message) => {
   console.log(message)
 })
