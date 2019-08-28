@@ -13,25 +13,23 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
 })
 
 const interactionCheckin = (bot=initBot(), message) => {
-  getTz(bot, message.user).then((timeZone) => {
-    bot.startPrivateConversation(message, (err, convo) => {
-      if (err) {
-        console.log(err)
-      }
+  bot.startPrivateConversation(message, (err, convo) => {
+    if (err) { console.error(err) }
 
-      console.log('saying stuff')
-      convo.say({
-        text: `Give me a second while I pull up my notes`
-      })
-      convo.addMessage({
-        text: `Give me a second while I pull up my notes`
-      }, 'start')
-      convo.addMessage({
-        delay: 1000,
-        text: `_typewriter noises_`
-      }, 'start')
-      convo.gotoThread('start')
+    convo.say(
+      `Give me a second while I pull up my notes`
+    )
+    convo.next()
+    convo.addMessage({
+      text: `Give me a second while I pull up my notes`
+    }, 'start')
+    convo.addMessage({
+      delay: 1000,
+      text: `_typewriter noises_`
+    }, 'start')
+    convo.gotoThread('start')
 
+    getTz(bot, message.user).then((timeZone) => {
       getInfoForUser(message.user).then(({
         leader,
         club,
