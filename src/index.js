@@ -47,6 +47,8 @@ controller.on('reaction_added', (bot, message) => {
 
       if (item.text != checkinNotification) { return }
 
+      console.log(item)
+
       bot.whisper({channel: message.item.channel, user: message.user}, "I'll DM you now!", (err, response) => {
         if (err) {
           console.error(err)
