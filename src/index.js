@@ -52,6 +52,7 @@ controller.on('reaction_added', (bot, message) => {
           console.error(err)
           return
         }
+        console.log('mumble')
 
         bot.api.im.open((err, res) => {
           if (err) {
