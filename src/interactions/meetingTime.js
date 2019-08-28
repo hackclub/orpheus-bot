@@ -6,11 +6,11 @@ const interactionMeetingTime = (bot, message) => {
     const currHour = club.fields['Checkin Hour']
 
     if (!currDay || !currHour) {
-      bot.whisper('you do not have a current meeting time set')
+      bot.whisper(message, 'you do not have a current meeting time set')
     }
 
-    if (message === '' || message.includes('help')) {
-      bot.whisper('This is the help message')
+    if (message.text === '' || message.text.includes('help')) {
+      bot.whisper(message, 'This is the help message')
       return
     }
   })
