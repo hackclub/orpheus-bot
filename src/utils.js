@@ -47,10 +47,17 @@ export const airGet = (baseName, searchArg=null, tertiaryArg=null) => new Promis
   })
 })
 
+const getSlackUser = user => new Promise((resolve, reject) => {
+  initBot().api.users.info({ user }, (err, res) => {
+    if (err) { reject(err) }
+    resolve(res)
+  })
+})
+
 export const getInfoForUser = user => new Promise((resolve, reject) => {
   const results = {}
 
-  initBot().api.users.info({ user })
+  getSlackUser(user)
     .then(slackUser => results.slackUser = slackUser)
     // Get the leader from the user
     .then(() => airFind('Leaders', 'Slack ID', user))
