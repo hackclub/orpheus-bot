@@ -158,6 +158,12 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.hears('thump', 'ambient', triggerInteraction)
 
+controller.hears('convo', 'direct_mention,direct_message', (bot,message) => {
+  bot.startPrivateConversation(message, (err, convo) => {
+    convo.say('hello!')
+  })
+})
+
 controller.hears('date', 'direct_mention', dateInteraction)
 
 controller.hears('info', 'direct_message,direct_mention', infoInteraction)
