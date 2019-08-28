@@ -14,6 +14,7 @@ import interactionTrigger from './interactions/trigger'
 import interactionRename from './interactions/rename'
 import interactionMeetingList from './interactions/meetingList'
 import interactionMeetingAdd from './interactions/meetingAdd'
+import interactionMeetingTime from './interactions/meetingTime'
 
 export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
