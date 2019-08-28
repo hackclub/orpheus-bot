@@ -3,7 +3,7 @@ import { parseDate } from 'chrono-node'
 
 import { getInfoForUser } from '../utils'
 
-const meetingListInteraction = (bot, message) => {
+const interactionMeetingList = (bot, message) => {
   getInfoForUser(message.user).then(({ leader, club, history }) => {
     let reply = ''
 
@@ -29,4 +29,4 @@ const meetingListInteraction = (bot, message) => {
   })
 }
 
-export default meetingListInteraction
+export default interactionMeetingList

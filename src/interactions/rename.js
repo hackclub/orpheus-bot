@@ -1,6 +1,6 @@
 import { airFind, initBot } from '../utils'
 
-const renameInteraction = (bot, message) => {
+const interactionRename = (bot, message) => {
   const { user, channel, text } = message
 
   airFind('Clubs', 'Slack Channel ID', channel).then(club => {
@@ -29,4 +29,4 @@ const renameInteraction = (bot, message) => {
     console.error(err)
   })
 }
-export default renameInteraction
+export default interactionRename

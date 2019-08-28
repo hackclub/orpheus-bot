@@ -12,7 +12,7 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
   })
 })
 
-const meetingAdd = (bot, message) => {
+const interactionMeetingAdd = (bot, message) => {
   getTz(bot, message.user).then(timeZone => {
     bot.whisper(message, { blocks: [
       {
@@ -40,6 +40,7 @@ const meetingAdd = (bot, message) => {
     const attendance = parseInt((rawAttendance.match(/(\d+)/) || [])[0])
     
     console.log(date, attendance)
+    bot.say({})
     bot.whisper(message, 'test', (err, response) => {
       bot.replyPrivate(response, 'edited')
     })
@@ -126,4 +127,4 @@ const meetingAdd = (bot, message) => {
     ])
   })
 }
-export default meetingAdd
+export default interactionMeetingAdd

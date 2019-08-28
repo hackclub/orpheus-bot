@@ -5,15 +5,15 @@ import _ from 'lodash'
 
 import { initBot } from './utils'
 
-import checkinInteraction from './interactions/checkin'
-import dateInteraction from './interactions/date'
-import infoInteraction from './interactions/info'
-import statsInteraction from './interactions/stats'
-import helloInteraction from './interactions/hello'
-import triggerInteraction from './interactions/trigger'
-import renameInteraction from './interactions/rename'
-import meetingListInteraction from './interactions/meetingList'
-import meetingAddInteraction from './interactions/meetingAdd'
+import interactionCheckin from './interactions/checkin'
+import interactionDate from './interactions/date'
+import interactionInfo from './interactions/info'
+import interactionStats from './interactions/stats'
+import interactionHello from './interactions/hello'
+import interactionTrigger from './interactions/trigger'
+import interactionRename from './interactions/rename'
+import interactionMeetingList from './interactions/meetingList'
+import interactionMeetingAdd from './interactions/meetingAdd'
 
 export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -56,7 +56,7 @@ controller.on('reaction_added', (bot, message) => {
             return
           }
 
-          checkinInteraction(undefined, message)
+          interactionCheckin(undefined, message)
         })
       } else {
         bot.whisper({channel: message.item.channel, user: message.user}, "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.", (err, response) => {
@@ -153,10 +153,10 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
     name: 'thumbsup-dino'
   })
 
-  checkinInteraction(bot, message)
+  interactionCheckin(bot, message)
 })
 
-controller.hears('thump', 'ambient', triggerInteraction)
+controller.hears('thump', 'ambient', interactionTrigger)
 
 controller.hears('convo', 'direct_mention,direct_message', (bot,message) => {
   bot.startPrivateConversation(message, (err, convo) => {
@@ -164,13 +164,13 @@ controller.hears('convo', 'direct_mention,direct_message', (bot,message) => {
   })
 })
 
-controller.hears('date', 'direct_mention', dateInteraction)
+controller.hears('date', 'direct_mention', interactionDate)
 
-controller.hears('info', 'direct_message,direct_mention', infoInteraction)
+controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
-controller.hears('hello', 'ambient', helloInteraction)
+controller.hears('hello', 'ambient', interactionHello)
 
-controller.hears('stats', 'direct_mention,direct_message', statsInteraction)
+controller.hears('stats', 'direct_mention,direct_message', interactionStats)
 
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel } = message
@@ -180,19 +180,23 @@ controller.on('slash_command', (bot, message) => {
 
   switch (command) {
     case '/stats':
-      statsInteraction(bot, message)
+      interactionStats(bot, message)
       break
     
     case '/rename-channel':
-      renameInteraction(bot, message)
+      interactionRename(bot, message)
+      break
+
+    case '/meeting-time':
+      interactionMeetingTime(bot, message)
       break
 
     case '/meeting-add':
-      meetingAddInteraction(bot, message)
+      interactionMeetingAdd(bot, message)
       break
 
     case '/meeting-list':
-      meetingListInteraction(bot, message)
+      interactionMeetingList(bot, message)
       break
   
     default:
