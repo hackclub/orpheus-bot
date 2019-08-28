@@ -27,6 +27,7 @@ const interactionCheckin = (bot=initBot(), message) => {
         text: `_typewriter noises_`
       }, 'start')
       convo.gotoThread('start')
+      convo.next()
 
       getInfoForUser(message.user).then(({
         leader,
