@@ -47,16 +47,25 @@ controller.on('reaction_added', (bot, message) => {
 
       if (item.text != checkinNotification) { return }
 
-      console.log(item)
+      const firstReaction = item.reactions.length === 1 && item.reactions[0].count === 1
 
-      bot.whisper({channel: message.item.channel, user: message.user}, "I'll DM you now!", (err, response) => {
-        if (err) {
-          console.error(err)
-          return
-        }
+      if (firstReaction) {
+        bot.whisper({channel: message.item.channel, user: message.user}, "I'll DM you now!", (err, response) => {
+          if (err) {
+            console.error(err)
+            return
+          }
 
-        checkinInteraction(undefined, message)
-      })
+          checkinInteraction(undefined, message)
+        })
+      } else {
+        bot.whisper({channel: message.item.channel, user: message.user}, "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.", (err, response) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+        })
+      }
     })
   }
 })
