@@ -51,7 +51,7 @@ controller.on('reaction_added', (bot, message) => {
         if (err) { throw err }
         console.log(response)
 
-        interactionCheckin(undefined, message)
+        checkinInteraction(undefined, message)
       })
     })
   }
@@ -210,7 +210,3 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
     })
   }
 })
-
-// controller.hears('.*', 'direct_message,direct_mention,mention,ambient,reaction_added,message', (bot, message) => {
-//   console.log(message)
-// })
