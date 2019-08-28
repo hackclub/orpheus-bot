@@ -48,10 +48,20 @@ controller.on('reaction_added', (bot, message) => {
       if (item.text != checkinNotification) { return }
 
       bot.whisper({channel: message.item.channel, user: message.user}, "I'll DM you now!", (err, response) => {
-        if (err) { throw err }
-        console.log(response)
+        if (err) {
+          console.error(err)
+          return
+        }
 
-        checkinInteraction(undefined, message)
+        bot.api.im.open((err, res) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          console.log(res)
+
+          checkinInteraction(undefined, { channel: res.channel.id })
+        })
       })
     })
   }
