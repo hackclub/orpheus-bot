@@ -13,7 +13,7 @@ const interactionMeetingTime = (bot, message) => {
       const updatedFields = {}
       updatedFields['Checkin Day'] = 'Monday'
       updatedFields['Checkin Hour'] = 2
-      if (!legacy) { updatedFields['First Meeting Time'] = Date.now() }
+      if (!club.fields['legacy']) { updatedFields['First Meeting Time'] = Date.now() }
       airPatch('Clubs', club.id, updatedFields).then(record => {
         bot.whisper(message, `Ok, I'll post a message in your club's channel at ${record.fields['Checkin Hour']}:00 on ${record.fields['Checkin Day']}`)
       }).catch(err => {
