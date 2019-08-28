@@ -20,7 +20,7 @@ const interactionCheckin = (bot=initBot(), message) => {
       }
 
       convo.activate()
-      convo.say(`Give me a sec... let me pull up my database`)
+      convo.say({text: `Give me a sec... let me pull up my database`})
       convo.addMessage({
         delay: 1000,
         text: `*typewriter noises*`
