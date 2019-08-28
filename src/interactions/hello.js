@@ -12,7 +12,10 @@ const interactionHello = (bot, message) => {
   ])
   // send a message back with a typo
   bot.replyAndUpdate(message, mispelling, function(err, src, updateResponse) {
-    if (err) console.error(err)
+    if (err) {
+      console.error(err)
+      return
+    }
     // oh no, "hellp" is a typo - let's update the message to "hello"
     setTimeout(() => {
       updateResponse('hello', function(err) {
