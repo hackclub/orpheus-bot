@@ -14,8 +14,6 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
 
 const interactionCheckin = (bot=initBot(), message) => {
   bot.startPrivateConversation(message, (err, convo) => {
-    convo.say('hello!')
-
     if (err) { console.error(err) }
 
     convo.say(
