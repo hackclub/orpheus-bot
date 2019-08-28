@@ -1,8 +1,9 @@
 import { parseDate } from 'chrono-node'
+import { getInfoForUser } from '../utils';
 
 const interactionDate = (bot, message) => {
-  bot.api.users.info({ user: message.user }, (err, res) => {
-    const msg = `${message.text.replace('date', '')} ${res.user.tz}`
+  getInfoForUser(message.user).then(({ slackUser }) => {
+    const msg = `${message.text.replace('date', '')} ${slackUser.tz}`
     const meetingDate = parseDate(msg)
     bot.reply(message, `I parsed input ${msg} as ${meetingDate}`)
   })
