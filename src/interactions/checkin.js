@@ -46,7 +46,7 @@ const interactionCheckin = (bot=initBot(), message) => {
         }, 'found')
         convo.addMessage({
           delay: 2000,
-          text: `From ${club.fields['Name']}`,
+          text: `From *${club.fields['Name']}*`,
           action: 'date'
         }, 'found')
 
