@@ -19,9 +19,7 @@ const interactionCheckin = (bot=initBot(), message) => {
         console.log(err)
       }
 
-      convo.addMessage({
-        text: `Give me a sec... let me pull up my database`
-      })
+      convo.say(`Give me a sec... let me pull up my database`)
       convo.addMessage({
         delay: 1000,
         text: `*typewriter noises*`
