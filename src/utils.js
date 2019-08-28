@@ -3,6 +3,16 @@ import { controller } from './'
 import Airtable from 'airtable'
 const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE)
 
+export const airPatch = (baseName, recordID, values) => new Promise((resolve, reject) => {
+  base(baseName).update(recordID, values, (err, record) => {
+    if (err) {
+      console.error(err)
+      reject(err)
+    }
+    resolve(record)
+  })
+})
+
 export const airFind = (baseName, fieldName, value) => new Promise((resolve, reject) => {
   // see airGet() for usage
   airGet(baseName, fieldName, value)

@@ -1,17 +1,33 @@
-import { getInfoForUser } from "../utils";
+import { getInfoForUser, airPatch } from "../utils";
+import { parseDate } from "chrono-node";
 
 const interactionMeetingTime = (bot, message) => {
   getInfoForUser(message.user).then(({ leader, club, history }) => {
     const currDay = club.fields['Checkin Day']
     const currHour = club.fields['Checkin Hour']
 
-    if (!currDay || !currHour) {
-      bot.whisper(message, 'you do not have a current meeting time set')
-    }
+    const inputDate = parseDate(message.text)
 
-    if (message.text === '' || message.text.includes('help')) {
-      bot.whisper(message, 'This is the help message')
-      return
+
+    if (inputDate) {
+      const updatedFields = {}
+      updatedFields['Checkin Day'] = 'Monday'
+      updatedFields['Checkin Hour'] = 2
+      if (!legacy) { updatedFields['First Meeting Time'] = Date.now() }
+      airPatch('Clubs', club.id, updatedFields).then(record => {
+        bot.whisper(message, `Ok, I'll post a message in your club's channel at ${record.fields['Checkin Hour']}:00 on ${record.fields['Checkin Day']}`)
+      }).catch(err => {
+        bot.whisper(message, `Got error: \`${err}\``)
+      })
+
+    } else {
+      bot.whisper(message, `Use this command to record when your meetings will occur each week. Ex. \`/meeting-time next Tuesday at 3:30 PM\``)
+
+      if (!currDay || !currHour) {
+        bot.whisper(message, `_Currently, ${club.fields['Name']} doesn't have a meeting time set_`)
+      } else {
+        bot.whisper(message, `_The club's current meeting time is *${currDay}* at *${currHour}:00*_`)
+      }
     }
   })
 }

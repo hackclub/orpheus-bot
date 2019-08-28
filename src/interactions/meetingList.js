@@ -24,7 +24,7 @@ const interactionMeetingList = (bot, message) => {
     }
 
     bot.whisper(message, reply, (err, response) => {
-      if (err) {console.error(err)}
+      if (err) { console.error(err) }
     })
   })
 }
