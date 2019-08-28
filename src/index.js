@@ -147,7 +147,11 @@ const init = (bot=initBot()) => {
 // init()
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
-  bot.replyInThread(message, "I'll send you a check-in right now!")
+  bot.api.reactions.add({
+    timestamp: message.ts,
+    channel: message.channel,
+    name: 'thumbsup-dino'
+  })
 
   checkinInteraction(bot, message)
 })
