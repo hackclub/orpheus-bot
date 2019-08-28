@@ -13,9 +13,8 @@ const getTz = (bot, user) => new Promise((resolve, reject) => {
 })
 
 const interactionCheckin = (bot=initBot(), message) => {
-  console.log(message)
   getTz(bot, message.user).then((timeZone) => {
-    bot.startConversation(message, (err, convo) => {
+    bot.startPrivateConversation(message, (err, convo) => {
       if (err) {
         console.log(err)
       }

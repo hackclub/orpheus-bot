@@ -52,19 +52,8 @@ controller.on('reaction_added', (bot, message) => {
           console.error(err)
           return
         }
-        console.log('mumble')
 
-        bot.api.im.open((err, res) => {
-          console.log('this is a test')
-          if (err) {
-            console.error(err)
-            return
-          }
-          console.log('whisp')
-          console.log(res)
-
-          checkinInteraction(undefined, { channel: res.channel.id })
-        })
+        checkinInteraction(undefined, message)
       })
     })
   }
