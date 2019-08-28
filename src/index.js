@@ -58,6 +58,7 @@ controller.on('reaction_added', (bot, message) => {
             console.error(err)
             return
           }
+          console.log('whisp')
           console.log(res)
 
           checkinInteraction(undefined, { channel: res.channel.id })
