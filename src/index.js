@@ -147,6 +147,8 @@ controller.hears('info', 'direct_message,direct_mention', infoInteraction)
 
 controller.hears('hello', 'ambient', helloInteraction)
 
+controller.hears('stats', 'direct_mention,direct_message', statsInteraction)
+
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel } = message
   console.log(`Received ${command} command from user ${user} in ${channel}`)
