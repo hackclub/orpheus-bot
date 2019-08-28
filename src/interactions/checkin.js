@@ -20,13 +20,14 @@ const interactionCheckin = (bot=initBot(), message) => {
       }
 
       convo.addMessage({
-        delay: 500,
         text: `Give me a sec... let me pull up my database`
       })
       convo.addMessage({
         delay: 1000,
         text: `*typewriter noises*`
       })
+
+      convo.activate()
 
       getInfoForUser(message.user).then(({
         leader,
