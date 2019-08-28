@@ -4,11 +4,9 @@ import { sample } from 'lodash'
 
 const interactionCheckin = (bot=initBot(), message) => {
   bot.startPrivateConversation(message, (err, convo) => {
-    convo.say('hello!')
-
     if (err) { console.error(err) }
 
-    convo.say(
+    convo.sayFirst(
       `Give me a second while I pull up my notes`
     )
     convo.next()
