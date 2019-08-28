@@ -30,6 +30,10 @@ const interactionStats = (bot, message) => {
           ]))
           return
         }
+        if (!history || !history.meetings) {
+          updateResponse("I don't see any meetings recorded for your club. You can record new meetings with the `/meeting-add` command, or DM'ing me `checkin`")
+          return
+        }
 
         const content = {
           blocks: [{
