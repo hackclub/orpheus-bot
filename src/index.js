@@ -197,6 +197,20 @@ controller.on('slash_command', (bot, message) => {
 
   bot.replyAcknowledge()
 
+  bot.whisper(message, {
+    blocks: [
+      {
+        type: 'context',
+        elements: [
+          {
+            type: 'mrkdwn',
+            text: `/${command} ${message.text}`,
+          },
+        ],
+      },
+    ],
+  })
+
   switch (command) {
     case '/stats':
       interactionStats(bot, message)
