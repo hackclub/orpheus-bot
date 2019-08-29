@@ -7,15 +7,15 @@ const interactionMeetingTime = (bot, message) => {
     const currHour = club.fields['Checkin Hour']
 
     const inputDate = parseDate(`${message.text} ${slackUser.tz} timezone`)
+    console.log(`${message.text} ${slackUser.tz} timezone`, '->', inputDate)
 
     if (inputDate) {
       const updatedFields = {}
       updatedFields['Checkin Day'] = inputDate.toLocaleString('en-GB', { weekday: 'long', timeZone: 'UTC' })
       updatedFields['Checkin Hour'] = inputDate.getUTCHours().toString()
-      if (!club.fields['legacy'] && club.fields['First Meeting Time']) {
+      if (!club.fields['legacy'] && !club.fields['First Meeting Time']) {
         updatedFields['First Meeting Time'] = inputDate
       }
-      console.log(updatedFields)
 
       airPatch('Clubs', club.id, updatedFields)
         .then(record => {
