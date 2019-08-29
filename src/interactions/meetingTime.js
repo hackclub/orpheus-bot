@@ -11,7 +11,7 @@ const interactionMeetingTime = (bot, message) => {
     if (inputDate) {
       const updatedFields = {}
       updatedFields['Checkin Day'] = inputDate.toLocaleString('en-GB', { weekday: 'long', timeZone: 'UTC' })
-      updatedFields['Checkin Hour'] = inputDate.getUTCHours()
+      updatedFields['Checkin Hour'] = inputDate.getUTCHours().toString()
       if (!club.fields['legacy'] && club.fields['First Meeting Time']) {
         updatedFields['First Meeting Time'] = inputDate
       }
