@@ -204,7 +204,7 @@ controller.on('slash_command', (bot, message) => {
         elements: [
           {
             type: 'mrkdwn',
-            text: `/${command} ${message.text}`,
+            text: `${command} ${message.text}`,
           },
         ],
       },
