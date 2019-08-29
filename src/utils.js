@@ -12,7 +12,6 @@ export const airPatch = (baseName, recordID, values) =>
         console.error(err)
         reject(err)
       }
-      console.log(record)
       resolve(record)
     })
   })
