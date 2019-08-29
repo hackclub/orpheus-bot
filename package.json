@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "npx babel-node ./src/index.js",
     "start": "node ./build/index.js",
+    "fmt": "npx prettier \"{src/**,}/*.js\" --single-quote --no-semi --write",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "npx babel ./src -d ./build -s"
