@@ -64,7 +64,7 @@ const getSlackUser = user =>
       if (err) {
         reject(err)
       }
-      resolve(res)
+      resolve(res.user)
     })
   })
 
