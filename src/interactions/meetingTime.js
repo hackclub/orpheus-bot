@@ -8,7 +8,6 @@ const interactionMeetingTime = (bot, message) => {
 
     const inputDate = parseDate(`${message.text}`)
     const offsetDate = new Date(inputDate.getTime() - (slackUser.tz_offset * 1000))
-    console.log(inputDate, slackUser.tz_offset, offsetDate)
 
     if (inputDate) {
       const updatedFields = {}
@@ -22,9 +21,9 @@ const interactionMeetingTime = (bot, message) => {
         .then(record => {
           bot.whisper(
             message,
-            `Ok, I'll post a message in your club's channel at ${
+            `Ok, I'll post a message in your club's channel around ${
               record.fields['Checkin Hour']
-            }:00 on ${record.fields['Checkin Day']}`
+            }:00 on ${record.fields['Checkin Day']} Coordinated Universal Time`
           )
         })
         .catch(err => {
