@@ -5,6 +5,7 @@ const interactionMeetingTime = (bot, message) => {
   getInfoForUser(message.user).then(({ club, slackUser }) => {
     const currDay = club.fields['Checkin Day']
     const currHour = club.fields['Checkin Hour']
+    console.log(slackUser)
 
     const inputDate = parseDate(`${message.text} ${slackUser.tz} timezone`)
     console.log(
