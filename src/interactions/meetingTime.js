@@ -7,7 +7,7 @@ const interactionMeetingTime = (bot, message) => {
     const currHour = club.fields['Checkin Hour']
 
     const inputDate = parseDate(`${message.text}`)
-    const offsetDate = new Date(inputDate + slackUser.tz_offset)
+    const offsetDate = Date.parse(inputDate + slackUser.tz_offset)
     console.log(inputDate, slackUser.tz_offset, offsetDate)
 
     if (inputDate) {
