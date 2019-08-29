@@ -1,5 +1,5 @@
 import { parseDate } from 'chrono-node'
-import { getInfoForUser } from '../utils';
+import { getInfoForUser } from '../utils'
 
 const interactionDate = (bot, message) => {
   getInfoForUser(message.user).then(({ slackUser }) => {

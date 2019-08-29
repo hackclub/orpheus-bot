@@ -21,53 +21,72 @@ export const controller = new Botkit.slackbot({
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
   scopes: ['bot', 'chat:write:bot'],
-  storage: redisStorage({ url: process.env.REDISCLOUD_URL })
+  storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
 })
 
 controller.startTicking()
 
-controller.setupWebserver(process.env.PORT, function(err,webserver) {
+controller.setupWebserver(process.env.PORT, function(err, webserver) {
   controller.createWebhookEndpoints(controller.webserver)
   controller.createOauthEndpoints(controller.webserver)
 })
 
 controller.on('reaction_added', (bot, message) => {
   if (bot.identity.id == message.item_user) {
-    console.log("I was reacted to")
-    initBot(true).api.channels.history({
-      channel: message.item.channel,
-      count: 1,
-      inclusive: true,
-      latest: message.item.ts
-    }, (err, res) => {
-      if (err) { throw err }
-      if (res.messages.length === 0) { throw new Error("Message not found")}
+    console.log('I was reacted to')
+    initBot(true).api.channels.history(
+      {
+        channel: message.item.channel,
+        count: 1,
+        inclusive: true,
+        latest: message.item.ts,
+      },
+      (err, res) => {
+        if (err) {
+          throw err
+        }
+        if (res.messages.length === 0) {
+          throw new Error('Message not found')
+        }
 
-      const item = res.messages[0]
-      const checkinNotification = "Hey! My calendar shows you had a meeting recently. If you did you can react to this message with an emoji to let me know."
+        const item = res.messages[0]
+        const checkinNotification =
+          'Hey! My calendar shows you had a meeting recently. If you did you can react to this message with an emoji to let me know.'
 
-      if (item.text != checkinNotification) { return }
+        if (item.text != checkinNotification) {
+          return
+        }
 
-      const firstReaction = item.reactions.length === 1 && item.reactions[0].count === 1
+        const firstReaction =
+          item.reactions.length === 1 && item.reactions[0].count === 1
 
-      if (firstReaction) {
-        bot.whisper({channel: message.item.channel, user: message.user}, "I'll DM you now!", (err, response) => {
-          if (err) {
-            console.error(err)
-            return
-          }
+        if (firstReaction) {
+          bot.whisper(
+            { channel: message.item.channel, user: message.user },
+            "I'll DM you now!",
+            (err, response) => {
+              if (err) {
+                console.error(err)
+                return
+              }
 
-          interactionCheckin(undefined, message)
-        })
-      } else {
-        bot.whisper({channel: message.item.channel, user: message.user}, "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.", (err, response) => {
-          if (err) {
-            console.error(err)
-            return
-          }
-        })
+              interactionCheckin(undefined, message)
+            }
+          )
+        } else {
+          bot.whisper(
+            { channel: message.item.channel, user: message.user },
+            "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.",
+            (err, response) => {
+              if (err) {
+                console.error(err)
+                return
+              }
+            }
+          )
+        }
       }
-    })
+    )
   }
 })
 
@@ -76,7 +95,6 @@ controller.on('reaction_added', (bot, message) => {
 //   controller.middleware.capture.use((bot, message, convo, next) => {
 //     console.log("Message", message)
 //     console.log("Convo", convo)
-
 
 //     initBot().api.user.info({ user: message.user }).then(user => {
 //       user.profile
@@ -135,14 +153,14 @@ controller.on('reaction_added', (bot, message) => {
 //   console.log("WARN: SLACK_LOGS_CHANNEL config var unset, skipping")
 // }
 
-const init = (bot=initBot()) => {
+const init = (bot = initBot()) => {
   const reply = _.sample([
     '_out of the ashes a small dinosaur pops its head out of the ground. the cycle goes on_',
-    '_the cracks in the egg gave way to a small head with curious eyes. the next iteration sets its gaze upon the world_'
+    '_the cracks in the egg gave way to a small head with curious eyes. the next iteration sets its gaze upon the world_',
   ])
   bot.say({
     text: reply,
-    channel: 'C0P5NE354' // #bot-spam
+    channel: 'C0P5NE354', // #bot-spam
   })
 }
 // init()
@@ -151,7 +169,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   bot.api.reactions.add({
     timestamp: message.ts,
     channel: message.channel,
-    name: 'thumbsup-dino'
+    name: 'thumbsup-dino',
   })
 
   interactionCheckin(bot, message)
@@ -159,7 +177,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.hears('thump', 'ambient', interactionTrigger)
 
-controller.hears('convo', 'direct_mention,direct_message', (bot,message) => {
+controller.hears('convo', 'direct_mention,direct_message', (bot, message) => {
   bot.startPrivateConversation(message, (err, convo) => {
     convo.say('hello!')
   })
@@ -183,7 +201,7 @@ controller.on('slash_command', (bot, message) => {
     case '/stats':
       interactionStats(bot, message)
       break
-    
+
     case '/rename-channel':
       interactionRename(bot, message)
       break
@@ -199,7 +217,7 @@ controller.on('slash_command', (bot, message) => {
     case '/meeting-list':
       interactionMeetingList(bot, message)
       break
-  
+
     default:
       bot.replyPrivate(message, "I don't know how to do that ¯\\_(ツ)_/¯")
       break
@@ -219,22 +237,25 @@ controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
       `*stares off into the distance, dazed*`,
       `*eyes slowly glaze over in boredom*`,
       `*tilts head in confusion*`,
-      `*UWU*`
+      `*UWU*`,
     ])
 
     bot.replyInThread(message, response)
   } else {
-    bot.api.reactions.add({
-      timestamp: message.ts,
-      channel: message.channel,
-      name: _.sample([
-        'parrot_confused',
-        'confused-dino',
-        'question',
-        'grey_question'
-      ]),
-    }, (err, res) => {
-      if (err) console.error(err)
-    })
+    bot.api.reactions.add(
+      {
+        timestamp: message.ts,
+        channel: message.channel,
+        name: _.sample([
+          'parrot_confused',
+          'confused-dino',
+          'question',
+          'grey_question',
+        ]),
+      },
+      (err, res) => {
+        if (err) console.error(err)
+      }
+    )
   }
 })
