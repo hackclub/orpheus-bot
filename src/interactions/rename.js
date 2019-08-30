@@ -16,7 +16,7 @@ const interactionRename = (bot, message) => {
         )
       } else {
         console.log(`*Renaming the channel to "${text}*`)
-        initBot(true).api.channels.rename(
+        initBot(true).api.conversations.rename(
           {
             channel,
             name: text,
@@ -35,6 +35,13 @@ const interactionRename = (bot, message) => {
               message,
               `You got it boss! Renaming the channel to "${text}"...`
             )
+
+            setTimeout(() => {
+              bot.whisper(
+                message,
+                `I don't have permission to change channel names directly, but I've got <@CMEPC4XQT>'s password (he stashes them under the porch), so I used his account to rename it.`
+              )
+            }, 2000)
           }
         )
       }
