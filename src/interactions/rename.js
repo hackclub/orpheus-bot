@@ -3,6 +3,11 @@ import { airFind, initBot } from '../utils'
 const interactionRename = (bot, message) => {
   const { user, channel, text } = message
 
+  if (text === '') {
+    bot.whisper(message, "Use this command to rename your club's channel. For example: `/rename-channel el-segundo-high-school`")
+    return
+  }
+
   airFind('Clubs', 'Slack Channel ID', channel)
     .then(club => {
       if (!club || !club.fields) {
