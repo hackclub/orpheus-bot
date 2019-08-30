@@ -44,7 +44,7 @@ const interactionRename = (bot, message) => {
             setTimeout(() => {
               bot.whisper(
                 message,
-                `I don't have permission to change channel names directly, but I've got <@CMEPC4XQT>'s password (he stashes them under the porch), so I used his account to rename it.`
+                `I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.`
               )
             }, 2000)
           }
