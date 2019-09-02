@@ -2,6 +2,13 @@ import { getInfoForUser, airPatch } from '../utils'
 import { parseDate } from 'chrono-node'
 
 const interactionMeetingTime = (bot, message) => {
+  if (!message.text || message.text === 'help') {
+    bot.whisper(
+      mesage,
+      'This command will set your weekly meeting time (which informs when I ask about your club meeting). Just run the command with something like `/meeting-time next tuesday at 3 pm`'
+    )
+    return
+  }
   getInfoForUser(message.user).then(({ club, slackUser }) => {
     const currDay = club.fields['Checkin Day']
     const currHour = club.fields['Checkin Hour']
