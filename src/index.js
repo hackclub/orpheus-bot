@@ -192,7 +192,8 @@ controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 controller.hears('stats', 'direct_mention,direct_message', interactionStats)
 
 controller.on('slash_command', (bot, message) => {
-  const { command, user, channel } = message
+  const { command, user, channel, text } = message
+
   console.log(`Received ${command} command from user ${user} in ${channel}`)
 
   bot.replyAcknowledge()
@@ -204,38 +205,38 @@ controller.on('slash_command', (bot, message) => {
         elements: [
           {
             type: 'mrkdwn',
-            text: `${command} ${message.text}`,
+            text: `${command} ${text}`,
           },
         ],
       },
     ],
+  }, (err, res) => {
+    switch (command) {
+      case '/stats':
+        interactionStats(bot, message)
+        break
+
+      case '/rename-channel':
+        interactionRename(bot, message)
+        break
+
+      case '/meeting-time':
+        interactionMeetingTime(bot, message)
+        break
+
+      case '/meeting-add':
+        interactionMeetingAdd(bot, message)
+        break
+
+      case '/meeting-list':
+        interactionMeetingList(bot, message)
+        break
+
+      default:
+        bot.replyPrivate(message, "I don't know how to do that ¯\\_(ツ)_/¯")
+        break
+    }
   })
-
-  switch (command) {
-    case '/stats':
-      interactionStats(bot, message)
-      break
-
-    case '/rename-channel':
-      interactionRename(bot, message)
-      break
-
-    case '/meeting-time':
-      interactionMeetingTime(bot, message)
-      break
-
-    case '/meeting-add':
-      interactionMeetingAdd(bot, message)
-      break
-
-    case '/meeting-list':
-      interactionMeetingList(bot, message)
-      break
-
-    default:
-      bot.replyPrivate(message, "I don't know how to do that ¯\\_(ツ)_/¯")
-      break
-  }
 })
 
 // catch-all for direct messages
