@@ -4,7 +4,7 @@ import { parseDate } from 'chrono-node'
 const interactionMeetingTime = (bot, message) => {
   if (!message.text || message.text === 'help') {
     bot.whisper(
-      mesage,
+      message,
       'This command will set your weekly meeting time (which informs when I ask about your club meeting). Just run the command with something like `/meeting-time next tuesday at 3 pm`'
     )
     return
