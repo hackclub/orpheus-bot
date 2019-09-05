@@ -13,20 +13,23 @@ const getAdmin = (bot, user) =>
   })
 
 const triggerInteraction = (bot, message) => {
+  const { text, ts, channel } = message
+  console.log(message)
+
   getAdmin(bot, message.user)
     .then(admin => {
       if (!admin) {
         bot.api.reactions.add({
-          timestamp: message.ts,
-          channel: message.channel,
+          timestamp: ts,
+          channel: channel,
           name: 'broken_heart',
         })
         throw new Error('user_not_leader')
       }
 
       bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
+        timestamp: ts,
+        channel: channel,
         name: 'heartbeat',
       })
 
@@ -39,7 +42,7 @@ const triggerInteraction = (bot, message) => {
 
       airGet(
         'Clubs',
-        `AND( {Checkin Hour} = '${currentHour}', {Checkin Day} = '${currentDay}', {Slack Channel ID} != '' )`
+        `AND( IS_BEFORE({First Meeting Time}, TODAY()), {Checkin Hour} = '${currentHour}', {Checkin Day} = '${currentDay}', {Slack Channel ID} != '' )`
       ).then(clubs =>
         clubs.forEach(club => {
           const channel = club.fields['Slack Channel ID']
