@@ -51,10 +51,10 @@ controller.on('reaction_added', (bot, message) => {
         }
 
         const item = res.messages[0]
-        const checkinNotification =
-          'Hey! My calendar shows you had a meeting recently. If you did you can react to this message with an emoji to let me know.'
+        const checkinSubstring =
+          'react to this message'
 
-        if (item.text != checkinNotification) {
+        if (!item.text.includes(checkinSubstring)) {
           return
         }
 
