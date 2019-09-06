@@ -118,14 +118,28 @@ export const recordMeeting = (club, meeting, cb) => {
   )
 }
 
-export const airRecord = (user) =>
+// const buildUserRecord = (airtableRecord) => ({
+//   update: (attributes) => new Promise((resolve, reject) => {
+//     airGet('Orpheus', `RECORD_ID() = ${airtableRecord.id}`).then(initialRecord => {
+//       initialRecord.
+//     })
+//     airPatch('Orpheus', `RECORD_ID() = ${airtableRecord.id}`, newValues).then(
+
+//     ).catch(err => reject(err))
+//     resolve(buildUserRecord(record))
+//   }),
+//   id: airtableRecord.id
+// })
+const buildUserRecord = r => r
+
+export const userRecord = (user) =>
   new Promise((resolve, reject) => {
     console.log(`*I'm looking up an airRecord for "${user}"*`)
-    airFind('Orpheus', 'User', user).then(userRecord => {
-      if (userRecord) {
+    airFind('Orpheus', 'User', user).then(record => {
+      if (record) {
         console.log(`*I found an airRecord for "${user}"*`)
         // if it already exists, return it
-        resolve(userRecord)
+        resolve(buildUserRecord(record))
       } else {
         console.log(`*I didn't find an airRecord for "${user}", so I'm creating a new one*`)
         // if it doesn't exist, create one...
@@ -136,7 +150,7 @@ export const airRecord = (user) =>
           if (err) { throw err }
           console.log(`*I created a new airRecord for "${user}"*`)
           // ... & return it
-          resolve(record)
+          resolve(buildUserRecord(record))
         })
       }
     }
