@@ -119,7 +119,7 @@ export const recordMeeting = (club, meeting, cb) => {
 }
 
 export const airRecord = (user) =>
-  new Promise((resove, reject) => {
+  new Promise((resolve, reject) => {
     console.log(`*I'm looking up an airRecord for "${user}"*`)
     airFind('Orpheus', 'User', user).then(userRecord => {
       if (userRecord) {
