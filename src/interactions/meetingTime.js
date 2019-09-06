@@ -3,18 +3,20 @@ import { parseDate } from 'chrono-node'
 import interactionCheckinNotification from './checkinNotification'
 
 const interactionMeetingTime = (bot, message) => {
-  if (!message.text || message.text === 'help') {
+  const { user, text } = message
+
+  if (!text || text === 'help') {
     bot.whisper(
       message,
       'This command will set your weekly meeting time (which informs when I ask about your club meeting). Just run the command with something like `/meeting-time next tuesday at 3 pm`'
     )
     return
   }
-  getInfoForUser(message.user).then(({ club, slackUser }) => {
+  getInfoForUser(user).then(({ club, slackUser }) => {
     const currDay = club.fields['Checkin Day']
     const currHour = club.fields['Checkin Hour']
 
-    const inputDate = parseDate(`${message.text}`)
+    const inputDate = parseDate(text)
     const offsetDate = new Date(
       inputDate.getTime() - slackUser.tz_offset * 1000
     )
@@ -39,16 +41,16 @@ const interactionMeetingTime = (bot, message) => {
             }:00 on ${record.fields['Checkin Day']} Coordinated Universal Time`
           )
 
-          console.log(message.user, 'is the user')
+          console.log(user, 'is the user')
           // Check if this is part of the tutorial
-          userRecord(message.user).then(userRecord => {
+          userRecord(user).then(userRecord => {
             if (userRecord.fields['Flag: Initiated tutorial'] && userRecord.fields['Flag: Tutorial /meeting-time']) {
               bot.whisper(
                 message,
                 "Great! You've demonstrated your mastery of time itself. Now I'll trigger a check-in as a practice."
               )
 
-              interactionCheckinNotification(undefined, { channel: record.fields['Slack Checkin ID'], message.user })
+              interactionCheckinNotification(undefined, { channel: record.fields['Slack Checkin ID'], user })
               
               userRecord.patch({ 'Flag: Tutorial /meeting-time': true }).catch(err => { throw err })
             }
