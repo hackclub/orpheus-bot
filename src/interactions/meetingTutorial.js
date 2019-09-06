@@ -1,7 +1,9 @@
-import { userRecord, memoryErrorMessage } from '../utils'
+import { userRecord, memoryErrorMessage, initBot } from '../utils'
 
-const interactionMeetingTutorial = (bot, message) => {
+const interactionMeetingTutorial = (_bot, message) => {
   const { user } = message
+  const bot = initBot()
+
   console.log('Running meeting tutorial')
 
   userRecord(user)
@@ -16,7 +18,9 @@ const interactionMeetingTutorial = (bot, message) => {
           message,
           `Hey <@${user}>! Welcome to the check-in tutorial. First I'll need to know when your first meeting is. Run this command to let me know: \`/meeting-time next wednesday at 4 PM\``,
           (err, res) => {
-            if (err) { throw err }
+            if (err) {
+              throw err
+            }
             bot.whisper(
               message,
               "(Don't have an exact date set for your first meeting? Just set it to a week from now– you can change this later on your own)"
