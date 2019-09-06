@@ -188,10 +188,3 @@ export const initBot = (admin = false) =>
   controller.spawn({
     token: admin ? process.env.SLACK_LEGACY_TOKEN : process.env.SLACK_BOT_TOKEN,
   })
-
-// class Interaction {
-//   constructor(bot=initBot(), message, options) {
-//     self.bot = bot
-//     self.message = message
-//   }
-// }

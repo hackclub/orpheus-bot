@@ -25,7 +25,7 @@ const interactionMeetingTutorial = (bot, message) => {
         )
       }
       userRecord.patch({ 'Flag: Initiated tutorial': true }).catch(err => {
-        throw { err }
+        throw err
       })
     })
     .catch(err => {

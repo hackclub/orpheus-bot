@@ -1,5 +1,6 @@
-import { getInfoForUser, airPatch, memoryErrorMessage } from '../utils'
+import { getInfoForUser, airPatch, memoryErrorMessage, userRecord } from '../utils'
 import { parseDate } from 'chrono-node'
+import interactionCheckinNotification from './checkinNotification'
 
 const interactionMeetingTime = (bot, message) => {
   if (!message.text || message.text === 'help') {
@@ -37,6 +38,20 @@ const interactionMeetingTime = (bot, message) => {
               record.fields['Checkin Hour']
             }:00 on ${record.fields['Checkin Day']} Coordinated Universal Time`
           )
+
+          // Check if this is part of the tutorial
+          userRecord(user).then(userRecord => {
+            if (userRecord.fields['Flag: Initiated tutorial'] && userRecord.fields['Flag: Tutorial /meeting-time']) {
+              bot.whisper(
+                message,
+                "Great! You've demonstrated your mastery of time itself. Now I'll trigger a check-in as a practice."
+              )
+
+              interactionCheckinNotification(undefined, { channel: record.fields['Slack Checkin ID'], user })
+              
+              userRecord.patch({ 'Flag: Tutorial /meeting-time': true }).catch(err => { throw err })
+            }
+          }).catch(err => { throw err })
         })
         .catch(err => {
           bot.whisper(message, memoryErrorMessage(err))
