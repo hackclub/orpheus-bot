@@ -58,13 +58,15 @@ const interactionMeetingTime = (bot, message) => {
                   ) {
                     bot.whisper(
                       message,
-                      "Great! You've demonstrated your mastery of time itself. Now I'll trigger a check-in as a practice."
+                      "Great! Now I'll pretend you just had a club meeting. Go ahead and play along with my message in your club channel."
                     )
 
-                    interactionCheckinNotification(undefined, {
-                      channel: record.fields['Slack Channel ID'],
-                      user,
-                    })
+                    setTimeout(() => {
+                      interactionCheckinNotification(undefined, {
+                        channel: record.fields['Slack Channel ID'],
+                        user,
+                      })
+                    }, 4000)
 
                     userRecord
                       .patch({ 'Flag: Tutorial /meeting-time': true })
