@@ -40,14 +40,14 @@ const interactionMeetingTime = (bot, message) => {
           )
 
           // Check if this is part of the tutorial
-          userRecord(user).then(userRecord => {
+          userRecord(message.user).then(userRecord => {
             if (userRecord.fields['Flag: Initiated tutorial'] && userRecord.fields['Flag: Tutorial /meeting-time']) {
               bot.whisper(
                 message,
                 "Great! You've demonstrated your mastery of time itself. Now I'll trigger a check-in as a practice."
               )
 
-              interactionCheckinNotification(undefined, { channel: record.fields['Slack Checkin ID'], user })
+              interactionCheckinNotification(undefined, { channel: record.fields['Slack Checkin ID'], message.user })
               
               userRecord.patch({ 'Flag: Tutorial /meeting-time': true }).catch(err => { throw err })
             }
