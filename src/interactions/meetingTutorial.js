@@ -15,10 +15,9 @@ const interactionMeetingTutorial = (bot, message) => {
     const newRecordData = oldRecordData
     newRecordData['Flag: Initiated tutorial'] = true
 
-    airPatch('Orpheus', userRecord.id, JSON.stringify(newRecordData)).then((newRecord) => {
+    airPatch('Orpheus', userRecord.id, { Data: JSON.stringify(newRecordData) }).then((newRecord) => {
       console.log('patching...')
     }).catch(err => { throw err })
-    userRecord.update({tutorialIntroFlag: true})
   }).catch(err => {
     console.error(err)
     bot.whisper(`Hmmmm... I'm getting \`${err}\` and I'm pretty sure that's not right`)
