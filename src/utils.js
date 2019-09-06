@@ -132,7 +132,7 @@ export const recordMeeting = (club, meeting, cb) => {
 // })
 const buildUserRecord = r => ({
   ...r,
-  fields: JSON.parse(r.fields['Data']),
+  fields: JSON.parse((r.fields['Data'] || {})),
   patch: updatedFields => new Promise((resolve, reject) => {
     const oldFields = buildUserRecord(r).fields
     const newFields = { Data: JSON.stringify({...oldFields, ...updatedFields}) }
