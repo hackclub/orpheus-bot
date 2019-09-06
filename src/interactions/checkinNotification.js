@@ -5,7 +5,8 @@ const notification = user => user ?
     'Hey! My calendar shows you had a meeting recently. If you did, let me know by reacting to this message.'
 
 const interactionCheckinNotification = (bot = initBot(), message) => {
-  const { channel, user=null } = message
+  const { channel } = message
+  let { user } = message
 
   if (!user) {
     console.log(`*Running checkin on channel "${channel} with no default leader, I'll look for a default leader now!*`)
