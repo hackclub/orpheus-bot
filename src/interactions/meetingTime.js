@@ -39,6 +39,7 @@ const interactionMeetingTime = (bot, message) => {
             }:00 on ${record.fields['Checkin Day']} Coordinated Universal Time`
           )
 
+          console.log(message.user, 'is the user')
           // Check if this is part of the tutorial
           userRecord(message.user).then(userRecord => {
             if (userRecord.fields['Flag: Initiated tutorial'] && userRecord.fields['Flag: Tutorial /meeting-time']) {
