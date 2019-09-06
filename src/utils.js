@@ -123,7 +123,7 @@ const buildUserRecord = r => ({
   fields: JSON.parse((r.fields['Data'] || '{}')),
   patch: updatedFields => new Promise((resolve, reject) => {
     const oldFields = buildUserRecord(r).fields
-    const newFields = { Data: JSON.stringify({...oldFields, ...updatedFields}) }
+    const newFields = { Data: JSON.stringify({...oldFields, ...updatedFields}, null, 2) }
     airPatch('Orpheus', r.id, newFields).then(newRecord => resolve(buildUserRecord(newRecord))).catch(err => { reject(err) })
   })
 })
