@@ -62,7 +62,7 @@ const interactionMeetingTime = (bot, message) => {
                     )
 
                     interactionCheckinNotification(undefined, {
-                      channel: record.fields['Slack Checkin ID'],
+                      channel: record.fields['Slack Channel ID'],
                       user,
                     })
 
