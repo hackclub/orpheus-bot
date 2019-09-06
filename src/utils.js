@@ -130,7 +130,15 @@ export const recordMeeting = (club, meeting, cb) => {
 //   }),
 //   id: airtableRecord.id
 // })
-const buildUserRecord = r => r
+const buildUserRecord = r => ({
+  ...r,
+  fields: JSON.parse(r.fields['Data']),
+  patch: updatedFields => new Promise((resolve, reject) => {
+    const oldFields = buildUserRecord(r).fields
+    const newFields = { Data: JSON.stringify({...oldFields, ...updatedFields}) }
+    airPatch('Orpheus', r.id, newFields).then(newRecord => resolve(buildUserRecord(newRecord))).catch(err => { reject(err) })
+  })
+})
 
 export const userRecord = (user) =>
   new Promise((resolve, reject) => {
