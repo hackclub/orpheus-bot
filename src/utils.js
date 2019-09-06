@@ -118,18 +118,6 @@ export const recordMeeting = (club, meeting, cb) => {
   )
 }
 
-// const buildUserRecord = (airtableRecord) => ({
-//   update: (attributes) => new Promise((resolve, reject) => {
-//     airGet('Orpheus', `RECORD_ID() = ${airtableRecord.id}`).then(initialRecord => {
-//       initialRecord.
-//     })
-//     airPatch('Orpheus', `RECORD_ID() = ${airtableRecord.id}`, newValues).then(
-
-//     ).catch(err => reject(err))
-//     resolve(buildUserRecord(record))
-//   }),
-//   id: airtableRecord.id
-// })
 const buildUserRecord = r => ({
   ...r,
   fields: JSON.parse((r.fields['Data'] || '{}')),
