@@ -1,4 +1,4 @@
-import { getInfoForUser, airPatch } from '../utils'
+import { getInfoForUser, airPatch, memoryErrorMessage } from '../utils'
 import { parseDate } from 'chrono-node'
 
 const interactionMeetingTime = (bot, message) => {
@@ -39,7 +39,7 @@ const interactionMeetingTime = (bot, message) => {
           )
         })
         .catch(err => {
-          bot.whisper(message, `Got error: \`${err}\``)
+          bot.whisper(message, memoryErrorMessage(err))
         })
     } else {
       bot.whisper(

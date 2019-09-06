@@ -1,4 +1,4 @@
-import { userRecord, airPatch } from '../utils'
+import { userRecord, memoryErrorMessage } from '../utils'
 
 const interactionMeetingTutorial = (bot, message) => {
   const { user } = message
@@ -9,7 +9,7 @@ const interactionMeetingTutorial = (bot, message) => {
       if (userRecord.fields['Flag: Initiated tutorial']) {
         bot.whisper(
           message,
-          `Hmmm.... looks like we've already started this tutorial`
+          `Go ahead and type \`/meeting-time next wednesday at 4 PM\`. If you're not sure what to do next, go ahead and send a screenshot of this message to <@U0C7B14Q3>.`
         )
       } else {
         bot.whisper(
@@ -29,10 +29,7 @@ const interactionMeetingTutorial = (bot, message) => {
       })
     })
     .catch(err => {
-      console.error(err)
-      bot.whisper(
-        `Hmmmm... I'm getting \`${err}\` and I'm pretty sure that's not right`
-      )
+      bot.whisper(message, memoryErrorMessage(err))
     })
 }
 export default interactionMeetingTutorial

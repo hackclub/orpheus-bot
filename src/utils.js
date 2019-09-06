@@ -1,9 +1,19 @@
 import { controller } from './'
 
+import { sample } from 'lodash'
 import Airtable from 'airtable'
 const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_BASE
 )
+
+export const memoryErrorMessage = (err) => sample([
+  `I think I'm suffering from amnesia... I'm trying to recall what we were talking about, but all that comes to mind is \`{${err}}\``,
+  `Hmmm... something's on the tip of my tongue, but all I can think is \`${err}\``,
+  `Do you ever try to remember something, but end up thinking \`${err}\` instead? Wait... what were we talking about?`,
+  `Hmmm... I'm having trouble thinking right now. Whenever I focus, \`${err}\` is the only thing that comes to mind`,
+  `Aw jeez, this is embarrassing. My database just texted me \`${err}\``,
+  `I just opened my notebook to take a note, but it just says \`${err}\` all over the pages`,
+])
 
 export const airPatch = (baseName, recordID, values) =>
   new Promise((resolve, reject) => {
