@@ -211,6 +211,8 @@ controller.on('slash_command', (bot, message) => {
       },
     ],
   }, (err, res) => {
+    if (err) { console.error(err) }
+
     switch (command) {
       case '/stats':
         interactionStats(bot, message)
@@ -232,8 +234,12 @@ controller.on('slash_command', (bot, message) => {
         interactionMeetingList(bot, message)
         break
 
+      case '/meeting-tutorial':
+        interactionMeetingTutorial(bot, message)
+        break
+
       default:
-        bot.replyPrivate(message, "I don't know how to do that ¯\\_(ツ)_/¯")
+        bot.whisper(message, "I don't know how to do that ¯\\_(ツ)_/¯")
         break
     }
   })
