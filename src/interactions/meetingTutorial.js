@@ -14,11 +14,14 @@ const interactionMeetingTutorial = (bot, message) => {
       } else {
         bot.whisper(
           message,
-          `Hey <@${user}>! Welcome to the check-in tutorial. First I'll need to know when your first meeting is. Run this command to let me know: \`/meeting-time next wednesday at 4 PM\``
-        )
-        bot.whisper(
-          message,
-          "(If you don't know when your first meeting will be, just set it for a couple weeks for now so we can get through the tutorial, then you can change it later)"
+          `Hey <@${user}>! Welcome to the check-in tutorial. First I'll need to know when your first meeting is. Run this command to let me know: \`/meeting-time next wednesday at 4 PM\``,
+          (err, res) => {
+            if (err) { throw err }
+            bot.whisper(
+              message,
+              "(Don't have an exact date set for your first meeting? Just set it to a week from now– you can change this later on your own)"
+            )
+          }
         )
       }
       userRecord.patch({ 'Flag: Initiated tutorial': true }).catch(err => {
