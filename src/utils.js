@@ -130,7 +130,8 @@ export const airRecord = (user) =>
         console.log(`*I didn't find an airRecord for "${user}", so I'm creating a new one*`)
         // if it doesn't exist, create one...
         base('Orpheus').create({
-          User: user
+          User: user,
+          Data: '{}'
         }, (err, record) => {
           if (err) { throw err }
           console.log(`*I created a new airRecord for "${user}"*`)
