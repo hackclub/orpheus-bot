@@ -8,6 +8,7 @@ const interactionMeetingTutorial = (bot, message) => {
   airRecord(user).then(userRecord => {
     console.log(userRecord)
   }).catch(err => {
+    console.error(err)
     bot.whisper(`Hmmmm... I'm getting \`${err}\` and I'm pretty sure that's not right`)
   })
 }
