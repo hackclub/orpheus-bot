@@ -120,37 +120,52 @@ export const recordMeeting = (club, meeting, cb) => {
 
 const buildUserRecord = r => ({
   ...r,
-  fields: JSON.parse((r.fields['Data'] || '{}')),
-  patch: updatedFields => new Promise((resolve, reject) => {
-    const oldFields = buildUserRecord(r).fields
-    const newFields = { Data: JSON.stringify({...oldFields, ...updatedFields}, null, 2) }
-    airPatch('Orpheus', r.id, newFields).then(newRecord => resolve(buildUserRecord(newRecord))).catch(err => { reject(err) })
-  })
+  fields: JSON.parse(r.fields['Data'] || '{}'),
+  patch: updatedFields =>
+    new Promise((resolve, reject) => {
+      const oldFields = buildUserRecord(r).fields
+      const newFields = {
+        Data: JSON.stringify({ ...oldFields, ...updatedFields }, null, 2),
+      }
+      airPatch('Orpheus', r.id, newFields)
+        .then(newRecord => resolve(buildUserRecord(newRecord)))
+        .catch(err => {
+          reject(err)
+        })
+    }),
 })
 
-export const userRecord = (user) =>
+export const userRecord = user =>
   new Promise((resolve, reject) => {
     console.log(`*I'm looking up an airRecord for "${user}"*`)
-    airFind('Orpheus', 'User', user).then(record => {
-      if (record) {
-        console.log(`*I found an airRecord for "${user}"*`)
-        // if it already exists, return it
-        resolve(buildUserRecord(record))
-      } else {
-        console.log(`*I didn't find an airRecord for "${user}", so I'm creating a new one*`)
-        // if it doesn't exist, create one...
-        base('Orpheus').create({
-          User: user,
-          Data: '{}'
-        }, (err, record) => {
-          if (err) { throw err }
-          console.log(`*I created a new airRecord for "${user}"*`)
-          // ... & return it
+    airFind('Orpheus', 'User', user)
+      .then(record => {
+        if (record) {
+          console.log(`*I found an airRecord for "${user}"*`)
+          // if it already exists, return it
           resolve(buildUserRecord(record))
-        })
-      }
-    }
-    ).catch(err => reject(err))
+        } else {
+          console.log(
+            `*I didn't find an airRecord for "${user}", so I'm creating a new one*`
+          )
+          // if it doesn't exist, create one...
+          base('Orpheus').create(
+            {
+              User: user,
+              Data: '{}',
+            },
+            (err, record) => {
+              if (err) {
+                throw err
+              }
+              console.log(`*I created a new airRecord for "${user}"*`)
+              // ... & return it
+              resolve(buildUserRecord(record))
+            }
+          )
+        }
+      })
+      .catch(err => reject(err))
   })
 
 export const initBot = (admin = false) =>
