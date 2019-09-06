@@ -51,8 +51,7 @@ controller.on('reaction_added', (bot, message) => {
         }
 
         const item = res.messages[0]
-        const checkinSubstring =
-          'react to this message'
+        const checkinSubstring = 'react to this message'
 
         if (!item.text.includes(checkinSubstring)) {
           return
@@ -70,6 +69,18 @@ controller.on('reaction_added', (bot, message) => {
                 console.error(err)
                 return
               }
+
+              // This is part of the tutorial
+              userRecord(user).then(userRecord => {
+                if (
+                  userRecord.fields['Flag: Tutorial /meeting-time'] &&
+                  !userRecord.fields['Flag: Tutorial reacted to notification']
+                ) {
+                  userRecord.patch({
+                    'Flag: Tutorial reacted to notification': true,
+                  })
+                }
+              })
 
               interactionCheckin(undefined, message)
             }
