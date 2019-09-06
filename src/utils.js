@@ -118,6 +118,30 @@ export const recordMeeting = (club, meeting, cb) => {
   )
 }
 
+export const airRecord = (user) =>
+  new Promise((resove, reject) => {
+    console.log(`*I'm looking up an airRecord for "${user}"*`)
+    airFind('Orpheus', 'User', user).then(userRecord => {
+      if (userRecord) {
+        console.log(`*I found an airRecord for "${user}"*`)
+        // if it already exists, return it
+        resolve(userRecord)
+      } else {
+        console.log(`*I didn't find an airRecord for "${user}", so I'm creating a new one*`)
+        // if it doesn't exist, create one...
+        base('Orpheus').create({
+          User: user
+        }, (err, record) => {
+          if (err) { throw err }
+          console.log(`*I created a new airRecord for "${user}"*`)
+          // ... & return it
+          resolve(record)
+        })
+      }
+    }
+    ).catch(err => reject(err))
+  })
+
 export const initBot = (admin = false) =>
   // we need to create our "bot" context for interactions that aren't initiated by the user.
   // ex. we want to send a "hello world" message on startup w/o waiting for a user to trigger it.
