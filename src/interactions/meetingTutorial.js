@@ -15,7 +15,7 @@ const interactionMeetingTutorial = (bot, message) => {
     const newRecordData = oldRecordData
     newRecordData['Flag: Initiated tutorial'] = true
 
-    airPatch('Orpheus', userRecord.id, JSON.stringify(newRecordFields)).then((newRecord) => {
+    airPatch('Orpheus', userRecord.id, JSON.stringify(newRecordData)).then((newRecord) => {
       console.log('patching...')
     }).catch(err => { throw err })
     userRecord.update({tutorialIntroFlag: true})
