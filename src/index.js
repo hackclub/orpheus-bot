@@ -3,7 +3,7 @@ import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
 
-import { initBot } from './utils'
+import { initBot, userRecord } from './utils'
 
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'
