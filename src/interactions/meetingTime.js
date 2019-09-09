@@ -48,7 +48,7 @@ const interactionMeetingTime = (bot, message) => {
               if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
                 bot.whisper(
                   message,
-                  "Great! Now I'll pretend you just had a club meeting. Go ahead and play along with my message in your club channel."
+                  `Great! Now I'll roleplay what will happen right after your first meeting by posting in <#${record.fields['Slack Channel ID']}>.`
                 )
 
                 setTimeout(() => {
