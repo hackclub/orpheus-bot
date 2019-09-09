@@ -82,29 +82,31 @@ export const getInfoForUser = user =>
   new Promise((resolve, reject) => {
     const results = {}
 
-    getSlackUser(user)
-      .then(slackUser => (results.slackUser = slackUser))
+    Promise.all([
+      getSlackUser(user).then(slackUser => (results.slackUser = slackUser)),
+      userRecord(user).then(userRecord => (results.userRecord = userRecord)),
       // Get the leader from the user
-      .then(() => airFind('Leaders', 'Slack ID', user))
-      .then(leader => (results.leader = leader))
-      // Then club from leader
-      .then(() =>
-        airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`)
-      )
-      .then(club => (results.club = club))
-      // Then club's history from club
-      .then(() => airGet('History', 'Club', results.club.fields['ID']))
-      .then(history => {
-        results.history = {
-          records: history,
-          meetings: history
-            .filter(h => h.fields['Attendance'])
-            .sort(
-              (a, b) =>
-                Date.parse(a.fields['Date']) - Date.parse(b.fields['Date'])
-            ),
-        }
-      })
+      (() => airFind('Leaders', 'Slack ID', user))
+        .then(leader => (results.leader = leader))
+        // Then club from leader
+        .then(() =>
+          airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`)
+        )
+        .then(club => (results.club = club))
+        // Then club's history from club
+        .then(() => airGet('History', 'Club', results.club.fields['ID']))
+        .then(history => {
+          results.history = {
+            records: history,
+            meetings: history
+              .filter(h => h.fields['Attendance'])
+              .sort(
+                (a, b) =>
+                  Date.parse(a.fields['Date']) - Date.parse(b.fields['Date'])
+              ),
+          }
+        }),
+    ])
       .then(() => resolve(results))
       .catch(e => reject(e))
   })
