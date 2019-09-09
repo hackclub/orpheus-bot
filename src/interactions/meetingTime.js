@@ -1,9 +1,4 @@
-import {
-  getInfoForUser,
-  airPatch,
-  memoryErrorMessage,
-  userRecord,
-} from '../utils'
+import { getInfoForUser, airPatch, memoryErrorMessage } from '../utils'
 import { parseDate } from 'chrono-node'
 import interactionCheckinNotification from './checkinNotification'
 
@@ -17,7 +12,7 @@ const interactionMeetingTime = (bot, message) => {
     )
     return
   }
-  getInfoForUser(user).then(({ club, slackUser }) => {
+  getInfoForUser(user).then(({ club, slackUser, userRecord }) => {
     const currDay = club.fields['Checkin Day']
     const currHour = club.fields['Checkin Hour']
 
@@ -50,34 +45,25 @@ const interactionMeetingTime = (bot, message) => {
               }
 
               // Check if this is part of the tutorial
-              userRecord(user)
-                .then(userRecord => {
-                  if (
-                    userRecord.fields['Flag: Initiated tutorial'] &&
-                    !userRecord.fields['Flag: Tutorial /meeting-time']
-                  ) {
-                    bot.whisper(
-                      message,
-                      "Great! Now I'll pretend you just had a club meeting. Go ahead and play along with my message in your club channel."
-                    )
+              if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
+                bot.whisper(
+                  message,
+                  "Great! Now I'll pretend you just had a club meeting. Go ahead and play along with my message in your club channel."
+                )
 
-                    setTimeout(() => {
-                      interactionCheckinNotification(undefined, {
-                        channel: record.fields['Slack Channel ID'],
-                        user,
-                      })
-                    }, 4000)
+                setTimeout(() => {
+                  interactionCheckinNotification(undefined, {
+                    channel: record.fields['Slack Channel ID'],
+                    user,
+                  })
+                }, 4000)
 
-                    userRecord
-                      .patch({ 'Flag: Tutorial /meeting-time': true })
-                      .catch(err => {
-                        throw err
-                      })
-                  }
-                })
-                .catch(err => {
-                  throw err
-                })
+                userRecord
+                  .patch({ 'Flag: Tutorial /meeting-time': true })
+                  .catch(err => {
+                    throw err
+                  })
+              }
             }
           )
         })
