@@ -51,7 +51,7 @@ controller.on('reaction_added', (bot, message) => {
         }
 
         const item = res.messages[0]
-        const checkinSubstring = 'react to this message'
+        const checkinSubstring = 'reacting to this message'
 
         if (!item.text.includes(checkinSubstring)) {
           return
