@@ -86,7 +86,7 @@ export const getInfoForUser = user =>
       getSlackUser(user).then(slackUser => (results.slackUser = slackUser)),
       userRecord(user).then(userRecord => (results.userRecord = userRecord)),
       // Get the leader from the user
-      (() => airFind('Leaders', 'Slack ID', user))
+      airFind('Leaders', 'Slack ID', user)
         .then(leader => (results.leader = leader))
         // Then club from leader
         .then(() =>
