@@ -27,7 +27,7 @@ const interactionRename = (bot, message) => {
         initBot(true).api.conversations.rename(
           {
             channel,
-            name: text,
+            name: text.toLowerCase(),
           },
           (err, res) => {
             if (err) {
