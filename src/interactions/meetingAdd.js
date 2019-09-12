@@ -4,20 +4,6 @@ import { recordMeeting, getInfoForUser } from '../utils'
 
 const interactionMeetingAdd = (bot, message) => {
   getInfoForUser(message.user).then(({ club, history, slackUser }) => {
-    bot.whisper(message, {
-      blocks: [
-        {
-          type: 'context',
-          elements: [
-            {
-              type: 'mrkdwn',
-              text: `/meeting-add ${message.text}`,
-            },
-          ],
-        },
-      ],
-    })
-
     if (message.text.indexOf(',') === -1) {
       // either the user typed "help" or an incorrectly formatted command
       const manualMsg = `_Records a meeting for your club_\n\`/meeting-add today, 12 people attended\`\n\`/meeting-add last ${history.lastMeetingDay}, 15 members\``
@@ -43,7 +29,13 @@ const interactionMeetingAdd = (bot, message) => {
     recordMeeting(
       club,
       { date: date.mmddyyyy, attendance },
-      (err, meetingRecord) => {}
+      (err, meetingRecord) => {
+        if (err) {
+          return
+        }
+
+        bot.whisper(message, "You bet'cha! You can see your club's record with `/stats`")
+      }
     )
     return
 
