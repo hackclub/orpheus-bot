@@ -31,6 +31,8 @@ const interactionMeetingAdd = (bot, message) => {
       { date: date.mmddyyyy, attendance },
       (err, meetingRecord) => {
         if (err) {
+          console.error(err)
+          bot.whisper(message, `Got error: \`${err}\``)
           return
         }
 
