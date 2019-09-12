@@ -28,7 +28,7 @@ const interactionMeetingAdd = (bot, message) => {
 
     recordMeeting(
       club,
-      { date: date.mmddyyyy, attendance },
+      { date: mmddyyyy, attendance },
       (err, meetingRecord) => {
         if (err) {
           console.error(err)
