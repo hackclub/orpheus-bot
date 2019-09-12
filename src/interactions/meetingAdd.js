@@ -20,7 +20,7 @@ const interactionMeetingAdd = (bot, message) => {
 
     if (message.text.indexOf(',') === -1) {
       // either the user typed "help" or an incorrectly formatted command
-      const manualMsg = `_Records a meeting for your club_\n\`/meeting-add today, 12 people attended\`\n\`/meeting-add last ${history.meetingDay}, 15 members\``
+      const manualMsg = `_Records a meeting for your club_\n\`/meeting-add today, 12 people attended\`\n\`/meeting-add last ${history.lastMeetingDay}, 15 members\``
       bot.whisper(message, manualMsg, (err, response) => {
         if (err) {
           console.error(err)
