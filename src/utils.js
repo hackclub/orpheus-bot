@@ -96,7 +96,20 @@ export const getInfoForUser = user =>
         // Then club's history from club
         .then(() => airGet('History', 'Club', results.club.fields['ID']))
         .then(history => {
+
+          let meetingDay = 'monday'
+          if (history.meetings.length > 0) {
+            const lastMeetingDay = new Date(
+              history.meetings[0].fields['Date']
+            ).toLocaleDateString('en-us', {
+              weekday: 'long',
+              timeZone: slackUser.tz,
+            })
+            meetingDay = lastMeetingDay
+          }
+
           results.history = {
+            meetingDay,
             records: history,
             meetings: history
               .filter(h => h.fields['Attendance'])
