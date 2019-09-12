@@ -108,10 +108,9 @@ export const getInfoForUser = user =>
           }
         })
         .then(() => {
-          console.log(results.history.meetings)
           if (results.history.meetings.length > 0) {
             const lastMeetingDay = new Date(
-              results.meetings[0].fields['Date']
+              results.history.meetings[0].fields['Date']
             ).toLocaleDateString('en-us', {
               weekday: 'long',
               timeZone: results.slackUser.tz,
