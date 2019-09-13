@@ -5,7 +5,8 @@
     "fmt": "npx prettier \"{src/**,}/*.js\" --single-quote --no-semi --write",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf build && mkdir build",
-    "build-babel": "npx babel ./src -d ./build -s"
+    "build-babel": "npx babel ./src -d ./build -s",
+    "semantic-release": "semantic-release"
   },
   "main": "src/index.js",
   "dependencies": {
@@ -16,10 +17,26 @@
     "humanize-duration": "^3.20.1"
   },
   "devDependencies": {
+    "@types/airtable": "^0.5.6",
+    "@types/lodash": "^4.14.138",
+    "@types/node": "^12.7.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "cz-conventional-changelog": "^3.0.2",
+    "semantic-release": "^15.13.24",
+    "typescript": "^3.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "version": "0.0.0-development",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EAYA-Hack-Club/orpheus-bot-hackclub.git"
   }
 }
