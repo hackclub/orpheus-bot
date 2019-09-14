@@ -34,6 +34,10 @@ export const airFind = (baseName, fieldName, value) =>
       .catch(err => reject(err))
   })
 
+const esc = str => {
+  str.replace(/\"/g, `/"`)
+}
+
 export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
   new Promise((resolve, reject) => {
     // usage:
@@ -47,10 +51,13 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
         `I'm asking AirTable to send me ALL records in the "${baseName}" base`
       )
     } else {
-      options.filterByFormula =
-        tertiaryArg != null
-          ? `{${searchArg}} = "${tertiaryArg}"` // this is a key/value lookup
-          : searchArg // this is a formula lookup
+      if (tertiaryArg) {
+        // this is a key/value lookup
+        options.filterByFormula = `{${esc(searchArg)}} = "${esc(tertiaryArg)}"`
+      } else {
+        // this is a formula lookup
+        options.filterByFormula = esc(searchArg)
+      }
 
       console.log(
         `I wrote a query & sent it to AirTable: BASE=${baseName} FILTER=${options.filterByFormula}`
