@@ -34,9 +34,9 @@ export const airFind = (baseName, fieldName, value) =>
       .catch(err => reject(err))
   })
 
-const esc = str => {
+const esc = str => (
   str.replace(/\"/g, `/"`)
-}
+)
 
 export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
   new Promise((resolve, reject) => {
