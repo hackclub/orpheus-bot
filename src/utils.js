@@ -58,7 +58,7 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
       }
 
       console.log(
-        `I wrote a query & sent it to AirTable: BASE=${baseName} FILTER=${options.filterByFormula}`
+        `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=${baseName} FILTER=${options.filterByFormula}`
       )
     }
 
@@ -69,6 +69,7 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
           console.error(err)
           reject(err)
         }
+        console.log(`*AirTable got back to me from my question at ${timestamp} with ${data.length} records. The query took ${Date.now() - timestamp}ms*`)
         resolve(data)
       })
   })
