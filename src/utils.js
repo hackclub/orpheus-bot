@@ -41,10 +41,12 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
     // for formula lookup: `airGet('Clubs', '{Slack Channel ID} = BLANK()')`
     // for all records: `airGet('Leaders')`
 
+    const timestamp = Date.now()
+
     const options = {}
     if (searchArg === null) {
       console.log(
-        `I'm asking AirTable to send me ALL records in the "${baseName}" base`
+        `I'm asking AirTable to send me ALL records in the "${baseName}" base. The timestamp is ${timestamp}`
       )
     } else {
       if (tertiaryArg) {
