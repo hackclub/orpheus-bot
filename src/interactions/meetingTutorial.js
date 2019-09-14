@@ -19,7 +19,7 @@ const interactionMeetingTutorial = (_bot, message) => {
           `Hey <@${user}>! Welcome to the check-in tutorial. First I'll need to know when your first meeting is. Run this command to let me know: \`/meeting-time next wednesday at 4 PM\``,
           (err, res) => {
             if (err) {
-              throw err
+              console.error(err)
             }
             bot.whisper(
               message,
