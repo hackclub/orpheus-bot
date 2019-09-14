@@ -34,10 +34,6 @@ export const airFind = (baseName, fieldName, value) =>
       .catch(err => reject(err))
   })
 
-const esc = str => (
-  str.replace(/\"/g, `/"`)
-)
-
 export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
   new Promise((resolve, reject) => {
     // usage:
@@ -53,10 +49,10 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
     } else {
       if (tertiaryArg) {
         // this is a key/value lookup
-        options.filterByFormula = `{${esc(searchArg)}} = "${esc(tertiaryArg)}"`
+        options.filterByFormula = `{${searchArg}} = "${tertiaryArg}"`
       } else {
         // this is a formula lookup
-        options.filterByFormula = esc(searchArg)
+        options.filterByFormula = searchArg
       }
 
       console.log(
