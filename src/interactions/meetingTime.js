@@ -6,7 +6,7 @@ const interactionMeetingTime = (bot, message) => {
   const { user, text } = message
 
   if (text === '' || text === 'help') {
-    bot.whisper(message, text('meetingTime.help'))
+    bot.whisper(message, transcript('meetingTime.help'))
     return
   }
 
@@ -80,10 +80,10 @@ const interactionMeetingTime = (bot, message) => {
           )
         })
         .catch(err => {
-          bot.whisper(message, text('errors.memory', { err }))
+          bot.whisper(message, transcript('errors.memory', { err }))
         })
     } else {
-      bot.whisper(message, text('meetingTime.help'))
+      bot.whisper(message, transcript('meetingTime.help'))
 
       if (!currDay || !currHour) {
         bot.whisper(
