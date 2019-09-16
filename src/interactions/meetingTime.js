@@ -83,7 +83,7 @@ const interactionMeetingTime = (bot, message) => {
           bot.whisper(message, transcript('errors.memory', { err }))
         })
     } else {
-      bot.whisper(message, transcript('meetingTime.help'))
+      bot.whisper(message, transcript('meetingTime.parsingError'))
 
       if (!currDay || !currHour) {
         bot.whisper(
