@@ -52,7 +52,7 @@ const interactionRename = (bot, message) => {
         if (!userRecord.fields['Flag: renamed channel']) {
           bot.whisper(
             message,
-            text('tutorial.renamedChannel', {
+            transcript('tutorial.renamedChannel', {
               channel: record.fields['Slack Channel ID'],
             })
           )
