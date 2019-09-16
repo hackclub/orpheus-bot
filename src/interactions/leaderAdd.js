@@ -21,7 +21,7 @@ const interactionLeaderAdd = (bot, message) => {
       return
     }
 
-    console.log(message.text)
+    console.log(message)
   })
 }
 
