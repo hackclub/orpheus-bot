@@ -8,9 +8,9 @@ const interactionCheckinNotification = (bot = initBot(), message) => {
     console.log(text('checkinNotification.log.lookingForPOC', { channel }))
     airFind('Clubs', 'Slack Channel ID', channel)
       .then(club => {
-        const pocID = club.fields.POC
-        if (pocID) {
-          airFind('Leaders', 'ID', club.fields.POC)
+        const pocAirtableID = club.fields.POC
+        if (pocAirtableID) {
+          airFind('Leaders', `RECORD_ID() = '${pocAirtableID}'`)
             .then(leader => {
               user = leader.fields['Slack ID']
               console.log(
