@@ -70,3 +70,10 @@ renameChannel:
   progress: You got it boss! Renaming the channel to "${this.name}"...
   success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
   error: hmmm... something went wrong. I tried saving "${this.name}", but it says \`${this.err}\` in red
+meetingTime:
+  help:
+    This command will set your weekly meeting time (which informs when I ask
+    about your club meeting). Just run the command with something like
+    `/meeting-time next tuesday at 3 pm`
+  invalidUser: Only club leaders can use this command
+  invalidClub: I couldn't find a club channel owned by you

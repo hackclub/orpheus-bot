@@ -5,14 +5,24 @@ import interactionCheckinNotification from './checkinNotification'
 const interactionMeetingTime = (bot, message) => {
   const { user, text } = message
 
-  if (!text || text === 'help') {
-    bot.whisper(
-      message,
-      'This command will set your weekly meeting time (which informs when I ask about your club meeting). Just run the command with something like `/meeting-time next tuesday at 3 pm`'
-    )
+  if (text === '' || text === 'help') {
+    bot.whisper(message, text('meetingTime.help'))
     return
   }
-  getInfoForUser(user).then(({ club, slackUser, userRecord }) => {
+
+  getInfoForUser(user).then(({ leader, club, slackUser, userRecord }) => {
+    if (!leader) {
+      console.log(`${user} isn't a leader, so I told them this was restricted`)
+      bot.whisper(message, transcript('meetingTime.invalidUser'))
+      return
+    }
+
+    if (!club) {
+      console.log(`${user} doesn't have a club`)
+      bot.whisper(message, transcript('meetingTime.invalidClub'))
+      return
+    }
+
     const currDay = club.fields['Checkin Day']
     const currHour = club.fields['Checkin Hour']
 
