@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { getInfoForUser } from '../utils'
+import { getInfoForUser, text } from '../utils'
 
 const interactionStats = (bot, message) => {
   const { user } = message
