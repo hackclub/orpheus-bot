@@ -76,8 +76,8 @@ renameChannel:
 meetingTime:
   help:
     This command will set your weekly meeting time (which informs when I ask
-    about your club meeting). Just run the command `/meeting-time next
-    tuesday at 3 pm` (using your own day and time)
+    about your club meeting). Just run the command \`/meeting-time next
+    tuesday at 3 pm\` (using your own day and time)
   invalidUser: Only club leaders can use this command
   invalidClub: I couldn't find a club channel owned by you
   success: Ok, I'll post a message in your club's channel around ${this.hour}:00 on ${this.day} UTC
