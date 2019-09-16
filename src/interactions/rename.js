@@ -26,7 +26,10 @@ const interactionRename = (bot, message) => {
       console.log(
         `${channel} isn't ${user}'s channel, so I asked them to run it there`
       )
-      bot.whisper(message, transcript('invalidChannel', { channel }))
+      bot.whisper(
+        message,
+        transcript('renameChannel.invalidChannel', { channel })
+      )
       return
     }
 
