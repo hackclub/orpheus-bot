@@ -59,6 +59,6 @@ renameChannel:
   invalidChannel: You can't rename this channel. Did you mean to run this in <#${this.channel}>?
   noClubChannel: I couldn't find a club channel owned by you
   invalidUser: Only club leaders can use this command
-  progress: You got it boss! Renaming the channel to "${this.text}"...
+  progress: You got it boss! Renaming the channel to "${this.name}"...
   success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
-  error: hmmm... something went wrong. I tried saving "${this.text}", but it says \`${this.err}\` in red
+  error: hmmm... something went wrong. I tried saving "${this.name}", but it says \`${this.err}\` in red
