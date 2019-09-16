@@ -53,7 +53,7 @@ const interactionRename = (bot, message) => {
           bot.whisper(
             message,
             transcript('tutorial.renamedChannel', {
-              channel: record.fields['Slack Channel ID'],
+              channel: userRecord.fields['Slack Channel ID'],
             })
           )
 
