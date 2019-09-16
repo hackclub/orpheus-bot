@@ -1,9 +1,9 @@
 import { initBot, text as transcript, getInfoForUser } from '../utils'
 
 const interactionRename = (bot, message) => {
-  const { user, channel, text } = message
+  const { user, channel } = message
 
-  if (text === '' || text === 'help') {
+  if (message.text === '' || message.text === 'help') {
     console.log(`I responded to ${user} with a help message`)
     bot.whisper(message, transcript('renameChannel.help'))
     return
@@ -35,7 +35,7 @@ const interactionRename = (bot, message) => {
       return
     }
 
-    const name = text.toLowerCase()
+    const name = message.text.toLowerCase()
     console.log(`*Renaming the channel to "${name}*`)
     initBot(true).api.conversations.rename({ channel, name }, err => {
       if (err) {
