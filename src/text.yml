@@ -53,7 +53,7 @@ tutorial:
   renamedChannel: >
     Now that we've renamed <#${this.channel}>, I'll show you how to record a
     club meeting. First, I'll need to know when your first club meeting is.
-    You can show me by typing `/meeting-time next tuesday at 3 pm`.
+    You can show me by typing \`/meeting-time next tuesday at 3 pm\`.
   setMeetingTime: > 
     Great! Now I'll roleplay what will happen right after your first meeting
     by posting in <#${this.channel}>
