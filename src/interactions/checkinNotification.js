@@ -34,7 +34,7 @@ const interactionCheckinNotification = (bot = initBot(), message) => {
       })
   } else {
     console.log(text('checkinNotification.log.posting', { channel, user }))
-    bot.say({ text: notification(user), channel })
+    bot.say({ text: 'checkinNotification.unnamed', channel })
 
     return // temporarily disabling this while we're using `/meeting-add` instead of checkin conversation
     userRecord(user).then(userRecord => {
