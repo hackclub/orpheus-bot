@@ -1,0 +1,10 @@
+catchall:
+  emoji:
+    - parrot_confused
+    - confused-dino
+    - question
+  reply:
+    - '*tilts head in confusion*'
+    - '*slowly blinks one eye*'
+    - '*stares off into the distance, dazed*'
+    - '*eyes slowly glaze over in boredom*'

@@ -16,6 +16,7 @@ import interactionMeetingList from './interactions/meetingList'
 import interactionMeetingAdd from './interactions/meetingAdd'
 import interactionMeetingTime from './interactions/meetingTime'
 import interactionMeetingTutorial from './interactions/meetingTutorial'
+import interactionCatchall from './interactions/catchall'
 
 export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -258,37 +259,4 @@ controller.on('slash_command', (bot, message) => {
 })
 
 // catch-all for direct messages
-controller.hears('.*', 'direct_message,direct_mention', (bot, message) => {
-  const { text, user } = message
-
-  // ignore threaded messages
-  if (_.has(message.event, 'parent_user_id')) return
-
-  if (Math.random() > 0.5) {
-    const response = _.sample([
-      `*slowly blinks one eye*`,
-      `*stares off into the distance, dazed*`,
-      `*eyes slowly glaze over in boredom*`,
-      `*tilts head in confusion*`,
-      `*UWU*`,
-    ])
-
-    bot.replyInThread(message, response)
-  } else {
-    bot.api.reactions.add(
-      {
-        timestamp: message.ts,
-        channel: message.channel,
-        name: _.sample([
-          'parrot_confused',
-          'confused-dino',
-          'question',
-          'grey_question',
-        ]),
-      },
-      (err, res) => {
-        if (err) console.error(err)
-      }
-    )
-  }
-})
+controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)

@@ -1,6 +1,11 @@
 import { controller } from './'
 
-import { sample } from 'lodash'
+import yaml from 'js-yaml'
+import fs from 'fs'
+import path from 'path'
+import {
+  sample
+} from 'lodash'
 import Airtable from 'airtable'
 const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_BASE
@@ -208,3 +213,33 @@ export const initBot = (admin = false) =>
   controller.spawn({
     token: admin ? process.env.SLACK_LEGACY_TOKEN : process.env.SLACK_BOT_TOKEN,
   })
+
+const loadText = () => {
+  try {
+    const doc = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, './text.yml'), 'utf8'))
+    console.log(doc)
+    return doc
+  } catch (e) {
+    console.error(e)
+  }
+}
+const recurseText = (searchArr, textObj) => {
+  const searchCursor = searchArr.shift()
+  const targetObj = textObj[searchCursor]
+
+  if (searchArr.length > 0) {
+    return recurseText(searchArr, targetObj)
+  } else {
+    if (Array.isArray(targetObj)) {
+      return sample(targetObj)
+    } else {
+      return targetObj
+    }
+  }
+}
+export const text = (search) => {
+  const searchArr = search.split('.')
+  const textObj = loadText()
+
+  return recurseText(searchArr, textObj)
+}
