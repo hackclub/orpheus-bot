@@ -1,49 +1,42 @@
-import { initBot, airFind, userRecord } from '../utils'
-
-const notification = user =>
-  user
-    ? `Hey <@${user}>! My calendar shows you had a meeting recently. :point_right: *you are responsible* :point_left: for telling me by reacting to this message`
-    : 'Hey! My calendar shows you had a meeting recently. If you did, let me know by reacting to this message.'
+import { initBot, airFind, userRecord, text } from '../utils'
 
 const interactionCheckinNotification = (bot = initBot(), message) => {
   const { channel } = message
   let { user } = message
 
   if (!user) {
-    console.log(
-      `*Running checkin on channel "${channel} with no default leader, I'll look for a default leader now!*`
-    )
+    console.log(text('checkinNotification.log.lookingForPOC', { channel }))
     airFind('Clubs', 'Slack Channel ID', channel)
       .then(club => {
-        const pocID = club.fields['POC']
+        const pocID = club.fields.POC
         if (pocID) {
-          airFind('Leaders', 'ID', club.fields['POC'])
+          airFind('Leaders', 'ID', club.fields.POC)
             .then(leader => {
               user = leader.fields['Slack ID']
               console.log(
-                `*Found a POC! I'll Post a checkin notification in channel "${channel} & tag the POC: "${user}"!*`
+                text('checkinNotification.log.foundPoc', { channel, user })
               )
-              bot.say({ text: notification(user), channel })
+              bot.say({
+                text: text('checkinNotification.named', { user }),
+                channel,
+              })
             })
             .catch(err => {
               throw err
             })
         } else {
-          console.log(
-            `*I didn't find a POC for the club in channel "${channel}", so I'll just post the notification without tagging anyone*`
-          )
-          bot.say({ text: notification(user), channel })
+          console.log(text('checkinNotification.log.noPOCFound', { channel }))
+          bot.say({ text: text('checkinNotification.unnamed'), channel })
         }
       })
       .catch(err => {
         throw err
       })
   } else {
-    console.log(
-      `*Posting a checkin notification in channel "${channel} & tagging user "${user}"!*`
-    )
+    console.log(text('checkinNotification.log.posting', { channel, user }))
     bot.say({ text: notification(user), channel })
 
+    return // temporarily disabling this while we're using `/meeting-add` instead of checkin conversation
     userRecord(user).then(userRecord => {
       // If tutorial hasn't been run
       if (
@@ -78,7 +71,9 @@ const interactionCheckinNotification = (bot = initBot(), message) => {
             if (err) {
               console.error(err)
             }
-            userRecord.patch({ 'Flag: reacted to checkin notification': true })
+            userRecord.patch({
+              'Flag: reacted to checkin notification': true,
+            })
           }
         )
       }

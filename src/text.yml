@@ -8,3 +8,11 @@ catchall:
     - '*slowly blinks one eye*'
     - '*stares off into the distance, dazed*'
     - '*eyes slowly glaze over in boredom*'
+checkinNotification:
+  named: 'Hey ${this.user}! My calendar shows you had a meeting recently. :point_right: *you are responsible* :point_left: for recording it by running `/meeting-add`'
+  unnamed: 'Hey! My calendar shows you had a meeting recently. If you did, record it by running `/meeting-add`'
+  log:
+    lookingForPOC: "*Running checkin on channel '${this.channel}' with no default leader, I'll look for a default leader now!*"
+    foundPOC: "*Found a POC! I'll post a checkin notification in channel '${this.channel}' & tag the POC: '${this.user}'!*"
+    noPOCFound: "*I didn't find a POC for the club in channel '${this.channel}', so I'll just post the notification without tagging anyone*"
+    posting: "*Posting a checkin notification in channel '${this.channel}' & tagging user '${this.user}'!*"

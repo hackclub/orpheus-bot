@@ -216,8 +216,9 @@ export const initBot = (admin = false) =>
 
 const loadText = () => {
   try {
-    const doc = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, './text.yml'), 'utf8'))
-    console.log(doc)
+    const doc = yaml.safeLoad(
+      fs.readFileSync(path.resolve(__dirname, './text.yml'), 'utf8')
+    )
     return doc
   } catch (e) {
     console.error(e)
@@ -237,9 +238,16 @@ const recurseText = (searchArr, textObj) => {
     }
   }
 }
-export const text = (search) => {
+export const text = (search, vars) => {
   const searchArr = search.split('.')
   const textObj = loadText()
 
-  return recurseText(searchArr, textObj)
+  return evalText(recurseText(searchArr, textObj), vars)
 }
+const evalText = (target, vars = {}) =>
+  function() {
+    return eval('`' + target + '`')
+  }.call({
+    ...vars,
+    text,
+  })
