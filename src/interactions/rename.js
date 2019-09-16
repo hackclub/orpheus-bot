@@ -35,23 +35,21 @@ const interactionRename = (bot, message) => {
       return
     }
 
-    console.log(`*Renaming the channel to "${text}*`)
-    initBot(true).api.conversations.rename(
-      { channel, name: text.toLowerCase() },
-      err => {
-        if (err) {
-          console.error(err)
-          bot.whisper(message, transcript('renameChannel.error', { text, err }))
-          return
-        }
-
-        bot.whisper(message, transcript('renameChannel.progress', { text }))
-
-        setTimeout(() => {
-          bot.whisper(message, transcript('renameChannel.success'))
-        }, 2000)
+    const name = text.toLowerCase()
+    console.log(`*Renaming the channel to "${name}*`)
+    initBot(true).api.conversations.rename({ channel, name }, err => {
+      if (err) {
+        console.error(err)
+        bot.whisper(message, transcript('renameChannel.error', { name, err }))
+        return
       }
-    )
+
+      bot.whisper(message, transcript('renameChannel.progress', { name }))
+
+      setTimeout(() => {
+        bot.whisper(message, transcript('renameChannel.success'))
+      }, 2000)
+    })
   })
 }
 export default interactionRename
