@@ -1,4 +1,4 @@
-import { getInfoForUser, memoryErrorMessage, initBot } from '../utils'
+import { getInfoForUser, memoryErrorMessage, initBot, text } from '../utils'
 
 const interactionMeetingTutorial = (_bot, message) => {
   const { user } = message
