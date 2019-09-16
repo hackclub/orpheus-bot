@@ -28,7 +28,9 @@ const interactionRename = (bot, message) => {
       )
       bot.whisper(
         message,
-        transcript('renameChannel.invalidChannel', { channel })
+        transcript('renameChannel.invalidChannel', {
+          channel: club.fields['Slack Channel ID'],
+        })
       )
       return
     }
