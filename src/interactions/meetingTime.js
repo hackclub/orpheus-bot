@@ -1,4 +1,4 @@
-import { getInfoForUser, airPatch, memoryErrorMessage } from '../utils'
+import { getInfoForUser, airPatch, text } from '../utils'
 import { parseDate } from 'chrono-node'
 import interactionCheckinNotification from './checkinNotification'
 
@@ -48,7 +48,9 @@ const interactionMeetingTime = (bot, message) => {
               if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
                 bot.whisper(
                   message,
-                  `Great! Now I'll roleplay what will happen right after your first meeting by posting in <#${record.fields['Slack Channel ID']}>.`
+                  `Great! Now I'll roleplay what will happen right after your first meeting by posting in <#${
+                    record.fields['Slack Channel ID']
+                  }>.`
                 )
 
                 setTimeout(() => {
@@ -68,7 +70,7 @@ const interactionMeetingTime = (bot, message) => {
           )
         })
         .catch(err => {
-          bot.whisper(message, memoryErrorMessage(err))
+          bot.whisper(message, text('errors.memory', { err }))
         })
     } else {
       bot.whisper(

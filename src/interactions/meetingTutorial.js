@@ -1,4 +1,4 @@
-import { getInfoForUser, memoryErrorMessage, initBot, text } from '../utils'
+import { getInfoForUser, initBot, text } from '../utils'
 
 const interactionMeetingTutorial = (_bot, message) => {
   const { user } = message
@@ -22,7 +22,7 @@ const interactionMeetingTutorial = (_bot, message) => {
       })
     })
     .catch(err => {
-      bot.whisper(message, memoryErrorMessage(err))
+      bot.whisper(message, text('errors.memory', { err }))
     })
 }
 export default interactionMeetingTutorial

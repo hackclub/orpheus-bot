@@ -46,6 +46,14 @@ tutorial:
     Run this command \`/rename-channel new-channel-name\` (with your own channel name)
   alreadyStarted: >
     Go ahead and rename your channel with \`/rename-channel\`. If you're not sure what to do next, go ahead and send a screenshot of this message to <@U0C7B14Q3>.
+errors:
+  memory:
+    - 'I think I’m suffering from amnesia... I’m trying to recall what we were talking about, but all that comes to mind is \`{${this.err}}\`'
+    - 'Hmmm... something’s on the tip of my tongue, but all I can think is \`${this.err}\`'
+    - 'Do you ever try to remember something, but end up thinking \`${this.err}\` instead? Wait... what were we talking about?'
+    - 'Hmmm... I’m having trouble thinking right now. Whenever I focus, \`${this.err}\` is the only thing that comes to mind'
+    - 'Aw jeez, this is embarrassing. My database just texted me \`${this.err}\`'
+    - 'I just opened my notebook to take a note, but it just says \`${this.err}\` all over the pages'
 renameChannel:
   help: Use this command to rename your club's channel \`/rename-channel new-channel-name\`
   invalidChannel: You can't rename this channel. Did you mean to run this in <#${channel}>?
