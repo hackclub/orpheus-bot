@@ -46,7 +46,7 @@ const interactionMeetingTime = (bot, message) => {
           bot.whisper(
             message,
             transcript('meetingTime.success', {
-              hour: record.fileds['Checkin Hour'],
+              hour: record.fields['Checkin Hour'],
               day: record.fields['Checkin Day'],
             }),
             (err, res) => {
