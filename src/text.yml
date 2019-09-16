@@ -40,3 +40,9 @@ stats:
     - ':warning: Shoot! \`${this.err}\`. Now I’ve spilled stats all over my desk'
     - ':warning: I pulled the graph out of my printer, but it’s just a blank page that says \`${this.err}\`'
     - ':warning: I tried printing your club’s graph, but it’s just a blank page that says \`${this.err}\`'
+tutorial:
+  start: >
+    Hey <@${this.user}>! Welcome to my tutorial. First thing's first, let's rename your club's channel to something more presentable (it's currently <#${this.channel}>).
+    Run this command \`/rename-channel new-channel-name\` (with your own channel name)
+  alreadyStarted: >
+    Go ahead and rename your channel with \`/rename-channel\`. If you're not sure what to do next, go ahead and send a screenshot of this message to <@U0C7B14Q3>.

@@ -1,31 +1,20 @@
-import { userRecord, memoryErrorMessage, initBot } from '../utils'
+import { getInfoForUser, memoryErrorMessage, initBot } from '../utils'
 
 const interactionMeetingTutorial = (_bot, message) => {
   const { user } = message
   const bot = initBot()
 
-  console.log('Running meeting tutorial')
-
-  userRecord(user)
-    .then(userRecord => {
+  getInfoForUser(user)
+    .then(({ userRecord, club }) => {
       if (userRecord.fields['Flag: Initiated tutorial']) {
-        bot.whisper(
-          message,
-          `Go ahead and type \`/meeting-time next wednesday at 4 PM\`. If you're not sure what to do next, go ahead and send a screenshot of this message to <@U0C7B14Q3>.`
-        )
+        bot.whisper(message, text('tutorial.alreadyStarted'))
       } else {
         bot.whisper(
           message,
-          `Hey <@${user}>! Welcome to the check-in tutorial. First I'll need to know when your first meeting is. Run this command to let me know: \`/meeting-time next wednesday at 4 PM\``,
-          (err, res) => {
-            if (err) {
-              console.error(err)
-            }
-            bot.whisper(
-              message,
-              "(Don't have an exact date set for your first meeting? Just set it to a week from now– you can change this later on your own)"
-            )
-          }
+          text('tutorial.start', {
+            user,
+            channel: club.fields['Slack Channel ID'],
+          })
         )
       }
       userRecord.patch({ 'Flag: Initiated tutorial': true }).catch(err => {
