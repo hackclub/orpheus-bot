@@ -46,3 +46,11 @@ tutorial:
     Run this command \`/rename-channel new-channel-name\` (with your own channel name)
   alreadyStarted: >
     Go ahead and rename your channel with \`/rename-channel\`. If you're not sure what to do next, go ahead and send a screenshot of this message to <@U0C7B14Q3>.
+renameChannel:
+  help: Use this command to rename your club's channel \`/rename-channel new-channel-name\`
+  invalidChannel: You can't rename this channel. Did you mean to run this in <#${channel}>?
+  noClubChannel: I couldn't find a club channel owned by you
+  invalidUser: Only club leaders can use this command
+  progress: You got it boss! Renaming the channel to "${this.text}"...
+  success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
+  error: hmmm... something went wrong. I tried saving "${this.text}", but it says \`${this.err}\` in red
