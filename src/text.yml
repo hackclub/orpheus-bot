@@ -54,6 +54,9 @@ tutorial:
     Now that we've renamed <#${this.channel}>, I'll show you how to record a
     club meeting. First, I'll need to know when your first club meeting is.
     You can show me by typing `/meeting-time next tuesday at 3 pm`.
+  setMeetingTime: > 
+    Great! Now I'll roleplay what will happen right after your first meeting
+    by posting in <#${this.channel}>
 errors:
   memory:
     - 'I think I’m suffering from amnesia... I’m trying to recall what we were talking about, but all that comes to mind is \`{${this.err}}\`'
@@ -77,3 +80,4 @@ meetingTime:
     `/meeting-time next tuesday at 3 pm`
   invalidUser: Only club leaders can use this command
   invalidClub: I couldn't find a club channel owned by you
+  success: Ok, I'll post a message in your club's channel around ${this.hour}:00 on ${this.day} UTC

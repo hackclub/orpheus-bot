@@ -1,4 +1,4 @@
-import { getInfoForUser, airPatch, text } from '../utils'
+import { getInfoForUser, airPatch, text as transcript } from '../utils'
 import { parseDate } from 'chrono-node'
 import interactionCheckinNotification from './checkinNotification'
 
@@ -27,28 +27,28 @@ const interactionMeetingTime = (bot, message) => {
     const currHour = club.fields['Checkin Hour']
 
     const inputDate = parseDate(text)
-    const offsetDate = new Date(
-      inputDate.getTime() - slackUser.tz_offset * 1000
-    )
 
     if (inputDate) {
-      const updatedFields = {}
-      updatedFields['Checkin Day'] = offsetDate.toLocaleString('en-GB', {
-        weekday: 'long',
-        timeZone: 'UTC',
-      })
-      updatedFields['Checkin Hour'] = offsetDate.getUTCHours().toString()
-      if (!club.fields['legacy'] && !club.fields['First Meeting Time']) {
-        updatedFields['First Meeting Time'] = offsetDate
+      const offsetDate = new Date(
+        inputDate.getTime() - slackUser.tz_offset * 1000
+      )
+      const updatedFields = {
+        'Checkin Hour': offsetDate.getUTCHours().toString(),
+        'First Meeting Time': offsetDate,
+        'Checkin Day': offsetDate.toLocaleString('en-GB', {
+          weekday: 'long',
+          timeZone: 'UTC',
+        }),
       }
 
       airPatch('Clubs', club.id, updatedFields)
         .then(record => {
           bot.whisper(
             message,
-            `Ok, I'll post a message in your club's channel around ${
-              record.fields['Checkin Hour']
-            }:00 on ${record.fields['Checkin Day']} Coordinated Universal Time`,
+            transcript('meetingTime.success', {
+              hour: record.fileds['Checkin Hour'],
+              day: record.fields['Checkin Day'],
+            }),
             (err, res) => {
               if (err) {
                 throw err
@@ -58,9 +58,9 @@ const interactionMeetingTime = (bot, message) => {
               if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
                 bot.whisper(
                   message,
-                  `Great! Now I'll roleplay what will happen right after your first meeting by posting in <#${
-                    record.fields['Slack Channel ID']
-                  }>.`
+                  transcript('tutorial.setMeetingTime', {
+                    channel: record.fields['Slack Channel ID'],
+                  })
                 )
 
                 setTimeout(() => {
@@ -83,10 +83,7 @@ const interactionMeetingTime = (bot, message) => {
           bot.whisper(message, text('errors.memory', { err }))
         })
     } else {
-      bot.whisper(
-        message,
-        `Use this command to record when your meetings will occur each week. Ex. \`/meeting-time next Tuesday at 3:30 PM\``
-      )
+      bot.whisper(message, text('meetingTime.help'))
 
       if (!currDay || !currHour) {
         bot.whisper(
