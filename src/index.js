@@ -12,6 +12,7 @@ import interactionStats from './interactions/stats'
 import interactionHello from './interactions/hello'
 import interactionTrigger from './interactions/trigger'
 import interactionRename from './interactions/rename'
+import interactionLeaderAdd from './interactions/leaderAdd'
 import interactionMeetingList from './interactions/meetingList'
 import interactionMeetingAdd from './interactions/meetingAdd'
 import interactionMeetingTime from './interactions/meetingTime'
@@ -28,7 +29,7 @@ export const controller = new Botkit.slackbot({
 
 controller.startTicking()
 
-controller.setupWebserver(process.env.PORT, function(err, webserver) {
+controller.setupWebserver(process.env.PORT, (err, webserver) => {
   controller.createWebhookEndpoints(controller.webserver)
   controller.createOauthEndpoints(controller.webserver)
 })
@@ -65,7 +66,7 @@ controller.on('reaction_added', (bot, message) => {
           bot.whisper(
             { channel: message.item.channel, user: message.user },
             "I'll DM you now!",
-            (err, response) => {
+            err => {
               if (err) {
                 console.error(err)
                 return
@@ -90,10 +91,9 @@ controller.on('reaction_added', (bot, message) => {
           bot.whisper(
             { channel: message.item.channel, user: message.user },
             "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.",
-            (err, response) => {
+            err => {
               if (err) {
                 console.error(err)
-                return
               }
             }
           )
@@ -166,18 +166,6 @@ controller.on('reaction_added', (bot, message) => {
 //   console.log("WARN: SLACK_LOGS_CHANNEL config var unset, skipping")
 // }
 
-const init = (bot = initBot()) => {
-  const reply = _.sample([
-    '_out of the ashes a small dinosaur pops its head out of the ground. the cycle goes on_',
-    '_the cracks in the egg gave way to a small head with curious eyes. the next iteration sets its gaze upon the world_',
-  ])
-  bot.say({
-    text: reply,
-    channel: 'C0P5NE354', // #bot-spam
-  })
-}
-// init()
-
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   bot.api.reactions.add({
     timestamp: message.ts,
@@ -205,51 +193,62 @@ controller.on('slash_command', (bot, message) => {
 
   bot.replyAcknowledge()
 
-  bot.whisper(message, {
-    blocks: [
-      {
-        type: 'context',
-        elements: [
-          {
-            type: 'mrkdwn',
-            text: `${command} ${text}`,
-          },
-        ],
-      },
-    ],
-  }, (err, res) => {
-    if (err) { console.error(err) }
+  bot.whisper(
+    message,
+    {
+      blocks: [
+        {
+          type: 'context',
+          elements: [
+            {
+              type: 'mrkdwn',
+              text: `${command} ${text}`,
+            },
+          ],
+        },
+      ],
+    },
+    (err, res) => {
+      if (err) {
+        console.error(err)
+      }
 
-    switch (command) {
-      case '/stats':
-        interactionStats(bot, message)
-        break
+      switch (command) {
+        case '/stats':
+        case '/meeting-stats':
+          interactionStats(bot, message)
+          break
 
-      case '/rename-channel':
-        interactionRename(bot, message)
-        break
+        case '/rename-channel':
+          interactionRename(bot, message)
+          break
 
-      case '/meeting-time':
-        interactionMeetingTime(bot, message)
-        break
+        case '/meeting-time':
+          interactionMeetingTime(bot, message)
+          break
 
-      case '/meeting-add':
-        interactionMeetingAdd(bot, message)
-        break
+        case '/meeting-add':
+          interactionMeetingAdd(bot, message)
+          break
 
-      case '/meeting-list':
-        interactionMeetingList(bot, message)
-        break
+        case '/meeting-list':
+          interactionMeetingList(bot, message)
+          break
 
-      case '/meeting-tutorial':
-        interactionMeetingTutorial(bot, message)
-        break
+        case '/meeting-tutorial':
+          interactionMeetingTutorial(bot, message)
+          break
 
-      default:
-        bot.whisper(message, "I don't know how to do that ¯\\_(ツ)_/¯")
-        break
+        case '/leader-add':
+          interactionLeaderAdd(bot, message)
+          break
+
+        default:
+          bot.whisper(message, "I don't know how to do that ¯\\_(ツ)_/¯")
+          break
+      }
     }
-  })
+  )
 })
 
 // catch-all for direct messages
