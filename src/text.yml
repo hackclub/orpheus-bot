@@ -56,7 +56,7 @@ errors:
     - 'I just opened my notebook to take a note, but it just says \`${this.err}\` all over the pages'
 renameChannel:
   help: Use this command to rename your club's channel \`/rename-channel new-channel-name\`
-  invalidChannel: You can't rename this channel. Did you mean to run this in <#${channel}>?
+  invalidChannel: You can't rename this channel. Did you mean to run this in <#${this.channel}>?
   noClubChannel: I couldn't find a club channel owned by you
   invalidUser: Only club leaders can use this command
   progress: You got it boss! Renaming the channel to "${this.text}"...
