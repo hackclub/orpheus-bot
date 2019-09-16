@@ -37,6 +37,7 @@ const interactionRename = (bot, message) => {
 
     const name = message.text.toLowerCase()
     console.log(`*Renaming the channel to "${name}*`)
+    bot.whisper(message, transcript('renameChannel.progress', { name }))
     initBot(true).api.conversations.rename({ channel, name }, err => {
       if (err) {
         console.error(err)
@@ -44,10 +45,22 @@ const interactionRename = (bot, message) => {
         return
       }
 
-      bot.whisper(message, transcript('renameChannel.progress', { name }))
+      bot.whisper(message, transcript('renameChannel.success'))
 
+      // Additional tutorial for first-time users
       setTimeout(() => {
-        bot.whisper(message, transcript('renameChannel.success'))
+        if (!userRecord.fields['Flag: renamed channel']) {
+          bot.whisper(
+            message,
+            text('tutorial.renamedChannel', {
+              channel: record.fields['Slack Channel ID'],
+            })
+          )
+
+          userRecord.patch({ 'Flag: renamed channel': true }).catch(err => {
+            throw err
+          })
+        }
       }, 2000)
     })
   })

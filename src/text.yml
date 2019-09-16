@@ -42,10 +42,18 @@ stats:
     - ':warning: I tried printing your club’s graph, but it’s just a blank page that says \`${this.err}\`'
 tutorial:
   start: >
-    Hey <@${this.user}>! Welcome to my tutorial. First thing's first, let's rename your club's channel to something more presentable (it's currently <#${this.channel}>).
-    Run this command \`/rename-channel new-channel-name\` (with your own channel name)
+    Hey <@${this.user}>! Welcome to my tutorial. First thing's first, let's
+    rename your club's channel to something more presentable (it's currently
+    <#${this.channel}>). Run this command \`/rename-channel
+    new-channel-name\` (with your own channel name)
   alreadyStarted: >
-    Go ahead and rename your channel with \`/rename-channel\`. If you're not sure what to do next, go ahead and send a screenshot of this message to <@U0C7B14Q3>.
+    Go ahead and rename your channel with \`/rename-channel\`. If you're not
+    sure what to do next, go ahead and send a screenshot of this message to
+    <@U0C7B14Q3>.
+  renamedChannel: >
+    Now that we've renamed <#${this.channel}>, I'll show you how to record a
+    club meeting. First, I'll need to know when your first club meeting is.
+    You can show me by typing `/meeting-time next tuesday at 3 pm`.
 errors:
   memory:
     - 'I think I’m suffering from amnesia... I’m trying to recall what we were talking about, but all that comes to mind is \`{${this.err}}\`'
