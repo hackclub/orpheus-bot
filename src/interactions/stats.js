@@ -4,42 +4,20 @@ import { getInfoForUser } from '../utils'
 const interactionStats = (bot, message) => {
   const { user } = message
 
-  const loadingMessage = _.sample([
-    'chugging the data juice',
-    'chugging *Stat-Cola©*, for those who want to know things™',
-    "that's numberwang!",
-    'crunching the numbers',
-    'gurgling the bits',
-    'juggling the electrons',
-    'reticulating the splines',
-    'rolling down data hills',
-    'skiing the data slopes',
-    'zooming through the cyber-pipes',
-    'grabbing the stats',
-  ])
-
   bot.replyAndUpdate(
     message,
-    `:beachball: _${loadingMessage}_`,
+    text('stats.loadingMessage'),
     (err, src, updateResponse) => {
       if (err) console.error(err)
       getInfoForUser(user)
         .then(({ leader, club, history }) => {
           setTimeout(() => {
             if (!leader || !club) {
-              updateResponse(
-                _.sample([
-                  ":confused-dino: I can't find you in my files",
-                  ":confused-dino-2: I don't see your records",
-                  ":angry-dino: you aren't a registered leader– what are you trying to pull here?",
-                ])
-              )
+              updateResponse(text('stats.notFound'))
               return
             }
             if (!history || !history.meetings) {
-              updateResponse(
-                "I don't see any meetings recorded for your club. You can record new meetings with the `/meeting-add` command, or DM'ing me `checkin`"
-              )
+              updateResponse(text('stats.noMeeting'))
               return
             }
 

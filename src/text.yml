@@ -16,3 +16,27 @@ checkinNotification:
     foundPOC: "*Found a POC! I'll post a checkin notification in channel '${this.channel}' & tag the POC: '${this.user}'!*"
     noPOCFound: "*I didn't find a POC for the club in channel '${this.channel}', so I'll just post the notification without tagging anyone*"
     posting: "*Posting a checkin notification in channel '${this.channel}' & tagging user '${this.user}'!*"
+stats:
+  loadingMessage: ":beachball: ${this.text('stats.loadingFlavor')}"
+  loadingFlavor:
+    - chugging the data juice
+    - chugging *Stat-Cola©*, for those who want to know things™
+    - that's numberwang!
+    - crunching the numbers
+    - gurgling the bits
+    - juggling the electrons
+    - reticulating the splines
+    - rolling down data hills
+    - skiing the data slopes
+    - zooming through the cyber-pipes
+    - grabbing the stats
+  notFound:
+    - ":confused-dino: I can't find you in my files"
+    - ":confused-dino-2: I don't see your records"
+    - ":angry-dino: you aren't a registered leader– what are you trying to pull here?"
+  noMeeting: I don't see any meetings recorded for your club. You can record new meetings with the \`/meeting-add\` command, or DM'ing me \`checkin\`
+  error:
+    - ':warning: Hmmm... something’s wrong. I got \`${this.err}\`'
+    - ':warning: Shoot! \`${this.err}\`. Now I’ve spilled stats all over my desk'
+    - ':warning: I pulled the graph out of my printer, but it’s just a blank page that says \`${this.err}\`'
+    - ':warning: I tried printing your club’s graph, but it’s just a blank page that says \`${this.err}\`'
