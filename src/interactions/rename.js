@@ -9,7 +9,7 @@ const interactionRename = (bot, message) => {
     return
   }
 
-  getInfoForUser(user).then(({ leader, club }) => {
+  getInfoForUser(user).then(({ leader, club, userRecord }) => {
     if (!leader) {
       console.log(`${user} isn't a leader, so I told them this was restricted`)
       bot.whisper(message, transcript('renameChannel.invalidUser'))
