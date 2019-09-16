@@ -81,7 +81,10 @@ const interactionStats = (bot, message) => {
             })
           }, 2000)
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+          updateResponse(`Hmmm... something's wrong. I got \`${err}\``)
+          console.error(err)
+        })
     }
   )
 }
