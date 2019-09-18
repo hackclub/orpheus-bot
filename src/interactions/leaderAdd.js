@@ -1,7 +1,7 @@
 import { getInfoForUser, airCreate, airPatch } from '../utils'
 
 const interactionLeaderAdd = (bot, message) => {
-  const { user, text } = message
+  const { user, text, channel } = message
 
   if (text === '' || text === 'help') {
     bot.whisper(message, transcript('leaderAdd.help'))
