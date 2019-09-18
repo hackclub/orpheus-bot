@@ -13,8 +13,7 @@ const getAdmin = (bot, user) =>
   })
 
 const triggerInteraction = (bot, message) => {
-  const { text, ts, channel } = message
-  console.log(message)
+  const { ts, channel } = message
 
   getAdmin(bot, message.user)
     .then(admin => {
