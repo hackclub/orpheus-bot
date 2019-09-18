@@ -97,7 +97,13 @@ leaderList:
   invalidUser: Only club leaders can use this command.
   invalidClub: I couldn't find your club.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
-  leaders: >
-    \*Club leaders in <#${this.channel}>*
+  leaderFlavor:
+    - leaders
+    - big bosses
+    - head honchos
+    - rulers
+    - commanding officers
+  list: >
+    \*The ${this.text('leaderList.leaderFlavor')} of <#${this.channel}>:*
     ${this.leaders.map(leader => this.text('leaderList.leader', { leader } ))}
-  leader: "- <@${this.leader.fields['Slack ID']}>\n"
+  leader: "\n- <@${this.leader.fields['Slack ID']}>"

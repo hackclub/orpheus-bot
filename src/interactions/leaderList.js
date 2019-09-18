@@ -31,7 +31,10 @@ const interactionLeaderList = (bot, message) => {
       )
         .then(leaders => {
           console.log(leaders)
-          bot.whisper(message, transcript('leaderList.leaders', { leaders }))
+          bot.whisper(
+            message,
+            transcript('leaderList.list', { leaders, channel })
+          )
         })
         .catch(err => {
           throw err
