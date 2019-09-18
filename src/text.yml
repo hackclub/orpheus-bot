@@ -88,5 +88,7 @@ meetingTime:
   success: Ok, I'll post a message in your club's channel around ${this.hour}:00 on ${this.day} UTC
   parsingError: I couldn't figure out what day and time you meant
 leaderAdd:
-  invalidUser: Only club leaders can use this command
-  invalidClub: I couldn't find a club channel owned by you
+  invalidUser: Only club leaders can use this command.
+  invalidClub: I couldn't find your club.
+  invalidChannel: This isn't your club channel. Please run this in a channel you lead.
+  success: And... done! I've added <@${this.taggedUserID}> to the club in <#${this.channel}>.

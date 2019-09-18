@@ -1,4 +1,4 @@
-import { getInfoForUser, airCreate } from '../utils'
+import { getInfoForUser, airCreate, airPatch } from '../utils'
 
 const interactionLeaderAdd = (bot, message) => {
   const { user, text } = message
@@ -20,6 +20,12 @@ const interactionLeaderAdd = (bot, message) => {
     if (!commandUser.club) {
       console.log(`${commandUser.user} doesn't have a club`)
       bot.whisper(message, transcript('leaderAdd.invalidClub'))
+      return
+    }
+
+    if (!commandUser.club.fields['Slack Channel ID'] != channel) {
+      console.log(`${commandUser.user} doesn't own this channel`)
+      bot.whisper(message, transcript('leaderAdd.invalidChannel'))
       return
     }
 
@@ -45,7 +51,19 @@ const interactionLeaderAdd = (bot, message) => {
       })
       .then(taggedUser => {
         // ensure we can assign the leader to this club
-        console.log('TODO: validate leader can be assigned to club')
+        console.log(taggedUser.leader)
+        const clubs = [
+          commandUser.club.id,
+          ...taggedUser.leader.fields['Clubs'],
+        ]
+        return airPatch('Leaders', taggedUser.leader.id, { Clubs: clubs }).then(
+          () => {
+            bot.whisper(
+              message,
+              transcript('leaderAdd.success', { taggedUserID, channel })
+            )
+          }
+        )
       })
       .catch(err => {
         console.error(err)
