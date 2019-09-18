@@ -26,6 +26,7 @@ const interactionLeaderAdd = (bot, message) => {
     const taggedUserID = message.text.match(/\<@(.*)\|/)[1]
     getInfoForUser(taggedUserID)
       .then(taggedUser => {
+        console.log('found tagged user')
         // if user doesn't exist
         if (!taggedUser.leader) {
           const profile = taggedUser.slackUser.profile
