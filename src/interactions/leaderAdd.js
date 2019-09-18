@@ -38,8 +38,11 @@ const interactionLeaderAdd = (bot, message) => {
     getInfoForUser(taggedUserID)
       .then(taggedUser => {
         console.log('found tagged user')
-        // if user doesn't exist
+        if (taggedUser.slackUser.is_bot) {
+          throw new Error('bots cannot be leaders')
+        }
         if (!taggedUser.leader) {
+          // if user doesn't exist
           const profile = taggedUser.slackUser.profile
           const fields = {
             Email: taggedUser.slackUser.profile.email,

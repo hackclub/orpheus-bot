@@ -88,6 +88,10 @@ meetingTime:
   success: Ok, I'll post a message in your club's channel around ${this.hour}:00 on ${this.day} UTC
   parsingError: I couldn't figure out what day and time you meant
 leaderAdd:
+  help: >
+    Registers a new leader to your club. Ex. \`/leader-add @orpheus\`
+    _Needs to be run by a club leader in their own club channel_
+    Additionally, you can see a list of who is already a leader with \`/leader-list\`
   invalidUser: Only club leaders can use this command.
   invalidClub: I couldn't find your club.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
