@@ -25,13 +25,17 @@ const interactionLeaderList = (bot, message) => {
       }
 
       console.log(club.fields)
-      // airGet('Leaders', '')
-      //   .then(leaders => {
-      //     bot.whisper(message, transcript('leaderList.leaders', { leaders }))
-      //   })
-      //   .catch(err => {
-      //     throw err
-      //   })
+      airGet(
+        'Leaders',
+        `OR(${club.fields['Leaders'].map(l => `RECORD_ID()='${l}'`).join(',')})`
+      )
+        .then(leaders => {
+          console.log(leaders)
+          bot.whisper(message, transcript('leaderList.leaders', { leaders }))
+        })
+        .catch(err => {
+          throw err
+        })
     })
     .catch(err => {
       bot.whisper(err)

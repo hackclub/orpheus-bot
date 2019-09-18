@@ -98,4 +98,4 @@ leaderList:
   invalidClub: I couldn't find your club.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
   leaders: ${leaders.map(leader => this.text('leaderList.leader', { leader } ))}
-  leader: '- ${this.leader}\n'
+  leader: '- <@${this.leader.fields['Slack ID']}>\n'
