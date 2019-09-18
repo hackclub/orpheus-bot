@@ -97,5 +97,7 @@ leaderList:
   invalidUser: Only club leaders can use this command.
   invalidClub: I couldn't find your club.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
-  leaders: ${leaders.map(leader => this.text('leaderList.leader', { leader } ))}
+  leaders: >
+    \*Club leaders in <#${this.channel}>*
+    ${this.leaders.map(leader => this.text('leaderList.leader', { leader } ))}
   leader: '- <@${this.leader.fields['Slack ID']}>\n'
