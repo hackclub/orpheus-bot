@@ -104,28 +104,38 @@ export const getInfoForUser = user =>
       airFind('Leaders', 'Slack ID', user)
         .then(leader => (results.leader = leader))
         // Then club from leader
-        .then(() =>
-          airFind('Clubs', `FIND("${results.leader.fields['ID']}", Leaders)`)
-        )
+        .then(() => {
+          if (!results.leader) return null
+
+          return airFind(
+            'Clubs',
+            `FIND("${results.leader.fields.ID}", Leaders)`
+          )
+        })
         .then(club => (results.club = club))
         // Then club's history from club
-        .then(() => airGet('History', 'Club', results.club.fields['ID']))
-        .then(history => {
+        .then(() => {
+          if (!results.club) return null
+
+          return airGet('History', 'Club', results.club.fields.ID)
+        })
+        .then(history => (results.rawHistory = history))
+        .then(() => {
+          if (!results.rawHistory) return null
+
           results.history = {
             lastMeetingDay: 'monday',
-            records: history,
-            meetings: history
-              .filter(h => h.fields['Attendance'])
+            records: results.rawHistory,
+            meetings: results.rawHistory
+              .filter(h => h.fields.Attendance)
               .sort(
-                (a, b) =>
-                  Date.parse(a.fields['Date']) - Date.parse(b.fields['Date'])
+                (a, b) => Date.parse(a.fields.Date) - Date.parse(b.fields.Date)
               ),
           }
-        })
-        .then(() => {
+
           if (results.history.meetings.length > 0) {
             const lastMeetingDay = new Date(
-              results.history.meetings[0].fields['Date']
+              results.history.meetings[0].fields.Date
             ).toLocaleDateString('en-us', {
               weekday: 'long',
               timeZone: results.slackUser.tz,
