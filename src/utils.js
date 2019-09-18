@@ -29,18 +29,18 @@ export const airCreate = (baseName, fields) =>
     console.log(
       `I'm asking Airtable to create a new record in the ${baseName} base at ${timestamp}`
     )
-    base(baseName).create([{ fields }], (err, records) => {
+    base(baseName).create({ fields }, (err, record) => {
       if (err) {
         reject(err)
       }
-      if (!records[0]) {
+      if (!record) {
         reject(new Error('Record not created'))
       }
       console.log(
         `Airtable saved my ${baseName} record from ${timestamp} in ${Date.now() -
           timestamp}ms`
       )
-      resolve(records[0])
+      resolve(record)
     })
   })
 
