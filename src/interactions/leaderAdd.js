@@ -46,7 +46,7 @@ const interactionLeaderAdd = (bot, message) => {
         console.log('TODO: validate leader can be assigned to club')
       })
       .catch(err => {
-        throw err
+        console.error(err)
       })
   })
 }
