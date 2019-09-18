@@ -24,7 +24,7 @@ export const airPatch = (baseName, recordID, values) =>
   })
 
 export const airCreate = (baseName, fields) =>
-  new Promis((resolve, reject) => {
+  new Promise((resolve, reject) => {
     console.log(fields)
     base(baseName).create([{ fields }], (err, records) => {
       if (err) {

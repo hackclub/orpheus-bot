@@ -34,6 +34,7 @@ const interactionLeaderAdd = (bot, message) => {
             'Slack ID': taggedUser.slackUser.id,
             'Full Name': profile.real_name || profile.display_name,
           }
+          console.log(fields)
           return airCreate('Leaders', fields).catch(err => {
             console.error('Ran into issue creating new leader airtable record')
             throw err
