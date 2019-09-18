@@ -29,7 +29,7 @@ export const airCreate = (baseName, fields) =>
     console.log(
       `I'm asking Airtable to create a new record in the ${baseName} base at ${timestamp}`
     )
-    base(baseName).create({ fields }, (err, record) => {
+    base(baseName).create({ ...fields }, (err, record) => {
       if (err) {
         reject(err)
       }
