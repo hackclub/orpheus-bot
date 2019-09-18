@@ -1,4 +1,4 @@
-import { getInfoForUser, airFind } from '../utils'
+import { getInfoForUser, airCreate } from '../utils'
 
 const interactionLeaderAdd = (bot, message) => {
   const { user, text } = message
