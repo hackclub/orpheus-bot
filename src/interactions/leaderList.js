@@ -1,7 +1,8 @@
 import { getInfoForUser, airGet } from '../utils'
 
 const interactionLeaderList = (bot, message) => {
-  getInfoForUser(message.user)
+  const { channel, user } = message
+  getInfoForUser(user)
     .then(({ leader, club }) => {
       if (!leader) {
         console.log(
