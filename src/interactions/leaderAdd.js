@@ -8,20 +8,46 @@ const interactionLeaderAdd = (bot, message) => {
     return
   }
 
-  getInfoForUser(user).then(({ leader, club }) => {
-    if (!leader) {
-      console.log(`${user} isn't a leader, so I told them this was restricted`)
+  getInfoForUser(user).then(commandUser => {
+    if (!commandUser.leader) {
+      console.log(
+        `${commandUser.user} isn't a leader, so I told them this was restricted`
+      )
       bot.whisper(message, transcript('leaderAdd.invalidUser'))
       return
     }
 
-    if (!club) {
-      console.log(`${user} doesn't have a club`)
+    if (!commandUser.club) {
+      console.log(`${commandUser.user} doesn't have a club`)
       bot.whisper(message, transcript('leaderAdd.invalidClub'))
       return
     }
 
-    console.log(message)
+    const taggedUserID = message.text.match(/\<@(.*)\|/)[1]
+    getInfoForUser(taggedUserID)
+      .then(taggedUser => {
+        // if user doesn't exist
+        if (!taggedUser.leader) {
+          const profile = taggedUser.slackUser.profile
+          const fields = {
+            Email: taggedUser.slackUser.profile.email,
+            'Slack ID': taggedUser.slackUser.id,
+            'Full Name': profile.real_name || profile.display_name,
+          }
+          return airCreate('Leaders', fields).catch(err => {
+            console.error('Ran into issue creating new leader airtable record')
+            throw err
+          })
+        }
+        return taggedUser
+      })
+      .then(taggedUser => {
+        // ensure we can assign the leader to this club
+        console.log('TODO: validate leader can be assigned to club')
+      })
+      .catch(err => {
+        throw err
+      })
   })
 }
 
