@@ -1,4 +1,9 @@
-import { getInfoForUser, airCreate, airPatch } from '../utils'
+import {
+  getInfoForUser,
+  airCreate,
+  airPatch,
+  text as transcript,
+} from '../utils'
 
 const interactionLeaderAdd = (bot, message) => {
   const { user, text, channel } = message
