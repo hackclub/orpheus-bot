@@ -29,7 +29,7 @@ const interactionLeaderAdd = (bot, message) => {
     }
 
     if (!commandUser.club.fields['Slack Channel ID'] != channel) {
-      console.log(`${user} doesn't own this channel`)
+      console.log(`${user} doesn't own channel ${channel}`)
       bot.whisper(message, transcript('leaderAdd.invalidChannel'))
       return
     }
