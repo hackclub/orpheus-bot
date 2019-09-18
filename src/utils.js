@@ -23,6 +23,17 @@ export const airPatch = (baseName, recordID, values) =>
     })
   })
 
+export const airCreate = (baseName, fields) =>
+  new Promis((resolve, reject) => {
+    base(baseName).create([{ fields }], (err, records) => {
+      if (err) {
+        console.error(err)
+        reject(err)
+      }
+      resolve(records[0])
+    })
+  })
+
 export const airFind = (baseName, fieldName, value) =>
   new Promise((resolve, reject) => {
     // see airGet() for usage
