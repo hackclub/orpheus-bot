@@ -13,6 +13,7 @@ import interactionHello from './interactions/hello'
 import interactionTrigger from './interactions/trigger'
 import interactionRename from './interactions/rename'
 import interactionLeaderAdd from './interactions/leaderAdd'
+import interactionLeaderList from './interactions/leaderList'
 import interactionMeetingList from './interactions/meetingList'
 import interactionMeetingAdd from './interactions/meetingAdd'
 import interactionMeetingTime from './interactions/meetingTime'
@@ -241,6 +242,10 @@ controller.on('slash_command', (bot, message) => {
 
         case '/leader-add':
           interactionLeaderAdd(bot, message)
+          break
+
+        case '/leader-list':
+          interactionLeaderList(bot, message)
           break
 
         default:

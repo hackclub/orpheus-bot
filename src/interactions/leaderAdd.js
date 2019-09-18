@@ -56,11 +56,12 @@ const interactionLeaderAdd = (bot, message) => {
       })
       .then(taggedUser => {
         // ensure we can assign the leader to this club
-        console.log(taggedUser.leader)
-        console.log(commandUser.club.id, taggedUser.leader.fields['Clubs'])
         const clubs = taggedUser.leader.fields['Clubs'] || []
+        if (clubs.includes(commandUser.club.id)) {
+          bot.whisper(message, transcript('leaderAdd.alreadyLeader'))
+          return
+        }
         clubs.push(commandUser.club.id)
-        console.log(clubs)
         return airPatch('Leaders', taggedUser.leader.id, { Clubs: clubs }).then(
           () => {
             bot.whisper(

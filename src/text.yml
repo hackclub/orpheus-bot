@@ -92,3 +92,10 @@ leaderAdd:
   invalidClub: I couldn't find your club.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
   success: And... done! I've added <@${this.taggedUserID}> to the club in <#${this.channel}>.
+  alreadyLeader: They're already a leader in your club!
+leaderList:
+  invalidUser: Only club leaders can use this command.
+  invalidClub: I couldn't find your club.
+  invalidChannel: This isn't your club channel. Please run this in a channel you lead.
+  leaders: ${leaders.map(leader => this.text('leaderList.leader', { leader } ))}
+  leader: '- ${this.leader}\n'
