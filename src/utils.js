@@ -25,12 +25,21 @@ export const airPatch = (baseName, recordID, values) =>
 
 export const airCreate = (baseName, fields) =>
   new Promise((resolve, reject) => {
-    console.log(fields)
+    const timestamp = Date.now()
+    console.log(
+      `I'm asking Airtable to create a new record in the ${baseName} base at ${timestamp}`
+    )
     base(baseName).create([{ fields }], (err, records) => {
       if (err) {
-        console.error(err)
         reject(err)
       }
+      if (!records[0]) {
+        reject(new Error('Record not created'))
+      }
+      console.log(
+        `Airtable saved my ${baseName} record from ${timestamp} in ${Date.now() -
+          timestamp}ms`
+      )
       resolve(records[0])
     })
   })
