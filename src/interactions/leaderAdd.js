@@ -57,6 +57,7 @@ const interactionLeaderAdd = (bot, message) => {
       .then(taggedUser => {
         // ensure we can assign the leader to this club
         console.log(taggedUser.leader)
+        console.log(commandUser.club.id, taggedUser.leader.fields['Clubs'])
         const clubs = [
           commandUser.club.id,
           ...taggedUser.leader.fields['Clubs'],
