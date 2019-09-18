@@ -210,20 +210,27 @@ export const userRecord = user =>
             `*I didn't find an airRecord for "${user}", so I'm creating a new one*`
           )
           // if it doesn't exist, create one...
-          base('Orpheus').create(
-            {
-              User: user,
-              Data: '{}',
-            },
-            (err, record) => {
-              if (err) {
-                throw err
-              }
-              console.log(`*I created a new airRecord for "${user}"*`)
-              // ... & return it
-              resolve(buildUserRecord(record))
-            }
-          )
+          getSlackUser(user)
+            .then(slackUser =>
+              base('Orpheus').create(
+                {
+                  Username: '@' + slackUser.name,
+                  User: user,
+                  Data: '{}',
+                },
+                (err, record) => {
+                  if (err) {
+                    throw err
+                  }
+                  console.log(`*I created a new airRecord for "${user}"*`)
+                  // ... & return it
+                  resolve(buildUserRecord(record))
+                }
+              )
+            )
+            .catch(err => {
+              throw err
+            })
         }
       })
       .catch(err => reject(err))
