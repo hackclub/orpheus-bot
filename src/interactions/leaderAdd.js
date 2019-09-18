@@ -61,6 +61,7 @@ const interactionLeaderAdd = (bot, message) => {
           commandUser.club.id,
           ...taggedUser.leader.fields['Clubs'],
         ]
+        console.log(clubs)
         return airPatch('Leaders', taggedUser.leader.id, { Clubs: clubs }).then(
           () => {
             bot.whisper(
