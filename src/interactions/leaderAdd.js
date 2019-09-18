@@ -36,6 +36,9 @@ const interactionLeaderAdd = (bot, message) => {
       }
 
       const taggedUserID = (message.text.match(/\<@(.*)\|/) || [])[1]
+      if (!taggedUserID) {
+        throw new Error('Invalid Slack user')
+      }
 
       getInfoForUser(taggedUserID)
         .then(taggedUser => {
