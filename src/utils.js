@@ -173,11 +173,23 @@ const buildUserRecord = r => ({
   patch: updatedFields =>
     new Promise((resolve, reject) => {
       const oldFields = buildUserRecord(r).fields
-      const newFields = {
-        Data: JSON.stringify({ ...oldFields, ...updatedFields }, null, 2),
-      }
-      airPatch('Orpheus', r.id, newFields)
-        .then(newRecord => resolve(buildUserRecord(newRecord)))
+      getSlackUser(r.fields['User'])
+        .then(slackUser => {
+          const newFields = {
+            Username: '@' + slackUser.name,
+            Data: JSON.stringify(
+              {
+                ...oldFields,
+                ...updatedFields,
+              },
+              null,
+              2 // https://stackoverflow.com/a/7220510
+            ),
+          }
+          return airPatch('Orpheus', r.id, newFields).then(newRecord =>
+            resolve(buildUserRecord(newRecord))
+          )
+        })
         .catch(err => {
           reject(err)
         })
