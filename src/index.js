@@ -3,7 +3,7 @@ import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
 
-import { initBot, userRecord } from './utils'
+import { initBot, userRecord, text as transcript } from './utils'
 
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'
@@ -186,6 +186,10 @@ controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
 controller.hears('stats', 'direct_mention,direct_message', interactionStats)
+
+controller.hears('what are you doing?', 'direct_mention', (bot, message) => {
+  bot.reply(message, transcript('whatAreYouDoing'))
+})
 
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel, text } = message
