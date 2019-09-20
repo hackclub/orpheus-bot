@@ -71,7 +71,7 @@ const graphUrl = (history, club) => {
   const attendance = history.meetings.map(h => h.fields['Attendance'])
   const dates = history.meetings.map(h => h.fields['Date'])
   const config = {
-    type: 'line',
+    type: dates.length > 1 ? 'line' : 'bar',
     data: {
       labels: dates,
       datasets: [
