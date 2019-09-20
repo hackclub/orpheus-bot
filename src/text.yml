@@ -92,6 +92,21 @@ renameChannel:
   progress: You got it boss! Renaming the channel to "${this.name}"...
   success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
   error: hmmm... something went wrong. I tried saving "${this.name}", but it says \`${this.err}\` in red
+meetingAdd:
+  help:
+    This command will record a club meeting for your club.
+    'Example usage:'
+    \- \`/meeting-add today, 12 people attended\`
+    \- \`/meeting-add last ${this.day}, 15 members\`
+  success: |
+    \:floppy_disk\: ${this.text('meetingAdd.successFlavor')} What next?
+    \- Upload pictures of your meeting to dropbox.hackclub.com – we'll feature them on twitter
+    \- Run \`/stats\` to see your club's history
+  successFlavor:
+    - You bet'cha!
+    - Got it!
+    - Saved!
+    - Added to your club's history
 meetingTime:
   help:
     This command will set your weekly meeting time (which informs when I ask

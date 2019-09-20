@@ -1,17 +1,20 @@
 import { parseDate } from 'chrono-node'
 
-import { recordMeeting, getInfoForUser } from '../utils'
+import { recordMeeting, getInfoForUser, text as transcript } from '../utils'
 
 const interactionMeetingAdd = (bot, message) => {
   getInfoForUser(message.user).then(({ club, history, slackUser }) => {
     if (message.text.indexOf(',') === -1) {
       // either the user typed "help" or an incorrectly formatted command
-      const manualMsg = `_Records a meeting for your club_\n\`/meeting-add today, 12 people attended\`\n\`/meeting-add last ${history.lastMeetingDay}, 15 members\``
-      bot.whisper(message, manualMsg, (err, response) => {
-        if (err) {
-          console.error(err)
+      bot.whisper(
+        message,
+        transcript('meetingAdd.help', { day: history.lastMeetingDay }),
+        (err, response) => {
+          if (err) {
+            console.error(err)
+          }
         }
-      })
+      )
       return
     }
 
@@ -36,7 +39,7 @@ const interactionMeetingAdd = (bot, message) => {
           return
         }
 
-        bot.whisper(message, "You bet'cha! You can see your club's record with `/stats`")
+        bot.whisper(message, transcript('meetingAdd.success'))
       }
     )
     return
