@@ -71,7 +71,7 @@ const graphUrl = (history, club) => {
   const attendance = history.meetings.map(h => h.fields['Attendance'])
   const dates = history.meetings.map(h => h.fields['Date'])
   const config = {
-    type: dates.length > 1 ? 'line' : 'bar',
+    type: 'line',
     data: {
       labels: dates,
       datasets: [
@@ -82,6 +82,15 @@ const graphUrl = (history, club) => {
         },
       ],
     },
+  }
+  if (dates.length < 1) {
+    config.type = 'bar'
+    config.options = {
+      title: {
+        display: true,
+        text: 'No meetings yet',
+      },
+    }
   }
   return encodeURI(
     `https://quickchart.io/chart?width=500&height=300&c=${JSON.stringify(
