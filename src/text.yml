@@ -93,9 +93,8 @@ renameChannel:
   success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
   error: hmmm... something went wrong. I tried saving "${this.name}", but it says \`${this.err}\` in red
 meetingAdd:
-  help:
-    This command will record a club meeting for your club.
-    'Example usage:'
+  help: |
+    This command will record a club meeting for your club. Example usage\:
     \- \`/meeting-add today, 12 people attended\`
     \- \`/meeting-add last ${this.day}, 15 members\`
   success: |
