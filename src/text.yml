@@ -13,7 +13,7 @@ catchall:
     - "UwU what's this??"
 whatAreYouDoing:
   - my best...
-  - ¯\_(ツ)_/¯
+  - ¯\\_(ツ)_/¯
   - ':shrug:'
 checkinNotification:
   named: 'Hey <@${this.user}>! My calendar shows you had a meeting recently. :point_right: *you are responsible* :point_left: for recording it by running \`/meeting-add\`'
