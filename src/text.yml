@@ -11,6 +11,13 @@ catchall:
     - '*eyes slowly glaze over in boredom*'
     - "OwO what's this??"
     - "UwU what's this??"
+  botReply:
+    - What's up bot brother?
+    - Hey fam, this ain't the right endpoint
+    - What's up virtual sibling?
+    - Hope the 'nets treating you well
+    - Think you're looking for another endpoint
+    - Hey automated friendo!
 whatAreYouDoing:
   - my best...
   - ¯\\_(ツ)_/¯
