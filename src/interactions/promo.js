@@ -30,8 +30,8 @@ const interactionPromo = (bot, message) => {
             }
             console.log('creating grant...')
             return airCreate('GitHub Grants', {
-              Club: club.id,
-              Leader: leader.id,
+              Club: [club.id],
+              Leader: [leader.id],
               Type: 'Semesterly ($50)',
               'Club has HCB account': true,
             })
