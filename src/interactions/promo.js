@@ -1,4 +1,4 @@
-import { getInfoForUser, text as transcript, airCreate, airGet } from '../utils'
+import { getInfoForUser, text as transcript, airFind } from '../utils'
 
 const interactionPromo = (bot, message) => {
   const { user, channel, text } = message
