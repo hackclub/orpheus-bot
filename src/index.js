@@ -19,6 +19,7 @@ import interactionMeetingAdd from './interactions/meetingAdd'
 import interactionMeetingTime from './interactions/meetingTime'
 import interactionMeetingTutorial from './interactions/meetingTutorial'
 import interactionCatchall from './interactions/catchall'
+import interactionPromo from './interactions/promo'
 
 export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -222,6 +223,10 @@ controller.on('slash_command', (bot, message) => {
         case '/stats':
         case '/meeting-stats':
           interactionStats(bot, message)
+          break
+
+        case '/promo':
+          interactionPromo(bot, message)
           break
 
         case '/rename-channel':

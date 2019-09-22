@@ -139,3 +139,7 @@ leaderList:
     \*The ${this.text('leaderList.leaderFlavor')} of <#${this.channel}>:*
     ${this.leaders.map(leader => this.text('leaderList.leader', { leader } ))}
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
+promo:
+  help: Request a grant. Try \`/promo GitHub semester\`
+  noHCBAccount: You need a Hack Club Bank account to request this grant. If you have an account, my bad– send a screenshot of this to <@U0C7B14Q3>.
+  notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
