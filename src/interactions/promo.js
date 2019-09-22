@@ -22,7 +22,7 @@ const interactionPromo = (bot, message) => {
         //   return
         // }
 
-        airFind('GitHub Grants', `{Club} = '${club.id}'`)
+        airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
           .then(grant => {
             if (grant) {
               throw new Error('You can only request a grant once this semester')
