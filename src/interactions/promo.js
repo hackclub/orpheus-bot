@@ -25,22 +25,20 @@ const interactionPromo = (bot, message) => {
         airFind('GitHub Grants', `{Club} = '${club.id}'`)
           .then(grant => {
             if (grant) {
-              console.log('grant exists')
               throw new Error('You can only request a grant once this semester')
             }
-            console.log('creating grant...')
             return airCreate('GitHub Grants', {
               Club: [club.id],
               Leader: [leader.id],
               Type: 'Semesterly ($50)',
               'Club has HCB account': true,
+              'Fee amount': 0,
+              'Grant amount': 0,
             })
               .then(grant => {
-                console.log('created grant:', grant)
                 bot.whisper(message, transcript('promo.success'))
               })
               .catch(err => {
-                console.error(err)
                 throw err
               })
           })
