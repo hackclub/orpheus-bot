@@ -28,14 +28,14 @@ const interactionPromo = (bot, message) => {
             if (grant) {
               throw new Error('You can only request a grant once this semester')
             }
-            airCreate('GitHub Grants', {
+            return airCreate('GitHub Grants', {
               Club: club.id,
               Leader: leader.id,
               Type: 'Semesterly ($50)',
               'Club has HCB account': true,
             })
               .then(grant => {
-                bot.whisper(message, transcript('success'))
+                bot.whisper(message, transcript('promo.success'))
               })
               .catch(err => {
                 throw err
