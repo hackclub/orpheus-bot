@@ -40,6 +40,7 @@ const interactionPromo = (bot, message) => {
                 bot.whisper(message, transcript('promo.success'))
               })
               .catch(err => {
+                console.error(err)
                 throw err
               })
           })
