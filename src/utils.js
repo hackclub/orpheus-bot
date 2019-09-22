@@ -31,6 +31,7 @@ export const airCreate = (baseName, fields) =>
     )
     base(baseName).create(fields, (err, record) => {
       if (err) {
+        console.error(err)
         reject(err)
       }
       if (!record) {
