@@ -53,7 +53,7 @@ const interactionPromo = (bot, message) => {
     })
     .catch(err => {
       console.error(err)
-      bot.whisper(message, transcript('error.general', { err }))
+      bot.whisper(message, transcript('error', { err }))
     })
 }
 
