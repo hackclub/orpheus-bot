@@ -8,7 +8,7 @@ import {
 const interactionPromo = (bot, message) => {
   const { user, text } = message
 
-  getInfoForUser(user)
+  return getInfoForUser(user)
     .then(({ leader, club }) => {
       if (!leader || !club) {
         bot.whisper(message, transcript('promo.notAuthorized'))
@@ -39,12 +39,10 @@ const interactionPromo = (bot, message) => {
                 bot.whisper(message, transcript('promo.success'))
               })
               .catch(err => {
-                console.log('and the race is off!')
                 throw err
               })
           })
           .catch(err => {
-            console.log('first checkpoint...')
             throw err
           })
       } else {
