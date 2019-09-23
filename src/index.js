@@ -2,6 +2,7 @@ process.env.STARTUP_TIME = Date.now()
 import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
+import bugsnag from '@bugsnag/js'
 
 import { initBot, userRecord, text as transcript } from './utils'
 
@@ -20,6 +21,8 @@ import interactionMeetingTime from './interactions/meetingTime'
 import interactionMeetingTutorial from './interactions/meetingTutorial'
 import interactionCatchall from './interactions/catchall'
 import interactionPromo from './interactions/promo'
+
+bugsnagClient.notify(Error('Testing Bugsnag'))
 
 export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
