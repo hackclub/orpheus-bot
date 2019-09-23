@@ -25,7 +25,12 @@ const interactionPromo = (bot, message) => {
         return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
           .then(grant => {
             if (grant) {
-              throw new Error('You can only request a grant once this semester')
+              if (club.fields['Leaders'].length == 1) {
+                bot.whisper(message, transcript('promo.duplicate.soloLeader'))
+              } else {
+                bot.whisper(message, transcript('promo.duplicate.coleaders'))
+              }
+              return
             }
             return airCreate('GitHub Grants', {
               Club: [club.id],
@@ -40,8 +45,7 @@ const interactionPromo = (bot, message) => {
                   message,
                   transcript('promo.success', {
                     record: grant.id,
-                    club: club.id,
-                    leader: leader.id,
+                    user,
                   })
                 )
               })
