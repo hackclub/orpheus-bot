@@ -17,7 +17,12 @@ const interactionPromo = (bot, message) => {
 
       if (text.toLowerCase() == 'github semester') {
         if (!club.fields['HCB Account Requested']) {
-          bot.whisper(message, transcript('promo.noHCBAccount'))
+          bot.whisper(
+            message,
+            transcript('promo.noHCBAccount', {
+              clubChannel: club.fields['Slack Channel ID'],
+            })
+          )
           return
         }
 

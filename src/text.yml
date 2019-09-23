@@ -144,7 +144,7 @@ promo:
   duplicate:
     soloLeader: I found a request for this grant already– just sit tight & it should show up in your Hack Club Bank account within 3-5 days.
     coleaders: I found a request for this grant already. Maybe a co-leader submitted it? Either way, you don't need to submit another– sit tight and it should show up in your account within 3-5 days of the original request.
-  noHCBAccount: You need a Hack Club Bank account to request this grant. If you have an account, my bad– send a screenshot of this to <@U0C7B14Q3>.
+  noHCBAccount: I don't see a HCB account for <#${this.clubChannel}>. If you have an account, my bad– send a screenshot of this to <@U0C7B14Q3>.
   notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
   success: |
     You got it! I've just submitted a request to the HCB team. Here are the details for your records\:
