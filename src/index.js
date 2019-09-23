@@ -22,7 +22,7 @@ import interactionMeetingTutorial from './interactions/meetingTutorial'
 import interactionCatchall from './interactions/catchall'
 import interactionPromo from './interactions/promo'
 
-bugsnagClient.notify(Error('Testing Bugsnag'))
+export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
 export const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
