@@ -22,7 +22,7 @@ const interactionPromo = (bot, message) => {
         //   return
         // }
 
-        airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
+        return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
           .then(grant => {
             if (grant) {
               throw new Error('You can only request a grant once this semester')
@@ -39,10 +39,12 @@ const interactionPromo = (bot, message) => {
                 bot.whisper(message, transcript('promo.success'))
               })
               .catch(err => {
+                console.log('and the race is off!')
                 throw err
               })
           })
           .catch(err => {
+            console.log('first checkpoint...')
             throw err
           })
       } else {
