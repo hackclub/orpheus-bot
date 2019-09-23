@@ -16,7 +16,7 @@ const interactionPromo = (bot, message) => {
       }
 
       if (text.toLowerCase() == 'github semester') {
-        if (!club.fields['HCB Account URL']) {
+        if (!club.fields['HCB Account Requested']) {
           bot.whisper(message, transcript('promo.noHCBAccount'))
           return
         }
