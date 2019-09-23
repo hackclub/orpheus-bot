@@ -36,7 +36,14 @@ const interactionPromo = (bot, message) => {
               'Grant amount': 0,
             })
               .then(grant => {
-                bot.whisper(message, transcript('promo.success'))
+                bot.whisper(
+                  message,
+                  transcript('promo.success', {
+                    record: grant.id,
+                    club: club.id,
+                    leader: leader.id,
+                  })
+                )
               })
               .catch(err => {
                 throw err

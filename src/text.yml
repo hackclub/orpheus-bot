@@ -143,4 +143,16 @@ promo:
   help: Request a grant. Try \`/promo GitHub semester\`
   noHCBAccount: You need a Hack Club Bank account to request this grant. If you have an account, my bad– send a screenshot of this to <@U0C7B14Q3>.
   notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
-  success: placeholder success
+  success: |
+    You got it! I've just submitted a request to the HCB team. Here are the
+    details for your records\:
+      'Record ID: *${this.record}*'
+      'For club: *${this.club}*'
+      'Has a bank account: *True*'
+      'Submitted by: *${this.leader}*'
+    In the next few days the grant will arrive– just sit tight. Just one
+    quick note though\: this is the first semester we're running this with
+    GitHub. If it goes well, it could be in future semesters. Next time you
+    record a club meeting with `/meeting-add`, you'll see a link to
+    dropbox.hackclub.com. We'd really appreciate it if you put some photos of
+    your club meeting in there that we can show GitHub.
