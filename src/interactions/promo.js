@@ -16,11 +16,10 @@ const interactionPromo = (bot, message) => {
       }
 
       if (text.toLowerCase() == 'github semester') {
-        const hcbAccountUrl = 'bank.hackclub.com/event_by_airtable_id/abc/' // temp URL to use while bank.hackclub.com team is building this out
-        // if (!club.fields['HCB Account URL']) {
-        //   bot.whisper(message, transcript('promo.noHCBAccount'))
-        //   return
-        // }
+        if (!club.fields['HCB Account URL']) {
+          bot.whisper(message, transcript('promo.noHCBAccount'))
+          return
+        }
 
         return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
           .then(grant => {
