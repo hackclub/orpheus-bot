@@ -3,14 +3,11 @@ import { controller } from './'
 import yaml from 'js-yaml'
 import fs from 'fs'
 import path from 'path'
-import {
-  sample
-} from 'lodash'
+import { sample } from 'lodash'
 import Airtable from 'airtable'
 const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_BASE
 )
-
 
 export const airPatch = (baseName, recordID, values) =>
   new Promise((resolve, reject) => {
@@ -77,7 +74,7 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
       }
 
       console.log(
-        `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=${baseName} FILTER=${options.filterByFormula}`
+        `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=\`${baseName}\` FILTER=\`${options.filterByFormula}\``
       )
     }
 
@@ -88,12 +85,16 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
           console.error(err)
           reject(err)
         }
-        console.log(`*AirTable got back to me from my question at ${timestamp} with ${data.length} records. The query took ${Date.now() - timestamp}ms*`)
+        console.log(
+          `AirTable got back to me from my question at ${timestamp} with ${
+            data.length
+          } records. The query took ${Date.now() - timestamp}ms`
+        )
         resolve(data)
       })
   })
 
-const getSlackUser = user =>
+export const getSlackUser = user =>
   new Promise((resolve, reject) => {
     initBot().api.users.info({ user }, (err, res) => {
       if (err) {
@@ -208,16 +209,16 @@ const buildUserRecord = r => ({
 
 export const userRecord = user =>
   new Promise((resolve, reject) => {
-    console.log(`*I'm looking up an airRecord for "${user}"*`)
+    console.log(`I'm looking up an airRecord for "${user}"`)
     airFind('Orpheus', 'User', user)
       .then(record => {
         if (record) {
-          console.log(`*I found an airRecord for "${user}"*`)
+          console.log(`I found an airRecord for "${user}"`)
           // if it already exists, return it
           resolve(buildUserRecord(record))
         } else {
           console.log(
-            `*I didn't find an airRecord for "${user}", so I'm creating a new one*`
+            `I didn't find an airRecord for "${user}", so I'm creating a new one`
           )
           // if it doesn't exist, create one...
           getSlackUser(user)
@@ -232,7 +233,7 @@ export const userRecord = user =>
                   if (err) {
                     throw err
                   }
-                  console.log(`*I created a new airRecord for "${user}"*`)
+                  console.log(`I created a new airRecord for "${user}"`)
                   // ... & return it
                   resolve(buildUserRecord(record))
                 }
