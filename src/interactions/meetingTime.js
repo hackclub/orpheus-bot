@@ -6,20 +6,20 @@ const interactionMeetingTime = (bot, message) => {
   const { user, text } = message
 
   if (text === '' || text === 'help') {
-    bot.whisper(message, transcript('meetingTime.help'))
+    bot.replyPrivateDelayed(message, transcript('meetingTime.help'))
     return
   }
 
   getInfoForUser(user).then(({ leader, club, slackUser, userRecord }) => {
     if (!leader) {
       console.log(`${user} isn't a leader, so I told them this was restricted`)
-      bot.whisper(message, transcript('meetingTime.invalidUser'))
+      bot.replyPrivateDelayed(message, transcript('meetingTime.invalidUser'))
       return
     }
 
     if (!club) {
       console.log(`${user} doesn't have a club`)
-      bot.whisper(message, transcript('meetingTime.invalidClub'))
+      bot.replyPrivateDelayed(message, transcript('meetingTime.invalidClub'))
       return
     }
 
@@ -43,7 +43,7 @@ const interactionMeetingTime = (bot, message) => {
 
       airPatch('Clubs', club.id, updatedFields)
         .then(record => {
-          bot.whisper(
+          bot.replyPrivateDelayed(
             message,
             transcript('meetingTime.success', {
               hour: record.fields['Checkin Hour'],
@@ -56,7 +56,7 @@ const interactionMeetingTime = (bot, message) => {
 
               // Check if this is part of the tutorial
               if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
-                bot.whisper(
+                bot.replyPrivateDelayed(
                   message,
                   transcript('tutorial.setMeetingTime', {
                     channel: record.fields['Slack Channel ID'],
@@ -80,18 +80,18 @@ const interactionMeetingTime = (bot, message) => {
           )
         })
         .catch(err => {
-          bot.whisper(message, transcript('errors.memory', { err }))
+          bot.replyPrivateDelayed(message, transcript('errors.memory', { err }))
         })
     } else {
-      bot.whisper(message, transcript('meetingTime.parsingError'))
+      bot.replyPrivateDelayed(message, transcript('meetingTime.parsingError'))
 
       if (!currDay || !currHour) {
-        bot.whisper(
+        bot.replyPrivateDelayed(
           message,
           `_Currently, ${club.fields['Name']} doesn't have a meeting time set_`
         )
       } else {
-        bot.whisper(
+        bot.replyPrivateDelayed(
           message,
           `_The club's current meeting time is *${currDay}* at *${currHour}:00*_`
         )
