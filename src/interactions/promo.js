@@ -11,7 +11,7 @@ const interactionPromo = (bot, message) => {
   return getInfoForUser(user)
     .then(({ leader, club }) => {
       if (!leader || !club) {
-        bot.whisper(message, transcript('promo.notAuthorized'))
+        bot.replyPrivateDelayed(message, transcript('promo.notAuthorized'))
         return
       }
 
@@ -20,9 +20,15 @@ const interactionPromo = (bot, message) => {
           .then(grant => {
             if (grant) {
               if (club.fields['Leaders'].length == 1) {
-                bot.whisper(message, transcript('promo.duplicate.soloLeader'))
+                bot.replyPrivateDelayed(
+                  message,
+                  transcript('promo.duplicate.soloLeader')
+                )
               } else {
-                bot.whisper(message, transcript('promo.duplicate.coleaders'))
+                bot.replyPrivateDelayed(
+                  message,
+                  transcript('promo.duplicate.coleaders')
+                )
               }
               return
             }
@@ -36,7 +42,7 @@ const interactionPromo = (bot, message) => {
             })
               .then(grant => {
                 const hcb = Boolean(club.fields['Club has HCB account'])
-                bot.whisper(
+                bot.replyPrivateDelayed(
                   message,
                   transcript('promo.success.hcbMessage.' + hcb, {
                     firstLine: leader.fields['Address (first line)'],
@@ -47,7 +53,7 @@ const interactionPromo = (bot, message) => {
                   })
                 )
                 setTimeout(() => {
-                  bot.whisper(
+                  bot.replyPrivateDelayed(
                     message,
                     transcript(`promo.success.general`, {
                       record: grant.id,
@@ -65,12 +71,12 @@ const interactionPromo = (bot, message) => {
             throw err
           })
       } else {
-        bot.whisper(message, transcript('promo.help'))
+        bot.replyPrivateDelayed(message, transcript('promo.help'))
       }
     })
     .catch(err => {
       console.error(err)
-      bot.whisper(message, transcript('errors.general', { err }))
+      bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
     })
 }
 
