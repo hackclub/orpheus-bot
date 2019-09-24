@@ -32,7 +32,7 @@ const interactionPromo = (bot, message) => {
               Type: 'First meeting ($100)',
               'Club has HCB account': club.fields['HCB Account Requested'],
               'Fee amount': 0,
-              'Grant amount': 0,
+              'Grant amount': 100,
             })
               .then(grant => {
                 const hcb = Boolean(club.fields['Club has HCB account'])
