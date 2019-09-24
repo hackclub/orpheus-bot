@@ -15,7 +15,7 @@ const interactionPromo = (bot, message) => {
         return
       }
 
-      if (text.toLowerCase() == 'github semester') {
+      if (text.toLowerCase() == 'github grant') {
         return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
           .then(grant => {
             if (grant) {
