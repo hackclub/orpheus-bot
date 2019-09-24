@@ -28,7 +28,7 @@ const interactionMeetingList = (bot, message) => {
         ":warning: This command can only be run by club leaders. You aren't registered as a club leader."
     }
 
-    bot.whisper(message, reply, (err, response) => {
+    bot.replyPrivateDelayed(message, reply, (err, response) => {
       if (err) {
         console.error(err)
       }
