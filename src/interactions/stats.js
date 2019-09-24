@@ -29,11 +29,11 @@ const interactionStats = (bot, message) => {
       const { leader, club, history } = info
 
       if (!leader || !club) {
-        bot.replyPrivateDelayed(res, text('stats.notFound'))
+        bot.replyPrivateDelayed(message, text('stats.notFound'))
         return
       }
       if (!history || !history.meetings) {
-        bot.replyPrivateDelayed(res, text('stats.noMeeting'))
+        bot.replyPrivateDelayed(message, text('stats.noMeeting'))
         return
       }
 
@@ -70,13 +70,13 @@ const interactionStats = (bot, message) => {
         ],
       }
       console.log(graphUrl(history, club))
-      bot.replyPrivateDelayed(res, content, err => {
+      bot.replyPrivateDelayed(message, content, err => {
         if (err) throw err
       })
     })
     .catch(err => {
       console.error(err)
-      bot.replyPrivateDelayed(res, text('errors.general', { err }))
+      bot.replyPrivateDelayed(message, text('errors.general', { err }))
     })
 
   // try {
