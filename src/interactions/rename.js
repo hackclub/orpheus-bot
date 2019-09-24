@@ -5,20 +5,23 @@ const interactionRename = (bot, message) => {
 
   if (message.text === '' || message.text === 'help') {
     console.log(`I responded to ${user} with a help message`)
-    bot.whisper(message, transcript('renameChannel.help'))
+    bot.replyPrivateDelayed(message, transcript('renameChannel.help'))
     return
   }
 
   getInfoForUser(user).then(({ leader, club, userRecord }) => {
     if (!leader) {
       console.log(`${user} isn't a leader, so I told them this was restricted`)
-      bot.whisper(message, transcript('renameChannel.invalidUser'))
+      bot.replyPrivateDelayed(message, transcript('renameChannel.invalidUser'))
       return
     }
 
     if (!club) {
       console.log(`${user} didn't run this in a club channel`)
-      bot.whisper(message, transcript('renameChannel.noClubChannel'))
+      bot.replyPrivateDelayed(
+        message,
+        transcript('renameChannel.noClubChannel')
+      )
       return
     }
 
@@ -26,7 +29,7 @@ const interactionRename = (bot, message) => {
       console.log(
         `${channel} isn't ${user}'s channel, so I asked them to run it there`
       )
-      bot.whisper(
+      bot.replyPrivateDelayed(
         message,
         transcript('renameChannel.invalidChannel', {
           channel: club.fields['Slack Channel ID'],
@@ -37,20 +40,26 @@ const interactionRename = (bot, message) => {
 
     const name = message.text.toLowerCase()
     console.log(`*Renaming the channel to "${name}*`)
-    bot.whisper(message, transcript('renameChannel.progress', { name }))
+    bot.replyPrivateDelayed(
+      message,
+      transcript('renameChannel.progress', { name })
+    )
     initBot(true).api.conversations.rename({ channel, name }, err => {
       if (err) {
         console.error(err)
-        bot.whisper(message, transcript('renameChannel.error', { name, err }))
+        bot.replyPrivateDelayed(
+          message,
+          transcript('renameChannel.error', { name, err })
+        )
         return
       }
 
-      bot.whisper(message, transcript('renameChannel.success'))
+      bot.replyPrivateDelayed(message, transcript('renameChannel.success'))
 
       // Additional tutorial for first-time users
       setTimeout(() => {
         if (!userRecord.fields['Flag: renamed channel']) {
-          bot.whisper(
+          bot.replyPrivateDelayed(
             message,
             transcript('tutorial.renamedChannel', {
               channel,
