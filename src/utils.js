@@ -283,6 +283,11 @@ const recurseText = (searchArr, textObj) => {
   }
 }
 export const text = (search, vars) => {
+  console.log(
+    `I'm searching for words in my yaml file under "${search}", with the following variables set: ${JSON.stringify(
+      vars
+    )}`
+  )
   const searchArr = search.split('.')
   const textObj = loadText()
 
