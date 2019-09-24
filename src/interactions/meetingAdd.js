@@ -6,7 +6,7 @@ const interactionMeetingAdd = (bot, message) => {
   getInfoForUser(message.user).then(({ club, history, slackUser }) => {
     if (message.text.indexOf(',') === -1) {
       // either the user typed "help" or an incorrectly formatted command
-      bot.whisper(
+      bot.replyPrivateDelayed(
         message,
         transcript('meetingAdd.help', { day: history.lastMeetingDay }),
         (err, response) => {
@@ -35,11 +35,11 @@ const interactionMeetingAdd = (bot, message) => {
       (err, meetingRecord) => {
         if (err) {
           console.error(err)
-          bot.whisper(message, `Got error: \`${err}\``)
+          bot.replyPrivateDelayed(message, `Got error: \`${err}\``)
           return
         }
 
-        bot.whisper(message, transcript('meetingAdd.success'))
+        bot.replyPrivateDelayed(message, transcript('meetingAdd.success'))
       }
     )
     return
