@@ -7,9 +7,9 @@ const interactionMeetingTutorial = (_bot, message) => {
   getInfoForUser(user)
     .then(({ userRecord, club }) => {
       if (userRecord.fields['Flag: Initiated tutorial']) {
-        bot.whisper(message, text('tutorial.alreadyStarted'))
+        bot.replyPrivateDelayed(message, text('tutorial.alreadyStarted'))
       } else {
-        bot.whisper(
+        bot.replyPrivateDelayed(
           message,
           text('tutorial.start', {
             user,
@@ -22,7 +22,7 @@ const interactionMeetingTutorial = (_bot, message) => {
       })
     })
     .catch(err => {
-      bot.whisper(message, text('errors.memory', { err }))
+      bot.replyPrivateDelayed(message, text('errors.memory', { err }))
     })
 }
 export default interactionMeetingTutorial
