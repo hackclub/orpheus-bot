@@ -8,19 +8,22 @@ const interactionLeaderList = (bot, message) => {
         console.log(
           `${user} isn't a leader, so I told them this was restricted`
         )
-        bot.whisper(message, transcript('leaderList.invalidUser'))
+        bot.replyPrivateDelayed(message, transcript('leaderList.invalidUser'))
         return
       }
 
       if (!club) {
         console.log(`${user} doesn't have a club`)
-        bot.whisper(message, transcript('leaderList.invalidClub'))
+        bot.replyPrivateDelayed(message, transcript('leaderList.invalidClub'))
         return
       }
 
       if (club.fields['Slack Channel ID'] != channel) {
         console.log(`${user} doesn't own channel ${channel}`)
-        bot.whisper(message, transcript('leaderList.invalidChannel'))
+        bot.replyPrivateDelayed(
+          message,
+          transcript('leaderList.invalidChannel')
+        )
         return
       }
 
@@ -31,7 +34,7 @@ const interactionLeaderList = (bot, message) => {
       )
         .then(leaders => {
           console.log(leaders)
-          bot.whisper(
+          bot.replyPrivateDelayed(
             message,
             transcript('leaderList.list', { leaders, channel })
           )
@@ -41,7 +44,7 @@ const interactionLeaderList = (bot, message) => {
         })
     })
     .catch(err => {
-      bot.whisper(err)
+      bot.replyPrivateDelayed(err)
       console.error(err)
     })
 }
