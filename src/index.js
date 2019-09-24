@@ -202,7 +202,7 @@ controller.on('slash_command', (bot, message) => {
 
   bot.replyAcknowledge()
 
-  bot.whisper(
+  bot.replyPrivateDelayed(
     message,
     {
       blocks: [
@@ -261,7 +261,10 @@ controller.on('slash_command', (bot, message) => {
           break
 
         default:
-          bot.whisper(message, "I don't know how to do that ¯\\_(ツ)_/¯")
+          bot.replyPrivateDelayed(
+            message,
+            "I don't know how to do that ¯\\_(ツ)_/¯"
+          )
           break
       }
     }
