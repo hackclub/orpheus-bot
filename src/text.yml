@@ -146,11 +146,27 @@ promo:
     coleaders: I found a request for this grant already. Maybe a co-leader submitted it? Either way, you don't need to submit another– sit tight and it should show up in your account within 3-5 days of the original request.
   noHCBAccount: I don't see a HCB account for <#${this.clubChannel}>. If you have an account, my bad– send a screenshot of this to <@U0C7B14Q3>.
   notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
-  success: |
-    You got it! I've just submitted a request to the HCB team. Here are the details for your records\:
-
+  success:
+    hcbEmoji:
+      'true': ':white_check_mark:'
+      'false': ':no_entry:'
+    hcbMessage:
+      'true': In the next few days the grant will arrive in your account– just sit tight.
+      'false': |
+        We'll ship you a prepaid Visa card to the following address. If it's out of date or invalid, send <@U0C7B14Q3> a screenshot of this & tell him the right address.
+        \`\`\`
+        First line\: ${this.firstLine || ''}
+        Second line\: ${this.secondLine || ''}
+        City\: ${this.city || ''}
+        State\: ${this.state || ''}
+        Zip Code\: ${this.zipCode || ''}
+        Country\: ${this.country || ''}
+        \`\`\`
+    general: |
+      I've just submitted a request to the HCB team. Here are the details for your records\:
+      \`\`\`
       Grant request ID\: *${this.record}*
-      Has a bank account\: *True*
-      Submitted by\: *<@${this.user}> (${this.user})*
-
-    In the next few days the grant will arrive in your account– just sit tight. Just one quick note though\: Next time you record a club meeting with \`/meeting-add\`, you'll see a link to dropbox.hackclub.com. We'd really appreciate it if you put some photos of your club meeting in there that we can show GitHub. This is the first semester we're partnering with GitHub and if they're happy with the results this could happen in the future.
+      Has a bank account\: *${this.text('promo.success.hcbEmoji.' + this.hcb)}*
+      Submitted by\: *<@${this.user}> (@${this.user})*
+      \`\`\`
+      Just one quick note though\: Next time you record a club meeting with \`/meeting-add\`, you'll see a link to dropbox.hackclub.com. We'd really appreciate it if you put some photos of your club meeting in there that we can show GitHub. This is the first semester we're partnering with GitHub and if they're happy with the results this could happen in the future.
