@@ -1,7 +1,8 @@
 import _ from 'lodash'
-import { getInfoForUser, text } from '../utils'
+import { getInfoForUser, text, initBot } from '../utils'
 
-const interactionStats = (bot, message) => {
+const interactionStats = (_bot, message) => {
+  const bot = initBot()
   const { user } = message
 
   bot.replyAndUpdate(
