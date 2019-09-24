@@ -35,7 +35,7 @@ const interactionPromo = (bot, message) => {
               'Grant amount': 0,
             })
               .then(grant => {
-                const hcb = club.fields['Club has HCB account']
+                const hcb = Boolean(club.fields['Club has HCB account'])
                 bot.whisper(
                   message,
                   transcript('promo.success.hcbMessage.' + hcb, {
