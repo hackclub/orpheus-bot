@@ -22,7 +22,9 @@ const interactionStats = (bot, message) => {
     setTimeout(resolve, 2000)
   })
 
-  const infoPromise = new Promise(resolve => getInfoForUser(user).then(resolve))
+  const infoPromise = new Promise(resolve =>
+    getInfoForUser(user).then(info => resolve(info))
+  )
 
   Promise.all([loaderPromise, infoPromise, minWaitPromise])
     .then((res, info, _timeout) => {
