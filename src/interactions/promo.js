@@ -91,12 +91,19 @@ const promos = [
 const interactionPromo = (bot, message) => {
   const args = message.text.toLowerCase()
 
+  if (args == 'help') {
+    bot.replyPrivateDelayed(message, transcript('promo.help'))
+    return
+  }
+
   const selectedPromo = promos.find(promo => promo.name.toLowerCase() == args)
 
   if (selectedPromo) {
     selectedPromo.run(bot, message)
+    return
   } else {
     bot.replyPrivateDelayed(message, transcript('promo.list', { promos }))
+    return
   }
 }
 

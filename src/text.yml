@@ -172,4 +172,4 @@ promos:
 promo:
   help: 'Request a promotion / partnership through Hack Club. Try \`/promo Free Notion\`'
   list: Here are the active promotions ${this.promos.map(p => this.text('promo.bullet', { p }))}
-  bullet: \n- *${this.p.name}* ${this.p.details}
+  bullet: \n- *${this.p.name}* _${this.p.details}_
