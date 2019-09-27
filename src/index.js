@@ -248,6 +248,7 @@ controller.on('slash_command', (bot, message) => {
           interactionMeetingList(bot, message)
           break
 
+        case '/orpheus-tutorial':
         case '/meeting-tutorial':
           interactionMeetingTutorial(bot, message)
           break
