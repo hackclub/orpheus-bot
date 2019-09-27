@@ -26,8 +26,15 @@ const interactionStats = (bot, message) => {
 
   Promise.all([loaderPromise, infoPromise, minWaitPromise])
     .then(values => {
+      const loadingMessage = values[0]
       const info = values[1]
       const { leader, club, history } = info
+
+      console.log(loadingMessage)
+      // bot.api.chat.delete({
+      //   channel: loadingMessage.channel,
+      //   ts: loadingMessage.ts,
+      // })
 
       if (!leader || !club) {
         bot.replyPrivateDelayed(message, text('stats.notFound'))
@@ -69,7 +76,6 @@ const interactionStats = (bot, message) => {
             ],
           },
         ],
-        replace_original: false,
       }
       bot.replyPrivateDelayed(message, content, err => {
         if (err) throw err
