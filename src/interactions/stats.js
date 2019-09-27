@@ -69,7 +69,7 @@ const interactionStats = (bot, message) => {
             ],
           },
         ],
-        replace_original: true,
+        replace_original: false,
       }
       bot.replyPrivateDelayed(message, content, err => {
         if (err) throw err
