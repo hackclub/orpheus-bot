@@ -69,14 +69,11 @@ const interactionStats = (bot, message) => {
             ],
           },
         ],
+        replace_original: true,
       }
-      bot.replyPrivateDelayed(
-        message,
-        { content, replace_original: true },
-        err => {
-          if (err) throw err
-        }
-      )
+      bot.replyPrivateDelayed(message, content, err => {
+        if (err) throw err
+      })
     })
     .catch(err => {
       console.error(err)
