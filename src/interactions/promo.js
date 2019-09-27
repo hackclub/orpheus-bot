@@ -28,6 +28,8 @@ const promos = [
             return
           }
 
+          const { user } = message
+
           return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
             .then(grant => {
               if (grant) {
