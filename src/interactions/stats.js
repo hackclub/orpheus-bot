@@ -22,10 +22,11 @@ const interactionStats = (bot, message) => {
     setTimeout(resolve, 2000)
   })
 
-  const infoPromise = getInfoForUser(user)
+  const infoPromise = new Promise(resolve => getInfoForUser(user).then(resolve))
 
   Promise.all([loaderPromise, infoPromise, minWaitPromise])
     .then((res, info, _timeout) => {
+      console.log('info', info)
       const { leader, club, history } = info
 
       if (!leader || !club) {
