@@ -5,9 +5,9 @@ const interactionHello = (bot, message) => {
     'hellp',
     'hwllo',
     'helllo',
-    'hello',
     'helli',
     'helo',
+    'hllo',
     'hell',
   ])
   // send a message back with a typo
