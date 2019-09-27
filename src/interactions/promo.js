@@ -7,7 +7,7 @@ import {
 
 const promos = [
   {
-    name: 'Notion Student Plan',
+    name: 'Free Notion',
     details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
@@ -18,20 +18,17 @@ const promos = [
     details:
       'Available to club leaders. Must have a meeting time set with `/meeting-time`',
     run: (bot, message) =>
-      getInfoForUser(user)
-        .then(({ leader, club }) => {
-          if (!leader || !club) {
-            bot.replyPrivateDelayed(
-              message,
-              transcript('promos.githubGrant.notAuthorized')
-            )
-            return
-          }
+      getInfoForUser(user).then(({ leader, club }) => {
+        if (!leader || !club) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.githubGrant.notAuthorized')
+          )
+          return
+        }
 
-          return airFind(
-            'GitHub Grants',
-            `{Club} = '${club.fields['ID']}'`
-          ).then(grant => {
+        return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`).then(
+          grant => {
             if (grant) {
               if (club.fields['Leaders'].length == 1) {
                 bot.replyPrivateDelayed(
@@ -76,15 +73,9 @@ const promos = [
                 )
               }, 5000)
             })
-          })
-        })
-        .catch(err => {
-          console.error(err)
-          bot.replyPrivateDelayed(
-            message,
-            transcript('errors.general', { err })
-          )
-        }),
+          }
+        )
+      }),
   },
 ]
 
@@ -99,11 +90,14 @@ const interactionPromo = (bot, message) => {
   const selectedPromo = promos.find(promo => promo.name.toLowerCase() == args)
 
   if (selectedPromo) {
-    selectedPromo.run(bot, message)
-    return
+    try {
+      selectedPromo.run(bot, message)
+    } catch (err) {
+      console.error(err)
+      bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
+    }
   } else {
     bot.replyPrivateDelayed(message, transcript('promo.list', { promos }))
-    return
   }
 }
 
