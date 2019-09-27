@@ -89,9 +89,7 @@ const promos = [
 ]
 
 const interactionPromo = (bot, message) => {
-  const { user, text } = message
-
-  const args = text.toLowerCase()
+  const args = message.text.toLowerCase()
 
   const selectedPromo = promos.find(promo => promo.name.toLowerCase() == args)
 
