@@ -8,7 +8,7 @@ import {
 const promos = [
   {
     name: 'Notion Student Plan',
-    details: 'Anyone',
+    details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
     },
@@ -16,7 +16,7 @@ const promos = [
   {
     name: 'GitHub Grant',
     details:
-      'Club leaders only. Must have a meeting time set with `/meeting-time`',
+      'Available to club leaders. Must have a meeting time set with `/meeting-time`',
     run: (bot, message) =>
       getInfoForUser(user)
         .then(({ leader, club }) => {
