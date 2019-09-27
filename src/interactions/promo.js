@@ -17,8 +17,9 @@ const promos = [
     name: 'GitHub Grant',
     details:
       'Available to club leaders. Must have a meeting time set with `/meeting-time`',
-    run: (bot, message) =>
-      getInfoForUser(user)
+    run: (bot, message) => {
+      const { user } = message
+      return getInfoForUser(user)
         .then(({ leader, club }) => {
           if (!leader || !club) {
             bot.replyPrivateDelayed(
@@ -27,8 +28,6 @@ const promos = [
             )
             return
           }
-
-          const { user } = message
 
           return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
             .then(grant => {
@@ -87,7 +86,8 @@ const promos = [
         })
         .catch(err => {
           throw err
-        }),
+        })
+    },
   },
 ]
 
