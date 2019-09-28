@@ -7,8 +7,7 @@ const interactionAnnouncement = (bot, message) => {
 
   if (verb == 'help') {
     bot.replyPrivateDelayed(message, transcript('announcement.help'))
-  }
-  if (!'record address status send'.split(' ').includes(verb)) {
+  } else if (!'record address status send'.split(' ').includes(verb)) {
     bot.replyPrivateDelayed(
       message,
       transcript('announcement.unrecognizedCommand')

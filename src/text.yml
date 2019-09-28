@@ -31,6 +31,7 @@ hello:
 announcement:
   help: |
     Send an announcement to selected clubs. Usage below.
+    \- \`/announcement status\` See what announcements are queued to who
     \- \`/announcement record\` Records a message to your user account
     \- \`/announcement address\` Sets who the message is delivered to
     \- \`/announcement send\` Sends the message
