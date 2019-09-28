@@ -13,7 +13,7 @@ const interactionLeaderAdd = (bot, message) => {
     return
   }
 
-  getInfoForUser(user)
+  return getInfoForUser(user)
     .then(commandUser => {
       if (!commandUser.leader) {
         console.log(
