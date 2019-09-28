@@ -55,18 +55,23 @@ const interactionLeaderAdd = (bot, message) => {
               'Full Name': profile.real_name || profile.display_name,
             }
             console.log(fields)
-            return airCreate('Leaders', fields).catch(err => {
-              console.error(
-                'Ran into issue creating new leader airtable record'
-              )
-              throw err
-            })
+            return airCreate('Leaders', fields)
+              .then(taggedLeader => {
+                return taggedLeader
+              })
+              .catch(err => {
+                console.error(
+                  'Ran into issue creating new leader airtable record'
+                )
+                throw err
+              })
+          } else {
+            return taggedUser.leader
           }
-          return taggedUser
         })
-        .then(taggedUser => {
+        .then(taggedLeader => {
           // ensure we can assign the leader to this club
-          const clubs = taggedUser.leader.fields['Clubs'] || []
+          const clubs = taggedLeader.fields['Clubs'] || []
           if (clubs.includes(commandUser.club.id)) {
             bot.replyPrivateDelayed(
               message,
@@ -75,14 +80,21 @@ const interactionLeaderAdd = (bot, message) => {
             return
           }
           clubs.push(commandUser.club.id)
-          return airPatch('Leaders', taggedUser.leader.id, {
+          return airPatch('Leaders', taggedLeader.id, {
             Clubs: clubs,
-          }).then(() => {
-            bot.replyPrivateDelayed(
-              message,
-              transcript('leaderAdd.success', { taggedUserID, channel })
-            )
           })
+            .then(() => {
+              bot.replyPrivateDelayed(
+                message,
+                transcript('leaderAdd.success', { taggedUserID, channel })
+              )
+            })
+            .catch(err => {
+              throw err
+            })
+        })
+        .catch(err => {
+          throw err
         })
     })
     .catch(err => {
