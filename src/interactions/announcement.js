@@ -83,7 +83,10 @@ const sendStatus = (bot, message) =>
   getInfoForUser(message.user)
     .then(({ userRecord }) => {
       const announcementData = userRecord.fields.announcement
-      transcript('announcement.status', { announcementData })
+      bot.replyPrivateDelayed(
+        message,
+        transcript('announcement.status', { announcementData })
+      )
     })
     .catch(err => {
       throw err
