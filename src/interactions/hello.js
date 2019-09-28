@@ -1,24 +1,15 @@
-import { sample } from 'lodash'
+import { text } from '../utils'
 
 const interactionHello = (bot, message) => {
-  const mispelling = sample([
-    'hellp',
-    'hwllo',
-    'helllo',
-    'helli',
-    'helo',
-    'hllo',
-    'hell',
-  ])
   // send a message back with a typo
-  bot.replyAndUpdate(message, mispelling, function(err, src, updateResponse) {
+  bot.replyAndUpdate(message, text('hello'), (err, src, updateResponse) => {
     if (err) {
       console.error(err)
       return
     }
     // oh no, "hellp" is a typo - let's update the message to "hello"
     setTimeout(() => {
-      updateResponse('hello', function(err) {
+      updateResponse('hello', err => {
         if (err) console.error(err)
       })
     }, Math.random() * 5000 + 2000)
