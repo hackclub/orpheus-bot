@@ -4,6 +4,7 @@ const interactionAnnouncement = (bot, message) => {
   const { text, user } = message
 
   const verb = text.split(' ')[0]
+  const content = text.replace(verb, '')
 
   if (verb == 'help') {
     bot.replyPrivateDelayed(message, transcript('announcement.help'))
@@ -22,15 +23,15 @@ const interactionAnnouncement = (bot, message) => {
 
       const announcementData = userRecord.fields.announcement
       if (verb == 'record') {
-        const content = text
         return userRecord.patch({ announcement: { content } }).catch(err => {
           throw err
         })
       } else if (verb == 'address') {
-        const target = text
-        return userRecord.patch({ announcement: { target } }).catch(err => {
-          throw err
-        })
+        return userRecord
+          .patch({ announcement: { target: content } })
+          .catch(err => {
+            throw err
+          })
       } else if (verb == 'status') {
         bot.replyPrivateDelayed(message, transcript('announcement.status'), {
           announcementData,
