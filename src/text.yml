@@ -102,7 +102,7 @@ errors:
   general: |
     Something went wrong\: \`${this.err}\`
     \`\`\`
-    // Stacktrace\:
+    // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
     ${this.err.stack}
     \`\`\`
   memory:
