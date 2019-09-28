@@ -15,30 +15,37 @@ const interactionAnnouncement = (bot, message) => {
     )
   }
 
-  getInfoForUser(user).then(({ slackUser, userRecord }) => {
-    if (!slackUser.is_owner) {
-      throw new Error('This command can only be run by Slack Owner accounts')
-    }
+  getInfoForUser(user)
+    .then(({ slackUser, userRecord }) => {
+      if (!slackUser.is_owner) {
+        throw new Error('This command can only be run by Slack Owner accounts')
+      }
 
-    const announcementData = userRecord.fields.announcement
-    if (verb == 'record') {
-      const content = text
-      userRecord.patch({ announcement: { content } }).catch(err => {
-        throw err
+      const announcementData = userRecord.fields.announcement
+      if (verb == 'record') {
+        const content = text
+        userRecord.patch({ announcement: { content } }).catch(err => {
+          throw err
+        })
+      } else if (verb == 'address') {
+        const target = text
+        userRecord.patch({ announcement: { target } }).catch(err => {
+          throw err
+        })
+      } else if (verb == 'status') {
+        bot.replyPrivateDelayed(message, transcript('announcement.status'), {
+          announcementData,
+        })
+      } else if (verb == 'send') {
+        console.log('got Send command')
+      }
+    })
+    .catch(err => {
+      bot.replyPrivateDelayed(message, transcript('errors.general'), {
+        err,
       })
-    } else if (verb == 'address') {
-      const target = text
-      userRecord.patch({ announcement: { target } }).catch(err => {
-        throw err
-      })
-    } else if (verb == 'status') {
-      bot.replyPrivateDelayed(message, transcript('announcement.status'), {
-        announcementData,
-      })
-    } else if (verb == 'send') {
-      console.log('got Send command')
-    }
-  })
+      console.error(err)
+    })
 }
 
 export default interactionAnnouncement
