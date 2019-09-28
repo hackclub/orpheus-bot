@@ -151,6 +151,10 @@ leaderList:
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
+  githubSDP:
+    notLeader: This command can only be run by a registered club leader
+    notClubChannel: This command can only be run in a club channel.
+    success: 
   githubGrant:
     duplicate:
       soloLeader: I found a request for this grant already– just sit tight & it should show up in your Hack Club Bank account within 3-5 days.

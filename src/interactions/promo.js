@@ -14,6 +14,36 @@ const promos = [
     },
   },
   {
+    name: 'GitHub Student Developer Pack',
+    details: 'For all club members, but must be requested by a club leader',
+    run: (bot, message) => {
+      const { user, channel } = message
+      return getInfoForUser(user).then(({ leader }) => {
+        if (!leader) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.githubSDP.notLeader')
+          )
+        }
+
+        airFind('Clubs', 'Slack Channel ID', channel).then(club => {
+          if (!club) {
+            bot.replyPrivateDelayed(
+              message,
+              transcript('promos.githubSDP.notClubChannel')
+            )
+          } else {
+            const url = findOrInitSDPLink
+            bot.replyPrivateDelayed(
+              message,
+              transcript('promos.githubSDP.success', { url })
+            )
+          }
+        })
+      })
+    },
+  },
+  {
     name: 'GitHub Grant',
     details:
       'Available to club leaders. Must have a meeting time set with `/meeting-time`',
