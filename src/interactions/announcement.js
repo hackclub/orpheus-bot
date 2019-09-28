@@ -82,7 +82,7 @@ const getAnnFromSlack = content =>
 const sendStatus = (bot, message) =>
   getInfoForUser(message.user)
     .then(({ userRecord }) => {
-      const announcementData = userRecord.fields.announcement
+      const announcementData = JSON.strinfigy(userRecord.fields.announcement)
       bot.replyPrivateDelayed(
         message,
         transcript('announcement.status', { announcementData })

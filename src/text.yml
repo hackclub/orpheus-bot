@@ -37,7 +37,7 @@ announcement:
     \- \`/announcement send\` Sends the message
   status: |
     The following information is stored in the announcement command's memory
-    \ > ${this.announcementData}
+    \> ${this.announcementData}
   unrecognizedCommand: |
     I couldn't figure out what action you're trying to take. Here's the help text.
     ${this.text('announcement.help')}
