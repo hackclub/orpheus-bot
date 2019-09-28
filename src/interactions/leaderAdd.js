@@ -40,7 +40,7 @@ const interactionLeaderAdd = (bot, message) => {
         throw new Error('Invalid Slack user')
       }
 
-      getInfoForUser(taggedUserID)
+      return getInfoForUser(taggedUserID)
         .then(taggedUser => {
           console.log('found tagged user')
           if (taggedUser.slackUser.is_bot) {
