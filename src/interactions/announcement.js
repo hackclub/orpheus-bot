@@ -15,7 +15,7 @@ const interactionAnnouncement = (bot, message) => {
     )
   }
 
-  getInfoForUser(user)
+  return getInfoForUser(user)
     .then(({ slackUser, userRecord }) => {
       if (!slackUser.is_owner) {
         throw new Error('This command can only be run by Slack Owner accounts')
@@ -24,12 +24,12 @@ const interactionAnnouncement = (bot, message) => {
       const announcementData = userRecord.fields.announcement
       if (verb == 'record') {
         const content = text
-        userRecord.patch({ announcement: { content } }).catch(err => {
+        return userRecord.patch({ announcement: { content } }).catch(err => {
           throw err
         })
       } else if (verb == 'address') {
         const target = text
-        userRecord.patch({ announcement: { target } }).catch(err => {
+        return userRecord.patch({ announcement: { target } }).catch(err => {
           throw err
         })
       } else if (verb == 'status') {
@@ -41,10 +41,8 @@ const interactionAnnouncement = (bot, message) => {
       }
     })
     .catch(err => {
-      bot.replyPrivateDelayed(message, transcript('errors.general'), {
-        err,
-      })
       console.error(err)
+      bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
     })
 }
 
