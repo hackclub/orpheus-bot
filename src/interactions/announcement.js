@@ -79,6 +79,16 @@ const getAnnFromSlack = content =>
     }
   })
 
+const sendStatus = (bot, message) =>
+  getInfoForUser(message.user)
+    .then(({ userRecord }) => {
+      const announcementData = userRecord.fields.announcement
+      transcript('announcement.status', { announcementData })
+    })
+    .catch(err => {
+      throw err
+    })
+
 const interactionAnnouncement = (bot, message) => {
   const { text, user } = message
 
@@ -102,20 +112,26 @@ const interactionAnnouncement = (bot, message) => {
 
       const announcementData = userRecord.fields.announcement
       if (verb == 'record') {
-        return getAnnFromSlack(content).then(message =>
-          userRecord.patch({ announcement: { message } }).catch(err => {
+        return getAnnFromSlack(content)
+          .then(message =>
+            userRecord.patch({ announcement: { message } }).catch(err => {
+              throw err
+            })
+          )
+          .then(() => sendStatus(bot, message))
+          .catch(err => {
             throw err
           })
-        )
       } else if (verb == 'address') {
         return userRecord
           .patch({ announcement: { target: content } })
+          .then(() => sendStatus(bot, message))
           .catch(err => {
             throw err
           })
       } else if (verb == 'status') {
-        bot.replyPrivateDelayed(message, transcript('announcement.status'), {
-          announcementData,
+        return sendStatus(bot, message).catch(err => {
+          throw err
         })
       } else if (verb == 'send') {
         console.log('got Send command')
