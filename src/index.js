@@ -21,6 +21,7 @@ import interactionMeetingTime from './interactions/meetingTime'
 import interactionMeetingTutorial from './interactions/meetingTutorial'
 import interactionCatchall from './interactions/catchall'
 import interactionPromo from './interactions/promo'
+import interactionAnnouncement from './interactions/announcement'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -226,6 +227,10 @@ controller.on('slash_command', (bot, message) => {
         case '/stats':
         case '/meeting-stats':
           interactionStats(bot, message)
+          break
+
+        case '/announcement':
+          interactionAnnouncement(bot, message)
           break
 
         case '/promo':
