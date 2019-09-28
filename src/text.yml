@@ -31,9 +31,9 @@ hello:
 announcement:
   help: |
     Send an announcement to selected clubs. Usage below.
-    \- `/announcement record` Records a message to your user account
-    \- `/announcement address` Sets who the message is delivered to
-    \- `/announcement send` Sends the message
+    \- \`/announcement record\` Records a message to your user account
+    \- \`/announcement address\` Sets who the message is delivered to
+    \- \`/announcement send\` Sends the message
   status: |
     The following information is stored in the announcement command's memory
     \ > ${this.announcementData}
