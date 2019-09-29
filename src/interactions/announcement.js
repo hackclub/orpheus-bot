@@ -44,7 +44,7 @@ const sendAnnouncementRecursive = (bot, announcer) =>
           uR(announcer),
           airFind(
             'Clubs',
-            'AND({Announcement Queued} = true), Slack Channel ID != BLANK()'
+            'AND({Announcement Queued} = true), {Slack Channel ID} != BLANK()'
           ),
         ])
           .then(values => {
