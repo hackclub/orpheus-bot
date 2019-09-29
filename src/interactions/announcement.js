@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   text as transcript,
   getInfoForUser,
@@ -56,7 +57,7 @@ const sendAnnouncementRecursive = (bot, message) =>
           .then(values => {
             const [userRecord, club] = values
 
-            if (userRecord.fields.announcement.primed) {
+            if (!_.get(userRecord, 'fields.announcement.primed')) {
               reject(
                 new Error(
                   'Primer was set to false! Not firing the announcement'
