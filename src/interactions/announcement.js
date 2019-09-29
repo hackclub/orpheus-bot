@@ -166,7 +166,7 @@ const sendStatus = (bot, message) =>
     uR(message.user),
     airGet(
       'Clubs',
-      'AND({Announcement Queued} = true), Slack Channel ID != BLANK())'
+      'AND({Announcement Queued} = true), {Slack Channel ID} != BLANK())'
     ),
   ])
     .then(values => {
@@ -239,7 +239,9 @@ const interactionAnnouncement = (bot, message) => {
         })
       } else if (verb == 'send') {
         console.log('got Send command')
-        return sendAnnouncements(bot, message)
+        return sendAnnouncements(bot, message).catch(err => {
+          throw err
+        })
       }
     })
     .catch(err => {
