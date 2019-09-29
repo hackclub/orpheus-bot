@@ -22,7 +22,7 @@ const sendAnnouncements = (bot, message) => {
     .then(userRecord =>
       userRecord
         .patch({ announcement: { primed: true } })
-        .then(() => sendAnnouncementRecursive(bot, message.user))
+        .then(() => sendAnnouncementRecursive(bot, message))
         .catch(err => {
           throw err
         })
