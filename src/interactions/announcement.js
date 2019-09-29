@@ -70,7 +70,7 @@ const sendAnnouncementRecursive = (bot, message) =>
               resolve()
             }
 
-            bot.whisper(
+            bot.sendEphemeral(
               message,
               transcript('announcement.progress.start', {
                 channel: club.fields['Slack Channel ID'],
@@ -87,7 +87,7 @@ const sendAnnouncementRecursive = (bot, message) =>
                   return
                 }
 
-                bot.whisper(
+                bot.sendEphemeral(
                   message,
                   transcript('announcement.progress.end', {
                     channel: club.fields['Slack Channel ID'],
