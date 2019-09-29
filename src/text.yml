@@ -37,7 +37,7 @@ announcement:
     \- \`/announcement address\` Sets who the message is delivered to
     \- \`/announcement send\` Sends the message
   starting:
-    Starting to send announcements. Cancel with \`/announcement stop\`
+    Starting to send announcements. Cancel with \`/announcement stop\`. Due to limitations in Slack's API, I can only post my progress as I go in channels I'm already invited to
   progress:
     Just announced in <#${this.channel}>...
   finished:

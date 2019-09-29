@@ -80,7 +80,7 @@ const sendAnnouncementRecursive = (bot, message) =>
                   return
                 }
 
-                bot.replyPrivateDelayed(
+                bot.whisper(
                   message,
                   transcript('announcement.progress', {
                     channel: club.fields['Slack Channel ID'],
@@ -266,7 +266,6 @@ const interactionAnnouncement = (bot, message) => {
     })
     .catch(err => {
       console.error(err)
-      bot.replyPrivateDelayed(message, 'test')
       bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
     })
 }
