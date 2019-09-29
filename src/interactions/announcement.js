@@ -61,7 +61,7 @@ const sendAnnouncementRecursive = (bot, announcer) =>
             }
             initBot().say(
               {
-                text: userRecord.fields.announcement.content,
+                text: userRecord.fields.announcement.message,
                 channel: club.fields['Slack Channel ID'],
               },
               (err, res) => {
