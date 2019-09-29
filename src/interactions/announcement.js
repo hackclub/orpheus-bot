@@ -59,6 +59,10 @@ const sendAnnouncementRecursive = (bot, announcer) =>
             if (userRecord.fields.announcement.safety) {
               reject(new Error('Safety is on! Not firing the announcement'))
             }
+            if (!club) {
+              bot.replyPrivateDelayed(transcript('announcement.finished'))
+              resolve()
+            }
             initBot().say(
               {
                 text: userRecord.fields.announcement.message,

@@ -40,6 +40,8 @@ announcement:
     Starting to send announcements. Cancel with \`/announcement stop\`
   progress:
     Just announced in <#${this.channel}>...
+  finished:
+    Finished sending out announcements!
   status: |
     The following information is stored in the announcement command's memory
     \> ${this.announcementData.split('\n').join('\n> ')}
