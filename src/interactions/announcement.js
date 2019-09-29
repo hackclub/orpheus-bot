@@ -18,8 +18,14 @@ import {
 const sendAnnouncements = (bot, message) => {
   bot.replyPrivateDelayed(message, transcript('announcement.starting'))
   return uR(message.user)
-    .patch({ announcement: { safety: false } })
-    .then(() => sendAnnouncementRecursive(bot, message.user))
+    .then(userRecord =>
+      userRecord
+        .patch({ announcement: { safety: false } })
+        .then(() => sendAnnouncementRecursive(bot, message.user))
+        .catch(err => {
+          throw err
+        })
+    )
     .catch(err => {
       throw err
     })
