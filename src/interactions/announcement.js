@@ -266,6 +266,7 @@ const interactionAnnouncement = (bot, message) => {
     })
     .catch(err => {
       console.error(err)
+      bot.replyPrivateDelayed(message, 'test')
       bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
     })
 }
