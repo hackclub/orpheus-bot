@@ -40,7 +40,7 @@ announcement:
     Starting to send announcements. Cancel with \`/announcement stop\`
   status: |
     The following information is stored in the announcement command's memory
-    \> ${this.announcementData}
+    ${this.announcementData.split('\n').join('\n> ')}
   address: 
     To prevent a race condition where 2 admins try sending announcements at the same time, the address verb is disabled. To queue up clubs for an announcement, check the "Announcement Queued" checkbox for your target clubs in Airtable
   unrecognizedCommand: |
