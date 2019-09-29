@@ -3,7 +3,7 @@ import { controller } from './'
 import yaml from 'js-yaml'
 import fs from 'fs'
 import path from 'path'
-import { sample } from 'lodash'
+import { sample, merge } from 'lodash'
 import Airtable from 'airtable'
 const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_BASE
@@ -189,10 +189,7 @@ const buildUserRecord = r => ({
           const newFields = {
             Username: '@' + slackUser.name,
             Data: JSON.stringify(
-              {
-                ...oldFields,
-                ...updatedFields,
-              },
+              merge(oldFields, updatedFields),
               null,
               2 // https://stackoverflow.com/a/7220510
             ),
