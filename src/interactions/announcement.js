@@ -4,6 +4,8 @@ import {
   initBot,
   airPatch,
   userRecord as uR,
+  airFind,
+  airGet,
 } from '../utils'
 
 //                     \`-\`-._
@@ -160,9 +162,26 @@ const getAnnFromSlack = content =>
   })
 
 const sendStatus = (bot, message) =>
-  getInfoForUser(message.user)
-    .then(({ userRecord }) => {
-      const announcementData = JSON.stringify(userRecord.fields.announcement)
+  Promise.all([
+    uR(message.user),
+    airGet(
+      'Clubs',
+      'AND({Announcement Queued} = true), Slack Channel ID != BLANK()'
+    ),
+  ])
+    .then(values => {
+      const [userRecord, clubs] = values
+      const announcementData = JSON.stringify({
+        ...userRecord.fields.announcement,
+        channels: clubs
+          .map(
+            club =>
+              `<#${club.fields['Slack Channel ID']}> (AirTable record ${
+                club.id
+              })`
+          )
+          .join(', '),
+      })
       bot.replyPrivateDelayed(
         message,
         transcript('announcement.status', { announcementData })
