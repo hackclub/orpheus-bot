@@ -69,6 +69,13 @@ const sendAnnouncementRecursive = (bot, message) =>
               )
               resolve()
             }
+
+            bot.whisper(
+              message,
+              transcript('announcement.progress.start', {
+                channel: club.fields['Slack Channel ID'],
+              })
+            )
             initBot().say(
               {
                 text: userRecord.fields.announcement.message,
@@ -82,7 +89,7 @@ const sendAnnouncementRecursive = (bot, message) =>
 
                 bot.whisper(
                   message,
-                  transcript('announcement.progress', {
+                  transcript('announcement.progress.end', {
                     channel: club.fields['Slack Channel ID'],
                   })
                 )
