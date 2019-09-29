@@ -36,6 +36,8 @@ announcement:
     \- \`/announcement record\` Records a message to your user account
     \- \`/announcement address\` Sets who the message is delivered to
     \- \`/announcement send\` Sends the message
+  starting:
+    Starting to send announcements. Cancel with \`/announcement stop\`
   status: |
     The following information is stored in the announcement command's memory
     \> ${this.announcementData}
