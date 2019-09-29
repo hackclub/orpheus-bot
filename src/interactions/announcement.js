@@ -20,7 +20,7 @@ const sendAnnouncements = (bot, message) => {
   return uR(message.user)
     .then(userRecord =>
       userRecord
-        .patch({ announcement: { safety: false } })
+        .patch({ announcement: { primed: true } })
         .then(() => sendAnnouncementRecursive(bot, message.user))
         .catch(err => {
           throw err
@@ -56,8 +56,12 @@ const sendAnnouncementRecursive = (bot, message) =>
           .then(values => {
             const [userRecord, club] = values
 
-            if (userRecord.fields.announcement.safety) {
-              reject(new Error('Safety is on! Not firing the announcement'))
+            if (userRecord.fields.announcement.primed) {
+              reject(
+                new Error(
+                  'Primer was set to false! Not firing the announcement'
+                )
+              )
             }
             if (!club) {
               bot.replyPrivateDelayed(
@@ -231,7 +235,7 @@ const interactionAnnouncement = (bot, message) => {
 
       if (verb == 'stop') {
         return userRecord
-          .patch({ announcement: { safety: true } })
+          .patch({ announcement: { primed: false } })
           .then(() => sendStatus(bot, message))
           .catch(err => {
             throw err
