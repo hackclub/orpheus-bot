@@ -9,8 +9,7 @@ const getAnnFromSlack = content =>
   new Promise((resolve, reject) => {
     const slackUrlRegex = /^https?:\/\/hackclub.slack.com\/archives\/([a-zA-Z0-9]+)\/p([0-9]+)/
     const [match, channel, timestamp] = content.match(slackUrlRegex)
-    const oldest = timestamp / 1000000
-    console.log(oldest, channel, timestamp)
+    const oldest = Number.parseFloat(timestamp / 1000000).toFixed(6)
 
     // How to handle different types of Slack links:
 
@@ -35,6 +34,9 @@ const getAnnFromSlack = content =>
             if (err) reject(err)
             const message = res.messages[0]
             if (!message) reject(new Error('Message not found!'))
+            if (message.ts != oldest) {
+              reject(new Error(transcript('announcement.notExactSlackMatch')))
+            }
 
             resolve(message.text)
           }
@@ -52,6 +54,9 @@ const getAnnFromSlack = content =>
             if (err) reject(err)
             const message = res.messages[0]
             if (!message) reject(new Error('Message not found!'))
+            if (message.ts != oldest) {
+              reject(new Error(transcript('announcement.notExactSlackMatch')))
+            }
 
             resolve(message.text)
           }
@@ -69,6 +74,9 @@ const getAnnFromSlack = content =>
             if (err) reject(err)
             const message = res.messages[0]
             if (!message) reject(new Error('Message not found!'))
+            if (message.ts != oldest) {
+              reject(new Error(transcript('announcement.notExactSlackMatch')))
+            }
 
             resolve(message.text)
           }

@@ -41,6 +41,8 @@ announcement:
   unrecognizedCommand: |
     I couldn't figure out what action you're trying to take. Here's the help text.
     ${this.text('announcement.help')}
+  notExactSlackMatch: |
+    I couldn't pull up that Slack message. This is probably a limitation of Slack's permissions for bots– we can't query ephemeral messages, private channels, etc.
 whatAreYouDoing:
   - my best...
   - ¯\\_(ツ)_/¯

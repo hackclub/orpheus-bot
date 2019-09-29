@@ -229,10 +229,6 @@ controller.on('slash_command', (bot, message) => {
           interactionStats(bot, message)
           break
 
-        case '/announcement test':
-          interactionPromo(bot, message)
-          break
-
         case '/announcement':
           interactionAnnouncement(bot, message)
           break
