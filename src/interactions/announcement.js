@@ -206,7 +206,7 @@ const interactionAnnouncement = (bot, message) => {
     )
   }
 
-  return getInfoForUser(user)
+  getInfoForUser(user)
     .then(({ slackUser, userRecord }) => {
       if (!slackUser.is_owner) {
         throw new Error('This command can only be run by Slack Owner accounts')
