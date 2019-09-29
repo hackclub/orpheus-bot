@@ -80,7 +80,9 @@ const sendAnnouncementRecursive = (bot, announcer) =>
                 return airPatch('Clubs', club.id, {
                   'Announcement Queued': false,
                 })
-                  .then(() => resolve(sendAnnouncementRecursive(text)))
+                  .then(() =>
+                    resolve(sendAnnouncementRecursive(bot, announcer))
+                  )
                   .catch(err => reject(err))
               }
             )
