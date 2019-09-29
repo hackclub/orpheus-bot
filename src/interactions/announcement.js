@@ -166,7 +166,7 @@ const sendStatus = (bot, message) =>
     uR(message.user),
     airGet(
       'Clubs',
-      'AND({Announcement Queued} = true), Slack Channel ID != BLANK()'
+      'AND({Announcement Queued} = true), Slack Channel ID != BLANK())'
     ),
   ])
     .then(values => {
