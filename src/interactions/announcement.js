@@ -106,8 +106,7 @@ const getAnnFromSlack = content =>
           (err, res) => {
             if (err) reject(err)
             const message = res.messages[0]
-            if (!message) reject(new Error('Message not found!'))
-            if (message.ts != oldest) {
+            if (!message || message.ts != oldest) {
               reject(new Error(transcript('announcement.notExactSlackMatch')))
             }
 
@@ -126,8 +125,7 @@ const getAnnFromSlack = content =>
           (err, res) => {
             if (err) reject(err)
             const message = res.messages[0]
-            if (!message) reject(new Error('Message not found!'))
-            if (message.ts != oldest) {
+            if (!message || message.ts != oldest) {
               reject(new Error(transcript('announcement.notExactSlackMatch')))
             }
 
@@ -146,8 +144,7 @@ const getAnnFromSlack = content =>
           (err, res) => {
             if (err) reject(err)
             const message = res.messages[0]
-            if (!message) reject(new Error('Message not found!'))
-            if (message.ts != oldest) {
+            if (!message || message.ts != oldest) {
               reject(new Error(transcript('announcement.notExactSlackMatch')))
             }
 
