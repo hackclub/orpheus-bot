@@ -71,13 +71,14 @@ const sendAnnouncementRecursive = (bot, message) =>
             }
 
             bot.sendEphemeral(
-              message,
-              transcript('announcement.progress.start', {
-                channel: club.fields['Slack Channel ID'],
-              }),
-              err => {
-                console.log(err)
-              }
+              {
+                channel: message.channel,
+                user: message.user,
+                text: transcript('announcement.progress.start', {
+                  channel: club.fields['Slack Channel ID'],
+                }),
+              },
+              err => console.log(err)
             )
             initBot().say(
               {
@@ -91,13 +92,14 @@ const sendAnnouncementRecursive = (bot, message) =>
                 }
 
                 bot.sendEphemeral(
-                  message,
-                  transcript('announcement.progress.end', {
-                    channel: club.fields['Slack Channel ID'],
-                  }),
-                  err => {
-                    console.log(err)
-                  }
+                  {
+                    channel: message.channel,
+                    user: message.user,
+                    text: transcript('announcement.progress.complete', {
+                      channel: club.fields['Slack Channel ID'],
+                    }),
+                  },
+                  err => console.log(err)
                 )
 
                 return airPatch('Clubs', club.id, {
