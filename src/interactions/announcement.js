@@ -57,6 +57,10 @@ const sendAnnouncementRecursive = (bot, message) =>
           .then(values => {
             const [userRecord, club] = values
 
+            console.log(
+              'Is it primed?',
+              _.get(userRecord, 'fields.announcement.primed')
+            )
             if (!_.get(userRecord, 'fields.announcement.primed')) {
               reject(
                 new Error(
