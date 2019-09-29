@@ -31,6 +31,7 @@ hello:
 announcement:
   help: |
     Send an announcement to selected clubs. Usage below.
+    \- \`/announcement stop\` Cancel in-progress announcements
     \- \`/announcement status\` See what announcements are queued to who
     \- \`/announcement record\` Records a message to your user account
     \- \`/announcement address\` Sets who the message is delivered to
@@ -38,6 +39,8 @@ announcement:
   status: |
     The following information is stored in the announcement command's memory
     \> ${this.announcementData}
+  address: 
+    To prevent a race condition where 2 admins try sending announcements at the same time, the address verb is disabled. To queue up clubs for an announcement, check the "Announcement Queued" checkbox for your target clubs in Airtable
   unrecognizedCommand: |
     I couldn't figure out what action you're trying to take. Here's the help text.
     ${this.text('announcement.help')}

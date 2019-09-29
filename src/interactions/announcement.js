@@ -1,15 +1,86 @@
 import {
   text as transcript,
   getInfoForUser,
-  userRecord,
   initBot,
+  airPatch,
+  userRecord as uR,
 } from '../utils'
+
+//                     \`-\`-._
+//                      \` )`. `-.__      ,
+//   '' , . _       _,-._;'_,-`__,-'    ,/
+//  : `. ` , _' :- '--'._ ' `------._,-;'
+//   `- ,`- '            `--..__,,---'   credit: http://ascii.co.uk/art/dragon
+// max@maxwofford.com: caution, here there be dragons
+
+const sendAnnouncements = (bot, message) => {
+  bot.replyPrivateDelayed(message, transcript('announcement.starting'))
+  return uR(message.user)
+    .patch({ announcement: { safety: false } })
+    .then(() => sendAnnouncementRecursive(bot, message.user))
+    .catch(err => {
+      throw err
+    })
+}
+
+// max@maxwofford.com: I know your first impulse will be to refactor this mess.
+// before you re-write this, have a full understanding of the design decisions
+// made here.
+
+// - Announcements are sent in human time, not milliseconds. Damage control on an accidental announcement is much harder when 10 announcements are batched every 100ms
+// - No (batching|caching) the club list. If an admin needs to change the clubs being addressed after the announcement is fired, they can make immediate changes
+// - Admins know what's happening on a per-channel basis by following along in AirTable
+// - Admins have to manually add their own announcement message so no one accidentally messes with an in-progress announcement
+// - Admins have to manually check which channels are being messaged to ensure responsible use
+// - Announcements will stop sending if anything goes wrong until the admin manually restarts
+
+const sendAnnouncementRecursive = (bot, announcer) =>
+  new Promise((resolve, reject) =>
+    setTimeout(
+      () =>
+        Promise.all([
+          uR(announcer),
+          airFind(
+            'Clubs',
+            'AND({Announcement Queued} = true), Slack Channel ID != BLANK()'
+          ),
+        ])
+          .then(values => {
+            const [userRecord, club] = values
+
+            if (userRecord.fields.announcement.safety) {
+              reject(new Error('Safety is on! Not firing the announcement'))
+            }
+            initBot().say(
+              {
+                text: userRecord.fields.announcement.content,
+                channel: club.fields['Slack Channel ID'],
+              },
+              (err, res) => {
+                if (err) reject(err)
+
+                bot.replyPrivateDelayed(
+                  transcript('announcement.progress', {
+                    channel: club.fields['Slack Channel ID'],
+                  })
+                )
+
+                return airPatch('Clubs')
+                  .then(() => resolve(sendAnnouncementRecursive(text)))
+                  .catch(err => reject(err))
+              }
+            )
+          })
+          .catch(err => reject(err)),
+      1000
+    )
+  )
 
 const getAnnFromSlack = content =>
   new Promise((resolve, reject) => {
     const slackUrlRegex = /^https?:\/\/hackclub.slack.com\/archives\/([a-zA-Z0-9]+)\/p([0-9]+)/
     const [match, channel, timestamp] = content.match(slackUrlRegex)
-    const oldest = Number.parseFloat(timestamp / 1000000).toFixed(6)
+    const oldest = Number.parseFloat(timestamp / 1000000).toFixed(6) // Slack requires floating zeroes to the 6th decimal place
 
     // How to handle different types of Slack links:
 
@@ -109,7 +180,7 @@ const interactionAnnouncement = (bot, message) => {
 
   if (verb == 'help') {
     bot.replyPrivateDelayed(message, transcript('announcement.help'))
-  } else if (!'record address status send'.split(' ').includes(verb)) {
+  } else if (!'record address status send stop'.split(' ').includes(verb)) {
     bot.replyPrivateDelayed(
       message,
       transcript('announcement.unrecognizedCommand')
@@ -122,8 +193,14 @@ const interactionAnnouncement = (bot, message) => {
         throw new Error('This command can only be run by Slack Owner accounts')
       }
 
-      const announcementData = userRecord.fields.announcement
-      if (verb == 'record') {
+      if (verb == 'stop') {
+        return userRecord
+          .patch({ announcement: { safety: true } })
+          .then(() => sendStatus(bot, message))
+          .catch(err => {
+            throw err
+          })
+      } else if (verb == 'record') {
         return getAnnFromSlack(content)
           .then(message =>
             userRecord.patch({ announcement: { message } }).catch(err => {
@@ -135,18 +212,15 @@ const interactionAnnouncement = (bot, message) => {
             throw err
           })
       } else if (verb == 'address') {
-        return userRecord
-          .patch({ announcement: { target: content } })
-          .then(() => sendStatus(bot, message))
-          .catch(err => {
-            throw err
-          })
+        bot.replyPrivateDelayed(message, transcript('announcement.address'))
+        return
       } else if (verb == 'status') {
         return sendStatus(bot, message).catch(err => {
           throw err
         })
       } else if (verb == 'send') {
         console.log('got Send command')
+        return sendAnnouncements(bot, message)
       }
     })
     .catch(err => {
