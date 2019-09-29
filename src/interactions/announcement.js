@@ -87,7 +87,7 @@ const sendAnnouncementRecursive = (bot, message) =>
                 bot.replyPrivateDelayed(
                   message,
                   transcript('announcement.progress', {
-                    channel: message.channel,
+                    channel: club.fields['Slack Channel ID'],
                   })
                 )
 
