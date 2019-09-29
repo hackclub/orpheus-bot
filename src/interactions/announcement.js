@@ -78,7 +78,9 @@ const sendAnnouncementRecursive = (bot, message) =>
                   channel: club.fields['Slack Channel ID'],
                 }),
               },
-              err => console.log(err)
+              err => {
+                if (err) console.error(err)
+              }
             )
             initBot().say(
               {
@@ -99,7 +101,9 @@ const sendAnnouncementRecursive = (bot, message) =>
                       channel: club.fields['Slack Channel ID'],
                     }),
                   },
-                  err => console.log(err)
+                  err => {
+                    if (err) console.error(err)
+                  }
                 )
 
                 return airPatch('Clubs', club.id, {
