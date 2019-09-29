@@ -38,6 +38,8 @@ announcement:
     \- \`/announcement send\` Sends the message
   starting:
     Starting to send announcements. Cancel with \`/announcement stop\`
+  progress:
+    Just announced in <#${this.channel}>...
   status: |
     The following information is stored in the announcement command's memory
     \> ${this.announcementData.split('\n').join('\n> ')}
