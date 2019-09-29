@@ -49,25 +49,18 @@ const sendAnnouncementRecursive = (bot, message) =>
       () =>
         Promise.all([
           uR(message.user),
-          airFind(
-            'Clubs',
-            'AND({Announcement Queued}, {Slack Channel ID} != BLANK())'
-          ),
+          airFind('Clubs', 'AND({Announcement Queued}, {Slack Channel ID})'),
         ])
           .then(values => {
             const [userRecord, club] = values
 
-            console.log(
-              'Is it primed?',
-              _.get(userRecord, 'fields.announcement.primed'),
-              userRecord.fields
-            )
             if (!_.get(userRecord, 'fields.announcement.primed')) {
               reject(
                 new Error(
                   'Primer was set to false! Not firing the announcement'
                 )
               )
+              return
             }
             if (!club) {
               bot.replyPrivateDelayed(
@@ -82,7 +75,10 @@ const sendAnnouncementRecursive = (bot, message) =>
                 channel: club.fields['Slack Channel ID'],
               },
               (err, res) => {
-                if (err) reject(err)
+                if (err) {
+                  reject(err)
+                  return
+                }
 
                 bot.replyPrivateDelayed(
                   message,
@@ -100,7 +96,7 @@ const sendAnnouncementRecursive = (bot, message) =>
             )
           })
           .catch(err => reject(err)),
-      1000
+      2000
     )
   )
 
@@ -187,10 +183,7 @@ const getAnnFromSlack = content =>
 const sendStatus = (bot, message) =>
   Promise.all([
     uR(message.user),
-    airGet(
-      'Clubs',
-      'AND({Announcement Queued}, {Slack Channel ID} != BLANK())'
-    ),
+    airGet('Clubs', 'AND({Announcement Queued}, {Slack Channel ID})'),
   ])
     .then(values => {
       const [userRecord, clubs] = values
