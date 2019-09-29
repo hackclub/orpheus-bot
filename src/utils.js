@@ -13,7 +13,9 @@ export const airPatch = (baseName, recordID, values) =>
   new Promise((resolve, reject) => {
     const timestamp = Date.now()
     console.log(
-      `I'm asking Airtable to patch ${recordID} record in ${baseName} base at ${timestamp}`
+      `I'm asking Airtable to patch ${recordID} record in ${baseName} base at ${timestamp} with the new values: ${JSON.stringify(
+        values
+      )}`
     )
     base(baseName).update(recordID, values, (err, record) => {
       if (err) {
