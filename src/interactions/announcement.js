@@ -171,17 +171,21 @@ const sendStatus = (bot, message) =>
   ])
     .then(values => {
       const [userRecord, clubs] = values
-      const announcementData = JSON.stringify({
-        ...userRecord.fields.announcement,
-        channels: clubs
-          .map(
-            club =>
-              `<#${club.fields['Slack Channel ID']}> (AirTable record ${
-                club.id
-              })`
-          )
-          .join(', '),
-      })
+      const announcementData = JSON.stringify(
+        {
+          ...userRecord.fields.announcement,
+          channels: clubs
+            .map(
+              club =>
+                `<#${club.fields['Slack Channel ID']}> (AirTable record ${
+                  club.id
+                })`
+            )
+            .join(', '),
+        },
+        null,
+        2 // https://stackoverflow.com/a/7220510
+      )
       bot.replyPrivateDelayed(
         message,
         transcript('announcement.status', { announcementData })
