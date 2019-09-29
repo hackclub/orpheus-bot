@@ -10,6 +10,7 @@ const getAnnFromSlack = content =>
     const slackUrlRegex = /^https?:\/\/hackclub.slack.com\/archives\/([a-zA-Z0-9]+)\/p([0-9]+)/
     const [match, channel, timestamp] = content.match(slackUrlRegex)
     const oldest = timestamp / 1000000
+    console.log(oldest, channel, timestamp)
 
     // How to handle different types of Slack links:
 
