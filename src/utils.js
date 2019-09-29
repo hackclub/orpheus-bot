@@ -11,11 +11,19 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
 
 export const airPatch = (baseName, recordID, values) =>
   new Promise((resolve, reject) => {
+    const timestamp = Date.now()
+    console.log(
+      `I'm asking Airtable to patch ${recordID} record in ${baseName} base at ${timestamp}`
+    )
     base(baseName).update(recordID, values, (err, record) => {
       if (err) {
         console.error(err)
         reject(err)
       }
+      console.log(
+        `Airtable updated my ${baseName} record from ${timestamp} in ${Date.now() -
+          timestamp}ms`
+      )
       resolve(record)
     })
   })
