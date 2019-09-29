@@ -42,12 +42,12 @@ const sendAnnouncements = (bot, message) => {
 // - Admins have to manually check which channels are being messaged to ensure responsible use
 // - Announcements will stop sending if anything goes wrong until the admin manually restarts
 
-const sendAnnouncementRecursive = (bot, announcer) =>
+const sendAnnouncementRecursive = (bot, message) =>
   new Promise((resolve, reject) =>
     setTimeout(
       () =>
         Promise.all([
-          uR(announcer),
+          uR(message.user),
           airFind(
             'Clubs',
             'AND({Announcement Queued}, {Slack Channel ID} != BLANK())'
@@ -60,7 +60,10 @@ const sendAnnouncementRecursive = (bot, announcer) =>
               reject(new Error('Safety is on! Not firing the announcement'))
             }
             if (!club) {
-              bot.replyPrivateDelayed(transcript('announcement.finished'))
+              bot.replyPrivateDelayed(
+                message,
+                transcript('announcement.finished')
+              )
               resolve()
             }
             initBot().say(
@@ -72,17 +75,16 @@ const sendAnnouncementRecursive = (bot, announcer) =>
                 if (err) reject(err)
 
                 bot.replyPrivateDelayed(
+                  message,
                   transcript('announcement.progress', {
-                    channel: club.fields['Slack Channel ID'],
+                    channel: message.channel,
                   })
                 )
 
                 return airPatch('Clubs', club.id, {
                   'Announcement Queued': false,
                 })
-                  .then(() =>
-                    resolve(sendAnnouncementRecursive(bot, announcer))
-                  )
+                  .then(() => resolve(sendAnnouncementRecursive(bot, message)))
                   .catch(err => reject(err))
               }
             )
