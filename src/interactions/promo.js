@@ -5,12 +5,37 @@ import {
   airCreate,
 } from '../utils'
 
+const getSdpLink = club =>
+  `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${club}`
+
 const promos = [
   {
     name: 'Free Notion',
     details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
+    },
+  },
+  {
+    name: 'GitHub Student Developer Pack',
+    details: 'Available for club leaders to give their members',
+    run: (bot, message) => {
+      const { user } = message
+      return getInfoForUser(user).then(({ leader, club }) => {
+        if (!leader || !club) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.githubSDP.notAuthorized')
+          )
+          return
+        }
+
+        const url = SdpLink(club)
+        bot.replyPrivateDelayed(
+          message,
+          transcript('promos.SDP.success', { url })
+        )
+      })
     },
   },
   {
