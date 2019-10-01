@@ -6,7 +6,9 @@ import {
 } from '../utils'
 
 const sdpLink = club =>
-  `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${club}`
+  `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${
+    club.fields['Slack Channel ID']
+  }`
 
 const promos = [
   {
@@ -33,7 +35,7 @@ const promos = [
         const url = sdpLink(club)
         bot.replyPrivateDelayed(
           message,
-          transcript('promos.SDP.success', { url })
+          transcript('promos.githubSDP.success', { url })
         )
       })
     },
