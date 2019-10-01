@@ -5,7 +5,7 @@ import {
   airCreate,
 } from '../utils'
 
-const getSdpLink = club =>
+const sdpLink = club =>
   `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${club}`
 
 const promos = [
@@ -30,7 +30,7 @@ const promos = [
           return
         }
 
-        const url = SdpLink(club)
+        const url = sdpLink(club)
         bot.replyPrivateDelayed(
           message,
           transcript('promos.SDP.success', { url })
