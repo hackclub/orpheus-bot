@@ -188,6 +188,8 @@ controller.hears('date', 'direct_mention', interactionDate)
 
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
+controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
+
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
 controller.hears('stats', 'direct_mention,direct_message', interactionStats)

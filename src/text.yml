@@ -28,6 +28,7 @@ hello:
   - hllo
   - ehllo
   - heoll
+hacktoberfest: Hey! heard you were talking about hacktoberfest. if you're interested in submitting PRs to me, but don't know where to start, message <@U0C7B14Q3>– he can help you get started!
 announcement:
   help: |
     Send an announcement to selected clubs. Usage below.
