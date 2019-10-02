@@ -12,6 +12,9 @@ const invitePromise = leaderRecordID =>
           },
           err => {
             if (err) {
+              err.details = `Inviting <@${leader['Slack ID']}> (${
+                leader['Slack ID']
+              })`
               reject(err)
             } else {
               resolve(leader['Slack ID'])
