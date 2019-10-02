@@ -95,7 +95,7 @@ const promos = [
                   setTimeout(() => {
                     bot.replyPrivateDelayed(
                       message,
-                      transcript(`promo.success.general`, {
+                      transcript(`promos.success.general`, {
                         record: grant.id,
                         hcb,
                         user,
