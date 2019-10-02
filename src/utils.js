@@ -323,6 +323,3 @@ const evalText = (target, vars = {}) =>
     ...vars,
     text,
   })
-
-const e = new Error('test')
-console.log(text('errors.general', { err: e }))
