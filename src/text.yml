@@ -30,9 +30,12 @@ hello:
   - heoll
 hacktoberfest: Hey! heard you were talking about hacktoberfest. if you're interested in submitting PRs to me, but don't know where to start, message <@U0C7B14Q3>– he can help you get started!
 leaderInvite:
-  success: Success!
   notAdmin: I can't do that for you, you're not an admin!
   notClubChannel: I can only do that in a club channel!
+  finished: Success!
+  bullets:
+    success: ':white_check_box: Invited <@${this.slackID}> (<@${this.slackID}>)'
+    failure: ":no_entry: Couldn't invite <@${this.slackID}> (<@${this.slackID}>): \`${this.errString}\`"
 announcement:
   help: |
     Send an announcement to selected clubs. Usage below.

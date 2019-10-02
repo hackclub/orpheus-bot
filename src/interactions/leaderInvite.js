@@ -5,21 +5,23 @@ const invitePromise = leaderRecordID =>
   new Promise((resolve, reject) => {
     airFind('Leaders', `'${leaderRecordID}' = RECORD_ID()`)
       .then(leader => {
+        const slackID = leader['Slack ID']
         initBot(true).api.groups.invite(
           {
-            user: leader['Slack ID'],
+            user: slackID,
             channel: LEADERS_CHANNEL,
           },
           errString => {
             if (errString) {
-              // Slack's callback throws error strings, not errors
-              const err = new Error(errString)
-              err.details = `Inviting <@${leader['Slack ID']}> (${
-                leader['Slack ID']
-              })`
-              reject(err)
+              // Slack's callback returns error strings, not errors
+              resolve(
+                transcript('leaderInvite.bullet.success', {
+                  slackID,
+                  errString,
+                })
+              )
             } else {
-              resolve(leader['Slack ID'])
+              resolve(transcript('leaderInvite.bullet.success', { slackID }))
             }
           }
         )
