@@ -47,8 +47,8 @@ announcement:
   starting:
     Starting to send announcements. Cancel with \`/announcement stop\`. Due to limitations in Slack's API, I can only post progress updates in channels I'm already in
   progress:
-    start: Priming to post in  <#${this.channel}> (#${this.channel})...
-    complete: Just posted in  <#${this.channel}> (#${this.channel})!
+    start: Priming to post to \`${this.recordID}\` in <#${this.channel}> (${this.channel})...
+    complete: Just posted in <#${this.channel}> (${this.channel})!
   finished:
     Finished sending out announcements!
   status: |

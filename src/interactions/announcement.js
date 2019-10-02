@@ -76,6 +76,7 @@ const sendAnnouncementRecursive = (bot, message) =>
                 user: message.user,
                 text: transcript('announcement.progress.start', {
                   channel: club.fields['Slack Channel ID'],
+                  recordID: club.fields['ID'],
                 }),
               },
               err => {
