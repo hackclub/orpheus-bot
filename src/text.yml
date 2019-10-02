@@ -35,7 +35,7 @@ leaderInvite:
   finished: Success!
   bullets:
     success: ':white_check_box: Invited <@${this.slackID}> (<@${this.slackID}>)'
-    failure: ":no_entry: Couldn't invite <@${this.slackID}> (<@${this.slackID}>): \`${this.errString}\`"
+    failure: ":no_entry: Couldn't invite <@${this.slackID}> (<@${this.slackID}>): ${this.errString}"
 announcement:
   help: |
     Send an announcement to selected clubs. Usage below.
