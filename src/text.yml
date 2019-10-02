@@ -118,7 +118,7 @@ tutorial:
 errors:
   general: |
     Something went wrong\: \`${this.err}\`
-    ${this.err.stack && this.text('errors.stack', {err:this.err})}
+    ${this.err.stack ? this.text('errors.stack', {err:this.err}):''}
   stack: |
     \`\`\`
     // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
