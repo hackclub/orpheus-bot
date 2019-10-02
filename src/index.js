@@ -195,6 +195,12 @@ controller.hears(
 
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
+controller.hears(
+  'add this team to the leaders channel',
+  'direct_mention',
+  interactionLeaderInvite
+)
+
 controller.hears('stats', 'direct_mention,direct_message', interactionStats)
 
 controller.hears('what are you doing?', 'direct_mention', (bot, message) => {

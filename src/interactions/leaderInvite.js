@@ -20,7 +20,7 @@ const invitePromise = leaderRecordID =>
     })
   })
 
-const interationLeaderInvite = (bot, message) => {
+const interactionLeaderInvite = (bot, message) => {
   const { channel, user } = message
 
   getInfoForUser(user).then(({ slackUser }) => {
