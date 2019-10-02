@@ -4,7 +4,7 @@ const LEADERS_CHANNEL = 'GAE0FFNFN'
 const invitePromise = leaderRecordID =>
   new Promise((resolve, reject) => {
     airFind('Leaders', `'${leaderRecordID}' = RECORD_ID()`).then(leader => {
-      initBot().api.groups.invite(
+      initBot(true).api.groups.invite(
         {
           user: leader['Slack ID'],
           channel: LEADERS_CHANNEL,
