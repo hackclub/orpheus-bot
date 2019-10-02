@@ -23,6 +23,7 @@ import interactionCatchall from './interactions/catchall'
 import interactionPromo from './interactions/promo'
 import interactionAnnouncement from './interactions/announcement'
 import interactionHacktoberfest from './interactions/hacktoberfest'
+import interactionLeaderInvite from './interactions/leaderInvite'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
