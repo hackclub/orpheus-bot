@@ -10,8 +10,10 @@ const invitePromise = leaderRecordID =>
             user: leader['Slack ID'],
             channel: LEADERS_CHANNEL,
           },
-          err => {
-            if (err) {
+          errString => {
+            if (errString) {
+              // Slack's callback throws error strings, not errors
+              const err = new Error(errString)
               err.details = `Inviting <@${leader['Slack ID']}> (${
                 leader['Slack ID']
               })`
