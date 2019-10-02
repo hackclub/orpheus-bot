@@ -118,12 +118,12 @@ tutorial:
 errors:
   general: |
     Something went wrong\: \`${this.err}\`
-    ${if (this.error.stack) {
-      \`\`\`
-      // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
-      ${this.err.stack}
-      \`\`\`
-    \}\}
+    ${this.err.stack && this.text('errors.stack', {err:this.err})}
+  stack: |
+    \`\`\`
+    // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
+    ${this.err.stack}
+    \`\`\`
   memory:
     - 'I think I’m suffering from amnesia... I’m trying to recall what we were talking about, but all that comes to mind is \`{${this.err}}\`'
     - 'Hmmm... something’s on the tip of my tongue, but all I can think is \`${this.err}\`'

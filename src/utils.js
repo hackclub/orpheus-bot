@@ -289,11 +289,23 @@ const recurseText = (searchArr, textObj) => {
     }
   }
 }
+const replaceErrors = (key, value) => {
+  // from https://stackoverflow.com/a/18391400
+  if (value instanceof Error) {
+    const error = {}
+    Object.getOwnPropertyNames(value).forEach(key => {
+      error[key] = value[key]
+    })
+    return error
+  }
+  return value
+}
 export const text = (search, vars) => {
   if (vars) {
     console.log(
       `I'm searching for words in my yaml file under "${search}". These variables are set: ${JSON.stringify(
-        vars
+        vars,
+        replaceErrors
       )}`
     )
   } else {
@@ -311,3 +323,6 @@ const evalText = (target, vars = {}) =>
     ...vars,
     text,
   })
+
+const e = new Error('test')
+console.log(text('errors.general', { err: e }))
