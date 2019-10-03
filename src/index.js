@@ -196,7 +196,7 @@ controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
 controller.hears(
   ['thanks', 'thank', 'thnx', 'thanx'],
-  'direct_mention,direct_message',
+  'mention,direct_mention,direct_message',
   (bot, message) => {
     bot.reply(message, transcript('thanks'))
   }
