@@ -56,11 +56,12 @@ const promos = [
           return
         }
 
-        const url = sdpLink(club)
-        bot.replyPrivateDelayed(
-          message,
-          transcript('promos.githubSDP.success', { url })
-        )
+        sdpLink(club).then(url => {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.githubSDP.success', { url })
+          )
+        })
       })
     },
   },
