@@ -14,7 +14,7 @@ const sdpLink = club =>
     airFind('Links', 'destination', formUrl, { base: 'hackaf' })
       .then(entry => {
         if (entry) {
-          resolve(entry.fields['slug'])
+          return entry.fields['slug']
         }
         const newRecord = {
           slug: `sdp-${club.fields['Slack Channel ID']}`,
@@ -23,11 +23,14 @@ const sdpLink = club =>
         }
         return airCreate('Links', newRecord, { base: 'hackaf' })
           .then(entry => {
-            resolve(entry.fields['slug'])
+            return entry.fields['slug']
           })
           .catch(err => {
             reject(err)
           })
+      })
+      .then(slug => {
+        resolve(`hack.af/${slug}`)
       })
       .catch(err => {
         reject(err)
