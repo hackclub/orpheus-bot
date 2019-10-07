@@ -13,7 +13,7 @@ bases.hackaf = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_HACKAF_BASE
 )
 
-export const airPatch = (baseName, recordID, values, options) =>
+export const airPatch = (baseName, recordID, values, options = {}) =>
   new Promise((resolve, reject) => {
     const timestamp = Date.now()
     console.log(
@@ -35,7 +35,7 @@ export const airPatch = (baseName, recordID, values, options) =>
     })
   })
 
-export const airCreate = (baseName, fields, options) =>
+export const airCreate = (baseName, fields, options = {}) =>
   new Promise((resolve, reject) => {
     const timestamp = Date.now()
     console.log(
@@ -58,7 +58,7 @@ export const airCreate = (baseName, fields, options) =>
     })
   })
 
-export const airFind = (baseName, fieldName, value, options) =>
+export const airFind = (baseName, fieldName, value, options = {}) =>
   new Promise((resolve, reject) => {
     // see airGet() for usage
     airGet(baseName, fieldName, value, options)
