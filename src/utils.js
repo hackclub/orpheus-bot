@@ -10,7 +10,7 @@ bases.operations = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_OPERATIONS_BASE
 )
 bases.hackaf = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
-  process.env.AIRTABLE_OPERATIONS_BASE
+  process.env.AIRTABLE_HACKAF_BASE
 )
 
 export const airPatch = (baseName, recordID, values, options) =>
