@@ -95,7 +95,7 @@ export const airGet = (
       }
 
       console.log(
-        `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=\`${baseName}\` FILTER=\`${options.filterByFormula}\``
+        `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=\`${baseName}\` FILTER=\`${selectBy.filterByFormula}\``
       )
     }
 
