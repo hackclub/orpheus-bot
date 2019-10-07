@@ -6,9 +6,33 @@ import {
 } from '../utils'
 
 const sdpLink = club =>
-  `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${
-    club.fields['Slack Channel ID']
-  }`
+  new Promise((resolve, reject) => {
+    const formUrl = `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${
+      club.fields['Slack Channel ID']
+    }`
+
+    airFind('Links', 'destination', formUrl, 'hackaf')
+      .then(entry => {
+        if (entry) {
+          resolve(entry.fields['slug'])
+        }
+        const newRecord = {
+          slug: `sdp-${club.fields['Slack Channel ID']}`,
+          destination: formUrl,
+          Notes: `Created by @orpheus to use for SDP activations`,
+        }
+        return airCreate('Links', newRecord, 'hackaf')
+          .then(entry => {
+            resolve(entry.fields['slug'])
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
 
 const promos = [
   {
