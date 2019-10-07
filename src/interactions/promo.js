@@ -11,7 +11,7 @@ const sdpLink = club =>
       club.fields['Slack Channel ID']
     }`
 
-    airFind('Links', 'destination', formUrl, 'hackaf')
+    airFind('Links', 'destination', formUrl, { base: 'hackaf' })
       .then(entry => {
         if (entry) {
           resolve(entry.fields['slug'])
@@ -21,7 +21,7 @@ const sdpLink = club =>
           destination: formUrl,
           Notes: `Created by @orpheus to use for SDP activations`,
         }
-        return airCreate('Links', newRecord, 'hackaf')
+        return airCreate('Links', newRecord, { base: 'hackaf' })
           .then(entry => {
             resolve(entry.fields['slug'])
           })
