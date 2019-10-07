@@ -183,7 +183,7 @@ export const getInfoForUser = user =>
 
 export const recordMeeting = (club, meeting, cb) => {
   console.log(club, meeting)
-  base('History').create(
+  bases.operations('History').create(
     {
       Type: ['Meeting'],
       Club: [club.id],
@@ -242,7 +242,7 @@ export const userRecord = user =>
           // if it doesn't exist, create one...
           getSlackUser(user)
             .then(slackUser =>
-              base('Orpheus').create(
+              bases.operations('Orpheus').create(
                 {
                   Username: '@' + slackUser.name,
                   User: user,
