@@ -5,11 +5,15 @@ import fs from 'fs'
 import path from 'path'
 import { sample, merge } from 'lodash'
 import Airtable from 'airtable'
-const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
-  process.env.AIRTABLE_BASE
+const bases = {}
+bases.operations = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
+  process.env.AIRTABLE_OPERATIONS_BASE
+)
+bases.hackaf = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
+  process.env.AIRTABLE_OPERATIONS_BASE
 )
 
-export const airPatch = (baseName, recordID, values) =>
+export const airPatch = (baseName, recordID, values, options) =>
   new Promise((resolve, reject) => {
     const timestamp = Date.now()
     console.log(
@@ -17,6 +21,7 @@ export const airPatch = (baseName, recordID, values) =>
         values
       )}`
     )
+    const base = bases[options.base || 'operations']
     base(baseName).update(recordID, values, (err, record) => {
       if (err) {
         console.error(err)
@@ -30,12 +35,13 @@ export const airPatch = (baseName, recordID, values) =>
     })
   })
 
-export const airCreate = (baseName, fields) =>
+export const airCreate = (baseName, fields, options) =>
   new Promise((resolve, reject) => {
     const timestamp = Date.now()
     console.log(
       `I'm asking Airtable to create a new record in the ${baseName} base at ${timestamp}`
     )
+    const base = bases[options.base || 'operations']
     base(baseName).create(fields, (err, record) => {
       if (err) {
         console.error(err)
@@ -52,15 +58,20 @@ export const airCreate = (baseName, fields) =>
     })
   })
 
-export const airFind = (baseName, fieldName, value) =>
+export const airFind = (baseName, fieldName, value, options) =>
   new Promise((resolve, reject) => {
     // see airGet() for usage
-    airGet(baseName, fieldName, value)
+    airGet(baseName, fieldName, value, options)
       .then(results => resolve(results[0]))
       .catch(err => reject(err))
   })
 
-export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
+export const airGet = (
+  baseName,
+  searchArg = null,
+  tertiaryArg = null,
+  options = {}
+) =>
   new Promise((resolve, reject) => {
     // usage:
     // for key/value lookup: `airGet('Clubs', 'Slack Channel ID', slackChannelID)`
@@ -69,7 +80,7 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
 
     const timestamp = Date.now()
 
-    const options = {}
+    const selectBy = {}
     if (searchArg === null) {
       console.log(
         `I'm asking AirTable to send me ALL records in the "${baseName}" base. The timestamp is ${timestamp}`
@@ -77,10 +88,10 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
     } else {
       if (tertiaryArg) {
         // this is a key/value lookup
-        options.filterByFormula = `{${searchArg}} = "${tertiaryArg}"`
+        selectBy.filterByFormula = `{${searchArg}} = "${tertiaryArg}"`
       } else {
         // this is a formula lookup
-        options.filterByFormula = searchArg
+        selectBy.filterByFormula = searchArg
       }
 
       console.log(
@@ -88,8 +99,9 @@ export const airGet = (baseName, searchArg = null, tertiaryArg = null) =>
       )
     }
 
+    const base = bases[options.base || 'operations']
     base(baseName)
-      .select(options)
+      .select(selectBy)
       .all((err, data) => {
         if (err) {
           console.error(err)
