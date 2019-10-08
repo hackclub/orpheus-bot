@@ -165,8 +165,8 @@ meetingAdd:
     \- \`/meeting-add today, 12 people attended\`
     \- \`/meeting-add last ${this.day}, 15 members\`
   success: |
-    \:floppy_disk\: ${this.text('meetingAdd.successFlavor')} What next?
-    \- Upload pictures of your meeting to dropbox.hackclub.com – we'll feature them on twitter
+    Recorded your club meeting's attendance!
+    \- *Save photos :camera\: from the meeting here\: ${this.formUrl}*
     \- Run \`/stats\` to see your club's history
   successFlavor:
     - You bet'cha!

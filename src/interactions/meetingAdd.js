@@ -39,7 +39,11 @@ const interactionMeetingAdd = (bot, message) => {
           return
         }
 
-        bot.replyPrivateDelayed(message, transcript('meetingAdd.success'))
+        const formUrl = `https://airtable.com/shrMyUEbqWXqImXE3?prefill_Meeting+ID=${meetingRecord.id}`
+        bot.replyPrivateDelayed(
+          message,
+          transcript('meetingAdd.success', { formUrl })
+        )
       }
     )
     return
