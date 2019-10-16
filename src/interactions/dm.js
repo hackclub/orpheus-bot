@@ -13,7 +13,7 @@ const substitutions = (text, targetChannel) =>
             if (!poc.fields['Slack ID']) {
               reject(new Error('No Slack ID set for POC'))
             }
-            resolve(text.replace(pocRegex, poc.fields['Slack ID']))
+            resolve(text.replace(pocRegex, `<@${poc.fields['Slack ID']}>`))
           })
         )
         .catch(reject)
