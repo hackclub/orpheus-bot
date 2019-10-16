@@ -8,7 +8,11 @@ const interactionDM = (bot, message) => {
         throw new Error('This command is admin only')
       }
 
-      const encodedText = text.replace('&lt;', '<text').replace('&gt;', '>')
+      const encodedText = text
+        .replace('&lt;', '<text')
+        .replace('&gt;', '>')
+        .replace('@_', '@')
+        .replace('#_', '#')
       console.log(encodedText)
       const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>(.*)/
       const [, targetUser, targetMessage] = encodedText.match(messageRegex)
