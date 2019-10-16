@@ -11,7 +11,7 @@ const interactionAddress = (bot, message) => {
 
     bot.replyPrivateDelayed(
       message,
-      text('updateAddress', { address: leaderAddress.fields })
+      text('address', { address: leaderAddress.fields })
     )
   })
 }
