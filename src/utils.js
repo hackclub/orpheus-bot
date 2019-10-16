@@ -130,6 +130,9 @@ export const getInfoForUser = user =>
   new Promise((resolve, reject) => {
     const results = {}
 
+    const timestamp = Date.now()
+    console.log(`Getting info for user '${user}' at timestamp ${timestamp}`)
+
     Promise.all([
       getSlackUser(user).then(slackUser => (results.slackUser = slackUser)),
       userRecord(user).then(userRecord => (results.userRecord = userRecord)),
@@ -152,50 +155,70 @@ export const getInfoForUser = user =>
 
           return airGet('History', 'Club', results.club.fields.ID)
         })
-        .then(history => (results.rawHistory = history))
-        .then(() => {
-          if (!results.rawHistory) return null
-
-          results.history = {
-            lastMeetingDay: 'monday',
-            records: results.rawHistory,
-            meetings: results.rawHistory
-              .filter(h => h.fields.Attendance)
-              .sort(
-                (a, b) => Date.parse(a.fields.Date) - Date.parse(b.fields.Date)
-              ),
-          }
-
-          if (results.history.meetings.length > 0) {
-            const lastMeetingDay = new Date(
-              results.history.meetings[0].fields.Date
-            ).toLocaleDateString('en-us', {
-              weekday: 'long',
-              timeZone: results.slackUser.tz,
-            })
-            results.history.lastMeetingDay = lastMeetingDay
-          }
-        })
-        .then(() => {
-          if (results.leader && results.leader.fields['Address']) {
-            return airFind(
-              'Addresses',
-              `'${results.leader.fields['Address']}' = RECORD_ID()`
-            )
-          }
-        })
-        .then(leaderAddress => (results.leaderAddress = leaderAddress))
-        .then(() => {
-          if (results.club && results.club.fields['Address']) {
-            return airFind(
-              'Addresses',
-              `'${results.club.fields['Address']}' = RECORD_ID()`
-            )
-          }
-        })
-        .then(clubAddress => (results.clubAddress = clubAddress)),
+        .then(history => (results.rawHistory = history)),
     ])
-      .then(() => resolve(results))
+      .then(() =>
+        Promise.all([
+          new Promise(resolve => {
+            if (!results.rawHistory) resolve(null)
+
+            results.history = {
+              lastMeetingDay: 'monday',
+              records: results.rawHistory,
+              meetings: results.rawHistory
+                .filter(h => h.fields.Attendance)
+                .sort(
+                  (a, b) =>
+                    Date.parse(a.fields.Date) - Date.parse(b.fields.Date)
+                ),
+            }
+
+            if (results.history.meetings.length > 0) {
+              const lastMeetingDay = new Date(
+                results.history.meetings[0].fields.Date
+              ).toLocaleDateString('en-us', {
+                weekday: 'long',
+                timeZone: results.slackUser.tz,
+              })
+              results.history.lastMeetingDay = lastMeetingDay
+            }
+            resolve()
+          }),
+          new Promise((resolve, reject) => {
+            if (results.leader && results.leader.fields['Address']) {
+              airFind(
+                'Addresses',
+                `'${results.leader.fields['Address']}' = RECORD_ID()`
+              )
+                .then(leaderAddress => (results.leaderAddress = leaderAddress))
+                .then(resolve)
+                .catch(reject)
+            } else {
+              resolve()
+            }
+          }),
+          new Promise((resolve, reject) => {
+            if (results.club && results.club.fields['Address']) {
+              airFind(
+                'Addresses',
+                `'${results.club.fields['Address']}' = RECORD_ID()`
+              )
+                .then(clubAddress => (results.clubAddress = clubAddress))
+                .then(resolve)
+                .catch(reject)
+            } else {
+              resolve()
+            }
+          }),
+        ])
+      )
+      .then(() => {
+        console.log(
+          `Finished pulling up the info about user '${user}' from ${timestamp} in ${Date.now() -
+            timestamp}ms`
+        )
+        resolve(results)
+      })
       .catch(e => reject(e))
   })
 
@@ -353,3 +376,5 @@ const evalTranscript = (target, vars = {}) =>
     ...vars,
     t: transcript,
   })
+
+getInfoForUser('U0C7B14Q3')
