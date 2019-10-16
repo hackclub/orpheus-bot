@@ -1,4 +1,4 @@
-import { getInfoForUser } from '../utils'
+import { getInfoForUser, text } from '../utils'
 
 const interactionClubAddress = (bot, message) => {
   const { user } = message
