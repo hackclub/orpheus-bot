@@ -1,4 +1,4 @@
-import { getInfoForUser, airGet, text as transcript } from '../utils'
+import { getInfoForUser, airGet, transcript } from '../utils'
 
 const interactionLeaderList = (bot, message) => {
   const { channel, user } = message

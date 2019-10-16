@@ -1,4 +1,4 @@
-import { getInfoForUser, airFind, initBot, text as transcript } from '../utils'
+import { getInfoForUser, airFind, initBot, transcript } from '../utils'
 const LEADERS_CHANNEL = 'GAE0FFNFN'
 
 const invitePromise = leaderRecordID =>

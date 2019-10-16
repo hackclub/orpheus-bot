@@ -3,7 +3,7 @@ import _ from 'lodash'
 import bugsnag from '@bugsnag/js'
 
 import controller from './controller'
-import { text as transcript } from './utils'
+import { transcript } from './utils'
 
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'

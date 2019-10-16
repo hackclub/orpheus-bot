@@ -1,9 +1,4 @@
-import {
-  getInfoForUser,
-  text as transcript,
-  airFind,
-  airCreate,
-} from '../utils'
+import { getInfoForUser, transcript, airFind, airCreate } from '../utils'
 
 const sdpLink = club =>
   new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import {
-  text as transcript,
+  transcript,
   getInfoForUser,
   initBot,
   airPatch,

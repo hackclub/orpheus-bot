@@ -1,4 +1,4 @@
-import { getInfoForUser, text } from '../utils'
+import { getInfoForUser, transcript } from '../utils'
 
 const interactionClubAddress = (bot, message) => {
   const { user } = message
@@ -13,7 +13,7 @@ const interactionClubAddress = (bot, message) => {
 
     bot.replyPrivateDelayed(
       message,
-      text('clubAddress', { address: clubAddress.fields })
+      transcript('clubAddress', { address: clubAddress.fields })
     )
   })
 }

@@ -1,4 +1,4 @@
-import { getInfoForUser, initBot, text } from '../utils'
+import { getInfoForUser, initBot, transcript } from '../utils'
 
 const interactionMeetingTutorial = (_bot, message) => {
   const { user } = message
@@ -7,11 +7,11 @@ const interactionMeetingTutorial = (_bot, message) => {
   getInfoForUser(user)
     .then(({ userRecord, club }) => {
       if (userRecord.fields['Flag: Initiated tutorial']) {
-        bot.replyPrivateDelayed(message, text('tutorial.alreadyStarted'))
+        bot.replyPrivateDelayed(message, transcript('tutorial.alreadyStarted'))
       } else {
         bot.replyPrivateDelayed(
           message,
-          text('tutorial.start', {
+          transcript('tutorial.start', {
             user,
             channel: club.fields['Slack Channel ID'],
           })
@@ -22,7 +22,7 @@ const interactionMeetingTutorial = (_bot, message) => {
       })
     })
     .catch(err => {
-      bot.replyPrivateDelayed(message, text('errors.memory', { err }))
+      bot.replyPrivateDelayed(message, transcript('errors.memory', { err }))
     })
 }
 export default interactionMeetingTutorial

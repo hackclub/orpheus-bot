@@ -1,6 +1,6 @@
 import { parseDate } from 'chrono-node'
 
-import { recordMeeting, getInfoForUser, text as transcript } from '../utils'
+import { recordMeeting, getInfoForUser, transcript } from '../utils'
 
 const interactionMeetingAdd = (bot, message) => {
   getInfoForUser(message.user).then(({ club, history, slackUser }) => {

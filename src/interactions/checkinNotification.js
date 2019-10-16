@@ -1,11 +1,13 @@
-import { initBot, airFind, userRecord, text } from '../utils'
+import { initBot, airFind, userRecord, transcript } from '../utils'
 
 const interactionCheckinNotification = (bot = initBot(), message) => {
   const { channel } = message
   let { user } = message
 
   if (!user) {
-    console.log(text('checkinNotification.log.lookingForPOC', { channel }))
+    console.log(
+      transcript('checkinNotification.log.lookingForPOC', { channel })
+    )
     airFind('Clubs', 'Slack Channel ID', channel)
       .then(club => {
         const pocAirtableID = club.fields.POC
@@ -14,10 +16,13 @@ const interactionCheckinNotification = (bot = initBot(), message) => {
             .then(leader => {
               user = leader.fields['Slack ID']
               console.log(
-                text('checkinNotification.log.foundPoc', { channel, user })
+                transcript('checkinNotification.log.foundPoc', {
+                  channel,
+                  user,
+                })
               )
               bot.say({
-                text: text('checkinNotification.named', { user }),
+                text: transcript('checkinNotification.named', { user }),
                 channel,
               })
             })
@@ -25,17 +30,21 @@ const interactionCheckinNotification = (bot = initBot(), message) => {
               throw err
             })
         } else {
-          console.log(text('checkinNotification.log.noPOCFound', { channel }))
-          bot.say({ text: text('checkinNotification.unnamed'), channel })
+          console.log(
+            transcript('checkinNotification.log.noPOCFound', { channel })
+          )
+          bot.say({ text: transcript('checkinNotification.unnamed'), channel })
         }
       })
       .catch(err => {
         throw err
       })
   } else {
-    console.log(text('checkinNotification.log.posting', { user, channel }))
+    console.log(
+      transcript('checkinNotification.log.posting', { user, channel })
+    )
     bot.say({
-      text: text('checkinNotification.named', { user }),
+      text: transcript('checkinNotification.named', { user }),
       channel,
     })
 

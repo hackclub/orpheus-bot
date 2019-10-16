@@ -1,4 +1,4 @@
-import { getInfoForUser, airPatch, text as transcript } from '../utils'
+import { getInfoForUser, airPatch, transcript } from '../utils'
 import { parseDate } from 'chrono-node'
 import interactionCheckinNotification from './checkinNotification'
 

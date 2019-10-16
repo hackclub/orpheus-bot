@@ -1,4 +1,4 @@
-import { getInfoForUser, text as transcript } from '../utils'
+import { getInfoForUser, transcript } from '../utils'
 
 const interactionHacktoberfest = (bot, message) => {
   const { user, channel } = message
@@ -6,8 +6,7 @@ const interactionHacktoberfest = (bot, message) => {
     if (!userRecord.fields['Flag: Hacktoberfest 2019']) {
       userRecord.patch({ 'Flag: Hacktoberfest 2019': true })
 
-      const text = transcript('hacktoberfest')
-      bot.sendEphemeral({ channel, user, text })
+      bot.sendEphemeral({ channel, user, text: transcript('hacktoberfest') })
     }
   })
 }

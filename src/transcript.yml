@@ -91,7 +91,7 @@ announcement:
     To prevent a race condition where 2 admins try sending announcements at the same time, the address verb is disabled. To queue up clubs for an announcement, check the "Announcement Queued" checkbox for your target clubs in Airtable
   unrecognizedCommand: |
     I couldn't figure out what action you're trying to take. Here's the help text.
-    ${this.text('announcement.help')}
+    ${this.t('announcement.help')}
   notExactSlackMatch: |
     I couldn't pull up that Slack message. This is probably a limitation of Slack's permissions for bots– we can't query ephemeral messages, private channels, etc.
 whatAreYouDoing:
@@ -124,7 +124,7 @@ checkinNotification:
     noPOCFound: "*I didn't find a POC for the club in channel '${this.channel}', so I'll just post the notification without tagging anyone*"
     posting: "*Posting a checkin notification in channel '${this.channel}' & tagging user '${this.user}'!*"
 stats:
-  loadingMessage: ":beachball: ${this.text('stats.loadingFlavor')}"
+  loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')}"
   loadingFlavor:
     - chugging the data juice
     - chugging *Stat-Cola©*, for those who want to know things™
@@ -171,7 +171,7 @@ tutorial:
 errors:
   general: |
     Something went wrong\: \`${this.err}\`
-    ${this.err.stack ? this.text('errors.stack', {err:this.err}):''}
+    ${this.err.stack ? this.t('errors.stack', {err:this.err}):''}
   stack: |
     \`\`\`
     // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
@@ -236,8 +236,8 @@ leaderList:
     - rulers
     - commanding officers
   list: >
-    \*The ${this.text('leaderList.leaderFlavor')} of <#${this.channel}>:*
-    ${this.leaders.map(leader => this.text('leaderList.leader', { leader } ))}
+    \*The ${this.t('leaderList.leaderFlavor')} of <#${this.channel}>:*
+    ${this.leaders.map(leader => this.t('leaderList.leader', { leader } ))}
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
   githubSDP:
@@ -269,11 +269,11 @@ promos:
         Here are the details for your records\:
         \> Grant request ID\: *${this.record}*
         \> Grant type\: *$100 provided by GitHub*
-        \> Has a bank account\: *${this.text('promos.githubGrant.success.hcbEmoji.' + this.hcb)}*
+        \> Has a bank account\: *${this.t('promos.githubGrant.success.hcbEmoji.' + this.hcb)}*
         \> Submitted by\: *<@${this.user}> (@${this.user})*
         Just one quick note though\: Next time you record a club meeting with \`/meeting-add\`, you'll see a link to dropbox.hackclub.com. We'd really appreciate it if you put some photos of your club meeting in there that we can show GitHub. This is the first semester we're partnering with GitHub and if they're happy with the results this could happen in the future.
   
 promo:
   help: 'Request a promotion / partnership through Hack Club. Try \`/promo Free Notion\`'
-  list: Here are the active promotions you can use ${this.promos.map(p => this.text('promo.bullet', { p }))}
+  list: Here are the active promotions you can use ${this.promos.map(p => this.t('promo.bullet', { p }))}
   bullet: \n- \`/promo ${this.p.name}\` _${this.p.details}_

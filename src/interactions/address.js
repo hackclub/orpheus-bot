@@ -1,4 +1,4 @@
-import { getInfoForUser, text } from '../utils'
+import { getInfoForUser, transcript } from '../utils'
 
 const interactionAddress = (bot, message) => {
   // check that they're a user
@@ -11,7 +11,7 @@ const interactionAddress = (bot, message) => {
 
     bot.replyPrivateDelayed(
       message,
-      text('address', { address: leaderAddress.fields })
+      transcript('address', { address: leaderAddress.fields })
     )
   })
 }

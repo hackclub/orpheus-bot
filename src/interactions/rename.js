@@ -1,4 +1,4 @@
-import { initBot, text as transcript, getInfoForUser } from '../utils'
+import { initBot, transcript, getInfoForUser } from '../utils'
 
 const interactionRename = (bot, message) => {
   const { user, channel } = message

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { getInfoForUser, text } from '../utils'
+import { getInfoForUser, transcript } from '../utils'
 
 const interactionStats = (bot, message) => {
   const { user } = message
@@ -7,7 +7,7 @@ const interactionStats = (bot, message) => {
   const loaderPromise = new Promise((resolve, reject) => {
     bot.replyPrivateDelayed(
       message,
-      text('stats.loadingMessage'),
+      transcript('stats.loadingMessage'),
       (err, res) => {
         if (err) {
           reject(err)
@@ -37,11 +37,11 @@ const interactionStats = (bot, message) => {
       // })
 
       if (!leader || !club) {
-        bot.replyPrivateDelayed(message, text('stats.notFound'))
+        bot.replyPrivateDelayed(message, transcript('stats.notFound'))
         return
       }
       if (!history || !history.meetings) {
-        bot.replyPrivateDelayed(message, text('stats.noMeeting'))
+        bot.replyPrivateDelayed(message, transcript('stats.noMeeting'))
         return
       }
 
@@ -83,13 +83,13 @@ const interactionStats = (bot, message) => {
     })
     .catch(err => {
       console.error(err)
-      bot.replyPrivateDelayed(message, text('errors.general', { err }))
+      bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
     })
 
   // try {
   //   bot.replyAndUpdate(
   //     message,
-  //     text('stats.loadingMessage'),
+  //     transcript('stats.loadingMessage'),
   //     (err, src, updateResponse) => {
   //       if (err) {
   //         throw err
@@ -98,11 +98,11 @@ const interactionStats = (bot, message) => {
   //         .then(({ leader, club, history }) => {
   //           setTimeout(() => {
   //             if (!leader || !club) {
-  //               updateResponse(text('stats.notFound'))
+  //               updateResponse(transcript('stats.notFound'))
   //               return
   //             }
   //             if (!history || !history.meetings) {
-  //               updateResponse(text('stats.noMeeting'))
+  //               updateResponse(transcript('stats.noMeeting'))
   //               return
   //             }
 
@@ -145,14 +145,14 @@ const interactionStats = (bot, message) => {
   //           }, 2000)
   //         })
   //         .catch(err => {
-  //           updateResponse(text('stats.error', { err }))
+  //           updateResponse(transcript('stats.error', { err }))
   //           throw { err }
   //         })
   //     }
   //   )
   // } catch (err) {
   //   console.error(err)
-  //   bot.whisper(message, text('errors.general', { err }))
+  //   bot.whisper(message, transcript('errors.general', { err }))
   // }
 }
 
