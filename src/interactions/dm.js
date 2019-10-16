@@ -10,7 +10,18 @@ const interactionDM = (bot, message) => {
     const messageRegex = /send a dm to <@(.*?)>:(.*)/
     const [, targetUser, targetMessage] = text.match(messageRegex)
 
-    bot.say({ text: targetMessage, channel: targetUser })
+    bot.say({ text: targetMessage, channel: targetUser }, (err, response) => {
+      console.log(response)
+      if (err) {
+        console.error(err)
+        throw err
+      }
+      bot.api.reactions.add({
+        timestamp: response.ts,
+        channel: response.channel,
+        name: 'white_check_box',
+      })
+    })
   })
 }
 
