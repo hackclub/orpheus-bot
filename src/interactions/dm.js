@@ -26,7 +26,7 @@ const interactionDM = (bot, message) => {
       bot.api.reactions.add({
         timestamp: message.ts,
         channel: message.channel,
-        name: 'white_check_box',
+        name: 'white_check_mark',
       })
     })
   })
