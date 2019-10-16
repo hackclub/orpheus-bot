@@ -7,7 +7,7 @@ const interactionDM = (bot, message) => {
       throw new Error('This command is admin only')
     }
 
-    const messageRegex = /send a dm to <@(.*?)>:(.*)/
+    const messageRegex = /dm <@(.*?)>(.*)/
     const [, targetUser, targetMessage] = text.match(messageRegex)
 
     bot.say({ text: targetMessage, channel: targetUser }, (err, response) => {

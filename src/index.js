@@ -179,7 +179,7 @@ controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
 controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
 
-controller.hears('send a dm to', 'direct_message,direct_mention', interactionDM)
+controller.hears('dm', 'direct_message,direct_mention', interactionDM)
 
 controller.hears(
   ['thanks', 'thank', 'thnx', 'thanx'],
