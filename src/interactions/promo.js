@@ -113,11 +113,12 @@ const promos = [
                   bot.replyPrivateDelayed(
                     message,
                     transcript('promos.githubGrant.success.hcbMessage.' + hcb, {
-                      firstLine: leader.fields['Address (first line)'],
-                      secondLine: leader.fields['Address (second line)'],
-                      city: leader.fields['Address (city)'],
-                      state: leader.fields['Address (state)'],
-                      zipCode: leader.fields['Address (zip code)'],
+                      firstLine: leaderAddress.fields['Street (First Line)'],
+                      secondLine: leaderAddress.fields['Street (Second Line)'],
+                      city: leaderAddress.fields['City'],
+                      state: leaderAddress.fields['State/Province'],
+                      country: leaderAddress.fields['Country'],
+                      zipCode: leaderAddress.fields['Postal Code'],
                     })
                   )
                   setTimeout(() => {

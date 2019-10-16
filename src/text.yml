@@ -28,6 +28,20 @@ hello:
   - hllo
   - ehllo
   - heoll
+updateAddress: >
+  Here's the current address we have on record.
+  \`\`\`
+  Street (First Line)\: ${this.address['Street (First Line)']}
+  Street (Second Line)\: ${this.address['Street (Second Line)']}
+  City\: ${this.address['City']}
+  State/Province\: ${this.address['State/Province']}
+  Postal Code\: ${this.address['Postal Code']}
+  Country\: ${this.address['Country']}
+
+  Delivery Notes\: ${this.address['Delivery Notes']}
+  \`\`\`
+
+  You can update your address using this form. ${this.address['Update Form URL']}
 hacktoberfest: Hey! heard you were talking about hacktoberfest. if you're interested in submitting PRs to me, but don't know where to start, message <@U0C7B14Q3>– he can help you get started!
 leaderInvite:
   notAdmin: I can't do that for you, you're not an admin!
@@ -229,6 +243,7 @@ promos:
           Second line\: ${this.secondLine || ''}
           City\: ${this.city || ''}
           State\: ${this.state || ''}
+          Country\: ${this.country || ''}
           Zip Code\: ${this.zipCode || ''}
           \`\`\`
       general: |

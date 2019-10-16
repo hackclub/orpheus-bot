@@ -1,4 +1,4 @@
-import { controller } from './'
+import controller from './controller'
 
 import yaml from 'js-yaml'
 import fs from 'fs'
@@ -118,7 +118,7 @@ export const airGet = (
 
 export const getSlackUser = user =>
   new Promise((resolve, reject) => {
-    initBot().api.users.info({ user }, (err, res) => {
+    initBot().api.users.info({ user, include_locale: true }, (err, res) => {
       if (err) {
         reject(err)
       }
@@ -175,7 +175,25 @@ export const getInfoForUser = user =>
             })
             results.history.lastMeetingDay = lastMeetingDay
           }
-        }),
+        })
+        .then(() => {
+          if (results.leader && results.leader.fields['Address']) {
+            return airFind(
+              'Addresses',
+              `'${results.leader.fields['Address']}' = RECORD_ID()`
+            )
+          }
+        })
+        .then(leaderAddress => (results.leaderAddress = leaderAddress))
+        .then(() => {
+          if (results.club && results.club.fields['Address']) {
+            return airFind(
+              'Addresses',
+              `'${results.club.fields['Address']}' = RECORD_ID()`
+            )
+          }
+        })
+        .then(clubAddress => (results.clubAddress = clubAddress)),
     ])
       .then(() => resolve(results))
       .catch(e => reject(e))

@@ -1,10 +1,9 @@
 process.env.STARTUP_TIME = Date.now()
-import Botkit from 'botkit'
-import redisStorage from 'botkit-storage-redis'
 import _ from 'lodash'
 import bugsnag from '@bugsnag/js'
 
-import { initBot, userRecord, text as transcript } from './utils'
+import controller from './controller'
+import { text as transcript } from './utils'
 
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'
@@ -24,92 +23,78 @@ import interactionPromo from './interactions/promo'
 import interactionAnnouncement from './interactions/announcement'
 import interactionHacktoberfest from './interactions/hacktoberfest'
 import interactionLeaderInvite from './interactions/leaderInvite'
+import interactionUpdateAddress from './interactions/updateAddress'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
-export const controller = new Botkit.slackbot({
-  clientId: process.env.SLACK_CLIENT_ID,
-  clientSecret: process.env.SLACK_CLIENT_SECRET,
-  clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
-  scopes: ['bot', 'chat:write:bot'],
-  storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
-})
+// controller.on('reaction_added', (bot, message) => {
+//   if (bot.identity.id == message.item_user) {
+//     console.log('I was reacted to')
+//     initBot(true).api.channels.history(
+//       {
+//         channel: message.item.channel,
+//         count: 1,
+//         inclusive: true,
+//         latest: message.item.ts,
+//       },
+//       (err, res) => {
+//         if (err) {
+//           throw err
+//         }
+//         if (res.messages.length === 0) {
+//           throw new Error('Message not found')
+//         }
 
-controller.startTicking()
+//         const item = res.messages[0]
+//         const checkinSubstring = 'reacting to this message'
 
-controller.setupWebserver(process.env.PORT, (err, webserver) => {
-  controller.createWebhookEndpoints(controller.webserver)
-  controller.createOauthEndpoints(controller.webserver)
-})
+//         if (!item.text.includes(checkinSubstring)) {
+//           return
+//         }
 
-controller.on('reaction_added', (bot, message) => {
-  if (bot.identity.id == message.item_user) {
-    console.log('I was reacted to')
-    initBot(true).api.channels.history(
-      {
-        channel: message.item.channel,
-        count: 1,
-        inclusive: true,
-        latest: message.item.ts,
-      },
-      (err, res) => {
-        if (err) {
-          throw err
-        }
-        if (res.messages.length === 0) {
-          throw new Error('Message not found')
-        }
+//         const firstReaction =
+//           item.reactions.length === 1 && item.reactions[0].count === 1
 
-        const item = res.messages[0]
-        const checkinSubstring = 'reacting to this message'
+//         if (firstReaction) {
+//           bot.whisper(
+//             { channel: message.item.channel, user: message.user },
+//             "I'll DM you now!",
+//             err => {
+//               if (err) {
+//                 console.error(err)
+//                 return
+//               }
 
-        if (!item.text.includes(checkinSubstring)) {
-          return
-        }
+//               // This is part of the tutorial
+//               userRecord(user).then(userRecord => {
+//                 if (
+//                   userRecord.fields['Flag: Tutorial /meeting-time'] &&
+//                   !userRecord.fields['Flag: Tutorial reacted to notification']
+//                 ) {
+//                   userRecord.patch({
+//                     'Flag: Tutorial reacted to notification': true,
+//                   })
+//                 }
+//               })
 
-        const firstReaction =
-          item.reactions.length === 1 && item.reactions[0].count === 1
-
-        if (firstReaction) {
-          bot.whisper(
-            { channel: message.item.channel, user: message.user },
-            "I'll DM you now!",
-            err => {
-              if (err) {
-                console.error(err)
-                return
-              }
-
-              // This is part of the tutorial
-              userRecord(user).then(userRecord => {
-                if (
-                  userRecord.fields['Flag: Tutorial /meeting-time'] &&
-                  !userRecord.fields['Flag: Tutorial reacted to notification']
-                ) {
-                  userRecord.patch({
-                    'Flag: Tutorial reacted to notification': true,
-                  })
-                }
-              })
-
-              interactionCheckin(undefined, message)
-            }
-          )
-        } else {
-          bot.whisper(
-            { channel: message.item.channel, user: message.user },
-            "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.",
-            err => {
-              if (err) {
-                console.error(err)
-              }
-            }
-          )
-        }
-      }
-    )
-  }
-})
+//               interactionCheckin(undefined, message)
+//             }
+//           )
+//         } else {
+//           bot.whisper(
+//             { channel: message.item.channel, user: message.user },
+//             "Someone else reacted first, so I'll assume they're checking in instead. Just in case though, you can DM me the word `checkin` and I'll chat with you about your meeting.",
+//             err => {
+//               if (err) {
+//                 console.error(err)
+//               }
+//             }
+//           )
+//         }
+//       }
+//     )
+//   }
+// })
 
 // const SLACK_LOGS_CHANNEL = process.env.SLACK_LOGS_CHANNEL
 // if (SLACK_LOGS_CHANNEL) {
@@ -251,6 +236,10 @@ controller.on('slash_command', (bot, message) => {
           interactionAnnouncement(bot, message)
           break
 
+        case '/update-address':
+          interactionUpdateAddress(bot, message)
+          break
+
         case '/promo':
           interactionPromo(bot, message)
           break
@@ -297,3 +286,10 @@ controller.on('slash_command', (bot, message) => {
 
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
+
+// process.exit(0)
+
+// slash update address command (leader only)
+// whisper command (admin only)
+// channel post command (admin only)
+// update club address (leader only)
