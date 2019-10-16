@@ -223,7 +223,6 @@ export const getInfoForUser = user =>
   })
 
 export const recordMeeting = (club, meeting, cb) => {
-  console.log(club, meeting)
   bases.operations('History').create(
     {
       Type: ['Meeting'],
