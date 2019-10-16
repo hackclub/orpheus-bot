@@ -1,6 +1,6 @@
 import { getInfoForUser, text } from '../utils'
 
-const interactionUpdateAddress = (bot, message) => {
+const interactionAddress = (bot, message) => {
   // check that they're a user
   const { user } = message
 
@@ -16,4 +16,4 @@ const interactionUpdateAddress = (bot, message) => {
   })
 }
 
-export default interactionUpdateAddress
+export default interactionAddress

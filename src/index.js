@@ -23,7 +23,7 @@ import interactionPromo from './interactions/promo'
 import interactionAnnouncement from './interactions/announcement'
 import interactionHacktoberfest from './interactions/hacktoberfest'
 import interactionLeaderInvite from './interactions/leaderInvite'
-import interactionUpdateAddress from './interactions/updateAddress'
+import interactionAddress from './interactions/address'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -236,8 +236,13 @@ controller.on('slash_command', (bot, message) => {
           interactionAnnouncement(bot, message)
           break
 
-        case '/update-address':
-          interactionUpdateAddress(bot, message)
+        case '/address':
+        case '/leader-address':
+          interactionAddress(bot, message)
+          break
+
+        case '/club-address':
+          interactionClubAddress(bot, message)
           break
 
         case '/promo':
