@@ -75,7 +75,7 @@ const promos = [
     run: (bot, message) => {
       const { user } = message
       return getInfoForUser(user)
-        .then(({ leader, club }) => {
+        .then(({ leader, club, leaderAddress }) => {
           if (!leader || !club) {
             bot.replyPrivateDelayed(
               message,
