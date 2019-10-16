@@ -13,7 +13,7 @@ const interactionClubAddress = (bot, message) => {
 
     bot.replyPrivateDelayed(
       message,
-      text('updateAddress', { address: clubAddress.fields })
+      text('clubAddress', { address: clubAddress.fields })
     )
   })
 }
