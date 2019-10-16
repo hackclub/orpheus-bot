@@ -1,6 +1,6 @@
 import { getInfoForUser, transcript, airGet, airFind } from '../utils'
 
-const substitutions = (text, club) =>
+const substitutions = (text, targetChannel) =>
   new Promise((resolve, reject) => {
     const pocRegex = /@poc/
     if (text.match(pocRegex)) {
@@ -37,21 +37,23 @@ const interactionDM = (bot, message) => {
       const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>(.*)/
       const [, targetChannel, targetMessage] = encodedText.match(messageRegex)
 
-      return substitutions.then(substitutedMessage => {
-        bot.say(
-          { text: substitutedMessage, channel: targetChannel },
-          (err, response) => {
-            if (err) {
-              throw err
+      return substitutions(targetMessage, targetChannel).then(
+        substitutedMessage => {
+          bot.say(
+            { text: substitutedMessage, channel: targetChannel },
+            (err, response) => {
+              if (err) {
+                throw err
+              }
+              bot.api.reactions.add({
+                timestamp: message.ts,
+                channel: message.channel,
+                name: 'white_check_mark',
+              })
             }
-            bot.api.reactions.add({
-              timestamp: message.ts,
-              channel: message.channel,
-              name: 'white_check_mark',
-            })
-          }
-        )
-      })
+          )
+        }
+      )
     })
     .catch(err => {
       console.error(err)
