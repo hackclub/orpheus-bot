@@ -8,9 +8,10 @@ const interactionDM = (bot, message) => {
         throw new Error('This command is admin only')
       }
 
-      console.log(text)
-      const messageRegex = /dm <[@#](.*?)>(.*)/
-      const [, targetUser, targetMessage] = text.match(messageRegex)
+      const encodedText = text.replace('&lt;', '<text').replace('&gt;', '>')
+      console.log(encodedText)
+      const messageRegex = /dm <[@#](.+?(?=[>\|])).*?>(.*)/
+      const [, targetUser, targetMessage] = encodedText.match(messageRegex)
 
       bot.say({ text: targetMessage, channel: targetUser }, (err, response) => {
         if (err) {
