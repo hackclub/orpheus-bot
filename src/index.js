@@ -179,8 +179,6 @@ controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
 controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
 
-controller.hears('hello', 'direct_mention,direct_message', interactionHello)
-
 controller.hears(
   'send a whisper to',
   'direct_message,direct_mention',
@@ -296,6 +294,8 @@ controller.on('slash_command', (bot, message) => {
     }
   )
 })
+
+controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
