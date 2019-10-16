@@ -31,28 +31,28 @@ hello:
 clubAddress: |
   Here's the current address we have on record for your club.
   \`\`\`
-  Street (First Line)\: ${this.address['Street (First Line)']}
-  Street (Second Line)\: ${this.address['Street (Second Line)']}
-  City\: ${this.address['City']}
-  State/Province\: ${this.address['State/Province']}
-  Postal Code\: ${this.address['Postal Code']}
-  Country\: ${this.address['Country']}
+  Street (First Line)\: ${this.address['Street (First Line)'] || ''}
+  Street (Second Line)\: ${this.address['Street (Second Line)'] || ''}
+  City\: ${this.address['City'] || ''}
+  State/Province\: ${this.address['State/Province'] || ''}
+  Postal Code\: ${this.address['Postal Code'] || ''}
+  Country\: ${this.address['Country'] || ''}
 
-  Delivery Notes\: ${this.address['Delivery Notes']}
+  Delivery Notes\: ${this.address['Delivery Notes'] || ''}
   \`\`\`
 
   You can update your club's address using this form. ${this.address['Update Form URL']}
 address: |
   Here's the current address we have on record for shipping to you.
   \`\`\`
-  Street (First Line)\: ${this.address['Street (First Line)']}
-  Street (Second Line)\: ${this.address['Street (Second Line)']}
-  City\: ${this.address['City']}
-  State/Province\: ${this.address['State/Province']}
-  Postal Code\: ${this.address['Postal Code']}
-  Country\: ${this.address['Country']}
+  Street (First Line)\: ${this.address['Street (First Line)'] || ''}
+  Street (Second Line)\: ${this.address['Street (Second Line)'] || ''}
+  City\: ${this.address['City'] || ''}
+  State/Province\: ${this.address['State/Province'] || ''}
+  Postal Code\: ${this.address['Postal Code'] || ''}
+  Country\: ${this.address['Country'] || ''}
 
-  Delivery Notes\: ${this.address['Delivery Notes']}
+  Delivery Notes\: ${this.address['Delivery Notes'] || ''}
   \`\`\`
 
   You can update your address using this form. ${this.address['Update Form URL']}
