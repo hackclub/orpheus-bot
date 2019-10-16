@@ -1,4 +1,4 @@
-import { getInfoForUser } from '../utils'
+import { getInfoForUser, transcript } from '../utils'
 
 const interactionDM = (bot, message) => {
   const { user, text } = message
