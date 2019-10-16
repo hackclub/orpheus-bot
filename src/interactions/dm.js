@@ -11,8 +11,7 @@ const interactionDM = (bot, message) => {
       const encodedText = text
         .replace('&lt;', '<text')
         .replace('&gt;', '>')
-        .replace('@_', '@')
-        .replace('#_', '#')
+        .replace(/@_/, '@') // This lets us send a message to @orpheus using '@_channel' instead of '@channel', so we don't spam ourselves
       console.log(encodedText)
       const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>(.*)/
       const [, targetUser, targetMessage] = encodedText.match(messageRegex)
