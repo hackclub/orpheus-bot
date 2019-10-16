@@ -295,22 +295,22 @@ export const initBot = (admin = false) =>
     token: admin ? process.env.SLACK_LEGACY_TOKEN : process.env.SLACK_BOT_TOKEN,
   })
 
-const loadText = () => {
+const loadTranscript = () => {
   try {
     const doc = yaml.safeLoad(
-      fs.readFileSync(path.resolve(__dirname, './text.yml'), 'utf8')
+      fs.readFileSync(path.resolve(__dirname, './transcript.yml'), 'utf8')
     )
     return doc
   } catch (e) {
     console.error(e)
   }
 }
-const recurseText = (searchArr, textObj) => {
+const recurseTranscript = (searchArr, transcriptObj) => {
   const searchCursor = searchArr.shift()
-  const targetObj = textObj[searchCursor]
+  const targetObj = transcriptObj[searchCursor]
 
   if (searchArr.length > 0) {
-    return recurseText(searchArr, targetObj)
+    return recurseTranscript(searchArr, targetObj)
   } else {
     if (Array.isArray(targetObj)) {
       return sample(targetObj)
@@ -330,7 +330,7 @@ const replaceErrors = (key, value) => {
   }
   return value
 }
-export const text = (search, vars) => {
+export const transcript = (search, vars) => {
   if (vars) {
     console.log(
       `I'm searching for words in my yaml file under "${search}". These variables are set: ${JSON.stringify(
@@ -342,14 +342,14 @@ export const text = (search, vars) => {
     console.log(`I'm searching for words in my yaml file under "${search}"`)
   }
   const searchArr = search.split('.')
-  const textObj = loadText()
+  const transcriptObj = loadTranscript()
 
-  return evalText(recurseText(searchArr, textObj), vars)
+  return evalTranscript(recurseTranscript(searchArr, transcriptObj), vars)
 }
-const evalText = (target, vars = {}) =>
+const evalTranscript = (target, vars = {}) =>
   function() {
     return eval('`' + target + '`')
   }.call({
     ...vars,
-    text,
+    t: transcript,
   })
