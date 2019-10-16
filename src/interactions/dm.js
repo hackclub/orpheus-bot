@@ -14,7 +14,14 @@ const interactionDM = (bot, message) => {
       console.log(response)
       if (err) {
         console.error(err)
-        throw err
+
+        bot.api.reactions.add({
+          timestamp: response.ts,
+          channel: response.channel,
+          name: 'no_entry',
+        })
+
+        bot.reply(message, transcript('errors.general', { err }))
       }
       bot.api.reactions.add({
         timestamp: response.ts,
