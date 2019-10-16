@@ -10,7 +10,7 @@ const interactionDM = (bot, message) => {
 
       const encodedText = text.replace('&lt;', '<text').replace('&gt;', '>')
       console.log(encodedText)
-      const messageRegex = /dm <[@#](.+?(?=[>\|])).*?>(.*)/
+      const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>(.*)/
       const [, targetUser, targetMessage] = encodedText.match(messageRegex)
 
       bot.say({ text: targetMessage, channel: targetUser }, (err, response) => {
