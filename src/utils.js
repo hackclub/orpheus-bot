@@ -376,5 +376,3 @@ const evalTranscript = (target, vars = {}) =>
     ...vars,
     t: transcript,
   })
-
-getInfoForUser('U0C7B14Q3')
