@@ -16,16 +16,16 @@ const interactionDM = (bot, message) => {
         console.error(err)
 
         bot.api.reactions.add({
-          timestamp: response.message.ts,
-          channel: response.message.channel,
+          timestamp: message.ts,
+          channel: message.channel,
           name: 'no_entry',
         })
 
         bot.reply(message, transcript('errors.general', { err }))
       }
       bot.api.reactions.add({
-        timestamp: response.message.ts,
-        channel: response.message.channel,
+        timestamp: message.ts,
+        channel: message.channel,
         name: 'white_check_box',
       })
     })
