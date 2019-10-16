@@ -25,7 +25,7 @@ import interactionHacktoberfest from './interactions/hacktoberfest'
 import interactionLeaderInvite from './interactions/leaderInvite'
 import interactionAddress from './interactions/address'
 import interactionClubAddress from './interactions/clubAddress'
-import interactionWhisper from './interactions/whisper'
+import interactionDM from './interactions/dm'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -179,11 +179,7 @@ controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
 controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
 
-controller.hears(
-  'send a whisper to',
-  'direct_message,direct_mention',
-  interactionWhisper
-)
+controller.hears('send a dm to', 'direct_message,direct_mention', interactionDM)
 
 controller.hears(
   ['thanks', 'thank', 'thnx', 'thanx'],
