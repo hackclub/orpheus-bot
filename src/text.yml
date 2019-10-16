@@ -28,7 +28,7 @@ hello:
   - hllo
   - ehllo
   - heoll
-updateAddress: >
+updateAddress: |
   Here's the current address we have on record.
   \`\`\`
   Street (First Line)\: ${this.address['Street (First Line)']}
@@ -237,7 +237,7 @@ promos:
       hcbMessage:
         'true': I've just submitted a request to the HCB team. In 2-3 days the grant will arrive in your account– just sit tight.
         'false': |
-          We'll ship you a prepaid Visa card to the following address. If it's out of date or invalid, send <@U0C7B14Q3> a screenshot of this & tell him the right address.
+          We'll ship you a prepaid Visa card to the following address. If it's out of date or invalid, update it with `/update-address.
           \`\`\`
           First line\: ${this.firstLine || ''}
           Second line\: ${this.secondLine || ''}
