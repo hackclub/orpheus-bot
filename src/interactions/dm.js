@@ -1,4 +1,26 @@
-import { getInfoForUser, transcript } from '../utils'
+import { getInfoForUser, transcript, airGet, airFind } from '../utils'
+
+const substitutions = (text, club) =>
+  new Promise((resolve, reject) => {
+    const pocRegex = /@poc/
+    if (text.match(pocRegex)) {
+      airFind('Clubs', 'Slack Channel ID', targetChannel)
+        .then(club =>
+          airFind('Leaders', `'${club.fields.POC}' = RECORD_ID()`).then(poc => {
+            if (!poc || !poc.fields) {
+              reject(new Error('No POC for club'))
+            }
+            if (!poc.fields['Slack ID']) {
+              reject(new Error('No Slack ID set for POC'))
+            }
+            resolve(text.replace(pocRegex, poc.fields['Slack ID']))
+          })
+        )
+        .catch(reject)
+    } else {
+      resolve(text)
+    }
+  })
 
 const interactionDM = (bot, message) => {
   const { user, text } = message
@@ -11,20 +33,24 @@ const interactionDM = (bot, message) => {
       const encodedText = text
         .replace('&lt;', '<text')
         .replace('&gt;', '>')
-        .replace(/@_/, '@') // This lets us send a message to @orpheus using '@_channel' instead of '@channel', so we don't spam ourselves
-      console.log(encodedText)
+        .replace(/@_/, '@')
       const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>(.*)/
-      const [, targetUser, targetMessage] = encodedText.match(messageRegex)
+      const [, targetChannel, targetMessage] = encodedText.match(messageRegex)
 
-      bot.say({ text: targetMessage, channel: targetUser }, (err, response) => {
-        if (err) {
-          throw err
-        }
-        bot.api.reactions.add({
-          timestamp: message.ts,
-          channel: message.channel,
-          name: 'white_check_mark',
-        })
+      return substitutions.then(substitutedMessage => {
+        bot.say(
+          { text: substitutedMessage, channel: targetChannel },
+          (err, response) => {
+            if (err) {
+              throw err
+            }
+            bot.api.reactions.add({
+              timestamp: message.ts,
+              channel: message.channel,
+              name: 'white_check_mark',
+            })
+          }
+        )
       })
     })
     .catch(err => {
