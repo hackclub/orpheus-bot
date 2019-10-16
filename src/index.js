@@ -24,6 +24,7 @@ import interactionAnnouncement from './interactions/announcement'
 import interactionHacktoberfest from './interactions/hacktoberfest'
 import interactionLeaderInvite from './interactions/leaderInvite'
 import interactionAddress from './interactions/address'
+import interactionClubAddress from './interactions/clubAddress'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
