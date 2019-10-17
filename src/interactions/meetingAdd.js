@@ -3,38 +3,51 @@ import { parseDate } from 'chrono-node'
 import { recordMeeting, getInfoForUser, transcript, initBot } from '../utils'
 
 const reactOnSuccess = channel => {
-  new Promise(resolve => {
-    initBot(true)
-      .api.conversations.info({ channel })
-      .then(resp => {
-        if (resp.channel && resp.channel.name) {
-          resolve(resp.channel.name)
-        }
-      })
-    initBot(true)
-      .api.channels.info({ channel })
-      .then(resp => {
-        if (resp.channel && resp.channel.name) {
-          resolve(resp.channel.name)
-        }
-      })
+  const p = new Promise(resolve => {
+    initBot(true).api.conversations.info({ channel }, (err, res) => {
+      if (!err && res.channel && res.channel.name) {
+        resolve(res.channel.name)
+      }
+    })
+    initBot(true).api.channels.info({ channel }, (err, res) => {
+      if (!err && res.channel && res.channel.name) {
+        resolve(res.channel.name)
+      }
+    })
   })
-    .then(channelName =>
-      initBot()
-        .api.search.messages({
-          query: `you are responsible in:${channelName}`,
-          count: 1,
-          sort: 'timestamp',
+    .then(
+      channelName =>
+        new Promise((resolve, reject) => {
+          initBot(true).api.search.messages(
+            {
+              query: `"you are responsible" in:#${channelName}`,
+              count: 1,
+              sort: 'timestamp',
+            },
+            (err, res) => {
+              if (err) {
+                reject(err)
+              } else {
+                resolve(res.messages.matches[0])
+              }
+            }
+          )
         })
-        .then(resp => resp.messages.matches[0])
     )
-    .then(message =>
-      initBot().api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'white_check_mark',
-      })
-    )
+    .then(message => {
+      initBot().api.reactions.add(
+        {
+          timestamp: message.ts,
+          channel: message.channel.id,
+          name: 'white_check_mark',
+        },
+        err => {
+          if (err) {
+            console.error(err)
+          }
+        }
+      )
+    })
 }
 
 const interactionMeetingAdd = (bot, message) => {
