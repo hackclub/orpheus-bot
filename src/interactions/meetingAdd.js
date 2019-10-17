@@ -3,7 +3,6 @@ import { parseDate } from 'chrono-node'
 import { recordMeeting, getInfoForUser, transcript, initBot } from '../utils'
 
 const reactOnSuccess = channel => {
-  const channel = club.fields['Slack Channel ID']
   new Promise(resolve => {
     initBot(true)
       .api.conversations.info({ channel })
