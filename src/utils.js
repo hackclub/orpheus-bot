@@ -167,6 +167,7 @@ export const getInfoForUser = user =>
               records: results.rawHistory,
               meetings: results.rawHistory
                 .filter(h => h.fields.Attendance)
+                .filter(h => !h.fields['Deleted At'])
                 .sort(
                   (a, b) =>
                     Date.parse(a.fields.Date) - Date.parse(b.fields.Date)
