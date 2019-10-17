@@ -11,7 +11,7 @@ const interactionMeetingList = (bot, message) => {
       reply = history.meetings
         .map(
           h =>
-            `- On *${h.fields['Date']}* _(${humanizeDuration(
+            `- \`${h.id}\` On *${h.fields['Date']}* _(${humanizeDuration(
               Date.now() - parseDate(h.fields['Date']),
               { largest: 1 }
             )} ago)_, with *${h.fields['Attendance']} attendees*`

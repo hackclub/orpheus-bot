@@ -16,6 +16,7 @@ import interactionLeaderAdd from './interactions/leaderAdd'
 import interactionLeaderList from './interactions/leaderList'
 import interactionMeetingList from './interactions/meetingList'
 import interactionMeetingAdd from './interactions/meetingAdd'
+import interactionMeetingRemove from './interactions/meetingRemove'
 import interactionMeetingTime from './interactions/meetingTime'
 import interactionMeetingTutorial from './interactions/meetingTutorial'
 import interactionCatchall from './interactions/catchall'
@@ -261,6 +262,10 @@ controller.on('slash_command', (bot, message) => {
 
         case '/meeting-add':
           interactionMeetingAdd(bot, message)
+          break
+
+        case '/meeting-remove':
+          interactionMeetingRemove(bot, message)
           break
 
         case '/meeting-list':

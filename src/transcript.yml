@@ -192,6 +192,13 @@ renameChannel:
   progress: You got it boss! Renaming the channel to "${this.name}"...
   success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
   error: hmmm... something went wrong. I tried saving "${this.name}", but it says \`${this.err}\` in red
+meetingRemove:
+  help: |
+    This command will remove a club meeting for your club's history. Example usage\:
+    \`/meeting-remove recWh9CTlR7QnNspQ\`
+
+    You can get the meeting's ID from \`/meeting-list\`.
+  success: Meeting removed! It won't show up in your meeting list anymore.
 meetingAdd:
   help: |
     This command will record a club meeting for your club. Example usage\:
