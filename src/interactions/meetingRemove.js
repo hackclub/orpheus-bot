@@ -14,7 +14,7 @@ const interactionMeetingRemove = (bot, message) => {
     const meeting = history.meetings.find(h => h.id === text)
 
     if (meeting) {
-      airPatch('History', meeting.id, { 'Deleted at': Date.now() }).then(
+      airPatch('History', meeting.id, { 'Deleted At': Date.now() }).then(
         record => {
           bot.replyPrivateDelayed(message, transcript('meetingRemove.success'))
         }
