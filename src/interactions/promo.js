@@ -1,5 +1,10 @@
 import { getInfoForUser, transcript, airFind, airCreate } from '../utils'
 
+const stickermuleLink = club =>
+  new Promise((resolve, reject) => {
+    resolve('https://airtable.com/shr8hU7yFTDfTiywh')
+  })
+
 const sdpLink = club =>
   new Promise((resolve, reject) => {
     const formUrl = `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${
@@ -38,6 +43,29 @@ const promos = [
     details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
+    },
+  },
+  {
+    name: 'StickerMule',
+    details: 'Available to club leaders',
+    run: (bot, message) => {
+      const { user } = message
+      return getInfoForUser(user).then(({ leader, club }) => {
+        if (!leader || !club) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.stickermule.notAuthorized')
+          )
+          return
+        }
+
+        stickermuleLink(club).then(url => {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.stickermule.success', { url })
+          )
+        })
+      })
     },
   },
   {
