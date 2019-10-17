@@ -1,6 +1,42 @@
 import { parseDate } from 'chrono-node'
 
-import { recordMeeting, getInfoForUser, transcript } from '../utils'
+import { recordMeeting, getInfoForUser, transcript, initBot } from '../utils'
+
+const reactOnSuccess = channel => {
+  const channel = club.fields['Slack Channel ID']
+  new Promise(resolve => {
+    initBot(true)
+      .api.conversations.info({ channel })
+      .then(resp => {
+        if (resp.channel && resp.channel.name) {
+          resolve(resp.channel.name)
+        }
+      })
+    initBot(true)
+      .api.channels.info({ channel })
+      .then(resp => {
+        if (resp.channel && resp.channel.name) {
+          resolve(resp.channel.name)
+        }
+      })
+  })
+    .then(channelName =>
+      initBot()
+        .api.search.messages({
+          query: `you are responsible in:${channelName}`,
+          count: 1,
+          sort: 'timestamp',
+        })
+        .then(resp => resp.messages.matches[0])
+    )
+    .then(message =>
+      initBot().api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'white_check_mark',
+      })
+    )
+}
 
 const interactionMeetingAdd = (bot, message) => {
   getInfoForUser(message.user).then(({ club, history, slackUser }) => {
@@ -44,6 +80,8 @@ const interactionMeetingAdd = (bot, message) => {
           message,
           transcript('meetingAdd.success', { formUrl })
         )
+
+        reactOnSuccess(club.fields['Slack Channel ID'])
       }
     )
     return
