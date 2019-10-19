@@ -1,4 +1,7 @@
 {
+  "name": "@hackclub/orpheus-bot",
+  "author": "Max Wofford <max@hackclub.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "npx babel-node ./src/index.js",
     "start": "node ./build/index.js",
