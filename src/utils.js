@@ -12,6 +12,9 @@ bases.operations = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
 bases.hackaf = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_HACKAF_BASE
 )
+bases.sdp = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
+  process.env.AIRTABLE_SDP_BASE
+)
 
 export const airPatch = (baseName, recordID, values, options = {}) =>
   new Promise((resolve, reject) => {
