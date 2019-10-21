@@ -7,6 +7,9 @@ const stickermuleLink = club =>
 
 const sdpLink = club =>
   new Promise((resolve, reject) => {
+    resolve('hack.af/pack')
+    return
+
     const formUrl = `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${
       club.fields['Slack Channel ID']
     }`
@@ -36,6 +39,31 @@ const sdpLink = club =>
         reject(err)
       })
   })
+
+const sdpReferrer = club =>
+  airFind('Sources', 'Name', club.fields['Name'], { base: 'sdp' })
+    .then(entry => {
+      if (entry) {
+        return entry
+      } else {
+        const newRecord = {
+          Name: club.fields['Name'],
+          Notes: `Airtable club id: ${club.id}`,
+          Type: 'Hack Club',
+        }
+        airCreate('Sources', newRecord, { base: 'sdp' })
+          .then(entry => {
+            return entry
+          })
+          .catch(err => {
+            throw err
+          })
+      }
+    })
+    .catch(err => {
+      console.error(err)
+      throw err
+    })
 
 const promos = [
   {
@@ -87,6 +115,10 @@ const promos = [
             message,
             transcript('promos.githubSDP.success', { url })
           )
+
+          sdpReferrer(club).catch(err => {
+            throw err
+          })
         })
       })
     },
