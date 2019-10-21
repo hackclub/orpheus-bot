@@ -1,10 +1,5 @@
 import { getInfoForUser, transcript, airFind, airCreate } from '../utils'
 
-const stickermuleLink = club =>
-  new Promise((resolve, reject) => {
-    resolve('hack.af/stickermule')
-  })
-
 const sdpReferrer = club =>
   new Promise((resolve, reject) =>
     airFind('Sources', 'Name', club.fields['Name'], { base: 'sdp' })
@@ -50,12 +45,10 @@ const promos = [
           return
         }
 
-        stickermuleLink(club).then(url => {
-          bot.replyPrivateDelayed(
-            message,
-            transcript('promos.stickermule.success', { url })
-          )
-        })
+        bot.replyPrivateDelayed(
+          message,
+          transcript('promos.stickermule.success', { url })
+        )
       })
     },
   },
