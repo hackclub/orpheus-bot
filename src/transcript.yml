@@ -252,7 +252,7 @@ promos:
     success: Go to hack.af/stickermule to get your StickerMule promo code
   githubSDP:
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
-    success: You and all your club members can use this link to apply ${this.url}.
+    success: You and all your club members can use this link to apply hack.af/pack. Make sure to select "${this.referrer}" in the "Hack Club / Hackathon" field.
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
   githubGrant:
     duplicate:

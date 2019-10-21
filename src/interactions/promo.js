@@ -5,65 +5,28 @@ const stickermuleLink = club =>
     resolve('https://airtable.com/shr8hU7yFTDfTiywh')
   })
 
-const sdpLink = club =>
-  new Promise((resolve, reject) => {
-    resolve('hack.af/pack')
-    return
-
-    const formUrl = `https://airtable.com/shrlf0NgVfVBI51hU?prefill_Club%20Slack%20Channel%20ID=${
-      club.fields['Slack Channel ID']
-    }`
-
-    airFind('Links', 'destination', formUrl, { base: 'hackaf' })
+const sdpReferrer = club =>
+  new Promise((resolve, reject) =>
+    airFind('Sources', 'Name', club.fields['Name'], { base: 'sdp' })
       .then(entry => {
         if (entry) {
-          return entry.fields['slug']
+          resolve(entry)
+        } else {
+          const newRecord = {
+            Name: club.fields['Name'],
+            Notes: `Airtable club id: ${club.id}`,
+            Type: 'Hack Club',
+          }
+          return airCreate('Sources', newRecord, { base: 'sdp' })
+            .then(resolve)
+            .catch(reject)
         }
-        const newRecord = {
-          slug: `sdp-${club.fields['Slack Channel ID']}`,
-          destination: formUrl,
-          Notes: `Created by @orpheus to use for SDP activations`,
-        }
-        return airCreate('Links', newRecord, { base: 'hackaf' })
-          .then(entry => {
-            return entry.fields['slug']
-          })
-          .catch(err => {
-            reject(err)
-          })
-      })
-      .then(slug => {
-        resolve(`hack.af/${slug}`)
       })
       .catch(err => {
-        reject(err)
+        console.error(err)
+        throw err
       })
-  })
-
-const sdpReferrer = club =>
-  airFind('Sources', 'Name', club.fields['Name'], { base: 'sdp' })
-    .then(entry => {
-      if (entry) {
-        return entry
-      } else {
-        const newRecord = {
-          Name: club.fields['Name'],
-          Notes: `Airtable club id: ${club.id}`,
-          Type: 'Hack Club',
-        }
-        airCreate('Sources', newRecord, { base: 'sdp' })
-          .then(entry => {
-            return entry
-          })
-          .catch(err => {
-            throw err
-          })
-      }
-    })
-    .catch(err => {
-      console.error(err)
-      throw err
-    })
+  )
 
 const promos = [
   {
@@ -110,16 +73,18 @@ const promos = [
           return
         }
 
-        sdpLink(club).then(url => {
-          bot.replyPrivateDelayed(
-            message,
-            transcript('promos.githubSDP.success', { url })
-          )
-
-          sdpReferrer(club).catch(err => {
+        sdpReferrer(club)
+          .then(entry => {
+            bot.replyPrivateDelayed(
+              message,
+              transcript('promos.githubSDP.success', {
+                referrer: entry.fields['Name'],
+              })
+            )
+          })
+          .catch(err => {
             throw err
           })
-        })
       })
     },
   },
