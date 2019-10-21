@@ -2,7 +2,7 @@ import { getInfoForUser, transcript, airFind, airCreate } from '../utils'
 
 const stickermuleLink = club =>
   new Promise((resolve, reject) => {
-    resolve('https://airtable.com/shr8hU7yFTDfTiywh')
+    resolve('hack.af/stickermule')
   })
 
 const sdpReferrer = club =>
