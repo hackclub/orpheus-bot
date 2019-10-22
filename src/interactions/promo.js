@@ -25,14 +25,16 @@ const sdpReferrer = club =>
 
 const promos = [
   {
-    name: 'Free Notion',
+    name: 'Notion Premium account',
+    aliases: ['notion', 'free notion', 'notion premium'],
     details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
     },
   },
   {
-    name: 'StickerMule',
+    name: 'StickerMule credit',
+    aliases: ['sticker mule'],
     details: 'Available to club leaders',
     run: (bot, message) => {
       const { user } = message
@@ -53,7 +55,8 @@ const promos = [
     },
   },
   {
-    name: 'GitHub Student Developer Pack',
+    name: 'Hack Pack',
+    aliases: ['github student developer pack', 'github pack', 'github sdp'],
     details: 'Available for club leaders to give their members',
     run: (bot, message) => {
       const { user } = message
@@ -168,7 +171,11 @@ const interactionPromo = (bot, message) => {
     return
   }
 
-  const selectedPromo = promos.find(promo => promo.name.toLowerCase() == args)
+  const selectedPromo = promos.find(
+    promo =>
+      promo.name.toLowerCase() == args ||
+      promo.aliases.includes(args.toLowerCase())
+  )
 
   if (selectedPromo) {
     try {
