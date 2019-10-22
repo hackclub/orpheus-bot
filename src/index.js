@@ -198,9 +198,13 @@ controller.hears(
 
 controller.hears('stats', 'direct_mention,direct_message', interactionStats)
 
-controller.hears('what are you doing?', 'direct_mention', (bot, message) => {
-  bot.reply(message, transcript('whatAreYouDoing'))
-})
+controller.hears(
+  'what are you doing',
+  'mention,direct_mention,direct_message',
+  (bot, message) => {
+    bot.reply(message, transcript('whatAreYouDoing'))
+  }
+)
 
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel, text } = message
