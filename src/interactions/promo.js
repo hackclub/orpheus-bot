@@ -171,11 +171,14 @@ const interactionPromo = (bot, message) => {
     return
   }
 
-  const selectedPromo = promos.find(
-    promo =>
-      promo.name.toLowerCase() == args ||
-      promo.aliases.includes(args.toLowerCase())
-  )
+  const selectedPromo = promos.find(promo => {
+    if (promo.name.toLowerCase() == args) {
+      return true
+    }
+    if (promo.aliases && promo.aliases.includes(args.toLowerCase())) {
+      return true
+    }
+  })
 
   if (selectedPromo) {
     try {
