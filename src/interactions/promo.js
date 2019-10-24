@@ -34,7 +34,7 @@ const promos = [
   },
   {
     name: 'StickerMule credit',
-    aliases: ['sticker mule'],
+    aliases: ['sticker mule', 'stickermule'],
     details: 'Available to club leaders',
     run: (bot, message) => {
       const { user } = message
