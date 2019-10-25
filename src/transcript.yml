@@ -25,6 +25,8 @@ catchall:
     - Hey automated friendo!
 splash:
   - Alive in interesting times!
+  - *0* days since last accident!
+  - Now with startup messages!
 hello:
   - hellp
   - helli
