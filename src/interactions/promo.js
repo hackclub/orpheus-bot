@@ -49,7 +49,7 @@ const promos = [
 
         bot.replyPrivateDelayed(
           message,
-          transcript('promos.stickermule.success', { url })
+          transcript('promos.stickermule.success')
         )
       })
     },
