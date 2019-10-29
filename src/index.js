@@ -174,8 +174,6 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.hears('thump', 'ambient', interactionTrigger)
 
-controller.hears('date', 'direct_mention', interactionDate)
-
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
 controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
@@ -205,6 +203,8 @@ controller.hears(
     bot.reply(message, transcript('whatAreYouDoing'))
   }
 )
+
+controller.hears('date', 'direct_mention', interactionDate)
 
 controller.on('slash_command', (bot, message) => {
   const { command, user, channel, text } = message
