@@ -34,7 +34,7 @@ const interactionDM = (bot, message) => {
         .replace('&lt;', '<text')
         .replace('&gt;', '>')
         .replace(/@_/, '@')
-      const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>([\s\S]*)/
+      const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>\s*((?:.|\s)*)/
       const [, targetChannel, targetMessage] = encodedText.match(messageRegex)
 
       return substitutions(targetMessage, targetChannel).then(
