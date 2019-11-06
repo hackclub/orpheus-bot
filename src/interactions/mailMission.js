@@ -20,7 +20,7 @@ const interactionMailMission = (
 
   console.log(`I'm asking Minnie to send out a mail mission!`)
   console.log(
-    `The details are channel=${channels}, recipient=${recipient}, scenario=${scenario}`
+    `The details are channel=${channel}, recipient=${recipient}, scenario=${scenario}`
   )
   bot.say({ text, channel })
 }
