@@ -306,8 +306,3 @@ controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
 // process.exit(0)
-
-// slash update address command (leader only)
-// whisper command (admin only)
-// channel post command (admin only)
-// update club address (leader only)
