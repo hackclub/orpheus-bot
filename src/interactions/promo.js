@@ -128,7 +128,7 @@ const promos = [
                 .then(grant => {
                   interactionMailMission(undefined, {
                     user,
-                    text: 'club_grant_100',
+                    text: 'new_club_grant',
                   })
                   const hcb = Boolean(club.fields['Club has HCB account'])
                   bot.replyPrivateDelayed(
