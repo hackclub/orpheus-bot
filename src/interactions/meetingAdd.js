@@ -51,8 +51,9 @@ const reactOnSuccess = ({club, history})=> {
         }
       )
 
+      console.log(message)
       initBot().replyInThread(
-        message,
+        {channel: message.channel.id},
         `${transcript(
           'meetingAdd.successThread.confirmation'
         )} ${transcript('meetingAdd.successThread.count', { meetingCount })}`,
