@@ -10,6 +10,10 @@ const controller = new Botkit.slackbot({
   storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
 })
 
+controller.middleware.receive.use((bot, message, next) => {
+  console.log(bot, message)
+  next()
+})
 // const SCRYING_CHANNEL = 'GQ4EJ1FU3'
 // controller.middleware.receive.use((bot, message, convo, next) => {
 //   const data = { bot, message, convo }
