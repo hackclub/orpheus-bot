@@ -24,7 +24,7 @@ catchall:
     - Think you're looking for another endpoint
     - Hey automated friendo!
 startup:
-  message: ":white_check_box: Successfully deployed. _${this.t('startup.flavor')}_"
+  message: ":white_check_mark: Successfully deployed. _${this.t('startup.flavor')}_"
   flavor:
     - Alive in interesting times!
     - '*0* days since last accident!'
