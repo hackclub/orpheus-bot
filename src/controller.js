@@ -10,27 +10,23 @@ const controller = new Botkit.slackbot({
   storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
 })
 
+const SCRYING_CHANNEL = 'GQ4EJ1FU3'
 controller.middleware.receive.use((bot, message, next) => {
-  console.log(bot, message)
+  const data = { bot, message, convo }
+  const stringifiedData = JSON.stringify(
+    data,
+    null,
+    2 // https://stackoverflow.com/a/7220510
+  )
+
+  console.log('scrying', stringifiedData)
+  const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
+  scryBot.say({
+    text: transcript('mirror', { stringifiedData }),
+    channel: SCRYING_CHANNEL
+  })
   next()
 })
-// const SCRYING_CHANNEL = 'GQ4EJ1FU3'
-// controller.middleware.receive.use((bot, message, convo, next) => {
-//   const data = { bot, message, convo }
-//   const stringifiedData = JSON.stringify(
-//     data,
-//     null,
-//     2 // https://stackoverflow.com/a/7220510
-//   )
-
-//   console.log('scrying', stringifiedData)
-//   // const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
-//   // scryBot.say({
-//   //   text: transcript('mirror', { stringifiedData }),
-//   //   channel: SCRYING_CHANNEL
-//   // })
-//   next()
-// })
 
 controller.startTicking()
 
