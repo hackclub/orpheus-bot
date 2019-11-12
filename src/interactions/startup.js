@@ -8,3 +8,5 @@ const interactionStartup = (bot = initBot(), message) => {
     channel: BOT_SPAM_CHANNEL
   })
 }
+
+export default interactionStartup
