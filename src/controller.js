@@ -19,12 +19,12 @@ controller.middleware.heard.use((bot, message, convo, next) => {
     2 // https://stackoverflow.com/a/7220510
   )
 
-  const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
   console.log('scrying', stringifiedData)
-  scryBot.say({
-    text: transcript('mirror', { stringifiedData }),
-    channel: SCRYING_CHANNEL
-  })
+  // const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
+  // scryBot.say({
+  //   text: transcript('mirror', { stringifiedData }),
+  //   channel: SCRYING_CHANNEL
+  // })
   next()
 })
 
