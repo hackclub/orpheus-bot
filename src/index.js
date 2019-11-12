@@ -27,6 +27,7 @@ import interactionLeaderInvite from './interactions/leaderInvite'
 import interactionAddress from './interactions/address'
 import interactionClubAddress from './interactions/clubAddress'
 import interactionDM from './interactions/dm'
+import interactionStartup from './interactions/startup'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -305,4 +306,4 @@ controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
-// process.exit(0)
+interactionStartup()

@@ -1,5 +1,6 @@
 import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
+import { initBot } from './utils'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
