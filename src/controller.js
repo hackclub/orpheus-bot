@@ -1,6 +1,6 @@
 import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
-import { initBot } from './utils'
+import { initBot, transcript } from './utils'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -8,6 +8,21 @@ const controller = new Botkit.slackbot({
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
   scopes: ['bot', 'chat:write:bot'],
   storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
+})
+
+const SCRYING_CHANNEL = 'GQ4EJ1FU3'
+controller.middleware.capture.use((bot, message, convo, next) => {
+  const data = { bot, message, convo }
+  const stringifiedData = JSON.stringify(
+    data,
+    null,
+    2 // https://stackoverflow.com/a/7220510
+  )
+  initBot().say({
+    text: transcript('mirror', { stringifiedData }),
+    channel: SCRYING_CHANNEL
+  })
+  next()
 })
 
 controller.startTicking()
