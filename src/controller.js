@@ -30,7 +30,7 @@ controller.middleware.heard.use((bot, message, convo, next) => {
 
 controller.startTicking()
 
-controller.setupWebserver(process.env.PORT, (err, webserver) => {
+controller.setupWebserver(process.env.PORT || 3000, (err, webserver) => {
   controller.createWebhookEndpoints(controller.webserver)
   controller.createOauthEndpoints(controller.webserver)
 })
