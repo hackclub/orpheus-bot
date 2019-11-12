@@ -1,6 +1,6 @@
 import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
-import { initBot, transcript } from './utils'
+import { transcript } from './utils'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -18,7 +18,10 @@ controller.middleware.heard.use((bot, message, convo, next) => {
     null,
     2 // https://stackoverflow.com/a/7220510
   )
-  initBot().say({
+
+  const bot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
+  console.log('scrying', stringifiedData)
+  bot.say({
     text: transcript('mirror', { stringifiedData }),
     channel: SCRYING_CHANNEL
   })
