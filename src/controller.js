@@ -12,11 +12,10 @@ const controller = new Botkit.slackbot({
 
 const SCRYING_CHANNEL = 'GQ4EJ1FU3'
 controller.middleware.receive.use((bot, message, next) => {
-
-  const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
+  const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN })
 
   let quote = ''
-  switch(message.type) {
+  switch (message.type) {
     case 'message':
       quote = message.text
       break
@@ -38,23 +37,23 @@ controller.middleware.receive.use((bot, message, next) => {
   scryBot.say({
     blocks: [
       {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": `> ${quote}`
-        }
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `> ${quote}`,
+        },
       },
       {
-        "type": "context",
-        "elements": [
+        type: 'context',
+        elements: [
           {
-            "type": "mrkdwn",
-            "text": context
-          }
-        ]
-      }
+            type: 'mrkdwn',
+            text: context,
+          },
+        ],
+      },
     ],
-    channel: SCRYING_CHANNEL
+    channel: SCRYING_CHANNEL,
   })
 
   next()
