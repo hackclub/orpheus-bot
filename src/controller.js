@@ -22,7 +22,7 @@ controller.middleware.receive.use((bot, message, next) => {
       quote = `${message.command} ${message.text}`
       break
     default:
-      console.log(`Not scrying message with type '${message.type}`)
+      console.log(`Not scrying message with type '${message.type}'`)
       next()
       break
   }
