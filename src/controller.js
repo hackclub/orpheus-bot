@@ -26,6 +26,7 @@ controller.middleware.receive.use((bot, message, next) => {
       next()
       break
   }
+  console.log(`I'm scrying a ${message.type} in my crystal ball`)
 
   const contextPoints = []
   if (message.type) {
