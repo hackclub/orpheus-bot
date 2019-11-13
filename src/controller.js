@@ -12,18 +12,51 @@ const controller = new Botkit.slackbot({
 
 const SCRYING_CHANNEL = 'GQ4EJ1FU3'
 controller.middleware.receive.use((bot, message, next) => {
+
+  const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
+
+  let quote = ''
+  switch(message.type) {
+    case 'message':
+      quote = message.text
+      break
+    case 'slash_command':
+      quote = `${message.command} ${message.text}`
+      break
+    default:
+      return
+  }
+
+  const context = `From <@${message.user}> in <@${message.channel}> (${message.channel})`
+
   const stringifiedData = JSON.stringify(
     message,
     null,
     2 // https://stackoverflow.com/a/7220510
   )
 
-  console.log('scrying', stringifiedData)
-  const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN, })
   scryBot.say({
-    text: transcript('mirror', { stringifiedData }),
+    blocks: [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": `> ${quote}`
+        }
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": context
+          }
+        ]
+      }
+    ],
     channel: SCRYING_CHANNEL
   })
+
   next()
 })
 
