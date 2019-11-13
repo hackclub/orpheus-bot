@@ -22,7 +22,8 @@ controller.middleware.receive.use((bot, message, next) => {
       quote = `${message.command} ${message.text}`
       break
     default:
-      return
+      next()
+      break
   }
 
   const context = `From <@${message.user}> in <@${message.channel}> (${message.channel})`
