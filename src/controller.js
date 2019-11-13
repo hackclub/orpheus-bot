@@ -10,7 +10,7 @@ const controller = new Botkit.slackbot({
 })
 
 const scryMiddleware = (message) => {
-  const SCRYING_CHANNEL = 'GQ4EJ1FU3'
+  const SCRYING_CHANNEL = 'GQJ1QV8CF'
   const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN })
 
   let quote = ''
