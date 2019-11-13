@@ -37,6 +37,9 @@ controller.middleware.receive.use((bot, message, next) => {
   if (message.channel) {
     contextPoints.push(`in <#${message.channel}> (${message.channel})`)
   }
+  if (message.text) {
+    contextPoints.push(`says ${message.text}`)
+  }
   const context = contextPoints.join(' ')
 
   scryBot.say({
