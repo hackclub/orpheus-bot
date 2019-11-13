@@ -14,9 +14,9 @@ controller.middleware.receive.use((bot, message, next) => {
   const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN })
 
   let quote = ''
+  console.log(message)
   switch (message.type) {
     case 'message':
-      console.log(message)
       quote = message.text
       break
     case 'slash_command':
@@ -28,6 +28,9 @@ controller.middleware.receive.use((bot, message, next) => {
   }
 
   const contextPoints = []
+  if (message.type) {
+    contextPoints.push(`a ${message.type}`)
+  }
   if (message.user) {
     contextPoints.push(`from <@${message.user}>`)
   }
