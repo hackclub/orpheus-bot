@@ -206,10 +206,6 @@ meetingRemove:
 
     You can get the meeting's ID from \`/meeting-list\`.
   success: Meeting removed! It won't show up in your meeting list anymore.
-mirror:
-  \`\`\`
-  ${this.stringifiedData}
-  \`\`\`
 meetingAdd:
   help: |
     This command will record a club meeting for your club. Example usage\:
