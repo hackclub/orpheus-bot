@@ -29,10 +29,10 @@ controller.middleware.receive.use((bot, message, next) => {
 
   const contextPoints = []
   if (message.user) {
-    contextPoints += `from <@${message.user}>`
+    contextPoints.push(`from <@${message.user}>`)
   }
   if (message.channel) {
-    contextPoints += `in <@${message.channel}> (${message.channel})`
+    contextPoints.push(`in <@${message.channel}> (${message.channel})`)
   }
   const context = contextPoints.join(' ')
 
