@@ -227,11 +227,11 @@ meetingAdd:
       - That brings it up to ${this.meetingCount} meetings.
       - Now you're at ${this.meetingCount} in total.
       - If you were paid $1 per meeting you'd have $${this.meetingCount} and you can take that to the bank.
-      - In chickens, that'd be ${'🐓'.repeat(this.meetingCount)}.
+      - In chickens, that'd be ${'🐓'.repeat(this.meetingCount)}. That's ${this.meetinCount} meetings in regular numbers.
       - Hope it went well! That brings the total meeting count to ${this.meetingCount}.
-      - The total meeting count in binary is \`${this.meetingCount.toString(2)}\`
-      - The total meeting count in hexadecimal is \`${this.meetingCount.toString(16)}\`
-      - The total meeting count converted to a color is \#${this.meetingCount.toString(16).padStart(3, '0').split('').map(m => m + m).join('')}
+      - The total meeting count in binary is \`${this.meetingCount.toString(2)}\`. That's ${this.meetinCount} meetings in regular numbers.
+      - The total meeting count in hexadecimal is \`${this.meetingCount.toString(16)}\`. That's ${this.meetinCount} meetings in regular numbers.
+      - The total meeting count converted to a color is \#${this.meetingCount.toString(16).padStart(3, '0').split('').map(m => m + m).join('')}. That's ${this.meetinCount} meetings in regular numbers.
   successFlavor:
     - You bet'cha!
     - Got it!
