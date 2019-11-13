@@ -31,7 +31,7 @@ const scryMiddleware = (message) => {
 
   const contextPoints = []
   if (message.type) {
-    contextPoints.push(`a ${message.type}`)
+    contextPoints.push(`a ${message.type.replace(/_/, ' ')}`)
   }
   if (message.user) {
     contextPoints.push(`from <@${message.user}>`)
@@ -50,7 +50,7 @@ const scryMiddleware = (message) => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `> <@${message.user}>: ${quote}`,
+          text: `> ${quote}`,
         },
       },
       {
