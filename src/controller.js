@@ -16,6 +16,7 @@ controller.middleware.receive.use((bot, message, next) => {
   let quote = ''
   switch (message.type) {
     case 'message':
+      console.log(message)
       quote = message.text
       break
     case 'slash_command':
