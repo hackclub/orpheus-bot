@@ -27,7 +27,14 @@ controller.middleware.receive.use((bot, message, next) => {
       break
   }
 
-  const context = `From <@${message.user}> in <@${message.channel}> (${message.channel})`
+  const contextPoints = []
+  if (message.user) {
+    context += `from <@${message.user}>`
+  }
+  if (message.channel) {
+    context += `in <@${message.channel}> (${message.channel})`
+  }
+  const context = contextPoints.join(' ')
 
   const stringifiedData = JSON.stringify(
     message,
