@@ -50,7 +50,7 @@ const scryMiddleware = (message) => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: quote,
+          text: `> <@${message.user}>: ${quote}`,
         },
       },
       {
