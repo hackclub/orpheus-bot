@@ -48,7 +48,7 @@ controller.middleware.receive.use((bot, message, next) => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `> ${quote}`,
+          text: quote,
         },
       },
       {
