@@ -14,7 +14,6 @@ controller.middleware.receive.use((bot, message, next) => {
   const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN })
 
   let quote = ''
-  console.log(message)
   switch (message.type) {
     case 'message':
       quote = message.text
