@@ -36,12 +36,6 @@ controller.middleware.receive.use((bot, message, next) => {
   }
   const context = contextPoints.join(' ')
 
-  const stringifiedData = JSON.stringify(
-    message,
-    null,
-    2 // https://stackoverflow.com/a/7220510
-  )
-
   scryBot.say({
     blocks: [
       {
