@@ -9,8 +9,8 @@ const controller = new Botkit.slackbot({
   storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
 })
 
-const SCRYING_CHANNEL = 'GQ4EJ1FU3'
-controller.middleware.receive.use((bot, message, next) => {
+const scryMiddleware = (message) => {
+  const SCRYING_CHANNEL = 'GQ4EJ1FU3'
   const scryBot = controller.spawn({ token: process.env.SLACK_BOT_TOKEN })
 
   let quote = ''
@@ -65,8 +65,16 @@ controller.middleware.receive.use((bot, message, next) => {
     ],
     channel: SCRYING_CHANNEL,
   })
+}
 
-  next()
+controller.middleware.receive.use((bot, message, next) => {
+  try {
+    scryMiddleware(message)
+  } catch (err) {
+    console.error(err)
+  } finally {
+    next()
+  }
 })
 
 controller.startTicking()
