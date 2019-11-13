@@ -12,7 +12,7 @@ const controller = new Botkit.slackbot({
 
 const SCRYING_CHANNEL = 'GQ4EJ1FU3'
 controller.middleware.receive.use((bot, message, next) => {
-  const data = { bot, message, convo }
+  const data = { bot, message }
   const stringifiedData = JSON.stringify(
     data,
     null,
