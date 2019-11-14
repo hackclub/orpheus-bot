@@ -247,8 +247,9 @@ controller.on('slash_command', (bot, message) => {
 
 controller.on('block_actions', (bot, message) => {
   try {
-    console.log(JSON.stringify(message, null, 2))
+    // console.log(JSON.stringify(message, null, 2))
     const { channel, text } = message
+    bot.replyInteractive(message, text)
     if (message.actions.find(a => a.block_id === 'stats')) {
       // if (text === 'send' || text === 'cancel') {
       //   bot.api.chat.delete({message})
@@ -257,12 +258,12 @@ controller.on('block_actions', (bot, message) => {
         console.log('send pressed!')
       }
     }
-    bot.say(message, (err, res) => {
-      if (err) {
-        console.log('err', err)
-      }
-      console.log('res', res)
-    })
+    // bot.say(message, (err, res) => {
+    //   if (err) {
+    //     console.log('err', err)
+    //   }
+    //   console.log('res', res)
+    // })
   } catch (err) {
     console.log(err)
   }
