@@ -246,7 +246,7 @@ controller.on('slash_command', (bot, message) => {
 })
 
 controller.on('block_actions', (bot, message) => {
-  console.log(message)
+  console.log(JSON.stringify({bot, message}), null, 2)
 })
 
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
