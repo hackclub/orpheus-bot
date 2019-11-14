@@ -114,7 +114,7 @@ controller.hears('thump', 'ambient', interactionTrigger)
 
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
-// controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
+controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
 
 controller.hears('dm', 'direct_message,direct_mention', interactionDM)
 

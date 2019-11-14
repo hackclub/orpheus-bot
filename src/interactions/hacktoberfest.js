@@ -1,6 +1,11 @@
 import { getInfoForUser, transcript } from '../utils'
 
 const interactionHacktoberfest = (bot, message) => {
+  // only run in october
+  if (new Date().getMonth() != 9) {
+    return
+  }
+
   const { user, channel } = message
   return getInfoForUser(user).then(({ userRecord }) => {
     if (!userRecord.fields['Flag: Hacktoberfest 2019']) {
