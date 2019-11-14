@@ -191,7 +191,7 @@ const graphUrl = (history, club) => {
 export const blockActions = (bot, message) => {
   const { text } = message
   if (text === 'send') {
-    bot.replyInteractive(message, {ephemeral: false, text: 'THIS IS PUBLIC!'})
+    bot.replyInteractive(message, {response_type:'in_channel', text: 'THIS IS PUBLIC!'})
   }
 }
 
