@@ -1,7 +1,25 @@
 export default (bot, message) => {
   try {
-    bot.replyPrivateDelayed(message, 'initial message', (err, newMessage) => {
-      console.log(newMessage)
+    const initialMessage = {
+      "blocks": [
+        {
+          "type": "actions",
+          "elements": [
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "Post",
+                "emoji": true
+              },
+              "value": "click_me_123"
+            }
+          ]
+        }
+      ]
+    }
+    bot.replyPrivateDelayed(message, initialMessage, (err, newMessage) => {
+      console.log(err, newMessage)
       setTimeout(() => {
         bot.api.chat.update({
           channel: newMessage.channel,
