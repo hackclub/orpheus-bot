@@ -28,6 +28,7 @@ import interactionAddress from './interactions/address'
 import interactionClubAddress from './interactions/clubAddress'
 import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
+import interactionForget from './interactions/forget'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -117,6 +118,8 @@ controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
 
 controller.hears('dm', 'direct_message,direct_mention', interactionDM)
+
+controller.hears('forget', 'direct_mention,direct_message', interactionForget)
 
 controller.hears(
   ['thanks', 'thank', 'thnx', 'thanx'],

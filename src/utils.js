@@ -247,6 +247,22 @@ export const recordMeeting = (club, meeting, cb) => {
 const buildUserRecord = r => ({
   ...r,
   fields: JSON.parse(r.fields['Data'] || '{}'),
+  delete: () =>
+    new Promise((resolve, reject) => {
+      getSlackUser(r.fields['User'])
+        .then(slackUser => {
+          const newFields = {
+            Username: '@' + slackUser.name,
+            Data: '{}',
+          }
+          return airPatch('Orpheus', r.id, newFields).then(newRecord =>
+            resolve(buildUserRecord(newRecord))
+          )
+        })
+        .catch(err => {
+          reject(err)
+        })
+    }),
   patch: updatedFields =>
     new Promise((resolve, reject) => {
       const oldFields = buildUserRecord(r).fields
