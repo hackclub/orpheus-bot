@@ -21,11 +21,11 @@ export default (bot, message) => {
     bot.replyPrivateDelayed(message, initialMessage, (err, newMessage) => {
       console.log(err, newMessage)
       setTimeout(() => {
-        bot.api.chat.update({
-          channel: newMessage.channel,
-          text: 'new text',
-          ts: newMessage.ts
-        })
+        // bot.api.chat.update({
+        //   channel: newMessage.channel,
+        //   text: 'new text',
+        //   ts: newMessage.ts
+        // })
       }, 2000)
     })
   } catch (err) {
