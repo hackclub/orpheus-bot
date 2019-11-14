@@ -9,11 +9,20 @@ export default (bot, message) => {
               "type": "button",
               "text": {
                 "type": "plain_text",
-                "text": "Post",
+                "text": "Send",
                 "emoji": true
               },
-              "value": "click_me_123"
-            }
+              "value": "send"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "Cancel",
+                "emoji": true
+              },
+              "value": "cancel"
+            },
           ]
         }
       ]
