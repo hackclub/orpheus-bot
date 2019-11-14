@@ -5,7 +5,7 @@ const interactionForget = (bot, message) => {
   getInfoForUser(user).then(({ slackUser, userRecord }) => {
     if (slackUser.is_admin) {
       userRecord.delete()
-      bot.reply(message, transcript('forget.success'))
+      bot.reply(message, transcript('forget.success', { user }))
     } else {
       bot.reply(message, transcript('forget.notAuthed'))
     }
