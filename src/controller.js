@@ -24,8 +24,7 @@ const scryMiddleware = (message) => {
       break
     default:
       console.log(`Not scrying message with type '${message.type}'`)
-      next()
-      break
+      return
   }
   console.log(`I'm scrying a ${message.type} in my crystal ball`)
 
