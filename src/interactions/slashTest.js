@@ -4,7 +4,7 @@ export default (bot, message) => {
       "blocks": [
         {
           "type": "actions",
-          "callback_id": "stats",
+          "block_id": "stats",
           "elements": [
             {
               "type": "button",
