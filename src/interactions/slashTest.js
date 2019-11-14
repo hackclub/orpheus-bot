@@ -1,32 +1,32 @@
 export default (bot, message) => {
   try {
     const initialMessage = {
-      "blocks": [
+      blocks: [
         {
-          "type": "actions",
-          "block_id": "stats",
-          "elements": [
+          type: 'actions',
+          block_id: 'stats',
+          elements: [
             {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": "Send",
-                "emoji": true
+              type: 'button',
+              text: {
+                type: 'plain_text',
+                text: 'Send',
+                emoji: true,
               },
-              "value": "send"
+              value: 'send',
             },
             {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": "Cancel",
-                "emoji": true
+              type: 'button',
+              text: {
+                type: 'plain_text',
+                text: 'Cancel',
+                emoji: true,
               },
-              "value": "cancel"
+              value: 'cancel',
             },
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     }
     bot.replyPrivateDelayed(message, initialMessage, (err, newMessage) => {
       console.log(err, newMessage)
