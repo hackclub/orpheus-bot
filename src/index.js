@@ -8,7 +8,7 @@ import { transcript } from './utils'
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'
 import interactionInfo from './interactions/info'
-import interactionStats from './interactions/stats'
+import * as interactionStats from './interactions/stats'
 import interactionHello from './interactions/hello'
 import interactionTrigger from './interactions/trigger'
 import interactionRename from './interactions/rename'
@@ -136,7 +136,7 @@ controller.hears(
   interactionLeaderInvite
 )
 
-controller.hears('stats', 'direct_mention,direct_message', interactionStats)
+controller.hears('stats', 'direct_mention,direct_message', interactionStats.default)
 
 controller.hears(
   'what are you doing',
