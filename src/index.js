@@ -245,6 +245,10 @@ controller.on('slash_command', (bot, message) => {
   )
 })
 
+controller.on('block_actions', (bot, message) => {
+  console.log(message)
+})
+
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
 // catch-all for direct messages
