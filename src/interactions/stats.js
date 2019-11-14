@@ -30,7 +30,7 @@ const interactionStats = (bot, message) => {
       const info = values[1]
       const { leader, club, history } = info
 
-      console.log(loadingMessage)
+      console.log(values)
       // bot.api.chat.delete({
       //   channel: loadingMessage.channel,
       //   ts: loadingMessage.ts,
