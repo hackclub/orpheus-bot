@@ -246,9 +246,17 @@ controller.on('slash_command', (bot, message) => {
 })
 
 controller.on('block_actions', (bot, message) => {
-  console.log(bot)
-  console.log(JSON.stringify(message, null, 2))
-  bot.say(message, 'ahahahha! there are no strings on me!')
+  try {
+    console.log(bot)
+    console.log(JSON.stringify(message, null, 2))
+    const { channel, text } = message
+    bot.say(message, (err, res) => {
+      if (err) {console.log('err', err)}
+      console.log('res', res)
+    })
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
