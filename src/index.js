@@ -29,6 +29,7 @@ import interactionClubAddress from './interactions/clubAddress'
 import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
 import interactionForget from './interactions/forget'
+import slashTest from './interactions/slashTest'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -175,6 +176,9 @@ controller.on('slash_command', (bot, message) => {
       }
 
       switch (command) {
+        case '/test':
+          slashTest(bot, message)
+          break
         case '/stats':
         case '/meeting-stats':
           interactionStats(bot, message)
