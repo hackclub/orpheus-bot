@@ -181,7 +181,7 @@ controller.on('slash_command', (bot, message) => {
           break
         case '/stats':
         case '/meeting-stats':
-          interactionStats(bot, message)
+          interactionStats.default(bot, message)
           break
 
         case '/announcement':
