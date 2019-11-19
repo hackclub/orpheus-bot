@@ -74,18 +74,25 @@ const scryMiddleware = message => {
 }
 
 const exclusiveEmojiMiddleware = message => {
-  const { text, channel } = message
+  const { channel } = message
+  let text = message.text
+  let ts = message.raw_message.event.ts
+
   if (message.type == 'message_changed') {
-    console.log(message)
+    // Botkit doesn't give us the text & timestamp of an edited message in the
+    // same format as regular messages
+    text = message.event.message.text
+    ts = message.ts
   }
+
   const includesExclusiveEmoji = text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
   if (includesExclusiveEmoji) {
     console.log(`I've decided to filter a message`)
-    console.log(message)
-    initBot(true).api.chat.delete({
-      channel,
-      ts: message.raw_message.event.ts,
-    }, err => {console.log(err)})
+    initBot(true).api.chat.delete({ channel, ts }, err => {
+      if (err) {
+        console.log(err)
+      }
+    })
   }
 }
 
