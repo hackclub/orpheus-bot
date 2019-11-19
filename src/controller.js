@@ -82,7 +82,7 @@ const exclusiveEmojiMiddleware = message => {
     // Botkit doesn't give us the text & timestamp of an edited message in the
     // same format as regular messages
     text = message.event.message.text
-    ts = message.ts
+    ts = message.event.message.ts
   }
 
   const includesExclusiveEmoji = text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
