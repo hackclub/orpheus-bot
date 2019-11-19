@@ -85,7 +85,7 @@ const exclusiveEmojiMiddleware = message => {
     ts = message.event.message.ts
   }
 
-  const includesExclusiveEmoji = text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
+  const includesExclusiveEmoji = text.includes(':dinoisseur:') // test phrase that can't be spoken
   if (includesExclusiveEmoji) {
     console.log(`I've decided to filter a message`)
     initBot(true).api.chat.delete({ channel, ts }, err => {
