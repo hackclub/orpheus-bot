@@ -74,7 +74,10 @@ const scryMiddleware = message => {
 }
 
 const exclusiveEmojiMiddleware = message => {
-  const { text, channel } = message
+  const { text, channel, type } = message
+  if (type === 'messaged_changed') {
+    console.log(message)
+  }
   const includesExclusiveEmoji = text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
   if (includesExclusiveEmoji) {
     console.log(`I've decided to filter a message`)
