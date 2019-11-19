@@ -1,4 +1,5 @@
-import controller from './controller'
+import controller, { initBot } from './controller'
+export { initBot } from './controller'
 
 import yaml from 'js-yaml'
 import fs from 'fs'
@@ -324,17 +325,6 @@ export const userRecord = user =>
         }
       })
       .catch(err => reject(err))
-  })
-
-export const initBot = (admin = false) =>
-  // we need to create our "bot" context for interactions that aren't initiated by the user.
-  // ex. we want to send a "hello world" message on startup w/o waiting for a user to trigger it.
-
-  // (max@maxwofford.com) Warning about admin tokens: this runs with my
-  // workspace token. Whatever is done with this token will look like I did it
-  // (ex. "@msw has renamed this channel")
-  controller.spawn({
-    token: admin ? process.env.SLACK_LEGACY_TOKEN : process.env.SLACK_BOT_TOKEN,
   })
 
 const loadTranscript = () => {
