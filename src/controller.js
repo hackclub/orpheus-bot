@@ -83,7 +83,7 @@ const exclusiveEmojiMiddleware = message => {
   if (isFilteredType && includesExclusiveEmoji) {
     initBot(true).api.chat.delete({
       channel,
-      ts: message.raw_message.ts,
+      ts: message.raw_message.event.ts,
     }, err => {console.log(err)})
   }
 }
