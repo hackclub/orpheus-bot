@@ -82,7 +82,7 @@ const exclusiveEmojiMiddleware = message => {
   console.log('deciding if I should filter this....')
   console.log({isFilteredType, includesExclusiveEmoji})
   if (isFilteredType && includesExclusiveEmoji) {
-    initBot().api.chat.delete(message)
+    initBot(true).api.chat.delete(message)
   }
 }
 
