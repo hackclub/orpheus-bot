@@ -74,11 +74,16 @@ const scryMiddleware = message => {
 }
 
 const exclusiveEmojiMiddleware = message => {
-  const { channel } = message
+  const { channel, type } = message
+  if (!['ambient', 'message_changed', 'direct_message', 'direct_mention'].includes(type)) {
+    console.log(`Not filtering message of type ${type}`)
+    return
+  }
+
   let text = message.text
   let ts = message.raw_message.event.ts
 
-  if (message.type == 'message_changed') {
+  if (type == 'message_changed') {
     // Botkit doesn't give us the text & timestamp of an edited message in the
     // same format as regular messages
     text = message.event.message.text
