@@ -74,15 +74,16 @@ const scryMiddleware = message => {
 }
 
 const exclusiveEmojiMiddleware = message => {
-  const isFilteredType = ['ambient', 'direct_mention', 'mention'].includes(
-    message.type
-  )
-  const includesExclusiveEmoji =
-    message.text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
+  const { type, text, channel, ts } = message
+  const isFilteredType = ['ambient', 'direct_mention', 'mention'].includes(type)
+  const includesExclusiveEmoji = text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
   console.log('deciding if I should filter this....')
-  console.log({isFilteredType, includesExclusiveEmoji})
+  console.log({ isFilteredType, includesExclusiveEmoji })
   if (isFilteredType && includesExclusiveEmoji) {
-    initBot(true).api.chat.delete(message)
+    initBot(true).api.chat.delete({
+      channel,
+      ts: message.raw_message.ts,
+    })
   }
 }
 
