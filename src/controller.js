@@ -20,7 +20,7 @@ export const initBot = (admin = false) =>
     token: admin ? process.env.SLACK_LEGACY_TOKEN : process.env.SLACK_BOT_TOKEN,
   })
 
-const scryMiddleware = (message) => {
+const scryMiddleware = message => {
   const SCRYING_CHANNEL = 'GQJ1QV8CF'
 
   let quote = ''
@@ -74,8 +74,11 @@ const scryMiddleware = (message) => {
 }
 
 const exclusiveEmojiMiddleware = message => {
-  const isFilteredType = ['ambient', 'direct_mention', 'mention'].includes(message.type)
-  const includesExclusiveEmoji = message.text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
+  const isFilteredType = ['ambient', 'direct_mention', 'mention'].includes(
+    message.type
+  )
+  const includesExclusiveEmoji =
+    message.text == 'she sells sea shells by the sea shore' // test phrase that can't be spoken
   if (isFilteredType && includesExclusiveEmoji) {
     initBot().api.chat.delete(message)
   }

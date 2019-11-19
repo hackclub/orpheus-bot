@@ -213,9 +213,7 @@ const sendStatus = (bot, message) =>
           channels: clubs
             .map(
               club =>
-                `<#${club.fields['Slack Channel ID']}> (AirTable record ${
-                  club.id
-                })`
+                `<#${club.fields['Slack Channel ID']}> (AirTable record ${club.id})`
             )
             .join(', '),
         },

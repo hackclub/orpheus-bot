@@ -136,7 +136,11 @@ controller.hears(
   interactionLeaderInvite
 )
 
-controller.hears('stats', 'direct_mention,direct_message', interactionStats.default)
+controller.hears(
+  'stats',
+  'direct_mention,direct_message',
+  interactionStats.default
+)
 
 controller.hears(
   'what are you doing',

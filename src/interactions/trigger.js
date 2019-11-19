@@ -51,9 +51,7 @@ const triggerInteraction = (bot, message) => {
           )
           bot.replyInThread(
             message,
-            `I'm reaching out to <#${channel}> (database ID \`${
-              club.fields['ID']
-            }\`)`
+            `I'm reaching out to <#${channel}> (database ID \`${club.fields['ID']}\`)`
           )
 
           interactionCheckinNotification(undefined, { channel })

@@ -1,4 +1,4 @@
-import { initBot, transcript } from "../utils";
+import { initBot, transcript } from '../utils'
 
 const BOT_SPAM_CHANNEL = 'C0P5NE354'
 

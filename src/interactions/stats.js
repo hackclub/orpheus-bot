@@ -191,7 +191,9 @@ const graphUrl = (history, club) => {
 export const blockActions = (bot, message) => {
   const { text } = message
   console.log('deleting', message.channel, message.ts)
-  bot.api.chat.delete({channel: message.channel, ts: message.ts}, err => console.error(err))
+  bot.api.chat.delete({ channel: message.channel, ts: message.ts }, err =>
+    console.error(err)
+  )
   if (text === 'send') {
     // bot.say()
   }
