@@ -56,7 +56,7 @@ const scryMiddleware = message => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `> ${quote}`,
+          text: '> ' + quote.replace(/\n/g, '\n> '),
         },
       },
       {
