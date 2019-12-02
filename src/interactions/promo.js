@@ -28,8 +28,9 @@ const promos = [
   {
     name: 'Sticker Box',
     details: 'Available to club leaders',
-    run: (bot, message) => (
-      getInfoForUser(message.user).then(({leader, club}) => {
+    run: (bot, message) => {
+      const { user } = message
+      return getInfoForUser(user).then(({ leader, club }) => {
         if (!leader || !club) {
           bot.replyPrivateDelayed(
             message,
@@ -48,17 +49,14 @@ const promos = [
         interactionMailMission(undefined, {
           user,
           text: 'sticker_box',
-          note
+          note,
         })
 
         if (note) {
-          bot.replyPrivateDelayed(
-            message,
-            transcript('promos.stickerBox.note')
-          )
+          bot.replyPrivateDelayed(message, transcript('promos.stickerBox.note'))
         }
       })
-    )
+    },
   },
   {
     name: 'Notion Premium account',
