@@ -27,7 +27,7 @@ const sdpReferrer = club =>
 const promos = [
   {
     names: ['Sticker Box'],
-    details: 'Available to club leaders. Optionally include a note to the nodemaster packing your order.',
+    details: 'Available to club leaders. Must include a note to the nodemaster packing your order.',
     run: (bot, message) => {
       const { user } = message
       return getInfoForUser(user).then(({ leader, club }) => {
@@ -58,7 +58,6 @@ const promos = [
           user,
           text: 'sticker_box',
           note,
-          test: true,
         })
       })
     },
