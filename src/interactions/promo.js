@@ -39,18 +39,19 @@ const promos = [
           return
         }
 
-        const note = message.text.replace('Sticker Box', '')
+        const note = message.text.replace(/sticker box/i, '')
 
         if (!note) {
           bot.replyPrivateDelayed(
             message,
             transcript('promos.stickerBox.noNote')
           )
+          return
         }
 
         bot.replyPrivateDelayed(
           message,
-          transcript('promos.stickerBox.success')
+          transcript('promos.stickerBox.success', { note })
         )
 
         interactionMailMission(undefined, {
@@ -59,10 +60,6 @@ const promos = [
           note,
           test: true,
         })
-
-        if (note) {
-          bot.replyPrivateDelayed(message, transcript('promos.stickerBox.note'))
-        }
       })
     },
   },
