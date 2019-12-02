@@ -279,7 +279,7 @@ promos:
     success: Your box has been sent to mail-team with the note \`${this.note}\`! A nodemaster will take it from here.
     noNote: |
       You should include a note to the nodemaster fulfilling the order!
-      For example, if you want more Coca Cola stickers you'd type `/promo Sticker Box please send more coca cola stickers!`
+      For example, if you want more Coca Cola stickers you'd type \`/promo Sticker Box please send more coca cola stickers!\`
       If you aren't looking for anyting in particular, just include a nice note to the nodemaster.
   stickermule:
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
