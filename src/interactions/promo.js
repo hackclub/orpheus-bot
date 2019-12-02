@@ -50,7 +50,7 @@ const promos = [
           user,
           text: 'sticker_box',
           note,
-          test: true
+          test: true,
         })
 
         if (note) {
@@ -211,12 +211,11 @@ const interactionPromo = (bot, message) => {
   }
 
   const selectedPromo = promos.find(promo => {
-    if (promo.name.toLowerCase() == args) {
-      return true
-    }
-    if (promo.aliases && promo.aliases.includes(args.toLowerCase())) {
-      return true
-    }
+    const promoMatchers = [...promo.name, ...promo.aliases].map(t =>
+      t.toLowerCase()
+    )
+
+    return promoMatchers.find(matcher => args.indexOf(matcher) === 0)
   })
 
   if (selectedPromo) {
