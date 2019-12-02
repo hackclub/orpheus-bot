@@ -26,6 +26,41 @@ const sdpReferrer = club =>
 
 const promos = [
   {
+    name: 'Sticker Box',
+    details: 'Available to club leaders',
+    run: (bot, message) => (
+      getInfoForUser(message.user).then(({leader, club}) => {
+        if (!leader || !club) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.stickerBox.notAuthorized')
+          )
+          return
+        }
+
+        const note = null
+
+        bot.replyPrivateDelayed(
+          message,
+          transcript('promos.stickerBox.success')
+        )
+
+        interactionMailMission(undefined, {
+          user,
+          text: 'sticker_box',
+          note
+        })
+
+        if (note) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.stickerBox.note')
+          )
+        }
+      })
+    )
+  },
+  {
     name: 'Notion Premium account',
     aliases: ['notion', 'free notion', 'notion premium'],
     details: 'Available to anyone',

@@ -11,11 +11,13 @@ const interactionMailMission = (
   const channel = message.channel || DEFAULT_CHANNEL
   const recipient = message.user
   const scenario = message.text
+  const note = message.note || ''
 
   const text = transcript('mailMission', {
     postmaster: POSTMASTER,
     recipient,
     scenario,
+    note,
   })
 
   console.log(`I'm asking Minnie to send out a mail mission!`)
