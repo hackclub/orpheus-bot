@@ -50,6 +50,7 @@ const promos = [
           user,
           text: 'sticker_box',
           note,
+          test: true
         })
 
         if (note) {
