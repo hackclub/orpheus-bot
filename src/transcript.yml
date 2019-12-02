@@ -29,7 +29,7 @@ startup:
     - Alive in interesting times!
     - '*0* days since last accident!'
     - Now with startup messages!
-mailMission: <@${this.postmaster}> ${this.test ? 'test' \: 'send'} ${this.scenario} <@${this.recipient}> ${this.note}
+mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} <@${this.recipient}> ${this.note}
 hello:
   - hellp
   - helli

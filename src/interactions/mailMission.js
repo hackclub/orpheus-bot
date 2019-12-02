@@ -12,14 +12,14 @@ const interactionMailMission = (
   const recipient = message.user
   const scenario = message.text
   const note = message.note || ''
-  const test = message.test || false
+  const command = message.test ? 'test' : 'send'
 
   const text = transcript('mailMission', {
     postmaster: POSTMASTER,
     recipient,
     scenario,
     note,
-    test
+    command
   })
 
   console.log(`I'm asking Minnie to send out a mail mission!`)
