@@ -124,7 +124,7 @@ const promos = [
     },
   },
   {
-    names: 'GitHub Grant',
+    names: ['GitHub Grant', 'club grant'],
     details:
       'Available to club leaders. Must have a meeting time set with `/meeting-time`',
     run: (bot, message) => {
