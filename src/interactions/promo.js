@@ -28,7 +28,7 @@ const promos = [
   {
     name: 'Sticker Box',
     aliases: [],
-    details: 'Available to club leaders',
+    details: 'Available to club leaders. Optionally include a note to the nodemaster packing your order.',
     run: (bot, message) => {
       const { user } = message
       return getInfoForUser(user).then(({ leader, club }) => {
@@ -40,7 +40,14 @@ const promos = [
           return
         }
 
-        const note = null
+        const note = message.text.replace('Sticker Box', '')
+
+        if (!note) {
+          bot.replyPrivateDelayed(
+            message,
+            transcript('promos.stickerBox.noNote')
+          )
+        }
 
         bot.replyPrivateDelayed(
           message,
