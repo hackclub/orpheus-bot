@@ -27,6 +27,7 @@ const sdpReferrer = club =>
 const promos = [
   {
     name: 'Sticker Box',
+    aliases: [],
     details: 'Available to club leaders',
     run: (bot, message) => {
       const { user } = message
