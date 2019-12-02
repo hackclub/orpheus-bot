@@ -26,8 +26,7 @@ const sdpReferrer = club =>
 
 const promos = [
   {
-    name: 'Sticker Box',
-    aliases: [],
+    names: ['Sticker Box'],
     details: 'Available to club leaders. Optionally include a note to the nodemaster packing your order.',
     run: (bot, message) => {
       const { user } = message
@@ -68,16 +67,14 @@ const promos = [
     },
   },
   {
-    name: 'Notion Premium account',
-    aliases: ['notion', 'free notion', 'notion premium'],
+    names: ['Notion Premium account', 'notion', 'free notion', 'notion premium'],
     details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
     },
   },
   {
-    name: 'StickerMule credit',
-    aliases: ['sticker mule', 'stickermule'],
+    names: ['StickerMule credit', 'sticker mule', 'stickermule'],
     details: 'Available to club leaders',
     run: (bot, message) => {
       const { user } = message
@@ -98,8 +95,7 @@ const promos = [
     },
   },
   {
-    name: 'Hack Pack',
-    aliases: ['github student developer pack', 'github pack', 'github sdp'],
+    names: ['Hack Pack', 'github student developer pack', 'github pack', 'sdp', 'github sdp'],
     details: 'Available for club leaders to give their members',
     run: (bot, message) => {
       const { user } = message
@@ -219,9 +215,7 @@ const interactionPromo = (bot, message) => {
   }
 
   const selectedPromo = promos.find(promo => {
-    const promoMatchers = [...promo.name, ...promo.aliases].map(t =>
-      t.toLowerCase()
-    )
+    const promoMatchers = promo.names.map(t => t.toLowerCase())
 
     return promoMatchers.find(matcher => args.indexOf(matcher) === 0)
   })
