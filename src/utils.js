@@ -140,6 +140,7 @@ export const getInfoForUser = user =>
     Promise.all([
       getSlackUser(user).then(slackUser => (results.slackUser = slackUser)),
       userRecord(user).then(userRecord => (results.userRecord = userRecord)),
+      airGet('Badges', `FIND('${user}', {People Slack IDs})`).then(badges => results.badges = badges),
       // Get the leader from the user
       airFind('Leaders', 'Slack ID', user)
         .then(leader => (results.leader = leader))
