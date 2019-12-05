@@ -39,10 +39,10 @@ const interactionLeaderAdd = (bot, message) => {
         .then(taggedUser => {
           console.log('found tagged user')
           if (taggedUser.slackUser.is_bot) {
-            throw new Error('bots cannot be leaders')
+            throw new Error('bots cannot be club leaders')
           }
-          if (!taggedUser.leader) {
-            // if user doesn't exist
+          if (!taggedUser.person) {
+            // if user doesn't exist in Airtable
             const profile = taggedUser.slackUser.profile
             const fields = {
               Email: taggedUser.slackUser.profile.email,
@@ -50,23 +50,23 @@ const interactionLeaderAdd = (bot, message) => {
               'Full Name': profile.real_name || profile.display_name,
             }
             console.log(fields)
-            return airCreate('Leaders', fields)
-              .then(taggedLeader => {
-                return taggedLeader
+            return airCreate('Person', fields)
+              .then(taggedPerson => {
+                return taggedPerson
               })
               .catch(err => {
                 console.error(
-                  'Ran into issue creating new leader airtable record'
+                  'Ran into issue creating new Person record in Airtable'
                 )
                 throw err
               })
           } else {
-            return taggedUser.leader
+            return taggedUser.person
           }
         })
-        .then(taggedLeader => {
-          // ensure we can assign the leader to this club
-          const clubs = taggedLeader.fields['Clubs'] || []
+        .then(taggedPerson => {
+          // ensure we can assign the person as a leader to this club
+          const clubs = taggedPerson.fields['Clubs'] || []
           if (clubs.includes(commandUser.club.id)) {
             bot.replyPrivateDelayed(
               message,
@@ -75,7 +75,7 @@ const interactionLeaderAdd = (bot, message) => {
             return
           }
           clubs.push(commandUser.club.id)
-          return airPatch('Leaders', taggedLeader.id, {
+          return airPatch('People', taggedPerson.id, {
             Clubs: clubs,
           })
             .then(() => {

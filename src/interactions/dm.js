@@ -1,4 +1,4 @@
-import { getInfoForUser, transcript, airGet, airFind } from '../utils'
+import { getInfoForUser, transcript, airFind } from '../utils'
 
 const substitutions = (text, targetChannel) =>
   new Promise((resolve, reject) => {
@@ -6,7 +6,7 @@ const substitutions = (text, targetChannel) =>
     if (text.match(pocRegex)) {
       airFind('Clubs', 'Slack Channel ID', targetChannel)
         .then(club =>
-          airFind('Leaders', `'${club.fields.POC}' = RECORD_ID()`).then(poc => {
+          airFind('People', `'${club.fields.POC}' = RECORD_ID()`).then(poc => {
             if (!poc || !poc.fields) {
               reject(new Error('No POC for club'))
             }

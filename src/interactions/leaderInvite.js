@@ -1,11 +1,11 @@
 import { getInfoForUser, airFind, initBot, transcript } from '../utils'
 const LEADERS_CHANNEL = 'GAE0FFNFN'
 
-const invitePromise = leaderRecordID =>
+const invitePromise = personRecordID =>
   new Promise((resolve, reject) => {
-    airFind('Leaders', `'${leaderRecordID}' = RECORD_ID()`)
-      .then(leader => {
-        const slackID = leader['Slack ID']
+    airFind('Person', `'${personRecordID}' = RECORD_ID()`)
+      .then(person => {
+        const slackID = person['Slack ID']
         initBot(true).api.groups.invite(
           {
             user: slackID,

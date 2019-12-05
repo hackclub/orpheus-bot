@@ -29,7 +29,7 @@ const interactionLeaderList = (bot, message) => {
 
       console.log(club.fields)
       airGet(
-        'Leaders',
+        'People',
         `OR(${club.fields['Leaders'].map(l => `RECORD_ID()='${l}'`).join(',')})`
       )
         .then(leaders => {

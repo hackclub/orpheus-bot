@@ -80,7 +80,7 @@ export const airGet = (
     // usage:
     // for key/value lookup: `airGet('Clubs', 'Slack Channel ID', slackChannelID)`
     // for formula lookup: `airGet('Clubs', '{Slack Channel ID} = BLANK()')`
-    // for all records: `airGet('Leaders')`
+    // for all records: `airGet('People')`
 
     const timestamp = Date.now()
 
@@ -142,8 +142,13 @@ export const getInfoForUser = user =>
       userRecord(user).then(userRecord => (results.userRecord = userRecord)),
       airGet('Badges', `FIND('${user}', {People Slack IDs})`).then(badges => results.badges = badges),
       // Get the leader from the user
-      airFind('Leaders', 'Slack ID', user)
-        .then(leader => (results.leader = leader))
+      airFind('People', 'Slack ID', user)
+        .then(person => (results.person = person))
+        .then(() => {
+          if (results.person.fields['Clubs']) {
+            results.leader = results.person
+          }
+        })
         // Then club from leader
         .then(() => {
           if (!results.leader) return null
