@@ -140,33 +140,26 @@ export const getInfoForUser = user =>
     Promise.all([
       getSlackUser(user).then(slackUser => (results.slackUser = slackUser)),
       userRecord(user).then(userRecord => (results.userRecord = userRecord)),
-      airGet('Badges', `FIND('${user}', {People Slack IDs})`).then(badges => results.badges = badges),
-      // Get the leader from the user
-      airFind('People', 'Slack ID', user)
-        .then(person => (results.person = person))
-        .then(() => {
-          if (results.person.fields['Clubs']) {
-            results.leader = results.person
-          }
-        })
-        // Then club from leader
-        .then(() => {
-          if (!results.leader) return null
-
-          return airFind(
-            'Clubs',
-            `FIND("${results.leader.fields.ID}", Leaders)`
-          )
-        })
+      airGet('Badges', `FIND('${user}', {People Slack IDs})`).then(
+        badges => (results.badges = badges)
+      ),
+      airFind('Clubs', `FIND('${user}', {Leader Slack IDs})`)
         .then(club => (results.club = club))
-        // Then club's history from club
         .then(() => {
           if (!results.club) return null
 
           return airGet('History', 'Club', results.club.fields.ID)
         })
         .then(history => (results.rawHistory = history)),
+      airFind('People', 'Slack ID', user).then(
+        person => (results.person = person)
+      ),
     ])
+      .then(() => {
+        if (results.person && results.person.fields['Clubs']) {
+          results.leader = results.person
+        }
+      })
       .then(() =>
         Promise.all([
           new Promise(resolve => {
@@ -196,12 +189,12 @@ export const getInfoForUser = user =>
             resolve()
           }),
           new Promise((resolve, reject) => {
-            if (results.leader && results.leader.fields['Address']) {
+            if (results.person && results.person.fields['Address']) {
               airFind(
                 'Addresses',
-                `'${results.leader.fields['Address']}' = RECORD_ID()`
+                `'${results.person.fields['Address']}' = RECORD_ID()`
               )
-                .then(leaderAddress => (results.leaderAddress = leaderAddress))
+                .then(personAddress => (results.personAddress = personAddress))
                 .then(resolve)
                 .catch(reject)
             } else {

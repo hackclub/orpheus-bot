@@ -4,14 +4,14 @@ const interactionAddress = (bot, message) => {
   // check that they're a user
   const { user } = message
 
-  getInfoForUser(user).then(({ leader, leaderAddress }) => {
-    if (!leader) {
-      throw new Error('Command can only be run by leaders!')
+  getInfoForUser(user).then(({ person, personAddress }) => {
+    if (!person) {
+      throw new Error(`Couldn't find Slack ID in Airtable!`)
     }
 
     bot.replyPrivateDelayed(
       message,
-      transcript('address', { address: leaderAddress.fields })
+      transcript('address', { address: personAddress.fields })
     )
   })
 }
