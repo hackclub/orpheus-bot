@@ -261,7 +261,7 @@ const initAddress = async (recordID, type) => {
   )
   const fields = {}
   fields[type] = [recordID]
-  fields[`Currently assigned to ${type}`] = recordID
+  fields[`Currently Assigned to ${type}`] = recordID
   return await airCreate('Addresses', fields)
 }
 
