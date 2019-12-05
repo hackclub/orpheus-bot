@@ -27,7 +27,8 @@ const sdpReferrer = club =>
 const promos = [
   {
     names: ['Sticker Box'],
-    details: 'Available to club leaders. Must include a note to the nodemaster packing your order.',
+    details:
+      'Available to club leaders. Must include a note to the nodemaster packing your order.',
     run: (bot, message) => {
       const { user } = message
       return getInfoForUser(user).then(({ leader, club }) => {
@@ -63,7 +64,12 @@ const promos = [
     },
   },
   {
-    names: ['Notion Premium account', 'notion', 'free notion', 'notion premium'],
+    names: [
+      'Notion Premium account',
+      'notion',
+      'free notion',
+      'notion premium',
+    ],
     details: 'Available to anyone',
     run: (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('promos.notion'))
@@ -91,7 +97,13 @@ const promos = [
     },
   },
   {
-    names: ['Hack Pack', 'github student developer pack', 'github pack', 'sdp', 'github sdp'],
+    names: [
+      'Hack Pack',
+      'github student developer pack',
+      'github pack',
+      'sdp',
+      'github sdp',
+    ],
     details: 'Available for club leaders to give their members',
     run: (bot, message) => {
       const { user } = message

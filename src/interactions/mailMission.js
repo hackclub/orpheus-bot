@@ -19,7 +19,7 @@ const interactionMailMission = (
     recipient,
     scenario,
     note,
-    command
+    command,
   })
 
   console.log(`I'm asking Minnie to send out a mail mission!`)

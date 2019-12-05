@@ -75,7 +75,14 @@ const scryMiddleware = message => {
 
 const exclusiveEmojiMiddleware = message => {
   const { channel, type } = message
-  if (!['ambient', 'message_changed', 'direct_message', 'direct_mention'].includes(type)) {
+  if (
+    ![
+      'ambient',
+      'message_changed',
+      'direct_message',
+      'direct_mention',
+    ].includes(type)
+  ) {
     console.log(`Not filtering message of type ${type}`)
     return
   }
