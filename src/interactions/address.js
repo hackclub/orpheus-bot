@@ -20,7 +20,7 @@ const interactionAddress = async (bot, message) => {
 
   const address = personAddress || (await initAddress(person.id))
 
-  bot.replyPrivateDelayed(message, transcript('address', { address }))
+  bot.replyPrivateDelayed(message, transcript('address', { address: address.fields }))
 }
 
 export default interactionAddress
