@@ -262,7 +262,7 @@ const initAddress = async (recordID, type) => {
   const fields = {}
   fields[type] = recordID
   fields[`Currently assigned to ${type}`] = recordID
-  return await airCreate('Address', fields)
+  return await airCreate('Addresses', fields)
 }
 
 const buildUserRecord = r => ({
