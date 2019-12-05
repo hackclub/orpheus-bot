@@ -1,4 +1,4 @@
-import controller, { initBot } from './controller'
+import { initBot } from './controller'
 export { initBot } from './controller'
 
 import yaml from 'js-yaml'
@@ -189,30 +189,38 @@ export const getInfoForUser = user =>
             resolve()
           }),
           new Promise((resolve, reject) => {
-            if (results.person && results.person.fields['Address']) {
-              airFind(
-                'Addresses',
-                `'${results.person.fields['Address']}' = RECORD_ID()`
-              )
-                .then(personAddress => (results.personAddress = personAddress))
-                .then(resolve)
-                .catch(reject)
-            } else {
+            if (!results.person) {
               resolve()
             }
+
+            airFind(
+              'Addresses',
+              `'${results.person.fields['Address']}' = RECORD_ID()`
+            )
+              .then(
+                personAddress =>
+                  personAddress || initAddress(results.person.id, 'Person')
+              )
+              .then(personAddress => (results.personAddress = personAddress))
+              .then(resolve)
+              .catch(reject)
           }),
           new Promise((resolve, reject) => {
-            if (results.club && results.club.fields['Address']) {
-              airFind(
-                'Addresses',
-                `'${results.club.fields['Address']}' = RECORD_ID()`
-              )
-                .then(clubAddress => (results.clubAddress = clubAddress))
-                .then(resolve)
-                .catch(reject)
-            } else {
+            if (!results.club) {
               resolve()
             }
+
+            airFind(
+              'Addresses',
+              `'${results.club.fields['Address']}' = RECORD_ID()`
+            )
+              .then(
+                clubAddress =>
+                  clubAddress || initAddress(results.club.id, 'Club')
+              )
+              .then(clubAddress => (results.clubAddress = clubAddress))
+              .then(resolve)
+              .catch(reject)
           }),
         ])
       )
@@ -242,6 +250,19 @@ export const recordMeeting = (club, meeting, cb) => {
       cb(err, record)
     }
   )
+}
+
+const initAddress = async (recordID, type) => {
+  if (!['Person', 'Club'].includes(type)) {
+    return new Error('Invalid address type passed')
+  }
+  console.log(
+    `I couldn't find an address for ${type} ${recordID}, so I'm initializing a blank record`
+  )
+  const fields = {}
+  fields[type] = recordID
+  fields[`Currently assigned to ${type}`] = recordID
+  return await airCreate('Address', fields)
 }
 
 const buildUserRecord = r => ({
