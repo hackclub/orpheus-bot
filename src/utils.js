@@ -260,7 +260,7 @@ const initAddress = async (recordID, type) => {
     `I couldn't find an address for ${type} ${recordID}, so I'm initializing a blank record`
   )
   const fields = {}
-  fields[type] = recordID
+  fields[type] = [recordID]
   fields[`Currently assigned to ${type}`] = recordID
   return await airCreate('Addresses', fields)
 }
