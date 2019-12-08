@@ -13,6 +13,7 @@
   "main": "src/index.js",
   "dependencies": {
     "@bugsnag/js": "^6.4.0",
+    "@octokit/request": "^5.3.1",
     "airtable": "0.5.9",
     "botkit": "0.7.4",
     "botkit-storage-redis": "^1.1.0",
