@@ -9,7 +9,6 @@ export default async (bot, message) => {
     }
 
     const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
-    console.log(message.text)
 
     if (!taggedUserID) {
       throw new Error('No user was tagged in the message!')
@@ -23,7 +22,11 @@ export default async (bot, message) => {
       )
     }
 
-    bot.replyPrivateDelayed(message, JSON.stringify(info))
+    bot.replyPrivateDelayed(message, `
+    \`\`\`
+    ${JSON.stringify(info, null, 2)}
+    \`\`\`
+    `)
   } catch (err) {
     console.error(err)
     bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
