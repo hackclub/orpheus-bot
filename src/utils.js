@@ -130,6 +130,28 @@ export const getSlackUser = user =>
     })
   })
 
+export const getSlackProfile = user =>
+  // This is the "super rate-limited" profile endpoint (Slack's words, not
+  // mine), so we're seperating this from the regular getSlackUser
+  new Promise((resolve, reject) => {
+    initBot(true).api.users.profile.get(
+      { user, include_labels: true },
+      (err, res) => {
+        if (err) {
+          reject(err)
+        }
+        const humanizedFields = {}
+
+        Object.keys(res.profile.fields).forEach(labelID => {
+          const { label, value } = res.profile.fields[labelID]
+          humanizedFields[label] = value
+        })
+
+        resolve({ ...res.profile, humanizedFields })
+      }
+    )
+  })
+
 export const getInfoForUser = user =>
   new Promise((resolve, reject) => {
     const results = {}
@@ -155,8 +177,13 @@ export const getInfoForUser = user =>
         person => (results.person = person)
       ),
     ])
+      .then(async () => {
+        if (!results.person && results.slackUser) {
+          results.person = await initPerson(results)
+        }
+      })
       .then(() => {
-        if (results.person && results.person.fields['Clubs']) {
+        if (results.person.fields['Clubs']) {
           results.leader = results.person
         }
       })
@@ -263,6 +290,18 @@ const initAddress = async (recordID, type) => {
   fields[type] = [recordID]
   fields[`Currently Assigned to ${type}`] = [recordID]
   return await airCreate('Addresses', fields)
+}
+
+const initPerson = async ({ slackUser }) => {
+  const fields = {}
+  fields['Slack ID'] = slackUser.id
+  const profile = await getSlackProfile(slackUser.id)
+  fields['Email'] = profile.email
+  fields['Full Name'] = profile.real_name_normalized
+  fields['Phone number'] = profile.phone
+  fields['GitHub URL'] = profile.humanizedFields['GitHub']
+
+  return await airCreate('People', fields)
 }
 
 const buildUserRecord = r => ({
@@ -382,6 +421,7 @@ const replaceErrors = (key, value) => {
   }
   return value
 }
+
 export const transcript = (search, vars) => {
   if (vars) {
     console.log(
