@@ -9,6 +9,7 @@ export default async (bot, message) => {
     }
 
     const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)>/) || [])[1]
+    console.log(message.text)
 
     if (!taggedUserID) {
       throw new Error('No user was tagged in the message!')
