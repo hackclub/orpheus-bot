@@ -8,13 +8,13 @@ export default async (bot, message) => {
       throw new Error('Only Slack owners can run this command!')
     }
 
-    const userID = message.text.match(/<@([a-zA-Z0-9]*)>/)[1]
+    const taggedUserID = (message.text.match(/\<@(.*)\|/) || [])[1]
 
-    if (!userID) {
+    if (!taggedUserID) {
       throw new Error('No user was tagged in the message!')
     }
 
-    const info = await getInfoForUser(userID)
+    const info = await getInfoForUser(taggedUserID)
 
     if (!info.person) {
       throw new Error(
