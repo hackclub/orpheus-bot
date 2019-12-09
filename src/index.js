@@ -29,6 +29,7 @@ import interactionClubAddress from './interactions/clubAddress'
 import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
 import interactionForget from './interactions/forget'
+import interactionAirtable from './interactions/airtable'
 import slashTest from './interactions/slashTest'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
@@ -190,6 +191,10 @@ controller.on('slash_command', (bot, message) => {
 
         case '/announcement':
           interactionAnnouncement(bot, message)
+          break
+
+        case '/airtable':
+          interactionAirtable(bot, message)
           break
 
         case '/address':
