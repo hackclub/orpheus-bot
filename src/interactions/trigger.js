@@ -14,7 +14,7 @@ const getAdmin = (bot, user) =>
     })
   })
 
-const sendCheckinNotifications = async () => {
+const sendCheckinNotifications = async (message) => {
   const now = new Date()
   const currentHour = now.getHours()
   const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
@@ -114,7 +114,7 @@ const triggerInteraction = (bot, message) => {
       })
 
       return Promise.all([
-        sendCheckinNotifications(),
+        sendCheckinNotifications(message),
         validateDinoisseurBadges(),
       ])
     })
