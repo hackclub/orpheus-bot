@@ -2,6 +2,7 @@ import { initBot } from './controller'
 export { initBot } from './controller'
 
 import yaml from 'js-yaml'
+import Bottleneck from 'bottleneck'
 import fs from 'fs'
 import path from 'path'
 import { sample, merge } from 'lodash'
@@ -17,54 +18,70 @@ bases.sdp = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_SDP_BASE
 )
 
+const airtableRatelimiter = new Bottleneck({
+  maxConcurrent: 5,
+  minTime: 200,
+})
+
 export const airPatch = (baseName, recordID, values, options = {}) =>
-  new Promise((resolve, reject) => {
-    const timestamp = Date.now()
-    console.log(
-      `I'm asking Airtable to patch ${recordID} record in ${baseName} base at ${timestamp} with the new values: ${JSON.stringify(
-        values
-      )}`
-    )
-    const base = bases[options.base || 'operations']
-    base(baseName).update(recordID, values, (err, record) => {
-      if (err) {
-        console.error(err)
-        reject(err)
-      }
-      console.log(
-        `Airtable updated my ${baseName} record from ${timestamp} in ${Date.now() -
-          timestamp}ms`
-      )
-      resolve(record)
-    })
-  })
+  airtableRatelimiter.schedule(
+    { priority: options.priority || 5 },
+    () =>
+      new Promise((resolve, reject) => {
+        const timestamp = Date.now()
+        console.log(
+          `I'm asking Airtable to patch ${recordID} record in ${baseName} base at ${timestamp} with the new values: ${JSON.stringify(
+            values
+          )}`
+        )
+        const base = bases[options.base || 'operations']
+        base(baseName).update(recordID, values, (err, record) => {
+          if (err) {
+            console.error(err)
+            reject(err)
+          }
+          console.log(
+            `Airtable updated my ${baseName} record from ${timestamp} in ${Date.now() -
+              timestamp}ms`
+          )
+          resolve(record)
+        })
+      })
+  )
 
 export const airCreate = (baseName, fields, options = {}) =>
-  new Promise((resolve, reject) => {
-    const timestamp = Date.now()
-    console.log(
-      `I'm asking Airtable to create a new record in the ${baseName} base at ${timestamp}`
-    )
-    const base = bases[options.base || 'operations']
-    base(baseName).create(fields, (err, record) => {
-      if (err) {
-        console.error(err)
-        reject(err)
-      }
-      if (!record) {
-        reject(new Error('Record not created'))
-      }
-      console.log(
-        `Airtable saved my ${baseName} record from ${timestamp} in ${Date.now() -
-          timestamp}ms`
-      )
-      resolve(record)
-    })
-  })
+  airtableRatelimiter.schedule(
+    { priority: options.priority || 5 },
+    () =>
+      new Promise((resolve, reject) => {
+        const timestamp = Date.now()
+        console.log(
+          `I'm asking Airtable to create a new record in the ${baseName} base at ${timestamp}`
+        )
+        const base = bases[options.base || 'operations']
+        base(baseName).create(fields, (err, record) => {
+          if (err) {
+            console.error(err)
+            reject(err)
+          }
+          if (!record) {
+            reject(new Error('Record not created'))
+          }
+          console.log(
+            `Airtable saved my ${baseName} record from ${timestamp} in ${Date.now() -
+              timestamp}ms`
+          )
+          resolve(record)
+        })
+      })
+  )
 
 export const airFind = (baseName, fieldName, value, options = {}) =>
   new Promise((resolve, reject) => {
     // see airGet() for usage
+
+    // note: we're not using a rate-limiter here b/c it's just a wrapper
+    // function for airGet, which is already rate-limited
     airGet(baseName, fieldName, value, options)
       .then(results => resolve(results[0]))
       .catch(err => reject(err))
@@ -76,49 +93,53 @@ export const airGet = (
   tertiaryArg = null,
   options = {}
 ) =>
-  new Promise((resolve, reject) => {
-    // usage:
-    // for key/value lookup: `airGet('Clubs', 'Slack Channel ID', slackChannelID)`
-    // for formula lookup: `airGet('Clubs', '{Slack Channel ID} = BLANK()')`
-    // for all records: `airGet('People')`
+  airtableRatelimiter.schedule(
+    { priority: options.priority || 5 },
+    () =>
+      new Promise((resolve, reject) => {
+        // usage:
+        // for key/value lookup: `airGet('Clubs', 'Slack Channel ID', slackChannelID)`
+        // for formula lookup: `airGet('Clubs', '{Slack Channel ID} = BLANK()')`
+        // for all records: `airGet('People')`
 
-    const timestamp = Date.now()
+        const timestamp = Date.now()
 
-    const selectBy = {}
-    if (searchArg === null) {
-      console.log(
-        `I'm asking AirTable to send me ALL records in the "${baseName}" base. The timestamp is ${timestamp}`
-      )
-    } else {
-      if (tertiaryArg) {
-        // this is a key/value lookup
-        selectBy.filterByFormula = `{${searchArg}} = "${tertiaryArg}"`
-      } else {
-        // this is a formula lookup
-        selectBy.filterByFormula = searchArg
-      }
+        const selectBy = {}
+        if (searchArg === null) {
+          console.log(
+            `I'm asking AirTable to send me ALL records in the "${baseName}" base. The timestamp is ${timestamp}`
+          )
+        } else {
+          if (tertiaryArg) {
+            // this is a key/value lookup
+            selectBy.filterByFormula = `{${searchArg}} = "${tertiaryArg}"`
+          } else {
+            // this is a formula lookup
+            selectBy.filterByFormula = searchArg
+          }
 
-      console.log(
-        `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=\`${baseName}\` FILTER=\`${selectBy.filterByFormula}\``
-      )
-    }
-
-    const base = bases[options.base || 'operations']
-    base(baseName)
-      .select(selectBy)
-      .all((err, data) => {
-        if (err) {
-          console.error(err)
-          reject(err)
+          console.log(
+            `I wrote a query & sent it to AirTable with a timestamp of ${timestamp}: BASE=\`${baseName}\` FILTER=\`${selectBy.filterByFormula}\``
+          )
         }
-        console.log(
-          `AirTable got back to me from my question at ${timestamp} with ${
-            data.length
-          } records. The query took ${Date.now() - timestamp}ms`
-        )
-        resolve(data)
+
+        const base = bases[options.base || 'operations']
+        base(baseName)
+          .select(selectBy)
+          .all((err, data) => {
+            if (err) {
+              console.error(err)
+              reject(err)
+            }
+            console.log(
+              `AirTable got back to me from my question at ${timestamp} with ${
+                data.length
+              } records. The query took ${Date.now() - timestamp}ms`
+            )
+            resolve(data)
+          })
       })
-  })
+  )
 
 export const getSlackUser = user =>
   new Promise((resolve, reject) => {
@@ -421,6 +442,15 @@ const replaceErrors = (key, value) => {
   }
   return value
 }
+
+// const startTs = Date.now()
+// Promise.all([
+//   getInfoForUser('U0C7B14Q3'),
+//   getInfoForUser('U0C7B14Q3'),
+//   getInfoForUser('U0C7B14Q3'),
+//   getInfoForUser('U0C7B14Q3'),
+//   getInfoForUser('U0C7B14Q3'),
+// ]).then(() => console.log('############', Date.now() - startTs))
 
 export const transcript = (search, vars) => {
   if (vars) {

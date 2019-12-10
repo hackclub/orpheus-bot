@@ -1,6 +1,6 @@
-import octokitRequest from '@octokit/request'
+import { request as octokitRequest } from '@octokit/request'
 
-import { airGet } from '../utils'
+import { airGet, airFind, airPatch } from '../utils'
 import interactionCheckinNotification from './checkinNotification'
 
 const getAdmin = (bot, user) =>
@@ -14,19 +14,20 @@ const getAdmin = (bot, user) =>
     })
   })
 
-const sendCheckinNotifications = () => {
+const sendCheckinNotifications = async () => {
   const now = new Date()
   const currentHour = now.getHours()
   const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
   console.log(
     `The time is ${currentHour} on ${currentDay}. I'm going to send checkin notifications`
   )
-
-  return airGet(
+  const clubs = await airGet(
     'Clubs',
     `AND( IS_BEFORE({First Meeting Time}, TODAY()), {Checkin Hour} = '${currentHour}', {Checkin Day} = '${currentDay}', {Slack Channel ID} != '' )`
-  ).then(clubs =>
-    clubs.forEach(club => {
+  )
+
+  return await Promise.all(
+    clubs.map(club => {
       const channel = club.fields['Slack Channel ID']
 
       console.log(
@@ -43,7 +44,9 @@ const sendCheckinNotifications = () => {
 }
 
 const validateDinoisseurBadges = async () => {
-  const dinoisseurBadge = await airFind('Badges', 'Name', 'Dinoisseur')
+  const dinoisseurBadge = await airFind('Badges', 'Name', 'Dinoisseur', {
+    priority: 0,
+  })
   const repoData = await octokitRequest(
     'GET /repos/:owner/:repo/stats/contributors',
     {
@@ -65,7 +68,7 @@ const validateDinoisseurBadges = async () => {
 
   const airtableContributors = await Promise.all(
     contributors.map(contributor =>
-      airFind('People', 'GitHub URL', contributor)
+      airFind('People', 'GitHub URL', contributor, { priority: 0 })
     )
   )
 
@@ -75,9 +78,12 @@ const validateDinoisseurBadges = async () => {
     .forEach(record => (recordIDs[record.id] = true))
   const uniqueRecordIDs = Object.keys(recordIDs)
 
-  const result = await airPatch('Badges', dinoisseurBadge.id, {
-    People: uniqueRecordIDs,
-  })
+  const result = await airPatch(
+    'Badges',
+    dinoisseurBadge.id,
+    { People: uniqueRecordIDs },
+    { priority: 0 }
+  )
 
   console.log(
     `I ended up finding ${result.fields['People'].length} who have permission to use the Dinoisseur badge.`
@@ -107,7 +113,10 @@ const triggerInteraction = (bot, message) => {
         name: 'heartbeat',
       })
 
-      return Promise.all([sendCheckinNotifications, validateDinoisseurBadges])
+      return Promise.all([
+        sendCheckinNotifications(),
+        validateDinoisseurBadges(),
+      ])
     })
     .catch(err => {
       console.error(err)
