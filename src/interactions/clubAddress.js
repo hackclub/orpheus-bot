@@ -12,7 +12,7 @@ const interactionClubAddress = async (bot, message) => {
 
   bot.replyPrivateDelayed(
     message,
-    transcript('clubAddress', { address: clubAddress })
+    transcript('clubAddress', { address: clubAddress.fields })
   )
 }
 
