@@ -23,7 +23,7 @@ export default async (bot, message) => {
     }
 
     const results = {}
-    results.personAirtableRecord = `https://airtable.com/tbl4xjBzoIJGHhWxF/${info.club.id}?blocks=hide`
+    results.personAirtableRecord = `https://airtable.com/tbl4xjBzoIJGHhWxF/${info.person.id}?blocks=hide`
     if (info.club && info.club.id) {
       results.clubAirtableRecord = `https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide`
     }
