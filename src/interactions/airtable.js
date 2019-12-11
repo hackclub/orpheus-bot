@@ -38,7 +38,7 @@ export default async (bot, message) => {
       message,
       `
     \`\`\`
-    ${JSON.stringify(info, null, 2)}
+    ${JSON.stringify(results, null, 2)}
     \`\`\`
     `
     )
