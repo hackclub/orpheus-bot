@@ -22,11 +22,26 @@ export default async (bot, message) => {
       )
     }
 
-    bot.replyPrivateDelayed(message, `
+    const results = {}
+    results.personAirtableRecord = `https://airtable.com/tbl4xjBzoIJGHhWxF/${info.club.id}?blocks=hide`
+    if (info.club && info.club.id) {
+      results.clubAirtableRecord = `https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide`
+    }
+    if (info.club && info.club['HCB Account URL']) {
+      results.hcbAccount = info.club['HCB Account URL']
+    }
+    if (info.club && info.club['Slack Channel ID']) {
+      results.clubChannel = `<#${info.club['Slack Channel ID']}>`
+    }
+
+    bot.replyPrivateDelayed(
+      message,
+      `
     \`\`\`
     ${JSON.stringify(info, null, 2)}
     \`\`\`
-    `)
+    `
+    )
   } catch (err) {
     console.error(err)
     bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
