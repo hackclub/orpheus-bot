@@ -5,7 +5,7 @@ const interactionStats = (bot, message) => {
   const { user } = message
 
   const loaderPromise = new Promise((resolve, reject) => {
-    bot.replyPrivateDelayed(
+    bot.replyPublicDelayed(
       message,
       transcript('stats.loadingMessage', { user }),
       (err, res) => {
@@ -78,7 +78,7 @@ const interactionStats = (bot, message) => {
           },
         ],
       }
-      bot.replyPrivateDelayed(message, content, err => {
+      bot.replyPublicDelayed(message, content, err => {
         if (err) throw err
       })
     })
