@@ -8,17 +8,15 @@ const interactionStats = (bot, message) => {
     bot.replyPublicDelayed(
       message,
       {
-        content: {
-          blocks: [
-            {
-              type: 'section',
-              text: {
-                type: 'mrkdwn',
-                text: transcript('stats.loadingMessage', { user }),
-              },
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: transcript('stats.loadingMessage', { user }),
             },
-          ],
-        },
+          },
+        ],
       },
       (err, res) => {
         if (err) {
