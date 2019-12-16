@@ -12,6 +12,7 @@ const interactionStats = (bot, message) => {
         if (err) {
           reject(err)
         } else {
+          console.log('loaderResponse', err, res)
           resolve(res)
         }
       }
