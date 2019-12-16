@@ -5,26 +5,14 @@ const interactionStats = (bot, message) => {
   const { user } = message
 
   const loaderPromise = new Promise((resolve, reject) => {
-    bot.replyPublicDelayed(
+    bot.replyPrivateDelayed(
       message,
-      {
-        blocks: [
-          {
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: transcript('stats.loadingMessage', { user }),
-            },
-          },
-        ],
-      },
-      (err, res) => {
+      transcript('stats.loadingMessage', { user }),
+      err => {
         if (err) {
           reject(err)
-        } else {
-          console.log('loaderResponse', err, res)
-          resolve(res)
         }
+        resolve()
       }
     )
   })
@@ -40,12 +28,6 @@ const interactionStats = (bot, message) => {
       const loadingMessage = values[0]
       const info = values[1]
       const { leader, club, history } = info
-
-      console.log(values)
-      // bot.api.chat.delete({
-      //   channel: loadingMessage.channel,
-      //   ts: loadingMessage.ts,
-      // })
 
       if (!leader || !club) {
         bot.replyPrivateDelayed(message, transcript('stats.notFound'))
