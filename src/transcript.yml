@@ -131,7 +131,7 @@ checkinNotification:
     noPOCFound: "*I didn't find a POC for the club in channel '${this.channel}', so I'll just post the notification without tagging anyone*"
     posting: "*Posting a checkin notification in channel '${this.channel}' & tagging user '${this.user}'!*"
 stats:
-  loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')}"
+  loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')} for <@${this.user}>"
   loadingFlavor:
     - chugging the data juice
     - chugging *Stat-Cola©*, for those who want to know things™
