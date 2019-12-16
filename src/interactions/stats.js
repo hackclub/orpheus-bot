@@ -7,7 +7,19 @@ const interactionStats = (bot, message) => {
   const loaderPromise = new Promise((resolve, reject) => {
     bot.replyPublicDelayed(
       message,
-      transcript('stats.loadingMessage', { user }),
+      {
+        content: {
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: transcript('stats.loadingMessage', { user }),
+              },
+            },
+          ],
+        },
+      },
       (err, res) => {
         if (err) {
           reject(err)
