@@ -63,7 +63,9 @@ const interactionStats = (bot, message) => {
             elements: [
               {
                 type: 'mrkdwn',
-                text: `The club is <@${history.isActive ? 'active' : 'inactive'}>`,
+                text: `The club is <@${
+                  history.isActive ? 'active' : 'inactive'
+                }>`,
               },
             ],
           },
