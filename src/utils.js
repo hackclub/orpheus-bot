@@ -173,7 +173,7 @@ export const getSlackProfile = user =>
     )
   })
 
-const getClubInfo = async search => {
+export const getClubInfo = async search => {
   const results = {}
   if (search.channelID) {
     results.club = await airFind('Clubs', 'Slack Channel ID', search.channelID)
