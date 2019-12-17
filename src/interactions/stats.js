@@ -10,7 +10,7 @@ const interactionStats = (bot, message) => {
   const loaderPromise = new Promise((resolve, reject) => {
     bot.replyPrivateDelayed(
       message,
-      transcript('stats.loadingMessage', { user }),
+      transcript('stats.loadingMessage'),
       err => {
         if (err) {
           reject(err)
@@ -64,7 +64,7 @@ const interactionStats = (bot, message) => {
               {
                 type: 'mrkdwn',
                 text: `The club is ${
-                  history.isActive ? 'activly meeting' : "inactive because it hasn't recorded a meeting for a while"
+                  history.isActive ? ':large_blue_circle: activly meeting' : ":white_circle: inactive because it hasn't recorded a meeting for a while"
                 }`,
               },
             ],

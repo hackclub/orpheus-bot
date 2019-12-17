@@ -143,7 +143,7 @@ stats:
     - \`/stats\` 📣 Publicly post your own club's stats
     - \`/stats @USER\` 🔒 Privately see a tagged users club stats
     - \`/stats #CLUB-CHANNEL\` 🔒 Privately see a tagged club's stats
-  loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')} for <@${this.user}>"
+  loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')}"
   loadingFlavor:
     - chugging the data juice
     - chugging *Stat-Cola©*, for those who want to know things™
