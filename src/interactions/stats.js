@@ -60,7 +60,7 @@ const interactionStats = (bot, message) => {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: `Stats for *${club.fields['Name']}*`,
+              text: `Stats for *${club.fields['Name']}* (<#${club.fields['Slack Channel ID']}>)`,
             },
           },
           {
