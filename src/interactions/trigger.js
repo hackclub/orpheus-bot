@@ -14,7 +14,7 @@ const getAdmin = (bot, user) =>
     })
   })
 
-const sendCheckinNotifications = async (message) => {
+const sendCheckinNotifications = async message => {
   const now = new Date()
   const currentHour = now.getHours()
   const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
@@ -43,7 +43,7 @@ const sendCheckinNotifications = async (message) => {
   )
 }
 
-const validateDinoisseurBadges = async () => {
+const validateDinoisseurBadges = async message => {
   const dinoisseurBadge = await airFind('Badges', 'Name', 'Dinoisseur', {
     priority: 0,
   })
@@ -65,6 +65,10 @@ const validateDinoisseurBadges = async () => {
     ...prData.data.map(node => node.user.html_url), // submitters of open PRs are also eligible for the badge
   ]
   console.log(`I found ${contributors.length} contributors!`)
+  bot.replyInThread(
+    message,
+    `I found ${contributors.length} users who earned the :dinoisseur-badge:`
+  )
 
   const airtableContributors = await Promise.all(
     contributors.map(contributor =>
@@ -115,7 +119,7 @@ const triggerInteraction = (bot, message) => {
 
       return Promise.all([
         sendCheckinNotifications(message),
-        validateDinoisseurBadges(),
+        validateDinoisseurBadges(message),
       ])
     })
     .catch(err => {
