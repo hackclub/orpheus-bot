@@ -178,10 +178,13 @@ const getClubInfo = async search => {
   if (search.channelID) {
     results.club = await airFind('Clubs', 'Slack Channel ID', search.channelID)
   } else if (search.userID) {
-    results.club = await airFind('Clubs', `FIND('${search.userID}', {Leader Slack IDs})`)
+    results.club = await airFind(
+      'Clubs',
+      `FIND('${search.userID}', {Leader Slack IDs})`
+    )
   }
   if (results.club) {
-    results.rawHistory = await airFind('History', club, results.club.fields.ID)
+    results.rawHistory = await airFind('History', 'Club', results.club.fields.ID)
   }
   if (results.rawHistory) {
     results.history = {
