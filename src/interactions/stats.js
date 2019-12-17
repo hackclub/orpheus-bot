@@ -2,7 +2,23 @@ import _ from 'lodash'
 import { getInfoForUser, transcript } from '../utils'
 
 const interactionStats = (bot, message) => {
-  const { user } = message
+  const { user, text } = message
+
+  if (text.includes('help')) {
+    return bot.replyPrivateDelayed(message, transcript('stats.help'))
+  }
+
+  const taggedUserID = (text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
+  const taggedChannelID = (text.match(/<#([a-zA-Z0-9]*)|/) || [])[1]
+  console.log('tagged resources:', taggedUserID, taggedChannelID)
+
+  // if (taggedUserID) {
+  //   return postStatsPrivately({userID: taggedUserID})
+  // }
+
+  // if (taggedChannelID) {
+  //   return postStatsPrivately
+  // }
 
   const loaderPromise = new Promise((resolve, reject) => {
     bot.replyPrivateDelayed(
