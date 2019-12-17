@@ -443,15 +443,6 @@ const replaceErrors = (key, value) => {
   return value
 }
 
-// const startTs = Date.now()
-// Promise.all([
-//   getInfoForUser('U0C7B14Q3'),
-//   getInfoForUser('U0C7B14Q3'),
-//   getInfoForUser('U0C7B14Q3'),
-//   getInfoForUser('U0C7B14Q3'),
-//   getInfoForUser('U0C7B14Q3'),
-// ]).then(() => console.log('############', Date.now() - startTs))
-
 export const transcript = (search, vars) => {
   if (vars) {
     console.log(
