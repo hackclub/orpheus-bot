@@ -155,10 +155,10 @@ stats:
     - flipping a coin to choose which axis to use
     - warming up the powerhouse of the cell
   notFound:
-    - ":confused-dino: I can't find you in my files"
-    - ":confused-dino-2: I don't see your records"
-    - ":angry-dino: you aren't a registered leader– what are you trying to pull here?"
-  noMeeting: I don't see any meetings recorded for your club. You can record new meetings with the \`/meeting-add\` command, or DM'ing me \`checkin\`
+    - ":confused-dino: I can't find that club in my files"
+    - ":confused-dino-2: I don't see that club's records"
+    - ":angry-dino: I don't see any records about that club– what are you trying to pull here?"
+  noMeeting: I don't see any meetings recorded for the club. If this is your club, you can record new meetings with the \`/meeting-add\` command, or DM'ing me \`checkin\`
   error:
     - ':warning: Hmmm... something’s wrong. I got \`${this.err}\`'
     - ':warning: Shoot! \`${this.err}\`. Now I’ve spilled stats all over my desk'
