@@ -27,11 +27,14 @@ const interactionStats = (bot, message) => {
   const taggedUserID = (text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
   const taggedChannelID = (text.match(/<#([a-zA-Z0-9]*)|/) || [])[1]
 
+  let postPublicly = true
   let infoPromise = getInfoForUser(user)
   if (taggedUserID) {
     infoPromise = getInfoForUser(taggedUserID)
+    postPublicly = false
   } else if (taggedChannelID) {
     infoPromise = getClubInfo({ channelID: taggedChannelID })
+    postPublicly = false
   }
 
   Promise.all([loaderPromise, infoPromise, minWaitPromise])
@@ -92,7 +95,9 @@ const interactionStats = (bot, message) => {
           },
         ],
       }
-      bot.replyPublicDelayed(message, content, err => {
+
+      const replyType = postPublicly ? bot.replyPublicDelayed : bot.replyPrivateDelayed
+      replyType(message, content, err => {
         if (err) throw err
       })
     })
