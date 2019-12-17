@@ -184,7 +184,7 @@ const getClubInfo = async search => {
     )
   }
   if (results.club) {
-    results.rawHistory = await airFind('History', 'Club', results.club.fields.ID)
+    results.rawHistory = await airGet('History', 'Club', results.club.fields.ID)
   }
   if (results.rawHistory) {
     results.history = {
@@ -201,13 +201,14 @@ const getClubInfo = async search => {
         results.history.meetings[0].fields.Date
       ).toLocaleDateString('en-us', {
         weekday: 'long',
-        timeZone: results.slackUser.tz,
+        // timeZone: results.slackUser.tz,
       })
       results.history.lastMeetingDay = lastMeetingDay
     }
   }
   return results
 }
+
 export const getInfoForUser = user =>
   new Promise((resolve, reject) => {
     const results = {}
