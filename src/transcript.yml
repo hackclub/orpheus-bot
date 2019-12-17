@@ -197,6 +197,10 @@ errors:
     - 'Hmmm... I’m having trouble thinking right now. Whenever I focus, \`${this.err}\` is the only thing that comes to mind'
     - 'Aw jeez, this is embarrassing. My database just texted me \`${this.err}\`'
     - 'I just opened my notebook to take a note, but it just says \`${this.err}\` all over the pages'
+  transcript:
+    - "Uh oh, I can't read my script. There's a smudge on the next line."
+    - 'Super embarrasing, but I just forgot my next line.'
+    - 'I totally forgot what I was talking about.'
 renameChannel:
   help: Use this command to rename your club's channel \`/rename-channel new-channel-name\`
   invalidChannel: You can't rename this channel. Did you mean to run this in <#${this.channel}>?

@@ -421,6 +421,9 @@ const recurseTranscript = (searchArr, transcriptObj) => {
   const searchCursor = searchArr.shift()
   const targetObj = transcriptObj[searchCursor]
 
+  if (!targetObj) {
+    return new Error(transcript('errors.transcript'))
+  }
   if (searchArr.length > 0) {
     return recurseTranscript(searchArr, targetObj)
   } else {
