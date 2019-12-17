@@ -134,8 +134,8 @@ stats:
   help: |
     Get a graph of a club's stats. Ex.
     - \`/stats\` 📣 Publicly post your own club's stats
-    - \`/stats @USER\` 🔒 Privately post a tagged users club stats
-    - \`/stats #CHANNEL\` 🔒 Privately post a tagged club's stats
+    - \`/stats @USER\` 🔒 Privately see a tagged users club stats
+    - \`/stats #CHANNEL\` 🔒 Privately see a tagged club's stats
   loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')} for <@${this.user}>"
   loadingFlavor:
     - chugging the data juice
