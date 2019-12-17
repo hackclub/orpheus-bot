@@ -1,5 +1,4 @@
-import _ from 'lodash'
-import { getInfoForUser, transcript } from '../utils'
+import { getInfoForUser, transcript, getClubInfo } from '../utils'
 
 const interactionStats = (bot, message) => {
   const { user, text } = message
@@ -7,18 +6,6 @@ const interactionStats = (bot, message) => {
   if (text.includes('help')) {
     return bot.replyPrivateDelayed(message, transcript('stats.help'))
   }
-
-  const taggedUserID = (text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
-  const taggedChannelID = (text.match(/<#([a-zA-Z0-9]*)|/) || [])[1]
-  console.log('tagged resources:', taggedUserID, taggedChannelID)
-
-  // if (taggedUserID) {
-  //   return postStatsPrivately({userID: taggedUserID})
-  // }
-
-  // if (taggedChannelID) {
-  //   return postStatsPrivately
-  // }
 
   const loaderPromise = new Promise((resolve, reject) => {
     bot.replyPrivateDelayed(
@@ -37,15 +24,23 @@ const interactionStats = (bot, message) => {
     setTimeout(resolve, 2000)
   })
 
-  const infoPromise = getInfoForUser(user)
+  const taggedUserID = (text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
+  const taggedChannelID = (text.match(/<#([a-zA-Z0-9]*)|/) || [])[1]
+
+  let infoPromise = getInfoForUser(user)
+  if (taggedUserID) {
+    infoPromise = getInfoForUser(taggedUserID)
+  } else if (taggedChannelID) {
+    infoPromise = getClubInfo({ channelID: taggedChannelID })
+  }
 
   Promise.all([loaderPromise, infoPromise, minWaitPromise])
     .then(values => {
       const loadingMessage = values[0]
       const info = values[1]
-      const { leader, club, history } = info
+      const { club, history } = info
 
-      if (!leader || !club) {
+      if (!club) {
         bot.replyPrivateDelayed(message, transcript('stats.notFound'))
         return
       }

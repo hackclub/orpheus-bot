@@ -173,6 +173,38 @@ export const getSlackProfile = user =>
     )
   })
 
+const getClubInfo = async search => {
+  const results = {}
+  if (search.channelID) {
+    results.club = await airFind('Clubs', 'Slack Channel ID', search.channelID)
+  } else if (search.userID) {
+    results.club = await airFind('Clubs', `FIND('${user}', {Leader Slack IDs})`)
+  }
+  if (results.club) {
+    results.rawHistory = await airFind('History', club, results.club.fields.ID)
+  }
+  if (results.rawHistory) {
+    results.history = {
+      lastMeetingDay: 'monday',
+      records: results.rawHistory,
+      meetings: results.rawHistory
+        .filter(h => h.fields.Attendance)
+        .filter(h => !h.fields['Deleted At'])
+        .sort((a, b) => Date.parse(a.fields.Date) - Date.parse(b.fields.Date)),
+    }
+
+    if (results.history.meetings.length > 0) {
+      const lastMeetingDay = new Date(
+        results.history.meetings[0].fields.Date
+      ).toLocaleDateString('en-us', {
+        weekday: 'long',
+        timeZone: results.slackUser.tz,
+      })
+      results.history.lastMeetingDay = lastMeetingDay
+    }
+  }
+  return results
+}
 export const getInfoForUser = user =>
   new Promise((resolve, reject) => {
     const results = {}
@@ -186,14 +218,11 @@ export const getInfoForUser = user =>
       airGet('Badges', `FIND('${user}', {People Slack IDs})`).then(
         badges => (results.badges = badges)
       ),
-      airFind('Clubs', `FIND('${user}', {Leader Slack IDs})`)
-        .then(club => (results.club = club))
-        .then(() => {
-          if (!results.club) return null
-
-          return airGet('History', 'Club', results.club.fields.ID)
-        })
-        .then(history => (results.rawHistory = history)),
+      getClubInfo({ userID: user }).then(clubData => {
+        results.club = clubData.club
+        results.rawHistory = clubData.rawHistory
+        results.history = clubData.history
+      }),
       airFind('People', 'Slack ID', user).then(
         person => (results.person = person)
       ),
@@ -210,32 +239,6 @@ export const getInfoForUser = user =>
       })
       .then(() =>
         Promise.all([
-          new Promise(resolve => {
-            if (!results.rawHistory) resolve(null)
-
-            results.history = {
-              lastMeetingDay: 'monday',
-              records: results.rawHistory,
-              meetings: results.rawHistory
-                .filter(h => h.fields.Attendance)
-                .filter(h => !h.fields['Deleted At'])
-                .sort(
-                  (a, b) =>
-                    Date.parse(a.fields.Date) - Date.parse(b.fields.Date)
-                ),
-            }
-
-            if (results.history.meetings.length > 0) {
-              const lastMeetingDay = new Date(
-                results.history.meetings[0].fields.Date
-              ).toLocaleDateString('en-us', {
-                weekday: 'long',
-                timeZone: results.slackUser.tz,
-              })
-              results.history.lastMeetingDay = lastMeetingDay
-            }
-            resolve()
-          }),
           new Promise((resolve, reject) => {
             if (!results.person) {
               resolve()
