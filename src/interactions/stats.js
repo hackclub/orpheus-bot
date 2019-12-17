@@ -59,6 +59,15 @@ const interactionStats = (bot, message) => {
             },
           },
           {
+            type: 'context',
+            elements: [
+              {
+                type: 'mrkdwn',
+                text: `The club is <@${history.isActive ? 'active' : 'inactive'}>`,
+              },
+            ],
+          },
+          {
             type: 'divider',
           },
           {

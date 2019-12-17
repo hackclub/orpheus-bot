@@ -195,6 +195,11 @@ export const getClubInfo = async search => {
         .filter(h => !h.fields['Deleted At'])
         .sort((a, b) => Date.parse(a.fields.Date) - Date.parse(b.fields.Date)),
     }
+    results.history.isActive = results.history.meetings.find(meeting => {
+      const now = new Date()
+      const activityThreshold = now.setMonth(now.getMonth() - 2)
+      return Date.parse(meeting.fields.Date) > activityThreshold
+    })
 
     if (results.history.meetings.length > 0) {
       const lastMeetingDay = new Date(
