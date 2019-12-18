@@ -163,10 +163,16 @@ export const getSlackProfile = user =>
         }
         const humanizedFields = {}
 
-        Object.keys(res.profile.fields).forEach(labelID => {
-          const { label, value } = res.profile.fields[labelID]
-          humanizedFields[label] = value
-        })
+        // (max) Slack doesn't document this, but users that haven't edited
+        // their custom team fields (ie. high school, github account, pronouns)
+        // won't have a 'fields' object attached to their profile. We're just
+        // going to skip this step if Slack doesn't give us the info.
+        if (res.profile && res.profile.fields) {
+          Object.keys(res.profile.fields).forEach(labelID => {
+            const { label, value } = res.profile.fields[labelID]
+            humanizedFields[label] = value
+          })
+        }
 
         resolve({ ...res.profile, humanizedFields })
       }
