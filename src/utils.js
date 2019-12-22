@@ -255,6 +255,16 @@ export const getInfoForUser = user =>
       .then(() =>
         Promise.all([
           new Promise((resolve, reject) => {
+            if (!results.person || !results.person.fields['Mail Sender']) {
+              resolve()
+            }
+
+            airFind('Mail Senders', `'${results.person.fields[0]}' = RECORD()`)
+              .then(mailSender => (results.mailSender = mailSender))
+              .then(resolve)
+              .catch(reject)
+          }),
+          new Promise((resolve, reject) => {
             if (!results.person) {
               resolve()
             }
