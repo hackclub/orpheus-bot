@@ -259,7 +259,7 @@ export const getInfoForUser = user =>
               resolve()
             }
 
-            airFind('Mail Senders', `'${results.person.fields[0]}' = RECORD()`)
+            airFind('Mail Senders', `'${results.person.fields['Mail Sender'][0]}' = RECORD()`)
               .then(mailSender => (results.mailSender = mailSender))
               .then(resolve)
               .catch(reject)
