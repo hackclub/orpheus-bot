@@ -33,6 +33,9 @@ export default async (bot, message) => {
     if (info.club && info.club.fields['Slack Channel ID']) {
       results.clubChannel = `<#${info.club['Slack Channel ID']}>`
     }
+    if (info.mailSender) {
+      results.senderAirtableRecord = `https://airtable.com/tblvW60Qdo2AdoN1s/${info.mailSender.id}?blocks=hide`
+    }
 
     bot.replyPrivateDelayed(
       message,
