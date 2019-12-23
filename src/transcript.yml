@@ -315,7 +315,7 @@ promos:
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
   githubGrant:
     alreadyGranted: |
-      I already see a grant request submitted <!date^${this.lastGrantDate.getTime()}^{date_short_pretty}|on ${this.lastGrantDate}> submitted by <@${this.requester}> this semester.
+      I already see a grant request submitted <!date^${this.lastGrantDate.getTime()/1000}^{date_short_pretty}|on ${this.lastGrantDate}> submitted by <@${this.requester}> this semester.
       We can only automatically send grants once per semester, but if you think there's an error or are looking for an exception reach out to staff.
     duplicate:
       soloLeader: I found a request for this grant already– just sit tight & it should show up in your Hack Club Bank account within 3-5 days.
