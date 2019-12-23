@@ -87,13 +87,14 @@ export async function run(bot, message) {
           `RECORD_ID() = '${lastGrant.fields['Leader'][0]}'`
         )
       ).fields['Slack ID']
-      bot.replyPrivateDelayed(
+      await bot.replyPrivateDelayed(
         message,
         transcript('promos.githubGrant.alreadyGranted', {
           lastGrantDate,
           requester,
         })
       )
+      return
     }
 
     await bot.replyPrivateDelayed(message, 'placeholder for issuing a grant')
