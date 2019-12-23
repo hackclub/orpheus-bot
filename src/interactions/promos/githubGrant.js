@@ -78,7 +78,7 @@ export async function run(bot, message) {
       const requester = (
         await airFind(
           'People',
-          `RECORD_ID() = '${lastGrant.fields['Leaders'][0]}`
+          `RECORD_ID() = '${lastGrant.fields['Leader'][0]}`
         )
       ).fields['Slack ID']
       throw transcript('promos.githubGrant.alreadyGranted', {
