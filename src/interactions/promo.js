@@ -1,5 +1,6 @@
 import { getInfoForUser, transcript, airFind, airCreate } from '../utils'
 import interactionMailMission from './mailMission'
+import * as githubGrant from './promos/githubGrant'
 
 const sdpReferrer = club =>
   new Promise((resolve, reject) =>
@@ -131,94 +132,14 @@ const promos = [
       })
     },
   },
-  {
-    names: ['GitHub Grant', 'club grant'],
-    details:
-      'Available to club leaders. Must have a meeting time set with `/meeting-time`',
-    run: (bot, message) => {
-      const { user } = message
-      return getInfoForUser(user)
-        .then(({ leader, club, leaderAddress }) => {
-          if (!leader || !club) {
-            bot.replyPrivateDelayed(
-              message,
-              transcript('promos.githubGrant.notAuthorized')
-            )
-            return
-          }
-
-          return airFind('GitHub Grants', `{Club} = '${club.fields['ID']}'`)
-            .then(grant => {
-              if (grant) {
-                if (club.fields['Leaders'].length == 1) {
-                  bot.replyPrivateDelayed(
-                    message,
-                    transcript('promos.githubGrant.duplicate.soloLeader')
-                  )
-                } else {
-                  bot.replyPrivateDelayed(
-                    message,
-                    transcript('promos.githubGrant.duplicate.coleaders')
-                  )
-                }
-                return
-              }
-              return airCreate('GitHub Grants', {
-                Club: [club.id],
-                Leader: [leader.id],
-                Type: 'First meeting ($100)',
-                'Club has HCB account': club.fields['HCB Account Requested'],
-                'Fee amount': 0,
-                'Grant amount': 100,
-              })
-                .then(grant => {
-                  interactionMailMission(undefined, {
-                    user,
-                    text: 'new_club_grant',
-                  })
-                  const hcb = Boolean(club.fields['Club has HCB account'])
-                  bot.replyPrivateDelayed(
-                    message,
-                    transcript('promos.githubGrant.success.hcbMessage.' + hcb, {
-                      firstLine: leaderAddress.fields['Street (First Line)'],
-                      secondLine: leaderAddress.fields['Street (Second Line)'],
-                      city: leaderAddress.fields['City'],
-                      state: leaderAddress.fields['State/Province'],
-                      country: leaderAddress.fields['Country'],
-                      zipCode: leaderAddress.fields['Postal Code'],
-                    })
-                  )
-                  setTimeout(() => {
-                    bot.replyPrivateDelayed(
-                      message,
-                      transcript(`promos.githubGrant.success.general`, {
-                        record: grant.id,
-                        hcb,
-                        user,
-                      })
-                    )
-                  }, 5000)
-                })
-                .catch(err => {
-                  throw err
-                })
-            })
-            .catch(err => {
-              throw err
-            })
-        })
-        .catch(err => {
-          throw err
-        })
-    },
-  },
+  githubGrant,
 ]
 
-const interactionPromo = (bot, message) => {
+const interactionPromo = async (bot, message) => {
   const args = message.text.toLowerCase()
 
   if (args == 'help') {
-    bot.replyPrivateDelayed(message, transcript('promo.help'))
+    await bot.replyPrivateDelayed(message, transcript('promo.help'))
     return
   }
 
@@ -230,13 +151,16 @@ const interactionPromo = (bot, message) => {
 
   if (selectedPromo) {
     try {
-      selectedPromo.run(bot, message)
+      await selectedPromo.run(bot, message)
     } catch (err) {
       console.error(err)
-      bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
+      await bot.replyPrivateDelayed(
+        message,
+        transcript('errors.general', { err })
+      )
     }
   } else {
-    bot.replyPrivateDelayed(message, transcript('promo.list', { promos }))
+    await bot.replyPrivateDelayed(message, transcript('promo.list', { promos }))
   }
 }
 
