@@ -1,4 +1,4 @@
-import { getInfoForUser, airGet, airFind, airCreate } from '../../utils'
+import { getInfoForUser, airGet, airFind, airCreate, transcript } from '../../utils'
 
 /*
 to test
