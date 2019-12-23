@@ -76,16 +76,17 @@ export const airCreate = (baseName, fields, options = {}) =>
       })
   )
 
-export const airFind = (baseName, fieldName, value, options = {}) =>
-  new Promise((resolve, reject) => {
-    // see airGet() for usage
+export const airFind = async (baseName, fieldName, value, options = {}) => {
+  // see airGet() for usage
 
-    // note: we're not using a rate-limiter here b/c it's just a wrapper
-    // function for airGet, which is already rate-limited
-    airGet(baseName, fieldName, value, options)
-      .then(results => resolve(results[0]))
-      .catch(err => reject(err))
+  // note: we're not using a rate-limiter here b/c it's just a wrapper
+  // function for airGet, which is already rate-limited
+  const records = await airGet(baseName, fieldName, value, {
+    ...options,
+    selectBy: { ...options.selectBy, maxRecords: 1 },
   })
+  return (records || [])[0]
+}
 
 export const airGet = (
   baseName,
@@ -104,7 +105,7 @@ export const airGet = (
 
         const timestamp = Date.now()
 
-        const selectBy = {}
+        const selectBy = options.selectBy || {}
         if (searchArg === null) {
           console.log(
             `I'm asking AirTable to send me ALL records in the "${baseName}" base. The timestamp is ${timestamp}`
@@ -259,7 +260,10 @@ export const getInfoForUser = user =>
               resolve()
             }
 
-            airFind('Mail Senders', `'${results.person.fields['Mail Sender'][0]}' = RECORD_ID()`)
+            airFind(
+              'Mail Senders',
+              `'${results.person.fields['Mail Sender'][0]}' = RECORD_ID()`
+            )
               .then(mailSender => (results.mailSender = mailSender))
               .then(resolve)
               .catch(reject)
