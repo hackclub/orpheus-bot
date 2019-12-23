@@ -5,7 +5,7 @@ import {
   airCreate,
   transcript,
 } from '../../utils'
-import interactionMailMission from '../interactionMailMission'
+import interactionMailMission from '../mailMission'
 
 /*
 to test
