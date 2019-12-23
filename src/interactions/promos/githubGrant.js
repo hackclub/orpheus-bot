@@ -1,4 +1,4 @@
-import { getInfoForUser, airFind, airCreate } from '../../utils'
+import { getInfoForUser, airGet, airFind, airCreate } from '../../utils'
 
 /*
 to test
@@ -26,7 +26,7 @@ export async function run(bot, message) {
     return
   }
 
-  const existingGrants = await airFind(
+  const existingGrants = await airGet(
     'GitHub Grants',
     'Club',
     club.fields['ID']
