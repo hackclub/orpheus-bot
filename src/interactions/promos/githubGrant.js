@@ -26,13 +26,13 @@ export async function run(bot, message) {
     return
   }
 
-  const existingGrants = await airGet(
-    'GitHub Grants',
-    'Club',
-    club.fields['ID']
-  )
-  if (existingGrants.length === 0) {
-    // issueFirstGrant()
+  const lastGrant = await airFind('GitHub Grants', 'Club', club.fields['ID'], {
+    selectBy: {
+      sort: [{ field: 'Initiated at', direction: 'desc' }],
+    },
+  })
+  if (!lastGrant) {
+    // this is their first grant
     const grant = await airCreate('GitHub Grants', {
       Club: [club.id],
       Leader: [leader.id],
@@ -61,11 +61,7 @@ export async function run(bot, message) {
     }
     return
   } else {
-    // issueRecurringGrant()
-    const lastGrant = existingGrants.sort(
-      (a, b) =>
-        new Date(a.fields['Initiated at']) > new Date(b.fields['Initiated at'])
-    )
+    // they've had a grant before
     const lastGrantDate = new Date(lastGrant.fields['Initiated at'])
     const today = new Date()
 
