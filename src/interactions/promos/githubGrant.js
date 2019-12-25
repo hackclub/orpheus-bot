@@ -1,10 +1,4 @@
-import {
-  getInfoForUser,
-  airGet,
-  airFind,
-  airCreate,
-  transcript,
-} from '../../utils'
+import { getInfoForUser, airFind, airCreate, transcript } from '../../utils'
 import interactionMailMission from '../mailMission'
 
 /*
@@ -23,7 +17,7 @@ export const details =
 
 export async function run(bot, message) {
   const { user } = message
-  const { leader, club, leaderAddress } = await getInfoForUser(user)
+  const { leader, club } = await getInfoForUser(user)
 
   if (!leader || !club) {
     await bot.replyPrivateDelayed(

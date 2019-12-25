@@ -1,6 +1,6 @@
 import { getInfoForUser, airPatch, transcript } from '../utils'
 import { parseDate } from 'chrono-node'
-import interactionCheckinNotification from './checkinNotification'
+import interactionMeetingTutorial from './meetingTutorial'
 
 const interactionMeetingTime = (bot, message) => {
   const { user, text } = message
@@ -55,27 +55,7 @@ const interactionMeetingTime = (bot, message) => {
               }
 
               // Check if this is part of the tutorial
-              if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
-                bot.replyPrivateDelayed(
-                  message,
-                  transcript('tutorial.setMeetingTime', {
-                    channel: record.fields['Slack Channel ID'],
-                  })
-                )
-
-                setTimeout(() => {
-                  interactionCheckinNotification(undefined, {
-                    channel: record.fields['Slack Channel ID'],
-                    user,
-                  })
-                }, 4000)
-
-                userRecord
-                  .patch({ 'Flag: Tutorial /meeting-time': true })
-                  .catch(err => {
-                    throw err
-                  })
-              }
+              interactionMeetingTutorial(bot, message)
             }
           )
         })

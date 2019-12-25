@@ -1,4 +1,5 @@
 import { initBot, transcript, getInfoForUser } from '../utils'
+import interactionMeetingTutorial from './meetingTutorial'
 
 const interactionRename = (bot, message) => {
   const { user, channel } = message
@@ -57,20 +58,7 @@ const interactionRename = (bot, message) => {
       bot.replyPrivateDelayed(message, transcript('renameChannel.success'))
 
       // Additional tutorial for first-time users
-      setTimeout(() => {
-        if (!userRecord.fields['Flag: renamed channel']) {
-          bot.replyPrivateDelayed(
-            message,
-            transcript('tutorial.renamedChannel', {
-              channel,
-            })
-          )
-
-          userRecord.patch({ 'Flag: renamed channel': true }).catch(err => {
-            throw err
-          })
-        }
-      }, 2000)
+      interactionMeetingTutorial(bot, message)
     })
   })
 }
