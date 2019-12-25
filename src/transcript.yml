@@ -180,6 +180,7 @@ stats:
     - ':warning: I pulled the graph out of my printer, but it’s just a blank page that says \`${this.err}\`'
     - ':warning: I tried printing your club’s graph, but it’s just a blank page that says \`${this.err}\`'
 tutorial:
+  notAuthed: Sorry to say your Slack account isn't tied to a registered club. If you know you're a club leader this is probably just an error you can resolve by letting the staff know.
   start: >
     Hey <@${this.user}>! I'm a tool you can use to manage & get resources for your club.
   finished: >
