@@ -18,7 +18,7 @@ import interactionMeetingList from './interactions/meetingList'
 import interactionMeetingAdd from './interactions/meetingAdd'
 import interactionMeetingRemove from './interactions/meetingRemove'
 import interactionMeetingTime from './interactions/meetingTime'
-import interactionMeetingTutorial from './interactions/meetingTutorial'
+import interactionTutorial from './interactions/tutorial'
 import interactionCatchall from './interactions/catchall'
 import interactionPromo from './interactions/promo'
 import interactionAnnouncement from './interactions/announcement'
@@ -232,7 +232,7 @@ controller.on('slash_command', (bot, message) => {
 
         case '/orpheus-tutorial':
         case '/meeting-tutorial':
-          interactionMeetingTutorial(bot, message)
+          interactionTutorial(bot, message)
           break
 
         case '/leader-add':

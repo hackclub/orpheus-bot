@@ -1,5 +1,5 @@
 import { initBot, transcript, getInfoForUser } from '../utils'
-import interactionMeetingTutorial from './meetingTutorial'
+import interactionTutorial from './tutorial'
 
 const interactionRename = (bot, message) => {
   const { user, channel } = message
@@ -57,8 +57,7 @@ const interactionRename = (bot, message) => {
 
       bot.replyPrivateDelayed(message, transcript('renameChannel.success'))
 
-      // Additional tutorial for first-time users
-      interactionMeetingTutorial(bot, message)
+      interactionTutorial(bot, message)
     })
   })
 }

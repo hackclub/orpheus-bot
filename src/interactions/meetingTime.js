@@ -1,6 +1,6 @@
 import { getInfoForUser, airPatch, transcript } from '../utils'
 import { parseDate } from 'chrono-node'
-import interactionMeetingTutorial from './meetingTutorial'
+import interactionTutorial from './tutorial'
 
 const interactionMeetingTime = (bot, message) => {
   const { user, text } = message
@@ -54,8 +54,7 @@ const interactionMeetingTime = (bot, message) => {
                 throw err
               }
 
-              // Check if this is part of the tutorial
-              interactionMeetingTutorial(bot, message)
+              interactionTutorial(bot, message)
             }
           )
         })

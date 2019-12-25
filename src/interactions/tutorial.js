@@ -3,7 +3,7 @@ import { getInfoForUser, initBot, transcript } from '../utils'
 // this is a weird interaction. users call it explicitly when we start running
 // the command, but it's called by other interactions that should have a
 // tutorial command
-const interactionMeetingTutorial = async (bot, message) => {
+const interactionTutorial = async (bot, message) => {
   const { user, command, text } = message
   const { userRecord, club, history } = getInfoForUser(user)
 
@@ -101,4 +101,4 @@ const interactionMeetingTutorial = async (bot, message) => {
       return
   }
 }
-export default interactionMeetingTutorial
+export default interactionTutorial

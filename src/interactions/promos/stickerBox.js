@@ -1,5 +1,6 @@
 import { getInfoForUser, transcript } from '../../utils'
 import interactionMailMission from '../mailMission'
+import interactionTutorial from '../tutorial'
 
 export const names = ['Sticker Box']
 export const details =
@@ -35,4 +36,6 @@ export async function run(bot, message) {
     message,
     transcript('promos.stickerBox.success', { note })
   )
+
+  await interactionTutorial(bot, message)
 }
