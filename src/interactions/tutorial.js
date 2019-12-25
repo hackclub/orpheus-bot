@@ -7,6 +7,10 @@ const interactionTutorial = async (bot, message) => {
   const { user, command, text } = message
   const { userRecord, club, history } = getInfoForUser(user)
 
+  if (!club) {
+    bot.replyPrivateDelayed(message, transcript('tutorial.notAuthed'))
+    return
+  }
   switch (command) {
     case '/rename-channel':
       if (!userRecord.fields['Flag: renamed channel']) {
