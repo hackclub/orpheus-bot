@@ -59,7 +59,7 @@ const interactionTutorial = async (bot, message) => {
       const isStickerPromo = text.includes('sticker box')
       const finishedStickerTutorial =
         userRecord.fields['Flag: Tutorial /promo sticker box']
-      if (ifStickerPromo && !finishedStickerTutorial) {
+      if (isStickerPromo && !finishedStickerTutorial) {
         await asyncReply(
           bot,
           message,
