@@ -51,7 +51,6 @@ const reactOnSuccess = ({ club, history }) => {
         }
       )
 
-      console.log(message)
       initBot().replyInThread(
         { channel: message.channel.id, ts: message.ts },
         `${transcript(
