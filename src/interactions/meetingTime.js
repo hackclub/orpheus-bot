@@ -1,5 +1,6 @@
-import { getInfoForUser, airPatch, transcript } from '../utils'
 import { parseDate } from 'chrono-node'
+
+import { getInfoForUser, airPatch, transcript } from '../utils'
 import interactionTutorial from './tutorial'
 
 const interactionMeetingTime = (bot, message) => {
@@ -45,10 +46,7 @@ const interactionMeetingTime = (bot, message) => {
         .then(record => {
           bot.replyPrivateDelayed(
             message,
-            transcript('meetingTime.success', {
-              hour: record.fields['Checkin Hour'],
-              day: record.fields['Checkin Day'],
-            }),
+            transcript('meetingTime.success', { offsetDate }),
             (err, res) => {
               if (err) {
                 throw err
