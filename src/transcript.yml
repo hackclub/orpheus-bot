@@ -252,7 +252,8 @@ meetingRemove:
   success: Meeting removed! It won't show up in your meeting list anymore.
 meetingAdd:
   help: |
-    This command will record a club meeting for your club. Example usage\:
+    This command will record the date & attendance of a club meeting for your club. Usage\:
+    \- \`/meeting-add [date], [attendance]\`
     \- \`/meeting-add today, 12 people attended\`
     \- \`/meeting-add last ${this.day}, 15 members\`
   success: |
