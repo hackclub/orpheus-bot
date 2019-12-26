@@ -2,6 +2,8 @@ import { parseDate } from 'chrono-node'
 
 import { recordMeeting, getInfoForUser, transcript, initBot } from '../utils'
 
+import interactionTutorial from './tutorial'
+
 const reactOnSuccess = ({ club, history }) => {
   const channel = club.fields['Slack Channel ID']
   const meetingCount = history.meetings.length + 1 // Increase by one because we've just successfully added a new club meeting
@@ -108,6 +110,7 @@ const interactionMeetingAdd = (bot, message) => {
           transcript('meetingAdd.success', { formUrl })
         )
 
+        interactionTutorial(bot, message)
         reactOnSuccess({ club, history })
       }
     )
