@@ -52,7 +52,6 @@ const interactionTutorial = async (bot, message) => {
       const finishedMeetingAddTutorial =
         userRecord.fields['Flag: Tutorial /meeting-add']
       const hasMeetings = history.meetings.length > 1
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', finishedMeetingAddTutorial, hasMeetings)
 
       if (hasMeetings && !finishedMeetingAddTutorial) {
         await asyncReply(
