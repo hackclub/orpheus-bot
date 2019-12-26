@@ -283,7 +283,12 @@ meetingAdd:
     - Saved!
     - Added to your club's history
 forget:
-  success: What did you just ask me? Just joking– I've successfully wiped my memories about <@${this.user}>.
+  success: ${this.t('forget.successFlavor')} Just joking– I've successfully wiped my memories about <@${this.user}>.
+  successFlavor:
+    - On it... wait, what was I doing?
+    - What did you just ask me?
+    - Authorization error! I can't find you in my records.
+    - "*beep* Caroline deleted."
   notAuthed: This is a potentially destructive action, so it's limited to admins only for the time being.
 meetingTime:
   help:
