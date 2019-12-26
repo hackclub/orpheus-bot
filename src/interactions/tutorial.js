@@ -5,8 +5,7 @@ import { getInfoForUser, initBot, transcript } from '../utils'
 // tutorial command
 const interactionTutorial = async (bot, message) => {
   const { user, command, text } = message
-  const { userRecord, club, history } = getInfoForUser(user)
-  console.log(user, club)
+  const { userRecord, club, history } = await getInfoForUser(user)
 
   if (!club) {
     bot.replyPrivateDelayed(message, transcript('tutorial.notAuthed'))
