@@ -1,5 +1,19 @@
 import { getInfoForUser, initBot, transcript } from '../utils'
 
+function asyncReply(bot, message, reply, callback = () => {}) {
+  return new Promise((resolve, reject) => {
+    try {
+      bot.replyPrivateDelayed(message, reply, () => {
+        callback()
+        resolve()
+      })
+    } catch (err) {
+      console.error(err)
+      reject(err)
+    }
+  })
+}
+
 // this is a weird interaction. users call it explicitly when we start running
 // the command, but it's called by other interactions that should have a
 // tutorial command
@@ -8,17 +22,19 @@ const interactionTutorial = async (bot, message) => {
   const { userRecord, club, history } = await getInfoForUser(user)
 
   if (!club) {
-    bot.replyPrivateDelayed(message, transcript('tutorial.notAuthed'))
+    asyncReply(bot, message, transcript('tutorial.notAuthed'))
     return
   }
   switch (command) {
     case '/rename-channel':
       if (!userRecord.fields['Flag: renamed channel']) {
-        await bot.replyPrivateDelayed(
+        await asyncReply(
+          bot,
           message,
           transcript('tutorial.renameChannel.finished')
         )
-        await bot.replyPrivateDelayed(
+        await asyncReply(
+          bot,
           message,
           transcript('tutorial.promoSticker.start')
         )
@@ -31,14 +47,12 @@ const interactionTutorial = async (bot, message) => {
       const hasMeetings = history.meetings.length > 1
 
       if (hasMeetings && !finishedMeetingAddTutorial) {
-        await bot.replyPrivateDelayed(
+        await asyncReply(
+          bot,
           message,
           transcript('tutorial.meetingAdd.finished')
         )
-        await bot.replyPrivateDelayed(
-          message,
-          transcript('tutorial.promoGrant.start')
-        )
+        await asyncReply(bot, message, transcript('tutorial.promoGrant.start'))
         userRecord.patch({ 'Flag: Tutorial /meeting-add': true })
       }
     case '/promo':
@@ -46,14 +60,12 @@ const interactionTutorial = async (bot, message) => {
       const finishedStickerTutorial =
         userRecord.fields['Flag: Tutorial /promo sticker box']
       if (ifStickerPromo && !finishedStickerTutorial) {
-        await bot.replyPrivateDelayed(
+        await asyncReply(
+          bot,
           message,
           transcript('tutorial.promoSticker.finished')
         )
-        await bot.replyPrivateDelayed(
-          message,
-          transcript('tutorial.meetingAdd.start')
-        )
+        await asyncReply(bot, message, transcript('tutorial.meetingAdd.start'))
         userRecord.patch({ 'Flag: Tutorial /promo sticker box': true })
       }
 
@@ -61,24 +73,23 @@ const interactionTutorial = async (bot, message) => {
       const finishedGrantTutorial =
         userRecord.fields['Flag: Tutorial /promo github grant']
       if (isGrantPromo && !finishedGrantTutorial) {
-        await bot.replyPrivateDelayed(
+        await asyncReply(
+          bot,
           message,
           transcript('tutorial.promoGrant.finished')
         )
-        await bot.replyPrivateDelayed(
-          message,
-          transcript('tutorial.meetingTime.start')
-        )
+        await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
         userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
       }
       return
     case '/meeting-time':
       if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
-        await bot.replyPrivateDelayed(
+        await asyncReply(
+          bot,
           message,
           transcript('tutorial.meetingTime.finished')
         )
-        await bot.replyPrivateDelayed(message, transcript('tutorial.finished'))
+        await asyncReply(bot, message, transcript('tutorial.finished'))
         userRecord.patch({ 'Flag: Tutorial /meeting-time': true })
         // setTimeout(() => {
         //   interactionCheckinNotification(undefined, {
@@ -91,11 +102,9 @@ const interactionTutorial = async (bot, message) => {
     case '/orpheus-tutorial':
     case '/meeting-tutorial':
     default:
-      await bot.replyPrivateDelayed(
-        message,
-        transcript('tutorial.start', { user })
-      )
-      bot.replyPrivateDelayed(
+      await asyncReply(bot, message, transcript('tutorial.start', { user }))
+      await asyncReply(
+        bot,
         message,
         transcript('tutorial.renameChannel.start', {
           channel: club.fields['Slack Channel ID'],
