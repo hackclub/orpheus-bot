@@ -4,7 +4,7 @@ import interactionTutorial from '../tutorial'
 
 export const names = ['Sticker Box']
 export const details =
-  'Available to club leaders. Must include a note to the nodemaster packing your order.'
+  'Available to club leaders. Optionally include a note to the nodemaster packing your order.'
 export async function run(bot, message) {
   const { user } = message
   const { leader, club } = await getInfoForUser(user)
@@ -17,14 +17,6 @@ export async function run(bot, message) {
   }
 
   const note = message.text.replace(/sticker box/i, '')
-
-  if (!note) {
-    await bot.replyPrivateDelayed(
-      message,
-      transcript('promos.stickerBox.noNote')
-    )
-    return
-  }
 
   await interactionMailMission(undefined, {
     user,
