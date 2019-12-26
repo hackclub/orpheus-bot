@@ -47,7 +47,7 @@ const interactionTutorial = async (bot, message) => {
         )
         userRecord.patch({ 'Flag: renamed channel': true })
       }
-      return
+      break
     case '/meeting-add':
       const finishedMeetingAddTutorial =
         userRecord.fields['Flag: Tutorial /meeting-add']
@@ -63,6 +63,7 @@ const interactionTutorial = async (bot, message) => {
         await asyncReply(bot, message, transcript('tutorial.promoGrant.start'))
         userRecord.patch({ 'Flag: Tutorial /meeting-add': true })
       }
+      break
     case '/promo':
       const isStickerPromo = text.includes('sticker box')
       const finishedStickerTutorial =
@@ -75,6 +76,7 @@ const interactionTutorial = async (bot, message) => {
         )
         await asyncReply(bot, message, transcript('tutorial.meetingAdd.start'))
         userRecord.patch({ 'Flag: Tutorial /promo sticker box': true })
+        return
       }
 
       const isGrantPromo = text.includes('grant')
@@ -89,7 +91,7 @@ const interactionTutorial = async (bot, message) => {
         await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
         userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
       }
-      return
+      break
     case '/meeting-time':
       if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
         await asyncReply(
@@ -106,7 +108,7 @@ const interactionTutorial = async (bot, message) => {
         //   })
         // }, 4000)
       }
-      return
+      break
     case '/orpheus-tutorial':
     case '/meeting-tutorial':
     default:
@@ -119,7 +121,7 @@ const interactionTutorial = async (bot, message) => {
         })
       )
       userRecord.patch({ 'Flag: Initiated tutorial': true })
-      return
+      break
   }
 }
 export default interactionTutorial
