@@ -84,7 +84,7 @@ controller.hears(
 
 controller.hears('date', 'direct_mention', interactionDate)
 
-controller.on('slash_command', (bot, message) => {
+controller.on('slash_command', async (bot, message) => {
   const { command, user, channel, text } = message
 
   console.log(`Received ${command} command from user ${user} in ${channel}`)
@@ -106,80 +106,85 @@ controller.on('slash_command', (bot, message) => {
         },
       ],
     },
-    (err, res) => {
+    async (err, res) => {
       if (err) {
         console.error(err)
       }
 
-      switch (command) {
-        case '/test':
-          slashTest(bot, message)
-          break
-        case '/stats':
-        case '/meeting-stats':
-          interactionStats.default(bot, message)
-          break
+      try {
+        switch (command) {
+          case '/test':
+            await slashTest(bot, message)
+            break
+          case '/stats':
+          case '/meeting-stats':
+            await interactionStats.default(bot, message)
+            break
 
-        case '/announcement':
-          interactionAnnouncement(bot, message)
-          break
+          case '/announcement':
+            await interactionAnnouncement(bot, message)
+            break
 
-        case '/airtable':
-          interactionAirtable(bot, message)
-          break
+          case '/airtable':
+            await interactionAirtable(bot, message)
+            break
 
-        case '/address':
-        case '/leader-address':
-          interactionAddress(bot, message)
-          break
+          case '/address':
+          case '/leader-address':
+            await interactionAddress(bot, message)
+            break
 
-        case '/club-address':
-          interactionClubAddress(bot, message)
-          break
+          case '/club-address':
+            await interactionClubAddress(bot, message)
+            break
 
-        case '/promo':
-          interactionPromo(bot, message)
-          break
+          case '/promo':
+            await interactionPromo(bot, message)
+            break
 
-        case '/rename-channel':
-          interactionRename(bot, message)
-          break
+          case '/rename-channel':
+            await interactionRename(bot, message)
+            break
 
-        case '/meeting-time':
-          interactionMeetingTime(bot, message)
-          break
+          case '/meeting-time':
+            await interactionMeetingTime(bot, message)
+            break
 
-        case '/meeting-add':
-          interactionMeetingAdd(bot, message)
-          break
+          case '/meeting-add':
+            await interactionMeetingAdd(bot, message)
+            break
 
-        case '/meeting-remove':
-          interactionMeetingRemove(bot, message)
-          break
+          case '/meeting-remove':
+            await interactionMeetingRemove(bot, message)
+            break
 
-        case '/meeting-list':
-          interactionMeetingList(bot, message)
-          break
+          case '/meeting-list':
+            await interactionMeetingList(bot, message)
+            break
 
-        case '/orpheus-tutorial':
-        case '/meeting-tutorial':
-          interactionTutorial(bot, message)
-          break
+          case '/orpheus-tutorial':
+          case '/meeting-tutorial':
+            await interactionTutorial(bot, message)
+            break
 
-        case '/leader-add':
-          interactionLeaderAdd(bot, message)
-          break
+          case '/leader-add':
+            await interactionLeaderAdd(bot, message)
+            break
 
-        case '/leader-list':
-          interactionLeaderList(bot, message)
-          break
+          case '/leader-list':
+            await interactionLeaderList(bot, message)
+            break
 
-        default:
-          bot.replyPrivateDelayed(
-            message,
-            "I don't know how to do that ¯\\_(ツ)_/¯"
-          )
-          break
+          default:
+            bot.replyPrivateDelayed(
+              message,
+              "I don't know how to do that ¯\\_(ツ)_/¯"
+            )
+            break
+        }
+      } catch (err) {
+        console.error(err)
+        bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
       }
     }
   )
