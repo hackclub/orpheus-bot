@@ -3,7 +3,14 @@ import { getInfoForUser, initBot, transcript } from '../utils'
 function asyncReply(bot, message, reply, callback = () => {}) {
   return new Promise((resolve, reject) => {
     try {
-      bot.replyPrivateDelayed(message, reply, () => {
+      const content = {
+        attachments: [{
+          text: reply,
+          fallback: reply,
+          author_name: 'Tutorial'
+        }]
+      }
+      bot.replyPrivateDelayed(message, content, () => {
         callback()
         resolve()
       })
