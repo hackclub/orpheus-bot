@@ -19,8 +19,8 @@ bases.sdp = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
 )
 
 const airtableRatelimiter = new Bottleneck({
-  maxConcurrent: 5,
-  minTime: 200,
+  // maxConcurrent: 5,
+  // minTime: 200,
 })
 
 export const airPatch = (baseName, recordID, values, options = {}) =>
