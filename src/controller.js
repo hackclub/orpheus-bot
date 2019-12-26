@@ -51,6 +51,7 @@ const scryMiddleware = message => {
   const context = contextPoints.join(' ')
 
   initBot().say({
+    text: `Scried "quote"`,
     blocks: [
       {
         type: 'section',
