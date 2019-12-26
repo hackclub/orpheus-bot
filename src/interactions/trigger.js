@@ -65,10 +65,6 @@ const validateDinoisseurBadges = async message => {
     ...prData.data.map(node => node.user.html_url), // submitters of open PRs are also eligible for the badge
   ]
   console.log(`I found ${contributors.length} contributors!`)
-  bot.replyInThread(
-    message,
-    `I found ${contributors.length} users who earned the :dinoisseur-badge:`
-  )
 
   const airtableContributors = await Promise.all(
     contributors.map(contributor =>
@@ -91,6 +87,10 @@ const validateDinoisseurBadges = async message => {
 
   console.log(
     `I ended up finding ${result.fields['People'].length} who have permission to use the Dinoisseur badge.`
+  )
+  bot.replyInThread(
+    message,
+    `I found ${result.fields['People'].length} slack users who earned the :dinoisseur-badge:`
   )
 }
 
