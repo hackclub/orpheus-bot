@@ -204,9 +204,9 @@ tutorial:
       Let's record a meeting. Normally you'd do this after each of your meetings, but to get through the tutorial we'll have you record 2 right now.
       No worries if you haven't met yet, just make something up for the tutorial– we'll cover how to remove meetings later on.
 
-      Record 2 meetings:
-        - \`/meeting-add last friday, 21 members\`
+      Record a first meeting today:
         - \`/meeting-add today, 24 members\`
+    progress: Great! Now add another \`/meeting-add last friday, 21 members\`
     finished: 
       Great! Now that you've got meetings recorded, your club is "active". Active clubs get access to a couple exclusive tools and services.
   promoGrant:

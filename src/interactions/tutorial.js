@@ -51,9 +51,17 @@ const interactionTutorial = async (bot, message) => {
     case '/meeting-add':
       const finishedMeetingAddTutorial =
         userRecord.fields['Flag: Tutorial /meeting-add']
-      const hasMeetings = history.meetings.length > 1
+      const recordedMeetings = history.meetings.length
 
-      if (hasMeetings && !finishedMeetingAddTutorial) {
+      // if this is the first meeting recorded, let them know to add another
+      if (recordedMeetings == 1 && !finishedMeetingAddTutorial) {
+        await asyncReply(
+          bot, message, transcript('tutorial.meetingAdd.progress')
+        )
+        return
+      } 
+      // if there are 2 meetings recorded, go to the next step in the tutorial
+      if (recordedMeetings == 2 && !finishedMeetingAddTutorial) {
         await asyncReply(
           bot,
           message,
