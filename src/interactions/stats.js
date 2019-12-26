@@ -67,7 +67,9 @@ const interactionStats = (bot, message) => {
               {
                 type: 'mrkdwn',
                 text: `The club is ${
-                  history.isActive ? ':large_blue_circle: activly meeting' : ":white_circle: inactive because it hasn't recorded a meeting for a while"
+                  history.isActive
+                    ? ':large_blue_circle: activly meeting'
+                    : ":white_circle: inactive because it hasn't recorded a meeting for a while"
                 }`,
               },
             ],
@@ -96,7 +98,9 @@ const interactionStats = (bot, message) => {
         ],
       }
 
-      const replyType = postPublicly ? bot.replyPublicDelayed : bot.replyPrivateDelayed
+      const replyType = postPublicly
+        ? bot.replyPublicDelayed
+        : bot.replyPrivateDelayed
       replyType(message, content, err => {
         if (err) throw err
       })
@@ -178,7 +182,7 @@ const interactionStats = (bot, message) => {
 
 const graphUrl = (history, club) => {
   const attendance = history.meetings.map(h => h.fields['Attendance'])
-  const dates = history.meetings.map(h => h.fields['Date'])
+  const dates = history.meetings.map(h => new Date(h.fields['Date']).toLocaleDateString())
   const config = {
     type: 'line',
     data: {
