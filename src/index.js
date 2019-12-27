@@ -30,7 +30,6 @@ import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
 import interactionForget from './interactions/forget'
 import interactionAirtable from './interactions/airtable'
-import slashTest from './interactions/slashTest'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -113,9 +112,6 @@ controller.on('slash_command', async (bot, message) => {
 
       try {
         switch (command) {
-          case '/test':
-            await slashTest(bot, message)
-            break
           case '/stats':
           case '/meeting-stats':
             await interactionStats.default(bot, message)
