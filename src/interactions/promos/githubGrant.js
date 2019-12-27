@@ -35,7 +35,7 @@ export async function run(bot, message) {
 
   const lastGrant = await airFind(
     'GitHub Grants',
-    `AND({Dummy} = 0, {Club} = ${club.fields['ID']}`,
+    `AND({Dummy} = 0, {Club} = '${club.fields['ID']}'`,
     {
       selectBy: {
         sort: [{ field: 'Initiated at', direction: 'desc' }],
