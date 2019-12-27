@@ -338,36 +338,22 @@ promos:
     alreadyGranted: |
       I already see a grant request submitted <!date^${this.lastGrantDate.getTime()/1000}^{date_short_pretty}|on ${this.lastGrantDate}> submitted by <@${this.requester}> this semester.
       We can only automatically send grants once per semester, but if you think there's an error or are looking for an exception reach out to staff.
-    duplicate:
-      soloLeader: I found a request for this grant already– just sit tight & it should show up in your Hack Club Bank account within 3-5 days.
-      coleaders: I found a request for this grant already. Maybe a co-leader submitted it? Either way, you don't need to submit another– sit tight and it should show up in your account within 3-5 days of the original request.
     updateShipping: I've just posted a mission to Mail Team and you'll get a notification about package tracking shortly once the mission is accepted by a Node Master. Save time by double-checking your shipping address is correct with \`/address\`.
     hcbFulfillment: I've just told the Bank team about your grant and they'll send it over ASAP. The grant will show up in your account (${this.hcbLink}). If you need to change accounts or have any issues/questions, reach out to your Bank point of contact.
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
-    success:
-      hcbEmoji:
-        'true': ':white_check_mark:'
-        'false': ':no_entry:'
-      hcbMessage:
-        'true': I've just submitted a request to the HCB team. In 2-3 days the grant will arrive in your account– just sit tight.
-        'false': |
-          We'll ship you a prepaid Visa card to the following address. If it's out of date or invalid, update it with `/update-address.
-          \`\`\`
-          First line\: ${this.firstLine || ''}
-          Second line\: ${this.secondLine || ''}
-          City\: ${this.city || ''}
-          State\: ${this.state || ''}
-          Country\: ${this.country || ''}
-          Zip Code\: ${this.zipCode || ''}
-          \`\`\`
-      general: |
-        Here are the details for your records\:
-        \> Grant request ID\: *${this.record}*
-        \> Grant type\: *$100 provided by GitHub*
-        \> Has a bank account\: *${this.t('promos.githubGrant.success.hcbEmoji.' + this.hcb)}*
-        \> Submitted by\: *<@${this.user}> (@${this.user})*
-        Just one quick note though\: Next time you record a club meeting with \`/meeting-add\`, you'll see a link to dropbox.hackclub.com. We'd really appreciate it if you put some photos of your club meeting in there that we can show GitHub. This is the first semester we're partnering with GitHub and if they're happy with the results this could happen in the future.
-  
+    requestForm: |
+      Please fill this out before your grant arrives: https://airtable.com/shrsc4CEHR8u0EhT6?prefill_Grant%20Request%20ID=${this.id}.
+    inactive: >
+      Your club doesn't have the "active" status (run \`/stats\` to see your
+      club's history and \`/meeting-add\` to record meetings). While not
+      required for grants, having "active" status will go a long way in
+      getting your grant approved. If you've forgotten to add any meetings
+      you can record them now before your grant is reviewed by staff.
+    setupCall: |
+      I've just filed a $${this.amount} grant request for <@${this.user}>. Might want to send the following to them:
+      \`\`\`
+      are you free to hop on a quick call? wanted to chat about the grant request you sent in. don't worry about approval-- this isn't for reviewing the application
+      \`\`\`
 promo:
   help: 'Request a promotion / partnership through Hack Club. Try \`/promo Free Notion\`'
   list: Here are the active promotions you can use ${this.promos.map(p => this.t('promo.bullet', { p }))}

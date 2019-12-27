@@ -1,4 +1,10 @@
-import { initBot, getInfoForUser, airFind, airCreate, transcript } from '../../utils'
+import {
+  initBot,
+  getInfoForUser,
+  airFind,
+  airCreate,
+  transcript,
+} from '../../utils'
 import interactionMailMission from '../mailMission'
 
 /*
@@ -27,11 +33,15 @@ export async function run(bot, message) {
     return
   }
 
-  const lastGrant = await airFind('GitHub Grants', 'Club', club.fields['ID'], {
-    selectBy: {
-      sort: [{ field: 'Initiated at', direction: 'desc' }],
-    },
-  })
+  const lastGrant = await airFind(
+    'GitHub Grants',
+    `AND({Dummy} = 0, {Club} = ${club.fields['ID']}`,
+    {
+      selectBy: {
+        sort: [{ field: 'Initiated at', direction: 'desc' }],
+      },
+    }
+  )
   if (!lastGrant) {
     // this is their first grant
     const grant = await airCreate('GitHub Grants', {
@@ -40,6 +50,7 @@ export async function run(bot, message) {
       Type: 'First meeting ($100)',
       'Grant amount': 100,
     })
+    notifyMax(grant, user)
 
     if (grant.fields['HCB Account']) {
       // if they have an HCB account, we'll notify the bank team
@@ -92,9 +103,32 @@ export async function run(bot, message) {
       return
     }
 
-    await initBot().say({
-      channel: 'U0C7B14Q3' // DM Max
-      text: `I've just filed a grant request for <@${user}>. Might want to hop on a call with them.`
+    if (!history.isActive) {
+      await bot.replyPrivateDelayed(message, 'promos.githubGrant.inactive')
+    }
+
+    const grant = await airCreate('GitHub Grants', {
+      Club: [club.id],
+      Leader: [leader.id],
+      Type: 'Semesterly ($50)',
+      'Grant amount': 50,
     })
+
+    notifyMax(grant, user)
+
+    bot.replyPrivateDelayed(
+      message,
+      transcript('promos.githubGrant.requestForm', { id: grant.id })
+    )
   }
+}
+
+async function notifyMax(grant, user) {
+  await initBot().say({
+    channel: 'U0C7B14Q3', // DM Max
+    text: transcript('promos.githubGrant.setupCall', {
+      user,
+      amount: grant.fields['Grant amount'],
+    }),
+  })
 }
