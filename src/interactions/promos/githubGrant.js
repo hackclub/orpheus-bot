@@ -105,7 +105,7 @@ export async function run(bot, message) {
     // }
 
     if (!history.isActive) {
-      await bot.replyPrivateDelayed(message, 'promos.githubGrant.inactive')
+      await bot.replyPrivateDelayed(message, transcript('promos.githubGrant.inactive'))
     }
 
     const grant = await airCreate('GitHub Grants', {
