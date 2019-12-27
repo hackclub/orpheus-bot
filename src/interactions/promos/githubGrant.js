@@ -1,4 +1,4 @@
-import { getInfoForUser, airFind, airCreate, transcript } from '../../utils'
+import { initBot, getInfoForUser, airFind, airCreate, transcript } from '../../utils'
 import interactionMailMission from '../mailMission'
 
 /*
@@ -92,6 +92,9 @@ export async function run(bot, message) {
       return
     }
 
-    await bot.replyPrivateDelayed(message, 'placeholder for issuing a grant')
+    await initBot().say({
+      channel: 'U0C7B14Q3' // DM Max
+      text: `I've just filed a grant request for <@${user}>. Might want to hop on a call with them.`
+    })
   }
 }
