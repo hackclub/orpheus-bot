@@ -23,7 +23,7 @@ export const details =
 
 export async function run(bot, message) {
   const { user } = message
-  const { leader, club } = await getInfoForUser(user)
+  const { leader, club, history } = await getInfoForUser(user)
 
   if (!leader || !club) {
     await bot.replyPrivateDelayed(
