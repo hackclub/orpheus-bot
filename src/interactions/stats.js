@@ -182,7 +182,9 @@ const interactionStats = (bot, message) => {
 
 const graphUrl = (history, club) => {
   const attendance = history.meetings.map(h => h.fields['Attendance'])
-  const dates = history.meetings.map(h => new Date(h.fields['Date']).toLocaleDateString())
+  const dates = history.meetings.map(h =>
+    new Date(h.fields['Date']).toLocaleDateString()
+  )
   const config = {
     type: 'line',
     data: {

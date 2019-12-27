@@ -4,11 +4,13 @@ function asyncReply(bot, message, reply, callback = () => {}) {
   return new Promise((resolve, reject) => {
     try {
       const content = {
-        attachments: [{
-          text: reply,
-          fallback: reply,
-          author_name: 'Tutorial'
-        }]
+        attachments: [
+          {
+            text: reply,
+            fallback: reply,
+            author_name: 'Tutorial',
+          },
+        ],
       }
       bot.replyPrivateDelayed(message, content, () => {
         callback()
@@ -56,10 +58,12 @@ const interactionTutorial = async (bot, message) => {
       // if this is the first meeting recorded, let them know to add another
       if (recordedMeetings == 1 && !finishedMeetingAddTutorial) {
         await asyncReply(
-          bot, message, transcript('tutorial.meetingAdd.progress')
+          bot,
+          message,
+          transcript('tutorial.meetingAdd.progress')
         )
         return
-      } 
+      }
       // if there are 2 meetings recorded, go to the next step in the tutorial
       if (recordedMeetings == 2 && !finishedMeetingAddTutorial) {
         await asyncReply(
