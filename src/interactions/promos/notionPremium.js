@@ -1,3 +1,5 @@
+import { transcript } from '../../utils'
+
 export const names = [
   'Notion Premium account',
   'notion',
