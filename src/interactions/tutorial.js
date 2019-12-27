@@ -75,7 +75,7 @@ const interactionTutorial = async (bot, message) => {
         userRecord.patch({ 'Flag: Tutorial /meeting-add': true })
       }
       break
-    case '/promo':
+    case '/get':
       const isStickerPromo = text.includes('sticker box')
       const finishedStickerTutorial =
         userRecord.fields['Flag: Tutorial /promo sticker box']

@@ -21,6 +21,7 @@ import interactionMeetingTime from './interactions/meetingTime'
 import interactionTutorial from './interactions/tutorial'
 import interactionCatchall from './interactions/catchall'
 import interactionPromo from './interactions/promo'
+import interactionGet from './interactions/get'
 import interactionAnnouncement from './interactions/announcement'
 import interactionHacktoberfest from './interactions/hacktoberfest'
 import interactionLeaderInvite from './interactions/leaderInvite'
@@ -136,6 +137,10 @@ controller.on('slash_command', async (bot, message) => {
 
           case '/promo':
             await interactionPromo(bot, message)
+            break
+
+          case '/get':
+            await interactionGet(bot, message)
             break
 
           case '/rename-channel':

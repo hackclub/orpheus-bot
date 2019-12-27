@@ -192,10 +192,10 @@ tutorial:
       (but with a name you actually want to use).
     finished: >
       Fantastic! Your channel is your own space for your co-leaders and club members. You can rename it at anytime.
-  promoSticker:
+  getSticker:
     start: |
       Now let's get some goodies. Hack Club has a long tradition of club stickers (hackclub.com/stickers), and we want to get some shipped to you ASAP.
-      Run \`/promo sticker box\` to get a box of stickers.
+      Run \`/get sticker box\` to get a box of stickers.
     finished: |
       Great! Now that you've ordered one stickerbox you can always order another– we're happy to give more stickers to clubs in need.
       There are a couple more promos available, but some of them are only available to clubs that are actively meeting. We'll play around with that later on in the tutorial, but we'll need to record a meeting.
@@ -209,9 +209,9 @@ tutorial:
     progress: Great! Now add another \`/meeting-add last friday, 21 members\`
     finished: 
       Great! Now that you've got meetings recorded, your club is "active". Active clubs get access to a couple exclusive tools and services.
-  promoGrant:
-    start: There's a whole list of promos only available to active clubs. Request the \`/promo github grant\`.
-    finished: Great! You can always see a list of promos available by running \`/promo\`.
+  getGrant:
+    start: There's a whole list of promos only available to active clubs. Request the \`/get github grant\`.
+    finished: Great! You can always see a list of promos available by running \`/get\`.
   meetingTime:
     start: We're close now! There's one last thing in this tutorial. If you run \`/meeting-time\`, it'll let me know when your meetings are held. Once your meeting time is set I'll quickly check in after every meeting to make sure you record it.
     finished: If you ever need me to silence check-in notifications for a while (ie. spring break), all you have to do is type \`/meeting-time\` with a time after your spring break– I won't post any check-in messages until that date.
@@ -357,7 +357,7 @@ promos:
       \`\`\`
       are you free to hop on a quick call? wanted to chat about the grant request you sent in. don't worry about approval-- this isn't for reviewing the application
       \`\`\`
-promo:
-  help: 'Request a promotion / partnership through Hack Club. Try \`/promo Free Notion\`'
-  list: Here are the active promotions you can use ${this.promos.map(p => this.t('promo.bullet', { p }))}
-  bullet: \n- \`/promo ${this.p.names[0]}\` _${this.p.details}_
+get:
+  help: 'Get stuff from Hack Club. Try \`/get Free Notion\`'
+  list: Here's the list of things you can get ${this.promos.map(p => this.t('get.bullet', { p }))}
+  bullet: \n- \`/get ${this.p.names[0]}\` _${this.p.details}_
