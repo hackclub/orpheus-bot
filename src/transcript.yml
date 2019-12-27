@@ -30,6 +30,10 @@ startup:
     - '*0* days since last accident!'
     - Now with startup messages!
 mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} <@${this.recipient}> ${this.note}
+github:
+  update: Updating! Your GitHub account on our file is ${this.url}.
+  details: Your GitHub URL is ${this.url}. You can change your GitHub URL by typing `/github https://github.com/YOURUSERNAME`.
+  noDetails: You can change your GitHub URL by typing `/github https://github.com/YOURUSERNAME`.
 hello:
   - hellp
   - helli
