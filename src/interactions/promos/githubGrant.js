@@ -87,22 +87,22 @@ export async function run(bot, message) {
 
     const hasSameYear = lastGrantDate.getYear() == today.getYear()
     const hasSameSemester = lastGrantSemester == currentSemester
-    // if (hasSameYear && hasSameSemester) {
-    //   const requester = (
-    //     await airFind(
-    //       'People',
-    //       `RECORD_ID() = '${lastGrant.fields['Leader'][0]}'`
-    //     )
-    //   ).fields['Slack ID']
-    //   await bot.replyPrivateDelayed(
-    //     message,
-    //     transcript('promos.githubGrant.alreadyGranted', {
-    //       lastGrantDate,
-    //       requester,
-    //     })
-    //   )
-    //   return
-    // }
+    if (hasSameYear && hasSameSemester) {
+      const requester = (
+        await airFind(
+          'People',
+          `RECORD_ID() = '${lastGrant.fields['Leader'][0]}'`
+        )
+      ).fields['Slack ID']
+      await bot.replyPrivateDelayed(
+        message,
+        transcript('promos.githubGrant.alreadyGranted', {
+          lastGrantDate,
+          requester,
+        })
+      )
+      return
+    }
 
     if (!history.isActive) {
       await bot.replyPrivateDelayed(message, transcript('promos.githubGrant.inactive'))
