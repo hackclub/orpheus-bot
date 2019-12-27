@@ -260,10 +260,6 @@ meetingAdd:
     ${this.t('meetingAdd.successFlavor')} Recorded your club meeting's attendance!
     \- Save photos :camera\: from the meeting here\: ${this.formUrl}
     \- Run \`/stats\` to see your club's history
-  successFlavor:
-    - Nice!
-    - ':yay:'
-    - _orpheus gets up and does a little happy dance_
   successThread:
     confirmation:
       - Someone just added a meeting!
@@ -282,6 +278,9 @@ meetingAdd:
       - The total meeting count in hexadecimal is \`${this.meetingCount.toString(16)}\`. That's ${this.meetingCount} meetings in regular numbers.
       - The total meeting count converted to a color is \#${this.meetingCount.toString(16).padStart(3, '0').split('').map(m => m + m).join('')}. That's ${this.meetingCount} meetings in regular numbers.
   successFlavor:
+    - Nice!
+    - ':yay:'
+    - _orpheus gets up and does a little happy dance_
     - You bet'cha!
     - Got it!
     - Saved!
