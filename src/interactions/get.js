@@ -11,7 +11,7 @@ const interactionGet = async (bot, message) => {
   const args = message.text.toLowerCase()
 
   if (args == 'help') {
-    await bot.replyPrivateDelayed(message, transcript('promo.help'))
+    await bot.replyPrivateDelayed(message, transcript('get.help'))
     return
   }
 
@@ -32,7 +32,7 @@ const interactionGet = async (bot, message) => {
       )
     }
   } else {
-    await bot.replyPrivateDelayed(message, transcript('promo.list', { promos }))
+    await bot.replyPrivateDelayed(message, transcript('get.list', { promos }))
   }
 }
 
