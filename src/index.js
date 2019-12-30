@@ -47,7 +47,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.hears('thump', 'ambient', interactionTrigger)
 
-controller.hears('members', 'message_replied', interactionCheckinReply)
+controller.hears('members', 'ambient', interactionCheckinReply)
 
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
