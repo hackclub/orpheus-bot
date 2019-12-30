@@ -194,6 +194,7 @@ const graphUrl = (history, club) => {
           label: club.fields['Name'],
           data: attendance,
           backgroundColor: 'rgba(228,45,66,0.5)',
+          lineTension: 0.4,
         },
       ],
     },
