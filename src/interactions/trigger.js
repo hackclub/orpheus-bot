@@ -1,4 +1,5 @@
 import { request as octokitRequest } from '@octokit/request'
+import { xor } from 'lodash'
 
 import { airGet, airFind, airPatch } from '../utils'
 import interactionCheckinNotification from './checkinNotification'
@@ -88,10 +89,14 @@ const validateDinoisseurBadges = async message => {
   console.log(
     `I ended up finding ${result.fields['People'].length} who have permission to use the Dinoisseur badge.`
   )
-  bot.replyInThread(
-    message,
-    `I found ${result.fields['People'].length} slack users who earned the :dinoisseur-badge:`
-  )
+
+  const changeInContributors = xor(dinoisseurBadge.fields['People'], result.fields['People'])
+  if (changeInContributors) {
+    bot.replyInThread(
+      message,
+      `I found ${result.fields['People'].length} slack users who earned the :dinoisseur-badge:`
+    )
+  }
 }
 
 const triggerInteraction = (bot, message) => {
