@@ -18,7 +18,7 @@ export default async (bot, message) => {
     Type: ['Meeting'],
     Club: [club.id],
     Date: date,
-    Attendance: attenance,
+    Attendance: attendance,
     Notes: `@orpheus-bot created this entry from a Slack checkin`
   }
 
