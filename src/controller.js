@@ -84,22 +84,6 @@ controller.middleware.receive.use((bot, message, next) => {
   }
 })
 
-controller.middleware.categorize.use((bot, message, next) => {
-  try {
-    console.log(message)
-    if (message.subtype == 'message_replied') {
-      message.text = message.message.text
-      message.user = message.message.user
-      message.replies = message.message.replies
-      console.log('Middeware : ' + JSON.stringify(message.message))
-    }
-  } catch (err) {
-    console.error(err)
-  } finally {
-    next()
-  }
-})
-
 controller.startTicking()
 
 controller.setupWebserver(process.env.PORT || 3000, (err, webserver) => {

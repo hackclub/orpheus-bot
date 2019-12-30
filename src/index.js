@@ -47,8 +47,6 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 
 controller.hears('thump', 'ambient', interactionTrigger)
 
-controller.hears('members', 'ambient', interactionCheckinReply)
-
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
 controller.hears('hacktoberfest', 'ambient', interactionHacktoberfest)
@@ -202,6 +200,8 @@ controller.on('block_actions', (bot, message) => {
     console.log(err)
   }
 })
+
+controller.hears('members', 'ambient', interactionCheckinReply)
 
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
