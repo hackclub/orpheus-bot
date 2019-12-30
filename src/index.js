@@ -31,6 +31,7 @@ import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
 import interactionForget from './interactions/forget'
 import interactionAirtable from './interactions/airtable'
+import interactionCheckinReply from './interactions/checkinReply'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -45,6 +46,8 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 })
 
 controller.hears('thump', 'ambient', interactionTrigger)
+
+controller.hears('members', 'message_replied', interactionCheckinReply)
 
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
