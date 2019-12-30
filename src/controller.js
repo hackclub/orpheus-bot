@@ -86,7 +86,8 @@ controller.middleware.receive.use((bot, message, next) => {
 
 controller.middleware.categorize.use((bot, message, next) => {
   try {
-    if (message.type == 'message_replied') {
+    console.log(message)
+    if (message.subtype == 'message_replied') {
       message.text = message.message.text
       message.user = message.message.user
       message.replies = message.message.replies
