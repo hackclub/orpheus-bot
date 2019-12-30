@@ -73,7 +73,7 @@ const validateDinoisseurBadges = async message => {
     )
   )
 
-  const uniqueRecordIDs = uniq(airtableContributors.map(record => record.id))
+  const uniqueRecordIDs = uniq(airtableContributors.filter(r => r).map(record => record.id))
 
   const result = await airPatch(
     'Badges',
