@@ -74,45 +74,25 @@ const scryMiddleware = message => {
   })
 }
 
-const exclusiveEmojiMiddleware = message => {
-  const { channel, type } = message
-  if (
-    ![
-      'ambient',
-      'message_changed',
-      'direct_message',
-      'direct_mention',
-    ].includes(type)
-  ) {
-    console.log(`Not filtering message of type ${type}`)
-    return
-  }
-
-  let text = message.text
-  let ts = message.raw_message.event.ts
-
-  if (type == 'message_changed') {
-    // Botkit doesn't give us the text & timestamp of an edited message in the
-    // same format as regular messages
-    text = message.event.message.text
-    ts = message.event.message.ts
-  }
-
-  const includesExclusiveEmoji = text.includes(':dinoisseur:') // test phrase that can't be spoken
-  if (includesExclusiveEmoji) {
-    console.log(`I've decided to filter a message`)
-    initBot(true).api.chat.delete({ channel, ts }, err => {
-      if (err) {
-        console.log(err)
-      }
-    })
-  }
-}
-
 controller.middleware.receive.use((bot, message, next) => {
   try {
     scryMiddleware(message)
-    exclusiveEmojiMiddleware(message)
+  } catch (err) {
+    console.error(err)
+  } finally {
+    next()
+  }
+})
+
+controller.middleware.categorize.use((bot, message, next) => {
+  try {
+    if (message.type == 'message_replied') {
+      message.text = message.message.text;
+      message.user = message.message.user;
+      message.replies = message.message.replies;
+      console.log('Middeware : ' + JSON.stringify(message.message));
+    }
+
   } catch (err) {
     console.error(err)
   } finally {
