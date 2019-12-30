@@ -1,11 +1,11 @@
 import { airCreate, getInfoForUser } from "../utils"
+import { initBot } from "../controller"
 
 export default async (bot, message) => {
-  const { channel, thread_ts, user, text } = message
-  if (!thread_ts) {
-    console.log('not a thread, cancelling')
-    return
-  }
+  const { channel, thread_ts, user, text, parent_user_id } = message
+  if (!thread_ts) { return console.log('ignoring because this is not a thread')}
+  const botIdentity = (await initBot().api.users.identity())
+  if (parent_user_id != botIdentity.user.id) { return console.log('ignoring because original post is from someone else') }
 
   const { club } = await getInfoForUser(user)
 
@@ -24,4 +24,5 @@ export default async (bot, message) => {
 
   const record = await airCreate('History', fields)
 
+  bot.reply(message, record.id)
 }
