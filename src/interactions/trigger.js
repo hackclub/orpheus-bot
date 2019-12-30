@@ -1,5 +1,5 @@
 import { request as octokitRequest } from '@octokit/request'
-import { xor } from 'lodash'
+import { xor, uniq } from 'lodash'
 
 import { airGet, airFind, airPatch } from '../utils'
 import interactionCheckinNotification from './checkinNotification'
@@ -73,11 +73,7 @@ const validateDinoisseurBadges = async message => {
     )
   )
 
-  const recordIDs = {}
-  airtableContributors
-    .filter(r => r)
-    .forEach(record => (recordIDs[record.id] = true))
-  const uniqueRecordIDs = Object.keys(recordIDs)
+  const uniqueRecordIDs = uniq(airtableContributors.map(record => record.id))
 
   const result = await airPatch(
     'Badges',
