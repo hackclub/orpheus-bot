@@ -19,7 +19,7 @@ export default async (bot, message) => {
   const fields = {
     Type: ['Meeting'],
     Club: [club.id],
-    Date: new Date(thread_ts * 1000).toISOString(),
+    Date: new Date(thread_ts * 1000).toISOString().replace(/T.*/, ''),
     Attendance: parseInt(text.replace( /[^\d.]/g, '' )),
     Notes: `@orpheus-bot created this entry from a Slack checkin`
   }
