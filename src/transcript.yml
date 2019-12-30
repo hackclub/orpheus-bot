@@ -250,6 +250,9 @@ meetingRemove:
 
     You can get the meeting's ID from \`/meeting-list\`.
   success: Meeting removed! It won't show up in your meeting list anymore.
+checkinReply:
+  notAuth: I assume you wanted to record a meeting of ${this.attendance} members, but I don't see you listed as a leader of ${this.channel}
+  success: I've recorded a club meeting <!date^${new Date(this.date).getTime()/1000}^{date_long_pretty}|on ${this.date}> with ${this.attendance} members!
 meetingAdd:
   help: |
     This command will record the date & attendance of a club meeting for your club. Usage\:
