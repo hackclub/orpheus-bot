@@ -16,10 +16,12 @@ export default async (bot, message) => {
     return
   }
 
+  const date = new Date(thread_ts * 1000).toISOString().replace(/T.*/, '')
+  console.log('parsed date', date)
   const fields = {
     Type: ['Meeting'],
     Club: [club.id],
-    Date: new Date(thread_ts * 1000).toISOString().replace(/T.*/, ''),
+    Date: date,
     Attendance: parseInt(text.replace( /[^\d.]/g, '' )),
     Notes: `@orpheus-bot created this entry from a Slack checkin`
   }
