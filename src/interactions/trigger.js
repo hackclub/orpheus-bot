@@ -86,8 +86,11 @@ const validateDinoisseurBadges = async message => {
     `I ended up finding ${result.fields['People'].length} who have permission to use the Dinoisseur badge.`
   )
 
-  const changeInContributors = xor(dinoisseurBadge.fields['People'], result.fields['People'])
-  if (changeInContributors) {
+  const changeInContributors = xor(
+    dinoisseurBadge.fields['People'],
+    result.fields['People']
+  )
+  if (changeInContributors.length > 0) {
     bot.replyInThread(
       message,
       `I found ${result.fields['People'].length} slack users who earned the :dinoisseur-badge:`
