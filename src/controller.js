@@ -86,7 +86,7 @@ controller.middleware.normalize.use(async (bot, message, next) => {
       console.log(`Middleware: I've marked a message as 'message_replied'`)
       message.type = 'message_replied'
       const parentChannel = message.raw_message.event.channel
-      await new Promise((resove, reject) => {
+      await new Promise((resolve, reject) => {
         bot.api.conversations.replies(
           {
             channel: parentChannel,
