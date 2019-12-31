@@ -33,10 +33,10 @@ const scryMiddleware = message => {
       quote = `${message.command} ${message.text}`
       break
     default:
-      console.log(`Not scrying message with type '${message.type}'`)
+      console.log(`Not scrying message with type '${message.subtype || message.type}'`)
       return
   }
-  console.log(`I'm scrying a ${message.type} in my crystal ball`)
+  console.log(`I'm scrying a ${message.subtype || message.type} in my crystal ball`)
 
   const contextPoints = []
   if (message.type) {
