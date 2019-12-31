@@ -7,7 +7,12 @@ const interactionStartup = (bot = initBot(), message) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(text)
   } else {
-    bot.say({ text, channel: BOT_SPAM_CHANNEL })
+    bot.say({ text, channel: BOT_SPAM_CHANNEL }, (err, resp) => {
+      if (err) console.error(err)
+      const syntheticMessage = {...resp, user: 'U0C7B14Q3'}
+      console.log('synthetic message', syntheticMessage)
+      bot.startConversationInThread(syntheticMessage)
+    })
   }
 }
 
