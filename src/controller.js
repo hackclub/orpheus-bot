@@ -24,6 +24,11 @@ const scryMiddleware = message => {
   const SCRYING_CHANNEL = 'GQJ1QV8CF'
 
   let quote = ''
+  let type = message.type
+  if (message.raw_message) {
+    console.log(message.raw_message)
+    type = message.raw_message.subtype || message.type
+  }
   switch (message.type) {
     case 'direct_mention':
     case 'mention':
@@ -33,10 +38,10 @@ const scryMiddleware = message => {
       quote = `${message.command} ${message.text}`
       break
     default:
-      console.log(`Not scrying message with type '${message.subtype || message.type}'`)
+      console.log(`Not scrying message with type '${type}'`)
       return
   }
-  console.log(`I'm scrying a ${message.subtype || message.type} in my crystal ball`)
+  console.log(`I'm scrying a ${type} in my crystal ball`)
 
   const contextPoints = []
   if (message.type) {
