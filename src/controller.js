@@ -78,11 +78,31 @@ const scryMiddleware = message => {
   })
 }
 
-controller.middleware.normalize.use((bot, message, next) => {
+controller.middleware.normalize.use(async (bot, message, next) => {
   try {
-    if (message.raw_message.event.parent_user_id) {
-      message.type = 'message_replied'
+    const threadTS = message.raw_message.event.thread_ts
+    const eventTS = message.raw_message.event.ts
+    if (threadTS && threadTS != eventTS) {
       console.log(`Middleware: I've marked a message as 'message_replied'`)
+      message.type = 'message_replied'
+      const parentChannel = message.raw_message.event.channel
+      await new Promise((resove, reject) => {
+        bot.api.conversations.replies(
+          {
+            channel: parentChannel,
+            ts: threadTS,
+            inclusive: 1,
+            limit: 1,
+          },
+          (err, res) => {
+            if (err) {
+              reject(err)
+            }
+            message.thread = res
+            resolve()
+          }
+        )
+      })
     }
   } catch (err) {
     console.error(err)
