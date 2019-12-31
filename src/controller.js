@@ -26,7 +26,6 @@ const scryMiddleware = message => {
   let quote = ''
   let type = message.type
   if (message.raw_message) {
-    console.log(message.raw_message)
     type = message.raw_message.subtype || message.type
   }
   switch (message.type) {
@@ -38,10 +37,10 @@ const scryMiddleware = message => {
       quote = `${message.command} ${message.text}`
       break
     default:
-      console.log(`Not scrying message with type '${type}'`)
+      console.log(`Middleware: Not scrying message with type '${type}'`)
       return
   }
-  console.log(`I'm scrying a ${type} in my crystal ball`)
+  console.log(`Middleware: I'm scrying a ${type} in my crystal ball`)
 
   const contextPoints = []
   if (message.type) {
@@ -78,6 +77,19 @@ const scryMiddleware = message => {
     channel: SCRYING_CHANNEL,
   })
 }
+
+controller.middleware.normalize.use((bot, message, next) => {
+  try {
+    if (message.raw_message.parent_user_id) {
+      message.type = 'message_replied'
+      console.log(`Middleware: I've marked a message as 'message_replied'`)
+    }
+  } catch (err) {
+    console.error(err)
+  } finally {
+    next()
+  }
+})
 
 controller.middleware.receive.use((bot, message, next) => {
   try {
