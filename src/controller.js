@@ -80,7 +80,7 @@ const scryMiddleware = message => {
 
 controller.middleware.normalize.use((bot, message, next) => {
   try {
-    if (message.raw_message.parent_user_id) {
+    if (message.raw_message.event.parent_user_id) {
       message.type = 'message_replied'
       console.log(`Middleware: I've marked a message as 'message_replied'`)
     }
