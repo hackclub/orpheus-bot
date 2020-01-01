@@ -18,18 +18,20 @@ const interactionCheckinNotification = async (bot = initBot(), message) => {
     }
   }
 
+  let logMessage
+  let sayMessage
   if (user) {
-    console.log(
-      transcript('checkinNotification.log.foundPoc', { channel, user })
-    )
-    bot.say({
-      text: transcript('checkinNotification.named', { user }),
-      channel,
-    })
+    logMessage = transcript('checkinNotification.log.foundPoc', { channel, user })
+    sayMessage = transcript('checkinNotification.named', { user })
   } else {
-    console.log(transcript('checkinNotification.log.noPOCFound', { channel }))
-    bot.say({ text: transcript('checkinNotification.unnamed'), channel })
+    logMessage = transcript('checkinNotification.log.noPOCFound', { channel })
+    sayMessage = transcript('checkinNotification.unnamed')
   }
+
+  console.log(logMessage)
+  bot.say({text: sayMessage, channel}, (err, resp) => {
+    bot.replyInThread(resp, transcript('checkinNotification.threadDetails'))
+  })
 }
 
 export default interactionCheckinNotification
