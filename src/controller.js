@@ -126,6 +126,7 @@ controller.startTicking()
 controller.setupWebserver(process.env.PORT || 3000, (err, webserver) => {
   controller.createWebhookEndpoints(controller.webserver)
   controller.createOauthEndpoints(controller.webserver)
+  controller.createHomepageEndpoint(controller.webserver)
 })
 
 export default controller
