@@ -307,7 +307,7 @@ meetingTime:
     tuesday at 3 pm\` (using your own day and time)
   invalidUser: Only club leaders can use this command
   invalidClub: I couldn't find your club in my records!
-  success: Ok, I'll post a message in your club's channel around <!date^${this.offsetDate.getTime()/1000}^{date_long_pretty} {time}|on ${this.lastGrantDate}>
+  success: Ok, I'll post a message in your club's channel around <!date^${this.offsetDate.getTime()}^{date_long_pretty} {time}|on ${this.offsetDate.toLocaleString()}>
   parsingError: I couldn't figure out what day and time you meant
 leaderAdd:
   help: >
