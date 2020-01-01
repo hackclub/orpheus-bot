@@ -15,7 +15,7 @@ const getAdmin = (bot, user) =>
     })
   })
 
-const sendCheckinNotifications = async message => {
+const sendCheckinNotifications = async (message, dryRun=true) => {
   const now = new Date()
   const currentHour = now.getHours()
   const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
@@ -34,17 +34,24 @@ const sendCheckinNotifications = async message => {
       console.log(
         `*starting checkin w/ "${club.fields['ID']}" in channel ${channel}*`
       )
-      bot.replyInThread(
-        message,
-        `I'm reaching out to <#${channel}> (database ID \`${club.fields['ID']}\`)`
-      )
 
-      return interactionCheckinNotification(undefined, { channel })
+      if (dryRun) {
+        bot.replyInThread(
+          message,
+          `(Dry run) I'm reaching out to <#${channel}> (database ID \`${club.fields['ID']}\`)`
+        )
+      } else {
+        bot.replyInThread(
+          message,
+          `I'm reaching out to <#${channel}> (database ID \`${club.fields['ID']}\`)`
+        )
+        return interactionCheckinNotification(undefined, { channel })
+      }
     })
   )
 }
 
-const validateDinoisseurBadges = async message => {
+const validateDinoisseurBadges = async (message, dryRun=true) => {
   const dinoisseurBadge = await airFind('Badges', 'Name', 'Dinoisseur', {
     priority: 0,
   })
@@ -77,6 +84,14 @@ const validateDinoisseurBadges = async message => {
     airtableContributors.filter(r => r).map(record => record.id)
   )
 
+  if (dryRun) {
+    bot.replyInThread(
+      message,
+      `(Dry run) I found ${dinoisseurBadge.fields['People'].length} slack users who earned the :dinoisseur-badge:`
+    )
+    return
+  }
+
   const result = await airPatch(
     'Badges',
     dinoisseurBadge.id,
@@ -101,7 +116,8 @@ const validateDinoisseurBadges = async message => {
 }
 
 const triggerInteraction = (bot, message) => {
-  const { ts, channel, user } = message
+  const { ts, channel, user, text } = message
+  const dryRun = !text.includes('thump thump')
 
   getAdmin(bot, user)
     .then(admin => {
@@ -124,8 +140,8 @@ const triggerInteraction = (bot, message) => {
       })
 
       return Promise.all([
-        sendCheckinNotifications(message),
-        validateDinoisseurBadges(message),
+        sendCheckinNotifications(message, dryRun),
+        validateDinoisseurBadges(message, dryRun),
       ])
     })
     .catch(err => {
