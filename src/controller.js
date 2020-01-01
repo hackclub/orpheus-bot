@@ -87,7 +87,7 @@ controller.middleware.normalize.use(async (bot, message, next) => {
       message.type = 'message_replied'
       const parentChannel = message.raw_message.event.channel
       await new Promise((resolve, reject) => {
-        initBot().api.conversations.replies(
+        initBot(true).api.conversations.replies(
           {
             channel: parentChannel,
             ts: threadTS,
