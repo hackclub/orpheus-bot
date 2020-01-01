@@ -89,6 +89,7 @@ controller.middleware.normalize.use(async (bot, message, next) => {
       await new Promise((resolve, reject) => {
         bot.api.conversations.replies(
           {
+            token: bot.config.bot.access_token,
             channel: parentChannel,
             ts: threadTS,
             inclusive: 1,
