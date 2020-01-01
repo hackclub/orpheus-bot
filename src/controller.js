@@ -87,6 +87,14 @@ controller.middleware.normalize.use(async (bot, message, next) => {
       message.type = 'message_replied'
       const parentChannel = message.raw_message.event.channel
       await new Promise((resolve, reject) => {
+        // (max) we're doing weird things with the api token here. context:
+        // Slack's conversations.replies acts differently depending on the type
+        // of key it's given. see the docs here:
+        // https://api.slack.com/methods/conversations.history
+        // to access public & private channel threads, we need to use an app
+        // token, but botkit 0.7.4 automatically uses a bot token.
+        // See github comment for how to make slack api calls with app token:
+        // https://github.com/howdyai/botkit/issues/840#issuecomment-304750962
         bot.api.conversations.replies(
           {
             token: bot.config.bot.access_token,
