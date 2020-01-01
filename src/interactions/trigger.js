@@ -15,7 +15,7 @@ const getAdmin = (bot, user) =>
     })
   })
 
-const sendCheckinNotifications = async (message, dryRun=true) => {
+const sendCheckinNotifications = async (message, dryRun = true) => {
   const now = new Date()
   const currentHour = now.getHours()
   const currentDay = now.toLocaleDateString('en', { weekday: 'long' })
@@ -51,7 +51,7 @@ const sendCheckinNotifications = async (message, dryRun=true) => {
   )
 }
 
-const validateDinoisseurBadges = async (message, dryRun=true) => {
+const validateDinoisseurBadges = async (message, dryRun = true) => {
   const dinoisseurBadge = await airFind('Badges', 'Name', 'Dinoisseur', {
     priority: 0,
   })

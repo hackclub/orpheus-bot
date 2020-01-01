@@ -46,7 +46,10 @@ const interactionMeetingTime = (bot, message) => {
         .then(record => {
           bot.replyPrivateDelayed(
             message,
-            transcript('meetingTime.success', { offsetDate, channelID: club.fields['Slack Channel ID'] }),
+            transcript('meetingTime.success', {
+              offsetDate,
+              channelID: club.fields['Slack Channel ID'],
+            }),
             (err, res) => {
               if (err) {
                 throw err

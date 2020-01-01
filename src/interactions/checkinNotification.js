@@ -23,7 +23,10 @@ const interactionCheckinNotification = async (bot = initBot(), message) => {
   let logMessage
   let sayMessage
   if (user) {
-    logMessage = transcript('checkinNotification.log.foundPoc', { channel, user })
+    logMessage = transcript('checkinNotification.log.foundPoc', {
+      channel,
+      user,
+    })
     sayMessage = transcript('checkinNotification.named', { user })
   } else {
     logMessage = transcript('checkinNotification.log.noPOCFound', { channel })
@@ -31,7 +34,7 @@ const interactionCheckinNotification = async (bot = initBot(), message) => {
   }
 
   console.log(logMessage)
-  bot.say({text: sayMessage, channel}, (err, resp) => {
+  bot.say({ text: sayMessage, channel }, (err, resp) => {
     bot.replyInThread(resp, transcript('checkinNotification.threadDetails'))
   })
 }
