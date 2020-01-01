@@ -1,8 +1,7 @@
-import { initBot, airFind, transcript } from '../utils'
+import { initBot, airFind, transcript, getInfoForUser } from '../utils'
 
 const interactionCheckinNotification = async (bot = initBot(), message) => {
-  const { channel } = message
-  let { user } = message
+  let { channel, user } = message
 
   // if there isn't a user provided we'll try and set one by looking up the club's POC
   if (!user) {
@@ -16,6 +15,9 @@ const interactionCheckinNotification = async (bot = initBot(), message) => {
       poc = await airFind('People', `RECORD_ID() = '${pocAirtableID}'`)
       user = poc.fields['Slack ID']
     }
+  } else if (!channel) {
+    const { club } = await getInfoForUser(user)
+    channel = club.fields['Slack Channel ID']
   }
 
   let logMessage

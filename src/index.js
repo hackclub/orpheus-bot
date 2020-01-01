@@ -31,9 +31,20 @@ import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
 import interactionForget from './interactions/forget'
 import interactionAirtable from './interactions/airtable'
+import interactionCheckinNotification from './interactions/checkinNotification'
 import interactionCheckinReply from './interactions/checkinReply'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
+
+controller.hears('checkin notification', 'direct_message,direct_mention', async (bot, message) => {
+  bot.api.reactions.add({
+    timestamp: message.ts,
+    channel: message.channel,
+    name: 'thumbsup-dino',
+  })
+
+  interactionCheckinNotification(undefined, { user: message.user, channel: message.channel })
+})
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
   bot.api.reactions.add({
