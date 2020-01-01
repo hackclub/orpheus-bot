@@ -43,7 +43,7 @@ controller.hears('checkin notification', 'direct_message,direct_mention', async 
     name: 'thumbsup-dino',
   })
 
-  interactionCheckinNotification(undefined, { user: message.user, channel: message.channel })
+  interactionCheckinNotification(undefined, { user: message.user })
 })
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
