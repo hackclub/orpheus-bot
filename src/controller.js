@@ -86,7 +86,7 @@ controller.middleware.normalize.use(async (bot, message, next) => {
     const eventTS = get(message, 'raw_message.event.ts')
     if (threadTS && threadTS != eventTS) {
       const parentChannel = message.raw_message.event.channel
-      const [slackID, replies] = Promise.all([
+      const [slackID, replies] = await Promise.all([
         new Promise((resolve, reject) => {
           bot.api.auth.test({}, (err, res) => {
             if (err) reject(err)
