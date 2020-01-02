@@ -216,7 +216,7 @@ controller.on('block_actions', (bot, message) => {
   }
 })
 
-controller.on('message_replied', async (bot, message) => {
+controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
   // We can't "hear" message_replied subtypes because of a botkit bug, so we're
   // going to handle all message_replied events in a similar way to how we
   // handle slash commands
