@@ -142,9 +142,10 @@ checkinNotification:
 stats:
   help: |
     Get a graph of a club's stats. Ex.
-    - \`/stats\` 📣 Publicly post your own club's stats
-    - \`/stats @USER\` 🔒 Privately see a tagged users club stats
-    - \`/stats #CLUB-CHANNEL\` 🔒 Privately see a tagged club's stats
+    - \`/stats\` Post your own club's stats
+    - \`/stats @USER\` Post the tagged user's stats
+    - \`/stats #CLUB-CHANNEL\` Post the tagged club's stats 
+    Include the keyword "hidden" to post privately. Ex. \`/stats @USER hidden\`
   loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')}"
   loadingFlavor:
     - chugging the data juice
