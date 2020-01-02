@@ -94,9 +94,6 @@ controller.middleware.normalize.use(async (bot, message, next) => {
     const threadTS = get(message, 'raw_message.event.thread_ts')
     const eventTS = get(message, 'raw_message.event.ts')
     if (threadTS && threadTS != eventTS) {
-      console.log(`Middleware: I've marked a message as 'message_replied'`)
-      message.type = 'message_replied'
-      message.thread = {}
       const parentChannel = message.raw_message.event.channel
       const [slackID, replies] = Promise.all([
         ownSlackID(),
@@ -126,8 +123,12 @@ controller.middleware.normalize.use(async (bot, message, next) => {
           )
         }),
       ])
+      console.log(`Middleware: I've marked a message as 'message_replied'`)
+      message.type = 'message_replied'
+      message.thread = {}
       message.thread.replies = replies
-      message.thread.originalPoster = slackID == message.raw_message.event.parent_user_id
+      message.thread.originalPoster =
+        slackID == message.raw_message.event.parent_user_id
     }
   } catch (err) {
     console.error(err)
