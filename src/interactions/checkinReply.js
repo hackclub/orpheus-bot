@@ -1,7 +1,7 @@
 import { airCreate, getInfoForUser, transcript } from '../utils'
 
 export default async (bot, message) => {
-  const { channel, text } = message
+  const { channel, text, thread_ts, user } = message
 
   try {
     const date = new Date(thread_ts * 1000).toISOString().replace(/T.*/, '')
