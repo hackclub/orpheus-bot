@@ -80,15 +80,6 @@ const scryMiddleware = message => {
   })
 }
 
-const ownSlackID = (bot = initBot()) => {
-  return new Promise((resolve, reject) => {
-    bot.api.auth.test({}, (err, res) => {
-      if (err) reject(err)
-      resolve(res.user_id)
-    })
-  })
-}
-
 controller.middleware.normalize.use(async (bot, message, next) => {
   try {
     const threadTS = get(message, 'raw_message.event.thread_ts')
@@ -96,7 +87,12 @@ controller.middleware.normalize.use(async (bot, message, next) => {
     if (threadTS && threadTS != eventTS) {
       const parentChannel = message.raw_message.event.channel
       const [slackID, replies] = Promise.all([
-        ownSlackID(),
+        new Promise((resolve, reject) => {
+          bot.api.auth.test({}, (err, res) => {
+            if (err) reject(err)
+            resolve(res.user_id)
+          })
+        }),
         new Promise((resolve, reject) => {
           // (max) we're doing weird things with the api token here. context:
           // Slack's conversations.replies acts differently depending on the type
