@@ -1,5 +1,6 @@
 import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
+import { get } from 'lodash'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -80,8 +81,8 @@ const scryMiddleware = message => {
 
 controller.middleware.normalize.use(async (bot, message, next) => {
   try {
-    const threadTS = message.raw_message.event.thread_ts
-    const eventTS = message.raw_message.event.ts
+    const threadTS = get(message, 'raw_message.event.thread_ts')
+    const eventTS = get(message, 'raw_message.event.ts')
     if (threadTS && threadTS != eventTS) {
       console.log(`Middleware: I've marked a message as 'message_replied'`)
       message.type = 'message_replied'
