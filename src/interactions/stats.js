@@ -21,7 +21,7 @@ const interactionStats = (bot, message) => {
   })
 
   const minWaitPromise = new Promise(resolve => {
-    setTimeout(resolve, 3000)
+    setTimeout(resolve, 1)
   })
 
   const taggedUserID = (text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
