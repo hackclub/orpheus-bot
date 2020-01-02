@@ -23,7 +23,7 @@ export const details =
 
 export async function run(bot, message) {
   const { user } = message
-  const { leader, club, history, address } = await getInfoForUser(user)
+  const { leader, club, history, personAddress } = await getInfoForUser(user)
 
   if (!leader || !club) {
     await bot.replyPrivateDelayed(
@@ -61,7 +61,7 @@ export async function run(bot, message) {
           hcbLink: grant.fields['HCB Account'],
         })
       )
-    } else if (address.fields['Country'] === 'United States of America (US)') {
+    } else if (personAddress.fields['Country'] === 'United States of America (US)') {
       // if no HCB account, check if they're in the US. If so, setup a mail mission
       await interactionMailMission(undefined, {
         user,
