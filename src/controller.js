@@ -79,6 +79,15 @@ const scryMiddleware = message => {
   })
 }
 
+const ownSlackID = (bot = initBot()) => {
+  return new Promise((resolve, reject) => {
+    bot.api.auth.test({}, (err, res) => {
+      if (err) reject(err)
+      resolve(res.user_id)
+    })
+  })
+}
+
 controller.middleware.normalize.use(async (bot, message, next) => {
   try {
     const threadTS = get(message, 'raw_message.event.thread_ts')
@@ -86,33 +95,38 @@ controller.middleware.normalize.use(async (bot, message, next) => {
     if (threadTS && threadTS != eventTS) {
       console.log(`Middleware: I've marked a message as 'message_replied'`)
       message.type = 'message_replied'
+      message.thread = {}
       const parentChannel = message.raw_message.event.channel
-      await new Promise((resolve, reject) => {
-        // (max) we're doing weird things with the api token here. context:
-        // Slack's conversations.replies acts differently depending on the type
-        // of key it's given. see the docs here:
-        // https://api.slack.com/methods/conversations.history
-        // to access public & private channel threads, we need to use an app
-        // token, but botkit 0.7.4 automatically uses a bot token.
-        // See github comment for how to make slack api calls with app token:
-        // https://github.com/howdyai/botkit/issues/840#issuecomment-304750962
-        bot.api.conversations.replies(
-          {
-            token: bot.config.bot.access_token,
-            channel: parentChannel,
-            ts: threadTS,
-            inclusive: 1,
-            limit: 1,
-          },
-          (err, res) => {
-            if (err) {
-              reject(err)
+      const [slackID, replies] = Promise.all([
+        ownSlackID(),
+        new Promise((resolve, reject) => {
+          // (max) we're doing weird things with the api token here. context:
+          // Slack's conversations.replies acts differently depending on the type
+          // of key it's given. see the docs here:
+          // https://api.slack.com/methods/conversations.history
+          // to access public & private channel threads, we need to use an app
+          // token, but botkit 0.7.4 automatically uses a bot token.
+          // See github comment for how to make slack api calls with app token:
+          // https://github.com/howdyai/botkit/issues/840#issuecomment-304750962
+          bot.api.conversations.replies(
+            {
+              token: bot.config.bot.access_token,
+              channel: parentChannel,
+              ts: threadTS,
+              inclusive: 1,
+              limit: 1,
+            },
+            (err, res) => {
+              if (err) {
+                reject(err)
+              }
+              resolve(res)
             }
-            message.thread = res
-            resolve()
-          }
-        )
-      })
+          )
+        }),
+      ])
+      message.thread.replies = replies
+      message.thread.originalPoster = slackID == message.raw_message.event.parent_user_id
     }
   } catch (err) {
     console.error(err)
