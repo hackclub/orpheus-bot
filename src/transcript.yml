@@ -182,6 +182,7 @@ stats:
     - spinning the rgbs
     - Installing dependencies
     - shoveling the overflowed pixels
+    - ".split() === :large_blue_circle::large_green_circle::large_yellow_circle::large_orange_circle::red_circle::large_purple_circle: "
   notFound:
     - ":confused-dino: I can't find that club in my files"
     - ":confused-dino-2: I don't see that club's records"
