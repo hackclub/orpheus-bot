@@ -218,7 +218,7 @@ controller.on('block_actions', (bot, message) => {
 
 controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
   if (message.thread.originalPoster) {
-    console.log(message.thread.replies.messages[0])
+    interactionCheckinReply(bot, message)
   }
 })
 

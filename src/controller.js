@@ -123,6 +123,7 @@ controller.middleware.normalize.use(async (bot, message, next) => {
       message.type = 'message_replied'
       message.thread = {}
       message.thread.replies = replies
+      message.thread.originalText = replies.messages[0].text
       message.thread.originalPoster =
         slackID == message.raw_message.event.parent_user_id
     }

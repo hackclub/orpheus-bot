@@ -1,10 +1,7 @@
 import { airCreate, getInfoForUser, transcript } from '../utils'
 
 export default async (bot, message) => {
-  const { channel, thread_ts, user, text, parent_user_id } = message
-  if (!thread_ts) {
-    return
-  }
+  const { channel, text } = message
 
   try {
     const date = new Date(thread_ts * 1000).toISOString().replace(/T.*/, '')
@@ -25,7 +22,7 @@ export default async (bot, message) => {
       Club: [club.id],
       Date: date,
       Attendance: attendance,
-      Notes: '@orpheus-bot created this entry from a Slack checkin',
+      Notes: '@orpheus-bot created this entry from a Slack checkin reply',
     }
 
     const meeting = await airCreate('History', fields)
