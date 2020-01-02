@@ -69,7 +69,9 @@ const interactionStats = (bot, message) => {
                 text: `The club is ${
                   history.isActive
                     ? ':large_blue_circle: activly meeting'
-                    : ":white_circle: inactive because it hasn't recorded a meeting for a while"
+                    : history.meetings.length === 0
+                    ? ":large_orange_circle: inactive because it hasn't recorded its first meeting"
+                    : ":large_yellow_circle: inactive because it hasn't met for a while"
                 }`,
               },
             ],
