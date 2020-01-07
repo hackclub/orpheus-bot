@@ -1,7 +1,7 @@
 import { request as octokitRequest } from '@octokit/request'
 import { xor, uniq } from 'lodash'
 
-import { airGet, airFind, airPatch } from '../utils'
+import { airGet, airFind, airPatch, transcript } from '../utils'
 import interactionCheckinNotification from './checkinNotification'
 
 const getAdmin = (bot, user) =>
@@ -107,7 +107,15 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
     dinoisseurBadge.fields['People'],
     result.fields['People']
   )
-  console.log(changeInContributors)
+
+  changeInContributors.forEach(recordID => {
+    const person = await airFind('People', `RECORD_ID() = '${recordID}'`)
+    bot.say({
+      channel: person.fields['Slack ID'],
+      text: transcript('trigger.dinoBadge.notifyRecipient')
+    })
+  })
+  
   if (changeInContributors.length > 0) {
     bot.replyInThread(
       message,
