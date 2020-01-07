@@ -107,6 +107,7 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
     dinoisseurBadge.fields['People'],
     result.fields['People']
   )
+  console.log(changeInContributors)
   if (changeInContributors.length > 0) {
     bot.replyInThread(
       message,
