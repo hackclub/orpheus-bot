@@ -72,7 +72,8 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
     ...repoData.data.map(node => node.author.html_url),
     ...prData.data.map(node => node.user.html_url), // submitters of open PRs are also eligible for the badge
   ]
-  console.log(`I found ${contributors.length} contributors!`)
+
+  console.log(`I found ${contributors.length} dino contributors on GitHub!`)
 
   const airtableContributors = await Promise.all(
     contributors.map(contributor =>
