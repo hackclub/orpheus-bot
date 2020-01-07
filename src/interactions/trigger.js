@@ -108,14 +108,14 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
     result.fields['People']
   )
 
-  changeInContributors.forEach(recordID => {
+  changeInContributors.map(async recordID => {
     const person = await airFind('People', `RECORD_ID() = '${recordID}'`)
     bot.say({
       channel: person.fields['Slack ID'],
-      text: transcript('trigger.dinoBadge.notifyRecipient')
+      text: transcript('trigger.dinoBadge.notifyRecipient'),
     })
   })
-  
+
   if (changeInContributors.length > 0) {
     bot.replyInThread(
       message,
