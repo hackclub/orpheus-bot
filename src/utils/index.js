@@ -201,9 +201,9 @@ export const getClubInfo = async search => {
       },
       async () => {
         if (results.club.fields['Privacy Card']) {
-          results.card = await airFind(
+          results.clubCard = await airFind(
             'Privacy Cards',
-            'Card',
+            'Club',
             results.club.fields.ID
           )
         }
@@ -255,6 +255,7 @@ export const getInfoForUser = user =>
         results.club = clubData.club
         results.rawHistory = clubData.rawHistory
         results.history = clubData.history
+        results.clubCard = clubData.clubCard
       }),
       airFind('People', 'Slack ID', user).then(
         person => (results.person = person)
