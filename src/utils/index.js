@@ -191,24 +191,15 @@ export const getClubInfo = async search => {
     )
   }
   if (results.club) {
-    await Promise.all([
-      async () => {
-        results.rawHistory = await airGet(
-          'History',
-          'Club',
-          results.club.fields.ID
-        )
-      },
-      async () => {
-        if (results.club.fields['Privacy Card']) {
-          results.card = await airFind(
-            'Privacy Cards',
-            'Club',
-            results.club.fields.ID
-          )
-        }
-      },
-    ])
+    results.rawHistory = await airGet('History', 'Club', results.club.fields.ID)
+
+    if (results.club.fields['Privacy Card']) {
+      results.card = await airFind(
+        'Privacy Cards',
+        'Club',
+        results.club.fields.ID
+      )
+    }
   }
   if (results.rawHistory) {
     results.history = {
