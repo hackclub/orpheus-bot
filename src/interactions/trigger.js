@@ -113,7 +113,8 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
     const person = await airFind('People', `RECORD_ID() = '${recordID}'`)
     bot.say({
       channel: person.fields['Slack ID'],
-      text: "Hey, you've earned the :dinoisseur-badge:! You can use it by typing `:dinoisseur-badge:` or `:smug-dino:`",
+      text:
+        "Hey, you've earned the :dinoisseur-badge:! You can use it by typing `:dinoisseur-badge:` or `:smug-dino:`",
     })
   })
 

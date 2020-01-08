@@ -74,6 +74,9 @@ address: |
 
   You can update your address using this form. ${this.address['Update Form URL']}
 hacktoberfest: Hey! heard you were talking about hacktoberfest. if you're interested in submitting PRs to me, but don't know where to start, message <@U0C7B14Q3>– he can help you get started!
+trigger:
+  dinoBadge:
+    notifyRecipient: Hey, you've earned the :dinoisseur-badge:! You can use it by typing \`:dinoisseur-badge:\` or \`:smug-dino:\`
 leaderInvite:
   notAdmin: I can't do that for you, you're not an admin!
   notClubChannel: I can only do that in a club channel!
@@ -268,6 +271,8 @@ meetingRemove:
     \`/meeting-remove recWh9CTlR7QnNspQ\`
 
     You can get the meeting's ID from \`/meeting-list\`.
+    ${this.meetings.map(m => this.t('meetingRemove.bullet', { m }))}
+  bullet: \n- ${this.m.fields['Attendance']} attendees, <!date^${this.lastGrantDate.getTime()/1000}^{date_short_pretty}|on ${this.}>
   success: Meeting removed! It won't show up in your meeting list anymore.
 checkinReply:
   notAuth: I assume you wanted to record a meeting of ${this.attendance} members, but I don't see you listed as a leader of ${this.channel}
@@ -384,6 +389,29 @@ promos:
       \`\`\`
       are you free to hop on a quick call? wanted to chat about the grant request you sent in. don't worry about approval-- this isn't for reviewing the application
       \`\`\`
+    loading:
+      message:
+        - converting the dollaringos
+        - converting to yen and back again
+        - flippin the bits
+        - deep frying the cents
+        - rounding the cents
+        - grinding out the pennies
+        - counting that out in ${this.t('promos.githubGrant.loading.demonimations')}
+        - contacting the **Smoothmunny™℠®** api
+        - issuing the ${this.t('promos.githubGrant.loading.demonimations')}
+        - stealing ${this.t('promos.githubGrant.loading.demonimations')} to give out
+        - hacking the bank
+        - breaking into the bank
+      denominations:
+        - bitcoin
+        - dogecoin
+        - pennies
+        - cents
+        - dollars
+        - yen
+        - dollaringos
+        - ezBUCKS
 get:
   help: 'Get stuff from Hack Club. Try \`/get Free Notion\`'
   list: Here's the list of things you can get ${this.promos.map(p => this.t('get.bullet', { p }))}
