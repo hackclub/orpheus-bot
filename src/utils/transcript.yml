@@ -377,7 +377,7 @@ promos:
     hcbFulfillment: I've just told the Bank team about your grant and they'll send it over ASAP. The grant will show up in your account (${this.hcbLink}). If you need to change accounts or have any issues/questions, reach out to your Bank point of contact.
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
     requestForm: |
-      Your grant is being reviewed. Please fill this out: https://airtable.com/shrsc4CEHR8u0EhT6?prefill_Grant%20Record%20ID=${this.id}.
+      You betcha'! The next step is to fill out a grant request form: https://hack.af/gh-grant?prefill_Grant%20Record%20ID=${this.id}.
     inactive: >
       Your club doesn't have the "active" status (run \`/stats\` to see your
       club's history and \`/meeting-add\` to record meetings). While not
