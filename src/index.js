@@ -33,6 +33,7 @@ import interactionForget from './interactions/forget'
 import interactionAirtable from './interactions/airtable'
 import interactionCheckinNotification from './interactions/checkinNotification'
 import interactionCheckinReply from './interactions/checkinReply'
+import interactionClubCard from './interactions/clubCard'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -149,6 +150,10 @@ controller.on('slash_command', async (bot, message) => {
 
           case '/club-address':
             await interactionClubAddress(bot, message)
+            break
+
+          case '/club-card':
+            await interactionClubCard(bot, message)
             break
 
           case '/promo':

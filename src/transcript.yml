@@ -40,6 +40,11 @@ hello:
   - hllo
   - ehllo
   - heoll
+clubCard:
+  noClub: Hmmm... I couldn't find your club in my database. Are you supposed to be a leader or something?
+  noCard: Your club doesn't have a card. You'll get one next time you apply for a semesterly grant.
+  dmNotification: So I don't accidentally leak the card number where I shouldn't, I'm going to DM you the link to the club card.
+  url: Here's your card link ${this.url}
 clubAddress: |
   Here's the current address we have on record for your club.
   \`\`\`
