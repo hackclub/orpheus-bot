@@ -30,7 +30,6 @@ const scryMiddleware = message => {
     type = message.raw_message.subtype || message.type
   }
   switch (message.type) {
-    case 'message_replied':
     case 'direct_mention':
     case 'mention':
       quote = message.text
