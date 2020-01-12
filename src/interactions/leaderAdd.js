@@ -18,7 +18,7 @@ const interactionLeaderAdd = (bot, message) => {
         return
       }
 
-      if (!commandUser.club) {
+      if (!(commandUser.club && commandUser.ambassador)) {
         console.log(`${commandUser.user} doesn't have a club`)
         bot.replyPrivateDelayed(message, transcript('leaderAdd.invalidClub'))
         return
