@@ -251,9 +251,13 @@ export const getInfoForUser = user =>
       airFind('People', 'Slack ID', user).then(
         person => (results.person = person)
       ),
-      airGet('Ambassadors', 'IF(Permissioned = 1, "true", "false")').then(
-        permissionedAmbassador => {
-          results.permissionedAmbassador = permissionedAmbassador
+      airGet('Ambassadors', `FIND('${user}', {Slack ID})`).then(
+        () => {
+          airGet('Ambassadors', 'IF(Permissioned = 1, "true", "false")').then(
+            permissionedAmbassador => {
+              results.permissionedAmbassador = permissionedAmbassador
+            }
+          )
         }
       )
     ])
