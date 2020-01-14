@@ -338,11 +338,10 @@ leaderAdd:
     Registers a new leader to your club. Ex. \`/leader-add @orpheus\`
     _Needs to be run by a club leader in their own club channel_
     Additionally, you can see a list of who is already a leader with \`/leader-list\`
-  invalidUser: Only club leaders can use this command.
-  invalidClub: I couldn't find your club.
+  invalidAuth: I couldn't find your club. Only registered leaders or operations team members can run this command.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
-  success: And... done! I've added <@${this.taggedUserID}> to the club in <#${this.channel}>.
   alreadyLeader: They're already a leader in your club!
+  success: And... done! I've added <@${this.taggedUserID}> to the club in <#${this.channel}>.
 leaderList:
   invalidUser: Only club leaders can use this command.
   invalidClub: I couldn't find your club.

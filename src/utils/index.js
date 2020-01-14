@@ -42,7 +42,7 @@ export const airPatch = (baseName, recordID, values, options = {}) =>
           }
           console.log(
             `Airtable updated my ${baseName} record from ${timestamp} in ${Date.now() -
-            timestamp}ms`
+              timestamp}ms`
           )
           resolve(record)
         })
@@ -69,7 +69,7 @@ export const airCreate = (baseName, fields, options = {}) =>
           }
           console.log(
             `Airtable saved my ${baseName} record from ${timestamp} in ${Date.now() -
-            timestamp}ms`
+              timestamp}ms`
           )
           resolve(record)
         })
@@ -134,7 +134,7 @@ export const airGet = (
             }
             console.log(
               `AirTable got back to me from my question at ${timestamp} with ${
-              data.length
+                data.length
               } records. The query took ${Date.now() - timestamp}ms`
             )
             resolve(data)
@@ -251,15 +251,12 @@ export const getInfoForUser = user =>
       airFind('People', 'Slack ID', user).then(
         person => (results.person = person)
       ),
-      airFind('Ambassadors', 'Slack ID', user).then(
-        () => {
-          airGet('Ambassadors', 'IF(Permissioned = 1, "true", "false")').then(
-            permissionedAmbassador => {
-              results.permissionedAmbassador = permissionedAmbassador
-            }
-          )
+      airFind('Ambassadors', 'Slack ID', user).then(ambassador => {
+        results.ambassador = ambassador
+        if (ambassador) {
+          results.permissionedAmbassador = ambassador.fields['Permissioned']
         }
-      )
+      }),
     ])
       .then(async () => {
         if (!results.person && results.slackUser) {
@@ -325,7 +322,7 @@ export const getInfoForUser = user =>
       .then(() => {
         console.log(
           `Finished pulling up the info about user '${user}' from ${timestamp} in ${Date.now() -
-          timestamp}ms`
+            timestamp}ms`
         )
         resolve(results)
       })
@@ -513,7 +510,7 @@ export const transcript = (search, vars) => {
   return evalTranscript(recurseTranscript(searchArr, transcriptObj), vars)
 }
 const evalTranscript = (target, vars = {}) =>
-  function () {
+  function() {
     return eval('`' + target + '`')
   }.call({
     ...vars,
