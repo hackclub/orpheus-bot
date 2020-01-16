@@ -138,10 +138,10 @@ checkinNotification:
     Hey! My calendar shows you had a meeting recently.
     ${this.t('checkinNotification.content')}
   content: |
-    - If you *did* meet, reply to this thread with "15" (but with the number of members you did have).
+    - If you *did* meet, reply to this thread with the number of members you had (e.g. "15").
   threadDetails: |
-    - if you *didn't* meet, go ahead and reply to this thread with "no".
-    - if you *won't* meet for a while, go ahead and reply with "a month from today at 2 pm" (but with the time of your next meeting).
+    - if you *didn't* meet, reply to this thread with "no".
+    - if you *won't* meet for a while, reply with the day/time of your next meeting (e.g. "a month from today at 2 pm").
   log:
     lookingForPOC: "*Running checkin on channel '${this.channel}' with no default leader, I'll look for a default leader now!*"
     foundPOC: "*Found a POC! I'll post a checkin notification in channel '${this.channel}' & tag the POC: '${this.user}'!*"
