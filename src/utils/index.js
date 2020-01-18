@@ -251,6 +251,12 @@ export const getInfoForUser = user =>
       airFind('People', 'Slack ID', user).then(
         person => (results.person = person)
       ),
+      airFind('Ambassadors', 'Slack ID', user).then(ambassador => {
+        results.ambassador = ambassador
+        if (ambassador) {
+          results.permissionedAmbassador = ambassador.fields['Permissioned']
+        }
+      }),
     ])
       .then(async () => {
         if (!results.person && results.slackUser) {
