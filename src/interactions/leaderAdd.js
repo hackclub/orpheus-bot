@@ -6,6 +6,7 @@ const interactionLeaderAdd = async (bot, message) => {
   const taggedUserID = (text.match(/\<@(.*)\|/) || [])[1]
   if (!taggedUserID) {
     bot.replyPrivateDelayed(message, transcript('leaderAdd.help'))
+    return
   }
 
   const taggedUser = await getInfoForUser(taggedUserID)
