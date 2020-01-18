@@ -27,12 +27,12 @@ const interactionLeaderAdd = async (bot, message) => {
     throw transcript('leaderAdd.invalidChannel')
   }
 
-  const taggedUserClubs = taggedUser.fields['Clubs'] || []
+  const taggedUserClubs = taggedUser.person.fields['Clubs'] || []
   if (taggedUserClubs.includes(recipientClub)) {
     throw transcript('leaderAdd.alreadyLeader')
   }
 
-  await airPatch('People', taggedUser.id, {
+  await airPatch('People', taggedUser.person.id, {
     Clubs: [...taggedUserClubs, recipientClub],
   })
 
