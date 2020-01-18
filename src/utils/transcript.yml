@@ -340,6 +340,7 @@ leaderAdd:
     Additionally, you can see a list of who is already a leader with \`/leader-list\`
   invalidAuth: I couldn't find your club. Only registered leaders or operations team members can run this command.
   invalidChannel: This isn't your club channel. Please run this in a channel you lead.
+  clubNotFound: This channel isn't tied to a club! Please run this in a club channel.
   alreadyLeader: They're already a leader in your club!
   success: And... done! I've added <@${this.taggedUserID}> to the club in <#${this.channel}>.
 leaderList:

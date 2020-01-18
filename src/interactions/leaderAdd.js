@@ -17,6 +17,10 @@ const interactionLeaderAdd = async (bot, message) => {
     throw transcript('leaderAdd.invalidClub')
   }
 
+  if (!recipientClub) {
+    throw transcript('leaderAdd.clubNotFound')
+  }
+
   if (commandUser.club && commandUser.club.id != recipientClub.id) {
     // A leader is trying to permission someone to a channel that's not their
     // club channel
