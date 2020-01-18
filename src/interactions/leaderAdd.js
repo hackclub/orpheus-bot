@@ -33,7 +33,7 @@ const interactionLeaderAdd = async (bot, message) => {
   }
 
   await airPatch('People', taggedUser.person.id, {
-    Clubs: [...taggedUserClubs, recipientClub],
+    Clubs: [...taggedUserClubs, recipientClub.id],
   })
 
   bot.replyPrivateDelayed(
