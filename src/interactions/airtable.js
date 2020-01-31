@@ -2,12 +2,6 @@ import { getInfoForUser, transcript } from '../utils'
 
 export default async (bot, message) => {
   try {
-    const { slackUser } = await getInfoForUser(message.user)
-
-    if (!slackUser.is_owner) {
-      throw new Error('Only Slack owners can run this command!')
-    }
-
     const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
 
     if (!taggedUserID) {
