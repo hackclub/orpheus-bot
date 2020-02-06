@@ -69,7 +69,7 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
   })
 
   const contributors = [
-    ...repoData.data.map(node => node.author.html_url),
+    ...repoData.data.filter(node => node.author).map(node => node.author.html_url),
     ...prData.data.map(node => node.user.html_url), // submitters of open PRs are also eligible for the badge
   ]
 
