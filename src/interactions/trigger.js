@@ -1,8 +1,8 @@
-import { request as octokitRequest } from '@octokit/request'
 import { xor, uniq } from 'lodash'
 
 import { airGet, airFind, airPatch } from '../utils'
 import interactionCheckinNotification from './checkinNotification'
+import { authedGHRequest } from '../adapter/github'
 
 const getAdmin = (bot, user) =>
   new Promise((resolve, reject) => {
@@ -55,14 +55,14 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
   const dinoisseurBadge = await airFind('Badges', 'Name', 'Dinoisseur', {
     priority: 0,
   })
-  const repoData = await octokitRequest(
+  const repoData = await authedGHRequest(
     'GET /repos/:owner/:repo/stats/contributors',
     {
       owner: 'hackclub',
       repo: 'dinosaurs',
     }
   )
-  const prData = await octokitRequest('GET /repos/:owner/:repo/pulls', {
+  const prData = await authedGHRequest('GET /repos/:owner/:repo/pulls', {
     owner: 'hackclub',
     repo: 'dinosaurs',
     state: 'open',
