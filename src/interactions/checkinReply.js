@@ -5,7 +5,11 @@ export default async (bot, message) => {
 
   try {
     const date = new Date(thread_ts * 1000).toISOString().replace(/T.*/, '')
-    const attendance = parseInt(text.replace(/[^\d.]/g, ''))
+    const attendance = parseInt(text)
+
+    if (!attendance || attendance < 1) {
+      bot.reply(message, transcript('checkinReply.notNumber'))
+    }
 
     const { club } = await getInfoForUser(user)
 
