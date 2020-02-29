@@ -9,6 +9,7 @@ export default async (bot, message) => {
 
     if (!attendance || attendance < 1) {
       bot.reply(message, transcript('checkinReply.notNumber'))
+      return
     }
 
     const { club } = await getInfoForUser(user)
