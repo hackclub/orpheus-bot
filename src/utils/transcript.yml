@@ -141,7 +141,7 @@ checkinNotification:
     - If you *did* meet, reply to this thread with the number of members you had (e.g. "15").
   threadDetails: |
     - if you *didn't* meet, reply to this thread with "no".
-    - if you *won't* meet for a while, use the command `/meeting-time` with the day/time of your next meeting (e.g. "/meeting-time a month from today at 2 pm").
+    - if you *won't* meet for a while, use the command \`/meeting-time\` with the day/time of your next meeting (e.g. "/meeting-time a month from today at 2 pm").
   log:
     lookingForPOC: "*Running checkin on channel '${this.channel}' with no default leader, I'll look for a default leader now!*"
     foundPOC: "*Found a POC! I'll post a checkin notification in channel '${this.channel}' & tag the POC: '${this.user}'!*"
