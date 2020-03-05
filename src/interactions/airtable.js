@@ -25,7 +25,7 @@ export default async (bot, message) => {
       results.hcbAccount = info.club.fields['HCB Account URL']
     }
     if (info.club && info.club.fields['Slack Channel ID']) {
-      results.clubChannel = `<#${info.club['Slack Channel ID']}>`
+      results.clubChannel = `<#${info.club.fields['Slack Channel ID']}>`
     }
     if (info.mailSender) {
       results.senderAirtableRecord = `https://airtable.com/tblvW60Qdo2AdoN1s/${info.mailSender.id}?blocks=hide`
