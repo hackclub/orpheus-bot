@@ -381,15 +381,10 @@ promos:
       You betcha'! The next step is to fill out a grant request form: https://hack.af/gh-grant?prefill_Grant%20Record%20ID=${this.id}.
     inactive: >
       Your club doesn't have the "active" status (run \`/stats\` to see your
-      club's history and \`/meeting-add\` to record meetings). While not
+      club's status and \`/meeting-add\` to record meetings). While not
       required for grants, having "active" status will go a long way in
       getting your grant approved. If you've forgotten to add any meetings
       you can record them now before your grant is reviewed by staff.
-    setupCall: |
-      I've just filed a $${this.amount} grant request for <@${this.user}>. Might want to send the following to them:
-      \`\`\`
-      are you free to hop on a quick call? wanted to chat about the grant request you sent in. don't worry about approval-- this isn't for reviewing the application
-      \`\`\`
     loading:
       message:
         - converting the dollaringos

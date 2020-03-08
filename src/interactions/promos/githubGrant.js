@@ -51,7 +51,6 @@ export async function run(bot, message) {
       Type: 'First meeting ($100)',
       'Grant amount': 100,
     })
-    notifyMax(grant, user)
 
     if (grant.fields['HCB Account']) {
       // if they have an HCB account, we'll notify the bank team
@@ -124,21 +123,9 @@ export async function run(bot, message) {
       'Grant amount': 50,
     })
 
-    notifyMax(grant, user)
-
     bot.replyPrivateDelayed(
       message,
       transcript('promos.githubGrant.requestForm', { id: grant.id })
     )
   }
-}
-
-async function notifyMax(grant, user) {
-  await initBot().say({
-    channel: 'U0C7B14Q3', // DM Max
-    text: transcript('promos.githubGrant.setupCall', {
-      user,
-      amount: grant.fields['Grant amount'],
-    }),
-  })
 }
