@@ -45,7 +45,7 @@ const interactionTutorial = async (bot, message) => {
         await asyncReply(
           bot,
           message,
-          transcript('tutorial.promoSticker.start')
+          transcript('tutorial.getSticker.start')
         )
         userRecord.patch({ 'Flag: renamed channel': true })
       }
@@ -71,7 +71,7 @@ const interactionTutorial = async (bot, message) => {
           message,
           transcript('tutorial.meetingAdd.finished')
         )
-        await asyncReply(bot, message, transcript('tutorial.promoGrant.start'))
+        await asyncReply(bot, message, transcript('tutorial.getGrant.start'))
         userRecord.patch({ 'Flag: Tutorial /meeting-add': true })
       }
       break
@@ -83,7 +83,7 @@ const interactionTutorial = async (bot, message) => {
         await asyncReply(
           bot,
           message,
-          transcript('tutorial.promoSticker.finished')
+          transcript('tutorial.getSticker.finished')
         )
         await asyncReply(bot, message, transcript('tutorial.meetingAdd.start'))
         userRecord.patch({ 'Flag: Tutorial /promo sticker box': true })
@@ -97,7 +97,7 @@ const interactionTutorial = async (bot, message) => {
         await asyncReply(
           bot,
           message,
-          transcript('tutorial.promoGrant.finished')
+          transcript('tutorial.getGrant.finished')
         )
         await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
         userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
