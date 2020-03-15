@@ -363,7 +363,7 @@ const initAddress = async (recordID, type) => {
 const initPerson = async ({ slackUser }) => {
   const fields = {}
   fields['Slack ID'] = slackUser.id
-  fields['Email'] = slackUser.email
+  fields['Email'] = slackUser.profile.email
   const profile = await getSlackProfile(slackUser.id)
   fields['Full Name'] = profile.real_name_normalized
   fields['Phone number'] = profile.phone
