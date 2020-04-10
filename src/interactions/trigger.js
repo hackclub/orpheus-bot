@@ -151,7 +151,7 @@ const triggerInteraction = (bot, message) => {
       })
 
       return Promise.all([
-        sendCheckinNotifications(message, dryRun),
+        // sendCheckinNotifications(message, dryRun),
         validateDinoisseurBadges(message, dryRun),
       ])
     })
