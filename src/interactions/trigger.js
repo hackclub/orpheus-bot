@@ -111,6 +111,7 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
 
   changeInContributors.map(async recordID => {
     const person = await airFind('People', `RECORD_ID() = '${recordID}'`)
+    console.log(`I'm letting <@${recordID}> know they've earned the smug-dino badge`)
     bot.say({
       channel: person.fields['Slack ID'],
       text:
