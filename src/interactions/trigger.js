@@ -104,6 +104,10 @@ const validateDinoisseurBadges = async (message, dryRun = true) => {
     `I ended up finding ${result.fields['People'].length} who have permission to use the Dinoisseur badge.`
   )
 
+  console.log(
+    dinoisseurBadge.fields['People'],
+    result.fields['People']
+  )
   const changeInContributors = xor(
     dinoisseurBadge.fields['People'],
     result.fields['People']
