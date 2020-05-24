@@ -369,6 +369,7 @@ promos:
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
     success: You and all your club members can use this link to apply hack.af/pack. Make sure to select "${this.referrer}" in the "Hack Club / Hackathon" field.
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
+  adafruit: Go to adafruit.com and use \`HACKCLUB\` as a promo code to get a 10% discount! 
   githubGrant:
     alreadyGranted: |
       I already see a grant request submitted <!date^${this.lastGrantDate.getTime()/1000}^{date_short_pretty}|on ${this.lastGrantDate}> submitted by <@${this.requester}> this semester.
