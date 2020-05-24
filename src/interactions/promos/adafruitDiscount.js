@@ -8,5 +8,5 @@ export const names = [
 ]
 export const details = 'Available to anyone'
 export async function run(bot, message) {
-  await bot.replyPrivateDelayed(message, transcript('promos.notion'))
+  await bot.replyPrivateDelayed(message, transcript('promos.adafruit'))
 }
