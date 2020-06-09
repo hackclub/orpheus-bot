@@ -34,6 +34,7 @@ import interactionAirtable from './interactions/airtable'
 import interactionCheckinNotification from './interactions/checkinNotification'
 import interactionCheckinReply from './interactions/checkinReply'
 import interactionClubCard from './interactions/clubCard'
+import interactionFindOrCreate from './interactions/findOrCreate'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -98,6 +99,8 @@ controller.hears(
     bot.reply(message, transcript('whatAreYouDoing'))
   }
 )
+
+controller.hears('find or create', 'direct_mention', interactionFindOrCreate)
 
 controller.hears('date', 'direct_mention', interactionDate)
 
