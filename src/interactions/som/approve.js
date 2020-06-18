@@ -1,5 +1,6 @@
 import FormData from 'form-data'
 import { getInfoForUser, transcript, initBot } from "../../utils"
+import fetch from 'isomorphic-unfetch'
 
 const approveUser = async (user) => new Promise((resolve, reject) => {
   const form = new FormData()
