@@ -12,7 +12,7 @@ const approveUser = async (user) => new Promise((resolve, reject) => {
   }).then(res => resolve(res)).catch(err => reject(err))
 })
 
-const interactionSOMApprove = async (bot = initBot(), message) => {
+const interactionSOMPromote = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
   if (!taggedUserID) {
     return // do something if we don't tag a user
@@ -39,28 +39,6 @@ const interactionSOMApprove = async (bot = initBot(), message) => {
   } catch (e) {
     console.error(e)
   }
-  // await fetch('https://slack.com/api/users.admin.setRegular?slack_route=T0266FRGM', {
-  //   headers: {
-  //     'content-type': 'application/json'
-  //   }
-  //   body: JSON.stringify({
-  //     user: taggedUserID,
-  //     token: process.env.SLACK_INVITE_TOKEN
-  //   })
-  // })
-
-    // bot.replyPrivateDelayed(
-    //   message,
-    //   transcript('som.approve.alreadyApproved')
-    // )
-    // return
-
-  // initBot().api.users.admin.setRegular()
-
-  // bot.replyPrivateDelayed(
-  //   message,
-  //   'This command is stubbed'
-  // )
 }
 
-export default interactionSOMApprove
+export default interactionSOMPromote

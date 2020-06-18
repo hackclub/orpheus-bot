@@ -38,7 +38,8 @@ import interactionFindOrCreate from './interactions/findOrCreate'
 
 import interactionSOMReport from './interactions/som/report.js'
 import interactionSOMInvite from './interactions/som/invite.js'
-import interactionSOMApprove from './interactions/som/approve.js'
+import interactionSOMPromote from './interactions/som/promote.js'
+import interactionSOMLookup from './interactions/som/lookup'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -139,7 +140,11 @@ controller.on('slash_command', async (bot, message) => {
         switch (command) {
           case '/som-promote':
           case '/som-approve':
-            await interactionSOMApprove(bot, message)
+            await interactionSOMPromote(bot, message)
+            break
+          case '/som-lookup-promoter':
+          case '/som-lookup-approver':
+            await interactionSOMLookup(bot, message)
             break
           case '/som-invite':
             await interactionSOMInvite(bot, message)
@@ -246,4 +251,5 @@ controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
-interactionStartup()
+// interactionStartup()
+interactionSOMLookup(undefined, { text: '<@U0156BR9K5M>'})

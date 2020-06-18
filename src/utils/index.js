@@ -17,6 +17,9 @@ bases.hackaf = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
 bases.sdp = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   process.env.AIRTABLE_SDP_BASE
 )
+bases.som = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
+  'appaqcJtn33vb59Au'
+)
 
 const airtableRatelimiter = new Bottleneck({
   // maxConcurrent: 5,

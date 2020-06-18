@@ -420,3 +420,7 @@ som:
   approve:
     alreadyApproved: That person already has a fully approved Slack account! There isn't anything more I can approve them for.
     success: 'https://www.youtube.com/watch?v=SBCw4_XgouA'
+  lookup:
+    stillGuest: <@${this.user}> is still a guest! Someone needs to approve them as a full Slack user before I can lookup who approved them.
+    found: <@${this.user}> was promoted from guest user to a full slack member by <@${this.approver}>.
+    notFound: No guest history found for <@${user}>. This probably means they joined the Slack as a full user instead of being invited as a guest and approved by another member.
