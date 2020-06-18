@@ -1,5 +1,5 @@
 import FormData from 'form-data'
-import { getInfoForUser, transcript, initBot, airPatch, airFind } from '../../utils'
+import { getInfoForUser, transcript, initBot, airPatch, airFind, timeout } from '../../utils'
 import fetch from 'isomorphic-unfetch'
 
 const approveUser = async (user) =>
@@ -63,18 +63,17 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   try {
     await Promise.all([
+      timeout(10000),
       airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
+      approveUser(taggedUserID),
+      bot.replyPrivateDelayed(message, transcript('som.approve.success'))
+    ])
+    await Promise.all([
       inviteUserToChannel(user, 'C0C78SG9L'), //hq
       inviteUserToChannel(user, 'C0266FRGV'), //lounge
       inviteUserToChannel(user, 'C0M8PUPU6'), //ship
       inviteUserToChannel(user, 'C0EA9S0A0') //code
     ])
-
-    // approveUser will deactive a slack account for an indeterminate amount of time
-    // so we should wait for all other Slack API calls to resolve before upgrading to a full account
-    await approveUser(taggedUserID)
-
-    bot.replyPrivateDelayed(message, transcript('som.approve.success'))
   } catch (e) {
     console.error(e)
   }
