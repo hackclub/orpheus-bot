@@ -5,10 +5,10 @@ const approveUser = async (user) => new Promise((resolve, reject) => {
   const form = new FormData()
   form.append('user', user)
   form.append('token', process.env.SLACK_INVITE_TOKEN)
-  form.submit('https://slack.com/api/users.admin.setRegular?slack_route=T0266FRGM', (err, res) => {
-    if (err) { reject(err) }
-    resolve(res)
-  })
+  fetch('https://slack.com/api/users.admin.setRegular?slack_route=T0266FRGM', {
+    method: 'POST',
+    body: form
+  }).then(res => resolve(res)).catch(err => reject(err))
 })
 
 const interactionSOMApprove = async (bot = initBot(), message) => {
