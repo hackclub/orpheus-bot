@@ -37,7 +37,7 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   const guest = await airFind(
     'Join Requests',
-    `AND(NOT(Approver=BLANK()),{Email Address}='${user.tagged.person.fields['Email']}')`,
+    `AND(Approver=BLANK(),{Email Address}='${user.tagged.person.fields['Email']}')`,
     null,
     { base: 'som' }
   )
