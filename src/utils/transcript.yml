@@ -418,6 +418,9 @@ get:
   bullet: \n- \`/get ${this.p.names[0]}\` _${this.p.details}_
 som:
   approve:
+    restricted: This can only be called by a full Slack user, not a guest.
+    notRestricted: That user isn't a guest. I can only promote guests to full Slack users.
+    notGuest: No guest history found for <@${this.user}>. I can't promote them to a full Slack user.
     alreadyApproved: That person already has a fully approved Slack account! There isn't anything more I can approve them for.
     success: 'https://www.youtube.com/watch?v=SBCw4_XgouA'
   lookup:

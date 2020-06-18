@@ -3,18 +3,13 @@ import { getInfoForUser, transcript, initBot, airPatch, airFind } from '../../ut
 import fetch from 'isomorphic-unfetch'
 
 const inviteUserToChannel = async (user, channel) => (
-  fetch('https://slack.com/api/conversations.invite', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`
-    },
-    body: JSON.stringify({
-      channel,
-      users: user
+  new Promise((resolve, reject) => {
+    initBot().api.conversations.invite({ users: user, channel }, (err, res) => {
+      if (err) { reject(err) }
+      resolve(res)
     })
-  })
-)
+  }
+  ))
 
 const approveUser = async (user) =>
   new Promise((resolve, reject) => {
@@ -30,11 +25,6 @@ const approveUser = async (user) =>
     )
       .then((res) => resolve(res))
       .catch((err) => reject(err))
-
-    inviteUserToChannel(user, 'C0C78SG9L') //hq
-    inviteUserToChannel(user, 'C0266FRGV') //lounge
-    inviteUserToChannel(user, 'C0M8PUPU6') //ship
-    inviteUserToChannel(user, 'C0EA9S0A0') //code
   })
 
 const interactionSOMPromote = async (bot = initBot(), message) => {
@@ -47,10 +37,12 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
   user.caller = await getInfoForUser(message.user)
   if (user.caller.slackUser.is_restricted) {
     console.log('caller is restricted, cancelling')
+    bot.replyPrivateDelayed(message, transcript('som.approve.restricted'))
     return
   }
   if (!user.tagged.slackUser.is_restricted) {
     console.log('tagged is not restricted, cancelling')
+    bot.replyPrivateDelayed(message, transcript('som.approve.notRestricted'))
     return
   }
 
@@ -63,12 +55,20 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   if (!guest) {
     console.log('tagged is not an SOM guest, cancelling')
+    bot.replyPrivateDelayed(message, transcript('som.approve.notGuest'))
     return
   }
 
   try {
     await airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' })
     await approveUser(taggedUserID)
+
+    await Promise.all([
+      inviteUserToChannel(user, 'C0C78SG9L'), //hq
+      inviteUserToChannel(user, 'C0266FRGV'), //lounge
+      inviteUserToChannel(user, 'C0M8PUPU6'), //ship
+      inviteUserToChannel(user, 'C0EA9S0A0') //code
+    ])
 
     bot.replyPrivateDelayed(message, transcript('som.approve.success'))
   } catch (e) {
