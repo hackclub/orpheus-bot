@@ -250,5 +250,4 @@ controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
-// interactionStartup()
-interactionSOMLookup(undefined, { text: '<@U0156BR9K5M>'})
+interactionStartup()
