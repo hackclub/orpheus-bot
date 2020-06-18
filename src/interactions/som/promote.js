@@ -2,15 +2,6 @@ import FormData from 'form-data'
 import { getInfoForUser, transcript, initBot, airPatch, airFind } from '../../utils'
 import fetch from 'isomorphic-unfetch'
 
-const inviteUserToChannel = async (user, channel) => (
-  new Promise((resolve, reject) => {
-    initBot().api.conversations.invite({ users: user, channel }, (err, res) => {
-      if (err) { reject(err) }
-      resolve(res)
-    })
-  }
-  ))
-
 const approveUser = async (user) =>
   new Promise((resolve, reject) => {
     const form = new FormData()
@@ -37,12 +28,10 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
   user.caller = await getInfoForUser(message.user)
   if (user.caller.slackUser.is_restricted) {
     console.log('caller is restricted, cancelling')
-    bot.replyPrivateDelayed(message, transcript('som.approve.restricted'))
     return
   }
   if (!user.tagged.slackUser.is_restricted) {
     console.log('tagged is not restricted, cancelling')
-    bot.replyPrivateDelayed(message, transcript('som.approve.notRestricted'))
     return
   }
 
@@ -55,20 +44,21 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   if (!guest) {
     console.log('tagged is not an SOM guest, cancelling')
-    bot.replyPrivateDelayed(message, transcript('som.approve.notGuest'))
     return
   }
 
   try {
-    await airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' })
-    await approveUser(taggedUserID)
-
     await Promise.all([
+      airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
       inviteUserToChannel(user, 'C0C78SG9L'), //hq
       inviteUserToChannel(user, 'C0266FRGV'), //lounge
       inviteUserToChannel(user, 'C0M8PUPU6'), //ship
       inviteUserToChannel(user, 'C0EA9S0A0') //code
     ])
+
+    // approveUser will deactive a slack account for an indeterminate amount of time
+    // so we should wait for all other Slack API calls to resolve before upgrading to a full account
+    await approveUser(taggedUserID)
 
     bot.replyPrivateDelayed(message, transcript('som.approve.success'))
   } catch (e) {
