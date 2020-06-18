@@ -145,6 +145,9 @@ controller.on('slash_command', async (bot, message) => {
           case '/som-lookup':
             await interactionSOMLookup(bot, message)
             break
+          case '/som-report':
+            await interactionSOMReport(bot, message)
+            break
           case '/som-invite':
             await interactionSOMInvite(bot, message)
             break
