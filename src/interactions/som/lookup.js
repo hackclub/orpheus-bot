@@ -3,6 +3,7 @@ import { getInfoForUser, initBot, airFind, transcript } from "../../utils"
 const interactionSOMLookup = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
   if (!taggedUserID) {
+    console.log("No tagged user!")
     return // do something if we don't tag a user
   }
 
