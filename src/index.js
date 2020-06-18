@@ -142,8 +142,7 @@ controller.on('slash_command', async (bot, message) => {
           case '/som-approve':
             await interactionSOMPromote(bot, message)
             break
-          case '/som-lookup-promoter':
-          case '/som-lookup-approver':
+          case '/som-lookup':
             await interactionSOMLookup(bot, message)
             break
           case '/som-invite':
