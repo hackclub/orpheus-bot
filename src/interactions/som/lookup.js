@@ -1,4 +1,4 @@
-import { getInfoForUser, initBot, airFind, transcript } from "../../utils"
+import { getInfoForUser, initBot, airFind, transcript } from '../../utils'
 
 const interactionSOMLookup = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
@@ -17,12 +17,20 @@ const interactionSOMLookup = async (bot = initBot(), message) => {
     return
   }
 
-  const record = await airFind('Join Requests', `AND(NOT(Approver=BLANK()),{Email Address}='${person.fields['Email']}')`, null, { base: 'som' })
+  const record = await airFind(
+    'Join Requests',
+    `AND(NOT(Approver=BLANK()),{Email Address}='${person.fields['Email']}')`,
+    null,
+    { base: 'som' }
+  )
 
   if (record) {
     bot.replyPrivateDelayed(
       message,
-      transcript('som.lookup.found', { user: taggedUserID, approver: record.fields['Approver']})
+      transcript('som.lookup.found', {
+        user: taggedUserID,
+        approver: record.fields['Approver'],
+      })
     )
   } else {
     bot.replyPrivateDelayed(
