@@ -416,3 +416,7 @@ get:
   help: 'Get stuff from Hack Club. Try \`/get Free Notion\`'
   list: Here's the list of things you can get ${this.promos.map(p => this.t('get.bullet', { p }))}
   bullet: \n- \`/get ${this.p.names[0]}\` _${this.p.details}_
+som:
+  approve:
+    alreadyApproved: That person already has a fully approved Slack account! There isn't anything more I can approve them for.
+    success: 'https://www.youtube.com/watch?v=SBCw4_XgouA'
