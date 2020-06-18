@@ -137,6 +137,7 @@ controller.on('slash_command', async (bot, message) => {
 
       try {
         switch (command) {
+          case '/som-promote':
           case '/som-approve':
             await interactionSOMApprove(bot, message)
             break
