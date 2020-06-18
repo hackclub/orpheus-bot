@@ -18,6 +18,20 @@ const approveUser = async (user) =>
       .catch((err) => reject(err))
   })
 
+const inviteUserToChannel = async (user, channel) => (
+  fetch('https://slack.com/api/conversations.invite', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`
+    },
+    body: JSON.stringify({
+      channel,
+      users: user
+    })
+  })
+)
+
 const interactionSOMPromote = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
   if (!taggedUserID) {
