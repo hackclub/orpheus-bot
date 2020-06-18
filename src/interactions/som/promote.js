@@ -2,6 +2,20 @@ import FormData from 'form-data'
 import { getInfoForUser, transcript, initBot, airPatch, airFind } from '../../utils'
 import fetch from 'isomorphic-unfetch'
 
+const inviteUserToChannel = async (user, channel) => (
+  fetch('https://slack.com/api/conversations.invite', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`
+    },
+    body: JSON.stringify({
+      channel,
+      users: user
+    })
+  })
+)
+
 const approveUser = async (user) =>
   new Promise((resolve, reject) => {
     const form = new FormData()
@@ -16,6 +30,11 @@ const approveUser = async (user) =>
     )
       .then((res) => resolve(res))
       .catch((err) => reject(err))
+
+    inviteUserToChannel(user, 'C0C78SG9L') //hq
+    inviteUserToChannel(user, 'C0266FRGV') //lounge
+    inviteUserToChannel(user, 'C0M8PUPU6') //ship
+    inviteUserToChannel(user, 'C0EA9S0A0') //code
   })
 
 const interactionSOMPromote = async (bot = initBot(), message) => {
