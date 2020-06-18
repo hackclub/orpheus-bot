@@ -36,6 +36,10 @@ import interactionCheckinReply from './interactions/checkinReply'
 import interactionClubCard from './interactions/clubCard'
 import interactionFindOrCreate from './interactions/findOrCreate'
 
+import interactionSOMReport from './interactions/som/report.js'
+import interactionSOMInvite from './interactions/som/invite.js'
+import interactionSOMApprove from './interactions/som/approve.js'
+
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
 controller.hears(
@@ -133,6 +137,12 @@ controller.on('slash_command', async (bot, message) => {
 
       try {
         switch (command) {
+          case '/som-approve':
+            await interactionSOMApprove(bot, message)
+            break
+          case '/som-invite':
+            await interactionSOMInvite(bot, message)
+            break
           case '/stats':
           case '/meeting-stats':
             await interactionStats.default(bot, message)
