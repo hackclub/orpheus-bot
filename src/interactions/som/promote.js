@@ -14,12 +14,17 @@ const approveUser = async (user) =>
         body: form,
       }
     )
-      .then((res) => resolve(res))
+      .then((res) => {
+        console.log(res)
+        resolve(res)
+      })
       .catch((err) => reject(err))
   })
 
-const inviteUserToChannel = async (user, channel) => (
-  fetch('https://slack.com/api/conversations.invite', {
+const inviteUserToChannel = async (user, channel) => {
+  console.log("Inviting user", user, "to channel", channel)
+
+  return fetch('https://slack.com/api/conversations.invite', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +35,7 @@ const inviteUserToChannel = async (user, channel) => (
       users: user
     })
   })
-)
+}
 
 const interactionSOMPromote = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
@@ -63,16 +68,15 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   try {
     await Promise.all([
-      timeout(10000),
-      airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
-      approveUser(taggedUserID),
-      bot.replyPrivateDelayed(message, transcript('som.approve.success'))
-    ])
-    await Promise.all([
       inviteUserToChannel(user, 'C0C78SG9L'), //hq
       inviteUserToChannel(user, 'C0266FRGV'), //lounge
       inviteUserToChannel(user, 'C0M8PUPU6'), //ship
       inviteUserToChannel(user, 'C0EA9S0A0') //code
+    ])
+    await Promise.all([
+      airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
+      approveUser(taggedUserID),
+      bot.replyPrivateDelayed(message, transcript('som.approve.success'))
     ])
   } catch (e) {
     console.error(e)
