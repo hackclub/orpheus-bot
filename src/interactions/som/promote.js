@@ -66,21 +66,13 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
     return
   }
 
-  try {
-    await Promise.all([
-      inviteUserToChannel(user, 'C0C78SG9L'), //hq
-      inviteUserToChannel(user, 'C0266FRGV'), //lounge
-      inviteUserToChannel(user, 'C0M8PUPU6'), //ship
-      inviteUserToChannel(user, 'C0EA9S0A0') //code
-    ])
-    await Promise.all([
-      airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
-      approveUser(taggedUserID),
-      bot.replyPrivateDelayed(message, transcript('som.approve.success'))
-    ])
-  } catch (e) {
-    console.error(e)
-  }
+  fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
+    method: 'POST',
+    body: JSON.stringify({
+      promotedId: taggedUserID,
+      promoterId: message.user
+    })
+  })
 }
 
 export default interactionSOMPromote
