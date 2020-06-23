@@ -23,6 +23,7 @@ const approveUser = async (user) =>
 
 const interactionSOMPromote = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
+  console.log('ban tagged user id', taggedUserID)
   if (!taggedUserID) {
     return // do something if we don't tag a user
   }
