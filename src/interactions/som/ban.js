@@ -6,10 +6,6 @@ const interactionSOMBan = async (bot = initBot(), message) => {
   if (!taggedUserID) {
     return // do something if we don't tag a user
   }
-  const user = {}
-  user.tagged = await getInfoForUser(taggedUserID)
-  user.caller = await getInfoForUser(message.user)
-
   const admin = await checkAdmin(bot, message.user)
   if (!admin) {
     bot.replyPrivate(message, transcript('som.ban.notAdmin'))
