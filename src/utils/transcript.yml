@@ -433,3 +433,6 @@ som:
       If you'd be more comfortable submitting a test report first, feel free to submit a report against me to understand the process.
       \`/som-report @orpheus\`
     submitted: I'm creating a confidential report to staff about <@${this.subject}>. Please fill in any details at ${this.reportFormUrl}.
+  ban:
+    notAdmin: You must be an admin to use this command!
+    deactivated: <@${this.user}> has been deactivated.
