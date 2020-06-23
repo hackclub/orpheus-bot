@@ -21,22 +21,6 @@ const approveUser = async (user) =>
       .catch((err) => reject(err))
   })
 
-const inviteUserToChannel = async (user, channel) => {
-  console.log("Inviting user", user, "to channel", channel)
-
-  return fetch('https://slack.com/api/conversations.invite', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`
-    },
-    body: JSON.stringify({
-      channel,
-      users: user
-    })
-  })
-}
-
 const interactionSOMPromote = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
   if (!taggedUserID) {
@@ -65,6 +49,8 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
     console.log('tagged is not an SOM guest, cancelling')
     return
   }
+
+  approveUser(taggedUserID)
 
   fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
     method: 'POST',
