@@ -2,17 +2,13 @@ import fetch from 'isomorphic-unfetch'
 const { initBot, transcript } = require("../../utils");
 
 const interactionSOMBan = async (bot = initBot(), message) => {
-  console.log('ban message', message.text)
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
-  console.log('ban tagged user id', taggedUserID)
   if (!taggedUserID) {
-    console.log('ban: no tagged user')
     return // do something if we don't tag a user
   }
   const admin = await isAdmin(bot, message.user)
   if (!admin) {
-    console.log('not admin!')
-    bot.replyPrivate(message, transcript('som.ban.notAdmin'))
+    bot.replyPrivateDelayed(message, transcript('som.ban.notAdmin'))
   }
   else {
     console.log('deactivating ', taggedUserID)
