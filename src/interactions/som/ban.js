@@ -17,6 +17,7 @@ const interactionSOMBan = async (bot = initBot(), message) => {
     ])
   }
 }
+export default interactionSOMBan
 
 const isAdmin = (bot, user) =>
   new Promise((resolve, reject) => {
