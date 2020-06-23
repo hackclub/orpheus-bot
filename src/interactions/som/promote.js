@@ -52,8 +52,11 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   approveUser(taggedUserID)
 
-  fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
+  await fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
       promotedId: taggedUserID,
       promoterId: message.user
