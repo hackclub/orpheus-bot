@@ -13,7 +13,7 @@ const interactionSOMBan = async (bot = initBot(), message) => {
   else {
     await Promise.all([
       fetch(`https://slack.com/api/users.admin.setInactive?token=${process.env.SLACK_LEGACY_TOKEN}&user=${taggedUserID}`).then(r => r.json()),
-      bot.replyPrivateDelayed(message, transcript('som.ban.deactivated'))
+      bot.replyPrivateDelayed(message, transcript('som.ban.deactivated', { user: taggedUserID }))
     ])
   }
 }
