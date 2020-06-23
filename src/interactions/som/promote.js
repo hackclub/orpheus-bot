@@ -50,7 +50,11 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
     return
   }
 
-  approveUser(taggedUserID)
+  await Promise.all([
+    airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
+    approveUser(taggedUserID),
+    bot.replyPrivateDelayed(message, transcript('som.approve.success'))
+  ])
 
   await fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
     method: 'POST',
