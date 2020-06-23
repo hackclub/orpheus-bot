@@ -40,6 +40,7 @@ import interactionSOMReport from './interactions/som/report.js'
 import interactionSOMInvite from './interactions/som/invite.js'
 import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
+import interactionSOMBan from './interactions/som/ban'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -147,6 +148,9 @@ controller.on('slash_command', async (bot, message) => {
             break
           case '/som-report':
             await interactionSOMReport(bot, message)
+            break
+          case '/som-ban':
+            await interactionSOMBan(bot, message)
             break
           case '/som-invite':
             await interactionSOMInvite(bot, message)
