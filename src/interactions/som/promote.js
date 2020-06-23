@@ -54,10 +54,10 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
 
   fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
       promotedId: taggedUserID,
       promoterId: message.user
-    })
+    }
   })
 }
 
