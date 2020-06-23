@@ -64,7 +64,8 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
     },
     body: JSON.stringify({
       promotedId: taggedUserID,
-      promoterId: message.user
+      promoterId: message.user,
+      key: process.env.CLIPPY_KEY
     })
   })
 }
