@@ -6,7 +6,7 @@ const interactionSOMBan = async (bot = initBot(), message) => {
   if (!taggedUserID) {
     return // do something if we don't tag a user
   }
-  const admin = await checkAdmin(bot, message.user)
+  const admin = await isAdmin(bot, message.user)
   if (!admin) {
     bot.replyPrivate(message, transcript('som.ban.notAdmin'))
   }
@@ -18,7 +18,7 @@ const interactionSOMBan = async (bot = initBot(), message) => {
   }
 }
 
-const checkAdmin = (bot, user) =>
+const isAdmin = (bot, user) =>
   new Promise((resolve, reject) => {
     bot.api.users.info({ user }, (err, res) => {
       if (err) {
