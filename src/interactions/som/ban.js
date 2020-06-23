@@ -3,6 +3,7 @@ const { initBot, transcript } = require("../../utils");
 
 const interactionSOMBan = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
+  console.log('ban tagged user id', taggedUserID)
   if (!taggedUserID) {
     console.log('ban: no tagged user')
     return // do something if we don't tag a user
