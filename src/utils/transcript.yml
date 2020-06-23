@@ -435,4 +435,4 @@ som:
     submitted: I'm creating a confidential report to staff about <@${this.subject}>. Please fill in any details at ${this.reportFormUrl}.
   ban:
     notAdmin: You must be an admin to use this command!
-    deactivated: <@${this.user} has been deactivated.
+    deactivated: <@${this.user}> has been deactivated.
