@@ -46,6 +46,7 @@ const interactionBreakout = async (bot, message) => {
   }
 
   const breakoutChannel = await createUniqueChannel(channel)
+  console.log("I just created a new channel!", breakoutChannel)
 
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakoutChannel,
