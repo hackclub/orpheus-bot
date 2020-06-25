@@ -1,3 +1,6 @@
+import animals from 'animals'
+import { plural } from 'pluralize'
+
 import { getInfoForUser, initBot, airCreate, transcript } from '../utils'
 
 const getChannelName = async (channel) =>
@@ -20,7 +23,7 @@ const getChannelName = async (channel) =>
 const createUniqueChannel = async (channel) => {
   const baseName = await getChannelName(channel)
   console.log('baseName', baseName)
-  const name = baseName + '-' + Math.random().toString().substr(2, 5)
+  const name = baseName + '-for-' + plural(animals())
 
   return new Promise((resolve, reject) => {
     initBot().api.conversations.create(
@@ -50,6 +53,7 @@ const interactionBreakout = async (bot, message) => {
 
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
+    'Breakout Channel Name': breakout.name,
     'Parent Channel ID': channel,
     Creator: user,
     'Creation Timestamp': timestamp,
