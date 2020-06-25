@@ -436,3 +436,6 @@ som:
   ban:
     notAdmin: You must be an admin to use this command!
     deactivated: <@${this.user}> has been deactivated.
+breakout:
+  loading: ":beachball:"
+  created: Just created <#${this.channel}>
