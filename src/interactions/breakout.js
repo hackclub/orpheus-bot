@@ -31,7 +31,7 @@ const createUniqueChannel = async (channel) => {
         if (err) {
           reject(err)
         }
-        resolve(res)
+        resolve(res.channel.name)
       }
     )
   })
