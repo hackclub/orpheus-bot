@@ -45,11 +45,11 @@ const interactionBreakout = async (bot, message) => {
     return // MCG can't create channels
   }
 
-  const breakoutChannel = await createUniqueChannel(channel)
-  console.log("I just created a new channel!", breakoutChannel)
+  const breakout = await createUniqueChannel(channel)
+  console.log("I just created a new channel!", breakout.name, breakout.id)
 
   await airCreate('Breakout Channel', {
-    'Breakout Channel ID': breakoutChannel,
+    'Breakout Channel ID': breakout.id,
     'Parent Channel ID': channel,
     Creator: user,
     'Creation Timestamp': timestamp,
@@ -57,7 +57,7 @@ const interactionBreakout = async (bot, message) => {
 
   bot.reply(
     message,
-    transcript('breakout.created', { channel: breakoutChannel })
+    transcript('breakout.created', { channel: breakout.id })
   )
 }
 
