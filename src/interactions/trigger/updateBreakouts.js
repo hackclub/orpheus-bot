@@ -6,47 +6,51 @@ export default async (bot = initBot(), message) => {
     '{Archived Channel Name} = BLANK()'
   )
   breakoutChannels.map(async breakout => {
-    bot.api.conversations.history(
-      { channel: breakout.fields['Breakout Channel ID'] },
-      (err, res) => {
-        if (err) {
-          console.error(err)
+    try {
+      bot.api.conversations.history(
+        { channel: breakout.fields['Breakout Channel ID'] },
+        (err, res) => {
+          if (err) {
+            console.error(err)
+          }
+          const { messages } = res
+
+          const latestTimestamp = messages.map(m => m.ts).sort()[
+            messages.length - 1
+          ]
+
+          const timeSinceLastUpdate =
+            Date.now() - parseInt(latestTimestamp.replace('.', '')) / 1000
+          const overTimeLimit = timeSinceLastUpdate > 1000 * 60 * 1
+
+          // we should close the channel if the last post was @orpheus' warning that archiving is coming
+          if (
+            overTimeLimit &&
+            latestTimestamp == breakout.fields['Archive Warning Timestamp']
+          ) {
+            bot.replyInThread(
+              message,
+              `Closing <#${breakout.fields['Breakout Channel ID']}> because the most recent post was me saying`
+            )
+            closeBreakout(bot, message, breakout)
+          } else if (overTimeLimit) {
+            // we should warn the channel it will be archived if there is no activity within 30 minutes
+            bot.replyInThread(
+              message,
+              `I'm warning <#${breakout.fields['Breakout Channel ID']}> that it's on deck to be archived`
+            )
+            warnBreakout(bot, message, breakout)
+          } else {
+            // not over the time limit? That's fine– let's update the timestamp
+            airPatch('Breakout Channel', breakout.id, {
+              'Last Updated Timestamp': latestTimestamp,
+            })
+          }
         }
-        const { messages } = res
-
-        const latestTimestamp = messages.map(m => m.ts).sort()[
-          messages.length - 1
-        ]
-
-        const timeSinceLastUpdate =
-          Date.now() - parseInt(latestTimestamp.replace('.', '')) / 1000
-        const overTimeLimit = timeSinceLastUpdate > 1000 * 60 * 1
-
-        // we should close the channel if the last post was @orpheus' warning that archiving is coming
-        if (
-          overTimeLimit &&
-          latestTimestamp == breakout.fields['Archive Warning Timestamp']
-        ) {
-          bot.replyInThread(
-            message,
-            `Closing <#${breakout.fields['Breakout Channel ID']}> because the most recent post was me saying`
-          )
-          closeBreakout(bot, message, breakout)
-        } else if (overTimeLimit) {
-          // we should warn the channel it will be archived if there is no activity within 30 minutes
-          bot.replyInThread(
-            message,
-            `I'm warning <#${breakout.fields['Breakout Channel ID']}> that it's on deck to be archived`
-          )
-          warnBreakout(bot, message, breakout)
-        } else {
-          // not over the time limit? That's fine– let's update the timestamp
-          airPatch('Breakout Channel', breakout.id, {
-            'Last Updated Timestamp': latestTimestamp,
-          })
-        }
-      }
-    )
+      )
+    } catch (e) {
+      console.error(e)
+    }
   })
 }
 
