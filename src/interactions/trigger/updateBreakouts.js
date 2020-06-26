@@ -23,7 +23,7 @@ export default async (bot = initBot(), message) => {
           messages.length - 1
         ]
         const timeSinceLastUpdate =
-          Date.now() - parseInt(latestTimestamp.split('.')[0])
+          Date.now() - parseInt(latestTimestamp.replace('.',''))/1000
         console.log('time since last update in channel', breakout.id, 'was', timeSinceLastUpdate)
         if (timeSinceLastUpdate > 1000 * 60 * 1) {
           bot.replyInThread(
