@@ -36,7 +36,8 @@ export default async (bot = initBot(), message) => {
               airPatch('Breakout Channel', breakout.id, {
                 "Archived Channel Name": archivedName
               })
-              bot.api.conversations.archive(
+              // we need an admin token for this b/c Hack Club's Slack settings make archiving return 'restricted_action'
+              initBot(true).api.conversations.archive(
                 { channel: breakout.fields['Breakout Channel ID'] },
                 (err, res) => {
                   if (err) {
