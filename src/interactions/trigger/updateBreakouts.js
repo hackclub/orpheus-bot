@@ -11,6 +11,7 @@ export default async (bot = initBot(), message) => {
       { channel: breakout.fields['Breakout Channel ID'] },
       (err, res) => {
         if (err) {
+          console.error('stage 1', err)
           /* do something */
         }
         const { messages } = res
@@ -31,12 +32,14 @@ export default async (bot = initBot(), message) => {
             },
             (err, res) => {
               if (err) {
+                console.error('stage 2', err)
                 /* do something */
               }
               bot.api.conversations.archive(
                 { channel: breakout.fields['Breakout Channel ID'] },
                 (err, res) => {
                   if (err) {
+                    console.error('stage 3', err)
                     /* do something */
                   }
                   console.log(
