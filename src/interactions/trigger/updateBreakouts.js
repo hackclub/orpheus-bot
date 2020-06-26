@@ -24,10 +24,11 @@ export default async (bot = initBot(), message) => {
         ]
         const timeSinceLastUpdate =
           Date.now() - parseInt(latestTimestamp.split('.')[0])
+        console.log('time since last update in channel', breakout.id, 'was', timeSinceLastUpdate)
         if (timeSinceLastUpdate > 1000 * 60 * 1) {
           bot.replyInThread(
             message,
-            `Closing <#${breakout.fields['Breakout Channel ID']}>`
+            `Closing <#${breakout.fields['Breakout Channel ID']}> because it's been ${timeSinceLastUpdate / 1000} seconds since last post`
           )
           const archivedName =
             'archived-' +
