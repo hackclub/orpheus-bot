@@ -22,7 +22,8 @@ export default async (bot = initBot(), message) => {
         const latestTimestamp = messages.map(m => m.ts).sort()[
           messages.length - 1
         ]
-        if (latestTimestamp == breakout.fields['Last Updated Timestamp']) {
+        const timeSinceLastUpdate = Date.now() - parseInt(latestTimestamp.split('.')[0])
+        if (timeSinceLastUpdate > 1000 * 60 * 1) {
           bot.replyInThread(
             message,
             `Closing <#${breakout.fields['Breakout Channel ID']}>`
