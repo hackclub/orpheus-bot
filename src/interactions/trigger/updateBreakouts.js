@@ -1,4 +1,4 @@
-import { airGet, initBot, airPatch } from '../../utils'
+import { airGet, initBot, airPatch, transcript } from '../../utils'
 
 export default async (bot = initBot(), message) => {
   const breakoutChannels = await airGet('Breakout Channel', '{Archived Channel Name} = BLANK()')

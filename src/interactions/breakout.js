@@ -53,6 +53,12 @@ const interactionBreakout = async (bot, message) => {
   const breakout = await createUniqueChannel(channel)
   console.log('I just created a new channel!', breakout.name, breakout.id)
 
+  bot.say({
+    channel: breakout.id,
+    text: transcript('breakout.intro', {channel})
+  })
+  bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
+
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
     'Breakout Channel Name': breakout.name,
@@ -61,8 +67,6 @@ const interactionBreakout = async (bot, message) => {
     'Creation Timestamp': timestamp,
     'Last Updated Timestamp': timestamp,
   })
-
-  bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
 }
 
 export default interactionBreakout
