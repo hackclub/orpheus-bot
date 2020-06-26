@@ -53,7 +53,7 @@ export default async (bot = initBot(), message) => {
             `Keeping open <#${breakout.fields['Breakout Channel ID']}>`
           )
           airPatch('Breakout Channel', breakout.id, {
-            'Last Updated Timestamp': latestTimestamp,
+            'Last Updated Timestamp': toString(latestTimestamp),
           })
         }
       }
