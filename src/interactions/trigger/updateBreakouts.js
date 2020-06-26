@@ -20,7 +20,7 @@ export default async (bot = initBot(), message) => {
 
         const timeSinceLastUpdate =
           Date.now() - parseInt(latestTimestamp.replace('.', '')) / 1000
-        const overTimeLimit = timeSinceLastUpdate > 1000 * 60 * 30
+        const overTimeLimit = timeSinceLastUpdate > 1000 * 60 * 1
 
         // we should close the channel if the last post was @orpheus' warning that archiving is coming
         if (
