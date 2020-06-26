@@ -1,5 +1,6 @@
 import dinoBadge from './dinoBadge'
 import scheduleCheckin from './scheduleCheckin'
+import updateBreakouts from './updateBreakouts'
 import { initBot } from '../../utils'
 
 const getAdmin = (bot, user) =>
