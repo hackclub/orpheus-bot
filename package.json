@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npx babel-node ./src/index.js",
     "start": "node ./build/index.js",
-    "fmt": "npx prettier \"{src/**,}/*.js\" --single-quote --no-semi --trailing-comma es5 --write",
+    "fmt": "npx prettier \"{src/**,}/*.js\" --single-quote --no-semi --arrow-parens avoid --trailing-comma es5 --write",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "npx babel ./src -d ./build -s --copy-files"
