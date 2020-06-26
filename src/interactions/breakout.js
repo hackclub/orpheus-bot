@@ -5,6 +5,7 @@ import { getInfoForUser, initBot, airCreate, transcript } from '../utils'
 
 const getChannelName = async (channel) =>
   new Promise((resolve, reject) => {
+    console.log(`I'm asking Slack the humanized name of channel #${channel}`)
     initBot().api.conversations.info(
       {
         channel,
@@ -14,7 +15,9 @@ const getChannelName = async (channel) =>
           console.error(err)
           reject(err)
         }
-        console.log('getChannelName', res)
+        console.log(
+          `Turns out that the humans call <#${channel}> ${res.channel.name}`
+        )
         resolve(res.channel.name)
       }
     )
@@ -22,7 +25,6 @@ const getChannelName = async (channel) =>
 
 const createUniqueChannel = async (channel) => {
   const baseName = await getChannelName(channel)
-  console.log('baseName', baseName)
   const name = baseName + '-for-' + plural(animals())
 
   return new Promise((resolve, reject) => {
@@ -49,7 +51,7 @@ const interactionBreakout = async (bot, message) => {
   }
 
   const breakout = await createUniqueChannel(channel)
-  console.log("I just created a new channel!", breakout.name, breakout.id)
+  console.log('I just created a new channel!', breakout.name, breakout.id)
 
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
@@ -57,12 +59,10 @@ const interactionBreakout = async (bot, message) => {
     'Parent Channel ID': channel,
     Creator: user,
     'Creation Timestamp': timestamp,
+    'Last Updated Timestamp': timestamp,
   })
 
-  bot.reply(
-    message,
-    transcript('breakout.created', { channel: breakout.id })
-  )
+  bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
 }
 
 export default interactionBreakout

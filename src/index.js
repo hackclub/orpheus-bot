@@ -35,7 +35,9 @@ import interactionCheckinNotification from './interactions/checkinNotification'
 import interactionCheckinReply from './interactions/checkinReply'
 import interactionClubCard from './interactions/clubCard'
 import interactionFindOrCreate from './interactions/findOrCreate'
+
 import interactionBreakout from './interactions/breakout'
+import interactionBreakoutUpdate from './interactions/trigger/updateBreakouts'
 
 import interactionSOMReport from './interactions/som/report.js'
 import interactionSOMInvite from './interactions/som/invite.js'
@@ -70,6 +72,7 @@ controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
 })
 
 controller.hears('thump', 'ambient', interactionTrigger)
+controller.hears('update breakouts', 'direct_mention', interactionBreakoutUpdate)
 
 controller.hears('info', 'direct_message,direct_mention', interactionInfo)
 
