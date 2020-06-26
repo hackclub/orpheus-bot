@@ -42,11 +42,7 @@ const interactionTutorial = async (bot, message) => {
           message,
           transcript('tutorial.renameChannel.finished')
         )
-        await asyncReply(
-          bot,
-          message,
-          transcript('tutorial.getSticker.start')
-        )
+        await asyncReply(bot, message, transcript('tutorial.getSticker.start'))
         userRecord.patch({ 'Flag: renamed channel': true })
       }
       break
@@ -94,11 +90,7 @@ const interactionTutorial = async (bot, message) => {
       const finishedGrantTutorial =
         userRecord.fields['Flag: Tutorial /promo github grant']
       if (isGrantPromo && !finishedGrantTutorial) {
-        await asyncReply(
-          bot,
-          message,
-          transcript('tutorial.getGrant.finished')
-        )
+        await asyncReply(bot, message, transcript('tutorial.getGrant.finished'))
         await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
         userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
       }

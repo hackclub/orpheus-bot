@@ -1,4 +1,4 @@
-import { getInfoForUser } from "../../utils"
+import { getInfoForUser } from '../../utils'
 
 const interactionSOMInvite = async (bot, message) => {
   const { person } = await getInfoForUser(message.user)
@@ -7,10 +7,7 @@ const interactionSOMInvite = async (bot, message) => {
     throw new Error(`Couldn't find Slack ID in Airtable!`)
   }
 
-  bot.replyPrivateDelayed(
-    message,
-    'This command is stubbed'
-  )
+  bot.replyPrivateDelayed(message, 'This command is stubbed')
 }
 
 export default interactionSOMInvite

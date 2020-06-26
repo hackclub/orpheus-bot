@@ -26,7 +26,7 @@ const airtableRatelimiter = new Bottleneck({
   // minTime: 200,
 })
 
-export const timeout = (ms) => {
+export const timeout = ms => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve()
@@ -52,8 +52,9 @@ export const airPatch = (baseName, recordID, values, options = {}) =>
             reject(err)
           }
           console.log(
-            `Airtable updated my ${baseName} record from ${timestamp} in ${Date.now() -
-            timestamp}ms`
+            `Airtable updated my ${baseName} record from ${timestamp} in ${
+              Date.now() - timestamp
+            }ms`
           )
           resolve(record)
         })
@@ -79,8 +80,9 @@ export const airCreate = (baseName, fields, options = {}) =>
             reject(new Error('Record not created'))
           }
           console.log(
-            `Airtable saved my ${baseName} record from ${timestamp} in ${Date.now() -
-            timestamp}ms`
+            `Airtable saved my ${baseName} record from ${timestamp} in ${
+              Date.now() - timestamp
+            }ms`
           )
           resolve(record)
         })
@@ -145,7 +147,7 @@ export const airGet = (
             }
             console.log(
               `AirTable got back to me from my question at ${timestamp} with ${
-              data.length
+                data.length
               } records. The query took ${Date.now() - timestamp}ms`
             )
             resolve(data)
@@ -332,8 +334,9 @@ export const getInfoForUser = user =>
       )
       .then(() => {
         console.log(
-          `Finished pulling up the info about user '${user}' from ${timestamp} in ${Date.now() -
-          timestamp}ms`
+          `Finished pulling up the info about user '${user}' from ${timestamp} in ${
+            Date.now() - timestamp
+          }ms`
         )
         resolve(results)
       })

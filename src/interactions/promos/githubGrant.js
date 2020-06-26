@@ -60,7 +60,9 @@ export async function run(bot, message) {
           hcbLink: grant.fields['HCB Account'],
         })
       )
-    } else if (personAddress.fields['Country'] === 'United States of America (US)') {
+    } else if (
+      personAddress.fields['Country'] === 'United States of America (US)'
+    ) {
       // if no HCB account, check if they're in the US. If so, setup a mail mission
       await interactionMailMission(undefined, {
         user,

@@ -3,7 +3,7 @@ import { plural } from 'pluralize'
 
 import { getInfoForUser, initBot, airCreate, transcript } from '../utils'
 
-const getChannelName = async (channel) =>
+const getChannelName = async channel =>
   new Promise((resolve, reject) => {
     console.log(`I'm asking Slack the humanized name of channel #${channel}`)
     initBot().api.conversations.info(
@@ -23,7 +23,7 @@ const getChannelName = async (channel) =>
     )
   })
 
-const createUniqueChannel = async (channel) => {
+const createUniqueChannel = async channel => {
   const baseName = await getChannelName(channel)
   const name = baseName + '-for-' + plural(animals())
 
@@ -55,7 +55,7 @@ const interactionBreakout = async (bot, message) => {
 
   bot.say({
     channel: breakout.id,
-    text: transcript('breakout.intro', {channel})
+    text: transcript('breakout.intro', { channel }),
   })
   bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
 

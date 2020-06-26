@@ -21,21 +21,21 @@ export default async (bot = initBot(), message, dryRun = true) => {
 
   const contributors = [
     ...repoData.data
-      .filter((node) => node.author)
-      .map((node) => node.author.html_url),
-    ...prData.data.map((node) => node.user.html_url), // submitters of open PRs are also eligible for the badge
+      .filter(node => node.author)
+      .map(node => node.author.html_url),
+    ...prData.data.map(node => node.user.html_url), // submitters of open PRs are also eligible for the badge
   ]
 
   console.log(`I found ${contributors.length} dino contributors on GitHub!`)
 
   const airtableContributors = await Promise.all(
-    contributors.map((contributor) =>
+    contributors.map(contributor =>
       airFind('People', 'GitHub URL', contributor, { priority: 0 })
     )
   )
 
   const uniqueRecordIDs = uniq(
-    airtableContributors.filter((r) => r).map((record) => record.id)
+    airtableContributors.filter(r => r).map(record => record.id)
   )
 
   if (dryRun) {
@@ -63,7 +63,7 @@ export default async (bot = initBot(), message, dryRun = true) => {
     result.fields['People']
   )
 
-  changeInContributors.map(async (recordID) => {
+  changeInContributors.map(async recordID => {
     const person = await airFind('People', `RECORD_ID() = '${recordID}'`)
     console.log(
       `I'm letting <@${recordID}> know they've earned the smug-dino badge`

@@ -1,8 +1,15 @@
 import FormData from 'form-data'
-import { getInfoForUser, transcript, initBot, airPatch, airFind, timeout } from '../../utils'
+import {
+  getInfoForUser,
+  transcript,
+  initBot,
+  airPatch,
+  airFind,
+  timeout,
+} from '../../utils'
 import fetch from 'isomorphic-unfetch'
 
-const approveUser = async (user) =>
+const approveUser = async user =>
   new Promise((resolve, reject) => {
     const form = new FormData()
     form.append('user', user)
@@ -14,11 +21,11 @@ const approveUser = async (user) =>
         body: form,
       }
     )
-      .then((res) => {
+      .then(res => {
         console.log(res)
         resolve(res)
       })
-      .catch((err) => reject(err))
+      .catch(err => reject(err))
   })
 
 const interactionSOMPromote = async (bot = initBot(), message) => {
@@ -52,21 +59,26 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
   }
 
   await Promise.all([
-    airPatch('Join Requests', guest.id, { Approver: message.user }, { base: 'som' }),
+    airPatch(
+      'Join Requests',
+      guest.id,
+      { Approver: message.user },
+      { base: 'som' }
+    ),
     approveUser(taggedUserID),
-    bot.replyPrivateDelayed(message, transcript('som.approve.success'))
+    bot.replyPrivateDelayed(message, transcript('som.approve.success')),
   ])
 
   await fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       promotedId: taggedUserID,
       promoterId: message.user,
-      key: process.env.CLIPPY_KEY
-    })
+      key: process.env.CLIPPY_KEY,
+    }),
   })
 }
 

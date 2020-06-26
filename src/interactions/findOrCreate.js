@@ -1,4 +1,3 @@
-
 export default async (bot, message) => {
   let name = ':warning:'
 
@@ -25,10 +24,7 @@ export default async (bot, message) => {
     bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
   }
 
-  bot.api.reactions.add(
-    { timestamp, channel, name },
-    err => {
-      if (err) console.error(err)
-    }
-  )
+  bot.api.reactions.add({ timestamp, channel, name }, err => {
+    if (err) console.error(err)
+  })
 }

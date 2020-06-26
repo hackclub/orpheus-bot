@@ -14,7 +14,7 @@ export default async (bot = initBot(), message, dryRun = true) => {
   )
 
   return await Promise.all(
-    clubs.map((club) => {
+    clubs.map(club => {
       const channel = club.fields['Slack Channel ID']
 
       console.log(

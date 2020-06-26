@@ -18,7 +18,7 @@ const triggerInteraction = (bot = initBot(), message) => {
   const dryRun = !text.includes('thump thump')
 
   getAdmin(bot, user)
-    .then((admin) => {
+    .then(admin => {
       if (!admin) {
         bot.api.reactions.add({
           timestamp: ts,
@@ -45,7 +45,7 @@ const triggerInteraction = (bot = initBot(), message) => {
         updateBreakouts(bot, message, dryRun),
       ])
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err)
       bot.whisper(message, `Got error: \`${err}\``)
     })

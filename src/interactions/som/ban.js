@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch'
-const { initBot, transcript } = require("../../utils");
+const { initBot, transcript } = require('../../utils')
 
 const interactionSOMBan = async (bot = initBot(), message) => {
   const taggedUserID = (message.text.match(/<@([a-zA-Z0-9]*)|/) || [])[1]
@@ -9,12 +9,16 @@ const interactionSOMBan = async (bot = initBot(), message) => {
   const admin = await isAdmin(bot, message.user)
   if (!admin) {
     bot.replyPrivateDelayed(message, transcript('som.ban.notAdmin'))
-  }
-  else {
+  } else {
     console.log('deactivating ', taggedUserID)
     await Promise.all([
-      fetch(`https://slack.com/api/users.admin.setInactive?token=${process.env.SLACK_LEGACY_TOKEN}&user=${taggedUserID}`).then(r => r.json()),
-      bot.replyPrivateDelayed(message, transcript('som.ban.deactivated', { user: taggedUserID }))
+      fetch(
+        `https://slack.com/api/users.admin.setInactive?token=${process.env.SLACK_LEGACY_TOKEN}&user=${taggedUserID}`
+      ).then(r => r.json()),
+      bot.replyPrivateDelayed(
+        message,
+        transcript('som.ban.deactivated', { user: taggedUserID })
+      ),
     ])
   }
 }

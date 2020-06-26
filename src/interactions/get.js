@@ -6,7 +6,14 @@ import * as notionPremium from './promos/notionPremium'
 import * as stickermule from './promos/stickermule'
 import * as adafruitDiscount from './promos/adafruitDiscount'
 
-const promos = [stickerBox, notionPremium, stickermule, hackPack, githubGrant, adafruitDiscount]
+const promos = [
+  stickerBox,
+  notionPremium,
+  stickermule,
+  hackPack,
+  githubGrant,
+  adafruitDiscount,
+]
 
 const interactionGet = async (bot, message) => {
   const args = message.text.toLowerCase()
