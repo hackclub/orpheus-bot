@@ -1,7 +1,7 @@
 import { airGet, initBot, airPatch } from '../../utils'
 
 export default async (bot = initBot(), message) => {
-  const breakoutChannels = await airGet('Breakout Channel', 'Archived Channel Name', '')
+  const breakoutChannels = await airGet('Breakout Channel', '{Archived Channel Name} = BLANK()')
   breakoutChannels.map(async (breakout) => {
     bot.replyInThread(message, `<#${breakout.fields["Breakout Channel ID"]}>`)
     bot.api.conversations.history(
