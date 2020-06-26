@@ -14,7 +14,8 @@ export default async (bot = initBot(), message) => {
           /* do something */
         }
         const { messages } = res
-        const latestTimestamp = messages.map(m => transcript.ts).sort()
+        console.log("Here are the timestamps lord timekeeper!", messages.map(m => m.ts))
+        const latestTimestamp = messages.map(m => m.ts).sort()
         if (latestTimestamp == breakout.fields['Last Updated Timestamp']) {
           bot.replyInThread(
             message,
@@ -53,7 +54,7 @@ export default async (bot = initBot(), message) => {
             `Keeping open <#${breakout.fields['Breakout Channel ID']}>`
           )
           airPatch('Breakout Channel', breakout.id, {
-            'Last Updated Timestamp': toString(latestTimestamp),
+            'Last Updated Timestamp': latestTimestamp,
           })
         }
       }
