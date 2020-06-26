@@ -36,7 +36,7 @@ export default async (bot = initBot(), message) => {
           // we should warn the channel it will be archived if there is no activity within 30 minutes
           bot.replyInThread(
             message,
-            `Keeping open <#${breakout.fields['Breakout Channel ID']}>`
+            `I'm warning <#${breakout.fields['Breakout Channel ID']}> that it's on deck to be archived`
           )
           warnBreakout(bot, message, breakout)
         } else {
@@ -89,6 +89,7 @@ const warnBreakout = async (bot, message, breakout) => {
       if (err) {
         console.error(err)
       }
+      console.log(res)
 
       airPatch('Breakout Channel', breakout.id, {
         'Last Updated Timestamp': res.ts,
