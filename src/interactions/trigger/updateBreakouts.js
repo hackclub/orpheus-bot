@@ -34,7 +34,6 @@ export default async (bot = initBot(), message) => {
                 /* do something */
               }
               airPatch('Breakout Channel', breakout.id, {
-                Open: 0,
                 "Archived Channel Name": archivedName
               })
               bot.api.conversations.archive(
