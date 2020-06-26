@@ -440,3 +440,4 @@ breakout:
   loading: ":beachball:"
   created: Just created <#${this.channel}>
   intro: This channel was created as a breakout of <#${this.channel}>
+  warning: This channel will be archived soon due to inactivity.
