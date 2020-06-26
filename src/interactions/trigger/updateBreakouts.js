@@ -15,14 +15,27 @@ export default async (bot = initBot(), message) => {
           /* do something */
         }
         const { messages } = res
-        console.log("Here are the timestamps lord timekeeper!", messages.map(m => m.ts))
-        const latestTimestamp = messages.map(m => m.ts).sort()[messages.length - 1]
+        console.log(
+          'Here are the timestamps lord timekeeper!',
+          messages.map(m => m.ts)
+        )
+        const latestTimestamp = messages.map(m => m.ts).sort()[
+          messages.length - 1
+        ]
         if (latestTimestamp == breakout.fields['Last Updated Timestamp']) {
           bot.replyInThread(
             message,
             `Closing <#${breakout.fields['Breakout Channel ID']}>`
           )
-          const archivedName = 'archived-' + breakout.fields['Breakout Channel Name'] + '-' + (new Date()).toISOString().slice(0, 19).replace(/:/g,'-').replace('T', '_')
+          const archivedName =
+            'archived-' +
+            breakout.fields['Breakout Channel Name'] +
+            '-' +
+            new Date()
+              .toISOString()
+              .slice(0, 19)
+              .replace(/:/g, '-')
+              .replace('T', '_')
           bot.api.conversations.rename(
             {
               channel: breakout.fields['Breakout Channel ID'],
@@ -33,9 +46,6 @@ export default async (bot = initBot(), message) => {
                 console.error('stage 2', err)
                 /* do something */
               }
-              airPatch('Breakout Channel', breakout.id, {
-                "Archived Channel Name": archivedName
-              })
               // we need an admin token for this b/c Hack Club's Slack settings make archiving return 'restricted_action'
               initBot(true).api.conversations.archive(
                 { channel: breakout.fields['Breakout Channel ID'] },
@@ -44,6 +54,9 @@ export default async (bot = initBot(), message) => {
                     console.error('stage 3', err)
                     /* do something */
                   }
+                  airPatch('Breakout Channel', breakout.id, {
+                    'Archived Channel Name': archivedName,
+                  })
                   console.log(
                     'I just archived',
                     breakout.fields['Breakout Channel ID']
