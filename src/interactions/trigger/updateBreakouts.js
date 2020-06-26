@@ -15,7 +15,7 @@ export default async (bot = initBot(), message) => {
         }
         const { messages } = res
         console.log("Here are the timestamps lord timekeeper!", messages.map(m => m.ts))
-        const latestTimestamp = messages.map(m => m.ts).sort()
+        const latestTimestamp = messages.map(m => m.ts).sort()[0]
         if (latestTimestamp == breakout.fields['Last Updated Timestamp']) {
           bot.replyInThread(
             message,
