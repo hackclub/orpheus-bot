@@ -67,14 +67,14 @@ const closeBreakout = async (bot, message, breakout) => {
     },
     (err, res) => {
       if (err) {
-        console.error(err)
+        console.error('stage 1', err)
       }
       // we need an admin token for this b/c Hack Club's Slack settings make archiving return 'restricted_action'
       initBot(true).api.conversations.archive(
         { channel: breakout.fields['Breakout Channel ID'] },
         (err, res) => {
           if (err) {
-            console.error('stage 3', err)
+            console.error('stage 2', err)
           }
           airPatch('Breakout Channel', breakout.id, {
             'Archived Channel Name': archivedName,
@@ -88,7 +88,7 @@ const closeBreakout = async (bot, message, breakout) => {
 
 const warnBreakout = async (bot, message, breakout) => {
   bot.say(
-    { text: transcript('breakout'), channel: breakout.id },
+    { text: transcript('breakout'), channel: breakout.fields['Breakout Channel ID' ]},
     (err, res) => {
       if (err) {
         console.error(err)
