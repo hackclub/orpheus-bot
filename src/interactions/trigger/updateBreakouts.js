@@ -15,9 +15,9 @@ export default async (bot = initBot(), message) => {
           }
           const { messages } = res
 
-          const latestTimestamp = messages.map(m => m.ts).sort()[
-            messages.length - 1
-          ]
+          const timestamps = messages.map(m => m.ts) || []
+          const latestTimestamp = timestamps.sort()[messages.length - 1]
+          console.log("What's up with the TIME", messages)
 
           const timeSinceLastUpdate =
             Date.now() - parseInt(latestTimestamp.replace('.', '')) / 1000
