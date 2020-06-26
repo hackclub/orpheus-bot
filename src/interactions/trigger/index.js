@@ -41,7 +41,7 @@ const triggerInteraction = (bot = initBot(), message) => {
         // We're forcing dryrun to true on schedule checkin while the pandemic
         // is closing clubs
         scheduleCheckin(bot, message, /*dryRun*/ true),
-        dinoBadge(bot, messsage, /*dryRun*/),
+        dinoBadge(bot, message, /*dryRun*/),
         updateBreakouts(bot, message, dryRun),
       ])
     })
