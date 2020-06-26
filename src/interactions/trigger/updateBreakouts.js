@@ -22,19 +22,21 @@ export default async (bot = initBot(), message) => {
             message,
             `Closing <#${breakout.fields['Breakout Channel ID']}>`
           )
-          airPatch('Breakout Channel', breakout.id, {
-            Open: false,
-          })
+          const archivedName = 'archived-' + breakout.fields['Breakout Channel Name'] + '-' + (new Date()).toISOString().slice(0, 19).replace(/:/g,'-').replace('T', '_')
           bot.api.conversations.rename(
             {
               channel: breakout.fields['Breakout Channel ID'],
-              name: 'archived-' + breakout.fields['Breakout Channel Name'],
+              name: archivedName,
             },
             (err, res) => {
               if (err) {
                 console.error('stage 2', err)
                 /* do something */
               }
+              airPatch('Breakout Channel', breakout.id, {
+                Open: 0,
+                "Archived Channel Name": archivedName
+              })
               bot.api.conversations.archive(
                 { channel: breakout.fields['Breakout Channel ID'] },
                 (err, res) => {
