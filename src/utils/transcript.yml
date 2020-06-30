@@ -438,6 +438,6 @@ som:
     deactivated: <@${this.user}> has been deactivated.
 breakout:
   loading: ":beachball:"
-  created: Just created <#${this.channel}>
-  intro: This channel was created as a breakout of <#${this.channel}>
+  created: Just created <#${this.channel}>. It will be archived after 30 minutes of inactivity.
+  intro: This channel was created as a breakout of <#${this.channel}>. It will be archived after 30 minutes of inactivity.
   warning: This channel will be archived soon due to inactivity.
