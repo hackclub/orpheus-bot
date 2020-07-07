@@ -41,7 +41,7 @@ const triggerInteraction = (bot = initBot(), message) => {
       return Promise.all([
         // We're forcing dryrun to true on schedule checkin while the pandemic
         // is closing clubs
-        scheduleCheckin(bot, message, /*dryRun*/ true),
+        // scheduleCheckin(bot, message, /*dryRun*/ true),
         dinoBadge(bot, message, /*dryRun*/ true),
         updateBreakouts(bot, message, dryRun),
       ])
