@@ -36,7 +36,9 @@ const generateLinks = async files => {
     files.map(async file => {
       console.log(file)
       const pageURL = await generateLink(file)
+      console.log('public page url', pageURL)
       const fileURL = await scrapePage(pageURL)
+      console.log('file url',fileURL)
       return fileURL
     })
   )
