@@ -263,7 +263,7 @@ controller.on('block_actions', (bot, message) => {
   }
 })
 
-controller.on('file_shared', (bot, message) => {
+controller.on('file_share', (bot, message) => {
   try {
     const cdnChannelID = 'C016DEDUL87'
     const botSpamChannelID = 'C0P5NE354'
