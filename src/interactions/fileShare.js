@@ -35,7 +35,7 @@ const generateLinks = async files => {
   return await Promise.all(
     files.map(async file => {
       console.log(file)
-      const pageURL = file.permalink_public || (await generateLink(file))
+      const pageURL = await generateLink(file)
       const fileURL = await scrapePage(pageURL)
       return fileURL
     })
