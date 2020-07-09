@@ -28,7 +28,7 @@ const generateLink = file => {
   return new Promise((resolve, reject) => {
     initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
       if (err) {
-        if (err == "already_public") {
+        if (err == 'already_public') {
           resolve(file.permalink_public)
         }
         console.error(err)
@@ -48,7 +48,9 @@ const generateLinks = async files => {
       console.log('public page url', pageURL)
       const fileURL = await scrapePage(pageURL)
       console.log('file url', fileURL)
-      const shortURL = await createShortLink(fileURL, 'cdn')
+      const shortURL = await ratelimiter.schedule(() =>
+        createShortLink(fileURL, 'cdn')
+      )
       return shortURL
     })
   )
@@ -70,8 +72,13 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
   })
 }
 
-const createShortLink = ratelimiter.schedule(async (url, preferredPath) => {
-  console.log('Creating a short link for', url, 'with the preferred slug of', preferredPath)
+const createShortLink = async (url = '/', preferredPath) => {
+  console.log(
+    'Creating a short link for',
+    url,
+    'with the preferred slug of',
+    preferredPath
+  )
   const existingRecords = await airGet(
     'Links',
     `FIND('${preferredPath}',{slug}) > 0`,
@@ -101,7 +108,7 @@ const createShortLink = ratelimiter.schedule(async (url, preferredPath) => {
   )
 
   return 'https://hack.af/' + shortRecord.fields['slug']
-})
+}
 
 export default async (bot, message) => {
   const cdnChannelID = 'C016DEDUL87'
