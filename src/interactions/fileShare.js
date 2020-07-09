@@ -22,6 +22,9 @@ const generateLink = file => {
   return new Promise((resolve, reject) => {
     initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
       if (err) {
+        if (err == "already_public") {
+          resolve(file.permalink_public)
+        }
         console.error(err)
         reject(err)
       }
