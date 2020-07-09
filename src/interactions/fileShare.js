@@ -3,33 +3,29 @@ import fetch from 'isomorphic-unfetch'
 
 import { initBot, transcript } from '../utils'
 
-const scrapePage = async url => {
-  await fetch(url + '?nojs=1')
+const scrapePage = url => {
+  console.log('pulling file info from', url)
+  return new Promise((resolve, reject) => {
+    fetch(url+'?nojs=1')
     .then(r => r.text())
     .then(html => {
       const $ = cheerio.load(html)
       const link = $('a.file_header').attr('href')
       resolve(link)
     })
-    .catch(e => reject(e))
+    .catch(reject)
+  })
 }
 
 const generateLink = file => {
-  console.log(file.id)
+  console.log('generating link for file', file.id)
   return new Promise((resolve, reject) => {
     initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
       if (err) {
         console.error(err)
         reject(err)
       }
-      fetch(res.file.permalink_public + '?nojs=1')
-        .then(r => r.text())
-        .then(html => {
-          const $ = cheerio.load(html)
-          const link = $('a.file_header').attr('href')
-          resolve(link)
-        })
-        .catch(e => reject(e))
+      resolve(res.file.permalink_public)
     })
   })
 }
@@ -38,7 +34,7 @@ const generateLinks = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
   return await Promise.all(
     files.map(async file => {
-      const pageURL = file.permalink_public || (await generateLink(f))
+      const pageURL = file.permalink_public || (await generateLink(file))
       const fileURL = await scrapePage(pageURL)
       return fileURL
     })
