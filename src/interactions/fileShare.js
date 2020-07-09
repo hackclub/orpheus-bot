@@ -14,8 +14,9 @@ const generateLink = file => {
       fetch(res.file.permalink_public + '?nojs=1')
         .then(r => r.text())
         .then(html => {
+          console.log('html', html)
           const $ = cheerio.load(html)
-          console.log($('a.file_header'))
+          console.log('document', $('a.file_header'))
           const link = $('a.file_header').attr('href')
           console.log('step 2', link)
           resolve(link)
