@@ -6,14 +6,14 @@ import { initBot, transcript } from '../utils'
 const scrapePage = url => {
   console.log('pulling file info from', url)
   return new Promise((resolve, reject) => {
-    fetch(url+'?nojs=1')
-    .then(r => r.text())
-    .then(html => {
-      const $ = cheerio.load(html)
-      const link = $('a.file_header').attr('href')
-      resolve(link)
-    })
-    .catch(reject)
+    fetch(url + '?nojs=1')
+      .then(r => r.text())
+      .then(html => {
+        const $ = cheerio.load(html)
+        const link = $('a.file_header').attr('href')
+        resolve(link)
+      })
+      .catch(reject)
   })
 }
 
