@@ -265,9 +265,10 @@ controller.on('block_actions', (bot, message) => {
 
 controller.on('file_created', (bot, message) => {
   try {
-    const channelID = 'C016DEDUL87'
+    const cdnChannelID = 'C016DEDUL87'
+    const botSpamChannelID = 'C0P5NE354'
 
-    if (message.channel != channelID) {
+    if (message.channel != cdnChannelID && channel != botSpamChannelID) {
       return
     }
     console.log(message)
