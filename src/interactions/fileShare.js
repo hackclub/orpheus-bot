@@ -4,6 +4,7 @@ const generateLinks = files => {
   console.log('Generating links for ', files.length, 'file(s)')
   return Promise.all(
     files.map(f => {
+      console.log(f)
       if (false) {
         console.log('file', f.id, 'already has a permalink, skipping!')
         return f
