@@ -10,7 +10,8 @@ const generateLink = file => {
         console.error(err)
         reject(err)
       }
-      fetch(file.permalink_public + '?nojs=1')
+      console.log('step 1', res)
+      fetch(res.file.permalink_public + '?nojs=1')
         .then(r => r.text())
         .then(html => {
           const $ = cheerio.load(html)
