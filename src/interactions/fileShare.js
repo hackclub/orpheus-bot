@@ -3,7 +3,7 @@ import fetch from 'isomorphic-unfetch'
 
 import { initBot, transcript } from '../utils'
 
-const generateLink = async file => {
+const generateLink = file => {
   return new Promise((resolve, reject) => {
     initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
       if (err) {
@@ -22,9 +22,9 @@ const generateLink = async file => {
   })
 }
 
-const generateLinks = files => {
+const generateLinks = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  return Promise.all(files.map(f => generateLink(f)))
+  return await Promise.all(files.map(f => generateLink(f)))
 }
 
 const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
@@ -48,7 +48,6 @@ export default async (bot, message) => {
   const botSpamChannelID = 'C0P5NE354'
 
   const { ts, channel, files, user } = message
-  console.log('ts', ts)
   if (channel != botSpamChannelID) {
     return
   }
@@ -57,10 +56,10 @@ export default async (bot, message) => {
     const results = {}
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
-      new Promise(resolve => setTimeout(resolve, 5000)), // minimum 5 seconds of loading
       generateLinks(files)
-        .then(f => (results.links = f))
+        .then(f => {console.log(f); results.links = f})
         .catch(e => (results.error = e)),
+      new Promise(resolve => setTimeout(resolve, 5000)), // minimum 5 seconds of loading
     ])
     console.log('results', results)
     if (results.error) {
