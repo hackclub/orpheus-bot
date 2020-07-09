@@ -6,7 +6,7 @@ const generateLinks = files => {
     files.map(f => {
       if (f.permalink_public) {
         console.log('file', f.id, 'already has a permalink, skipping!')
-        return f.permalink_public
+        return f
       } else {
         console.log('file', f.id, 'needs a permalink, generating')
         return new Promise((resolve, reject) => {
@@ -73,6 +73,7 @@ export default async (bot, message) => {
   } catch (err) {
     await Promise.all([
       reaction(bot, 'remove', channel, ts, 'beachball'),
+      reaction(bot, 'remove', channel, ts, 'white_check_box'),
       reaction(bot, 'add', channel, ts, 'no_entry'),
       bot.replyInThread(message, transcript('errors.general', { err })),
     ])
