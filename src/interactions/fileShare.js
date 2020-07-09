@@ -65,6 +65,7 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
 }
 
 const createShortLink = async (url, preferredPath) => {
+  console.log('Creating a short link for', url, 'with the preferred slug of', preferredPath)
   const existingRecords = await airGet(
     'Links',
     `FIND('${preferredPath}',{slug}) > 0`,
