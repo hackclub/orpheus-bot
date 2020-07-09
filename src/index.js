@@ -1,5 +1,4 @@
 process.env.STARTUP_TIME = Date.now()
-import _ from 'lodash'
 import bugsnag from '@bugsnag/js'
 
 import controller from './controller'
