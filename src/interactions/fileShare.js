@@ -4,22 +4,18 @@ import fetch from 'isomorphic-unfetch'
 import { initBot, transcript } from '../utils'
 
 const generateLink = file => {
+  console.log(file.id)
   return new Promise((resolve, reject) => {
     initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
       if (err) {
         console.error(err)
         reject(err)
       }
-      console.log('step 1', res)
-      console.log('permalink', res.file.permalink_public)
       fetch(res.file.permalink_public + '?nojs=1')
         .then(r => r.text())
         .then(html => {
-          console.log('html', html)
           const $ = cheerio.load(html)
-          console.log('document', $('a.file_header'))
           const link = $('a.file_header').attr('href')
-          console.log('step 2', link)
           resolve(link)
         })
         .catch(e => reject(e))
@@ -62,14 +58,9 @@ export default async (bot, message) => {
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
       generateLinks(files)
-        .then(f => {
-          console.log(f)
-          results.links = f
-        })
-        .catch(e => (results.error = e)),
-      new Promise(resolve => setTimeout(resolve, 5000)), // minimum 5 seconds of loading
+        .then(f => {results.links = f})
+        .catch(e => {results.error = e}),
     ])
-    console.log('results', results)
     if (results.error) {
       throw results.error
     }
