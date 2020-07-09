@@ -266,14 +266,19 @@ controller.on('file_share', (bot, message) => {
   try {
     const cdnChannelID = 'C016DEDUL87'
     const botSpamChannelID = 'C0P5NE354'
-    console.log(message)
-    console.log(Object.keys(message))
 
-    if (message.channel != cdnChannelID && channel != botSpamChannelID) {
+    const {ts, channel, files, user} = message
+    if (channel != cdnChannelID && channel != botSpamChannelID) {
       return
     }
-    console.log(message)
-    console.log(Object.keys(message))
+
+    bot.api.reactions.add({ts, channel, name: 'beachball'}, (err, res) => {
+      setTimeout(() =>{
+        bot.api.reactions.remove({ts, channel, name: 'beachball'})
+        bot.api.reactions.add({ts, channel, name: 'white_check_mark'})
+      }, 5000)
+      console.log(files)
+    })
 
     // bot.api.reactions.add({})
   } catch (err) {
