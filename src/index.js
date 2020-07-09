@@ -1,7 +1,7 @@
 process.env.STARTUP_TIME = Date.now()
 import bugsnag from '@bugsnag/js'
 
-import controller from './controller'
+import controller, { initBot } from './controller'
 import { transcript } from './utils'
 
 import interactionCheckin from './interactions/checkin'
@@ -277,7 +277,26 @@ controller.on('file_share', (bot, message) => {
         bot.api.reactions.remove({ts, channel, name: 'beachball'})
         bot.api.reactions.add({ts, channel, name: 'white_check_mark'})
       }, 5000)
-      console.log(files)
+      const permalinks = Promise.all(
+        files.map(f => {
+          if (f.permalink_public) {
+            console.log('file', f.id, 'already has a permalink, skipping!')
+            return f.permalink_public
+          } else {
+            console.log('file', f.id, 'needs a permalink, generating')
+            return new Promise((resolve, reject) => {
+              initBot(true).api.files.sharedPublicURL({ file: f.id }, (err, res) => {
+                if (err) {
+                  console.error(err)
+                  reject(err)
+                }
+                resolve(res.file.permalink_public)
+              })
+            })
+          }
+        })
+      )
+      console.log(permalinks)
     })
 
     // bot.api.reactions.add({})
