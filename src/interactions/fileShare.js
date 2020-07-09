@@ -63,7 +63,7 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
 
 const createShortLink = async (url, preferredPath) => {
   const existingRecords = await airGet(
-    'Sources',
+    'Links',
     `FIND({slug},'${preferredPath}') > 0`,
     null,
     { base: 'hackaf' }
@@ -85,7 +85,7 @@ const createShortLink = async (url, preferredPath) => {
   console.log('using slug', preferredSlug, 'because it is unused')
 
   const shortRecord = await airCreate(
-    'Sources',
+    'Links',
     { slug: preferredSlug, destination: url },
     { base: 'hackaf' }
   )
