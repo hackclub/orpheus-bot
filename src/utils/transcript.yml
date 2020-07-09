@@ -444,4 +444,4 @@ breakout:
 fileShare:
   success: |
     Yeah! Here's yo' links
-    ${this.links.join('\n')
+    ${this.links)
