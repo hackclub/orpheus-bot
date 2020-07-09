@@ -28,7 +28,7 @@ const generateLinks = files => {
 
 const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
   return new Promise((resolve, reject) => {
-    bot.api.reactions[addOrRemove]({ channel, ts, name }, (err, res) => {
+    bot.api.reactions[addOrRemove]({ channel, timestamp: ts, name }, (err, res) => {
       if (err) {
         console.error(err)
         reject(err)
