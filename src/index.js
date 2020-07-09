@@ -268,10 +268,11 @@ controller.on('file_share', (bot, message) => {
     const botSpamChannelID = 'C0P5NE354'
 
     const {ts, channel, files, user} = message
-    if (channel != cdnChannelID && channel != botSpamChannelID) {
+    if (channel != botSpamChannelID) {
       return
     }
 
+    console.log('adding reaction', ts, channel)
     bot.api.reactions.add({ts, channel, name: 'beachball'}, (err, res) => {
       setTimeout(() =>{
         bot.api.reactions.remove({ts, channel, name: 'beachball'})
