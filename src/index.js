@@ -266,6 +266,8 @@ controller.on('file_share', (bot, message) => {
   try {
     const cdnChannelID = 'C016DEDUL87'
     const botSpamChannelID = 'C0P5NE354'
+    console.log(message)
+    console.log(Object.keys(message))
 
     if (message.channel != cdnChannelID && channel != botSpamChannelID) {
       return
