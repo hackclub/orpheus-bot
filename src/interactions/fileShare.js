@@ -24,7 +24,7 @@ const generateLink = file => {
 
 const generateLinks = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  return await Promise.all(files.map(f => generateLink(f)))
+  return await Promise.all(files.map(async f => await generateLink(f)))
 }
 
 const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
@@ -57,7 +57,10 @@ export default async (bot, message) => {
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
       generateLinks(files)
-        .then(f => {console.log(f); results.links = f})
+        .then(f => {
+          console.log(f)
+          results.links = f
+        })
         .catch(e => (results.error = e)),
       new Promise(resolve => setTimeout(resolve, 5000)), // minimum 5 seconds of loading
     ])
