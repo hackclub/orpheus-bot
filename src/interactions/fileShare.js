@@ -16,6 +16,7 @@ const generateLink = file => {
         .then(html => {
           const $ = cheerio.load(html)
           const link = $('a.file_header').href
+          console.log('step 2', link)
           resolve(link)
         })
         .catch(e => reject(e))
