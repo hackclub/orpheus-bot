@@ -1,7 +1,12 @@
 import cheerio from 'cheerio'
+import Bottleneck from 'bottleneck'
 import fetch from 'isomorphic-unfetch'
 
 import { initBot, transcript, airGet, airCreate } from '../utils'
+
+const ratelimiter = new Bottleneck({
+  maxConcurrent: 1,
+})
 
 const scrapePage = url => {
   console.log('pulling file info from', url)
@@ -65,7 +70,7 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
   })
 }
 
-const createShortLink = async (url, preferredPath) => {
+const createShortLink = ratelimiter.schedule(async (url, preferredPath) => {
   console.log('Creating a short link for', url, 'with the preferred slug of', preferredPath)
   const existingRecords = await airGet(
     'Links',
@@ -96,7 +101,7 @@ const createShortLink = async (url, preferredPath) => {
   )
 
   return 'https://hack.af/' + shortRecord.fields['slug']
-}
+})
 
 export default async (bot, message) => {
   const cdnChannelID = 'C016DEDUL87'
