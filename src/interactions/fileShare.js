@@ -1,7 +1,7 @@
 import cheerio from 'cheerio'
 import fetch from 'isomorphic-unfetch'
 
-import { initBot, transcript } from '../utils'
+import { initBot, transcript, airGet, airCreate } from '../utils'
 
 const scrapePage = url => {
   console.log('pulling file info from', url)
@@ -38,8 +38,9 @@ const generateLinks = async files => {
       const pageURL = await generateLink(file)
       console.log('public page url', pageURL)
       const fileURL = await scrapePage(pageURL)
-      console.log('file url',fileURL)
-      return fileURL
+      console.log('file url', fileURL)
+      const shortURL = await createShortLink(fileURL, 'cdn')
+      return shortURL
     })
   )
 }
@@ -58,6 +59,38 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
       }
     )
   })
+}
+
+const createShortLink = async (url, preferredPath) => {
+  const existingRecords = await airGet(
+    'Sources',
+    `FIND({slug},'${preferredPath}') > 0`,
+    null,
+    { base: 'hackaf' }
+  )
+  const takenSlugs = existingRecords.map(r => r.fields['slug'])
+
+  let i = 0
+  let preferredSlug = preferredPath
+  while (takenSlugs.includes(preferredSlug)) {
+    console.log(
+      'preferredSlug',
+      preferredSlug,
+      'already exists in hack.af, trying something else...'
+    )
+    preferredSlug = preferredPath + '-' + i
+    i++
+  }
+
+  console.log('using slug', preferredSlug, 'because it is unused')
+
+  const shortRecord = await airCreate(
+    'Sources',
+    { slug: preferredSlug, destination: url },
+    { base: 'hackaf' }
+  )
+
+  return 'https://hack.af/' + shortRecord.fields['slug']
 }
 
 export default async (bot, message) => {
