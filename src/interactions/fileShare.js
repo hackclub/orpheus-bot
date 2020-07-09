@@ -130,7 +130,6 @@ export default async (bot, message) => {
   } catch (err) {
     await Promise.all([
       reaction(bot, 'remove', channel, ts, 'beachball'),
-      reaction(bot, 'remove', channel, ts, 'white_check_mark'),
       reaction(bot, 'add', channel, ts, 'no_entry'),
       bot.replyInThread(message, transcript('errors.general', { err })),
     ])
