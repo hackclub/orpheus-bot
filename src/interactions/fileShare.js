@@ -9,6 +9,7 @@ const scrapePage = url => {
     fetch(url + '?nojs=1')
       .then(r => r.text())
       .then(html => {
+        console.log(html)
         const $ = cheerio.load(html)
         const link = $('a.file_header,a.file_body').attr('href')
         resolve(link)
