@@ -88,7 +88,10 @@ const closeBreakout = async (bot, message, breakout) => {
 
 const warnBreakout = async (bot, message, breakout) => {
   bot.say(
-    { text: transcript('breakout.warning'), channel: breakout.fields['Breakout Channel ID' ]},
+    {
+      text: transcript('breakout.warning'),
+      channel: breakout.fields['Breakout Channel ID'],
+    },
     (err, res) => {
       if (err) {
         console.error(err)

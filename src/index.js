@@ -38,6 +38,8 @@ import interactionFindOrCreate from './interactions/findOrCreate'
 import interactionBreakout from './interactions/breakout'
 import interactionBreakoutUpdate from './interactions/trigger/updateBreakouts'
 
+import interactionFileShare from './interactions/fileShare'
+
 import interactionSOMReport from './interactions/som/report.js'
 import interactionSOMInvite from './interactions/som/invite.js'
 import interactionSOMPromote from './interactions/som/promote.js'
@@ -264,43 +266,7 @@ controller.on('block_actions', (bot, message) => {
 
 controller.on('file_share', (bot, message) => {
   try {
-    const cdnChannelID = 'C016DEDUL87'
-    const botSpamChannelID = 'C0P5NE354'
-
-    const {ts, channel, files, user} = message
-    if (channel != botSpamChannelID) {
-      return
-    }
-
-    console.log('adding reaction', ts, channel)
-    bot.api.reactions.add({ts, channel, name: 'beachball'}, (err, res) => {
-      setTimeout(() =>{
-        bot.api.reactions.remove({ts, channel, name: 'beachball'})
-        bot.api.reactions.add({ts, channel, name: 'white_check_mark'})
-      }, 5000)
-      const permalinks = Promise.all(
-        files.map(f => {
-          if (f.permalink_public) {
-            console.log('file', f.id, 'already has a permalink, skipping!')
-            return f.permalink_public
-          } else {
-            console.log('file', f.id, 'needs a permalink, generating')
-            return new Promise((resolve, reject) => {
-              initBot(true).api.files.sharedPublicURL({ file: f.id }, (err, res) => {
-                if (err) {
-                  console.error(err)
-                  reject(err)
-                }
-                resolve(res.file.permalink_public)
-              })
-            })
-          }
-        })
-      )
-      console.log(permalinks)
-    })
-
-    // bot.api.reactions.add({})
+    interactionFileShare(bot, message)
   } catch (err) {
     console.log(err)
   }
