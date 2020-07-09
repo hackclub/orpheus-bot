@@ -3,6 +3,17 @@ import fetch from 'isomorphic-unfetch'
 
 import { initBot, transcript } from '../utils'
 
+const scrapePage = async url => {
+  await fetch(url + '?nojs=1')
+    .then(r => r.text())
+    .then(html => {
+      const $ = cheerio.load(html)
+      const link = $('a.file_header').attr('href')
+      resolve(link)
+    })
+    .catch(e => reject(e))
+}
+
 const generateLink = file => {
   console.log(file.id)
   return new Promise((resolve, reject) => {
@@ -25,7 +36,13 @@ const generateLink = file => {
 
 const generateLinks = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  return await Promise.all(files.map(async f => await generateLink(f)))
+  return await Promise.all(
+    files.map(async file => {
+      const pageURL = file.permalink_public || (await generateLink(f))
+      const fileURL = await scrapePage(pageURL)
+      return fileURL
+    })
+  )
 }
 
 const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
@@ -58,8 +75,12 @@ export default async (bot, message) => {
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
       generateLinks(files)
-        .then(f => {results.links = f})
-        .catch(e => {results.error = e}),
+        .then(f => {
+          results.links = f
+        })
+        .catch(e => {
+          results.error = e
+        }),
     ])
     if (results.error) {
       throw results.error
