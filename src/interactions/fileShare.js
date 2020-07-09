@@ -4,7 +4,7 @@ const generateLinks = files => {
   console.log('Generating links for ', files.length, 'file(s)')
   return Promise.all(
     files.map(f => {
-      if (f.permalink_public) {
+      if (false) {
         console.log('file', f.id, 'already has a permalink, skipping!')
         return f
       } else {
@@ -30,7 +30,7 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
   return new Promise((resolve, reject) => {
     bot.api.reactions[addOrRemove]({ channel, timestamp: ts, name }, (err, res) => {
       if (err) {
-        console.error(err)
+        console.error('error while', addOrRemove, name, ':', err)
         reject(err)
       } else {
         resolve(name)
