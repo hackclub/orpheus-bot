@@ -48,29 +48,31 @@ export default async (bot, message) => {
     return
   }
 
-  const results = {}
-  await Promise.all([
-    reaction(bot, 'add', channel, ts, 'beachball'),
-    generateLinks(files)
-      .then(f => (results.links = f))
-      .catch(e => (results.error = e)),
-  ])
-  // const links = await generateLinks(files)
-
-  if (results.links) {
+  try {
+    const results = {}
     await Promise.all([
-      reaction(bot, 'remove', channel, ts, 'beachball'),
-      reaction(bot, 'add', channel, ts, 'white_check_box'),
-      bot.replyInThread(message, transcript('fileShare.success', { links })),
+      reaction(bot, 'add', channel, ts, 'beachball'),
+      generateLinks(files)
+        .then(f => (results.links = f))
+        .catch(e => (results.error = e)),
     ])
-  } else {
+    console.log('results', results)
+    if (results.error) {
+      throw results.error
+    }
+
+    if (results.links) {
+      await Promise.all([
+        reaction(bot, 'remove', channel, ts, 'beachball'),
+        reaction(bot, 'add', channel, ts, 'white_check_box'),
+        bot.replyInThread(message, transcript('fileShare.success', { links })),
+      ])
+    }
+  } catch (err) {
     await Promise.all([
       reaction(bot, 'remove', channel, ts, 'beachball'),
       reaction(bot, 'add', channel, ts, 'no_entry'),
-      bot.replyInThread(
-        message,
-        transcript('errors.general', { err: results.error })
-      ),
+      bot.replyInThread(message, transcript('errors.general', { err })),
     ])
   }
 }
