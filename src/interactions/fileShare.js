@@ -53,6 +53,7 @@ export default async (bot, message) => {
     const results = {}
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
+      new Promise(resolve => setTimeout(resolve, 5000)), // minimum 5 seconds of loading
       generateLinks(files)
         .then(f => (results.links = f))
         .catch(e => (results.error = e)),
