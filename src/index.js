@@ -116,6 +116,17 @@ controller.hears('date', 'direct_mention', interactionDate)
 
 controller.hears('breakout', 'direct_mention', interactionBreakout)
 
+controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
+  if (message.thread.originalPoster) {
+    interactionCheckinReply(bot, message)
+  }
+})
+
+controller.hears('hello', 'direct_mention,direct_message', interactionHello)
+
+// catch-all for direct messages
+controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
+
 controller.on('slash_command', async (bot, message) => {
   const { command, user, channel, text } = message
 
@@ -252,15 +263,20 @@ controller.on('block_actions', (bot, message) => {
   }
 })
 
-controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
-  if (message.thread.originalPoster) {
-    interactionCheckinReply(bot, message)
+controller.on('file_created', (bot, message) => {
+  try {
+    const channelID = 'C016DEDUL87'
+
+    if (message.channel != channelID) {
+      return
+    }
+    console.log(message)
+    console.log(Object.keys(message))
+
+    // bot.api.reactions.add({})
+  } catch (err) {
+    console.log(err)
   }
 })
-
-controller.hears('hello', 'direct_mention,direct_message', interactionHello)
-
-// catch-all for direct messages
-controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
 interactionStartup()
