@@ -5,12 +5,12 @@ import { initBot, transcript } from '../utils'
 
 const generateLink = async file => {
   return new Promise((resolve, reject) => {
-    initBot(true).api.files.sharedPublicURL({ file }, (err, res) => {
+    initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
       if (err) {
         console.error(err)
         reject(err)
       }
-      fetch(res.file.permalink_public + '?nojs=1')
+      fetch(file.permalink_public + '?nojs=1')
         .then(r => r.text())
         .then(html => {
           const $ = cheerio.load(html)
@@ -24,7 +24,7 @@ const generateLink = async file => {
 
 const generateLinks = files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  return Promise.all(files.map(f => generateLink(f.i)))
+  return Promise.all(files.map(f => generateLink(f)))
 }
 
 const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
