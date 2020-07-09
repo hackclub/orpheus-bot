@@ -64,7 +64,7 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
 const createShortLink = async (url, preferredPath) => {
   const existingRecords = await airGet(
     'Links',
-    `FIND({slug},'${preferredPath}') > 0`,
+    `FIND('${preferredPath}',{slug}) > 0`,
     null,
     { base: 'hackaf' }
   )
