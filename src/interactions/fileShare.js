@@ -10,7 +10,7 @@ const scrapePage = url => {
       .then(r => r.text())
       .then(html => {
         const $ = cheerio.load(html)
-        const link = $('a.file_header').attr('href')
+        const link = $('a.file_header,a.file_body').attr('href')
         resolve(link)
       })
       .catch(reject)
