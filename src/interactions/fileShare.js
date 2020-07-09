@@ -1,4 +1,4 @@
-import { initBot } from '../utils'
+import { initBot, transcript } from '../utils'
 
 const generateLinks = files => {
   console.log('Generating links for ', files.length, 'file(s)')
@@ -44,6 +44,7 @@ export default async (bot, message) => {
   const botSpamChannelID = 'C0P5NE354'
 
   const { ts, channel, files, user } = message
+  console.log('ts', ts)
   if (channel != botSpamChannelID) {
     return
   }
