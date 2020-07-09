@@ -69,6 +69,7 @@ const createShortLink = async (url, preferredPath) => {
     { base: 'hackaf' }
   )
   const takenSlugs = existingRecords.map(r => r.fields['slug'])
+  console.log('takenSlugs are', takenSlugs)
 
   let i = 0
   let preferredSlug = preferredPath
@@ -78,8 +79,7 @@ const createShortLink = async (url, preferredPath) => {
       preferredSlug,
       'already exists in hack.af, trying something else...'
     )
-    preferredSlug = preferredPath + '-' + i
-    i++
+    preferredSlug = preferredPath + '-' + i++
   }
 
   console.log('using slug', preferredSlug, 'because it is unused')
