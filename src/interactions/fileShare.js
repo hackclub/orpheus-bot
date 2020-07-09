@@ -66,7 +66,7 @@ export default async (bot, message) => {
       await Promise.all([
         reaction(bot, 'remove', channel, ts, 'beachball'),
         reaction(bot, 'add', channel, ts, 'white_check_box'),
-        bot.replyInThread(message, transcript('fileShare.success', { links })),
+        bot.replyInThread(message, transcript('fileShare.success', { links: results.links })),
       ])
     }
   } catch (err) {
