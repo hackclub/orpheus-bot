@@ -11,6 +11,7 @@ const generateLink = file => {
         reject(err)
       }
       console.log('step 1', res)
+      console.log('permalink', res.file.permalink_public)
       fetch(res.file.permalink_public + '?nojs=1')
         .then(r => r.text())
         .then(html => {
