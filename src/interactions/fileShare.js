@@ -62,10 +62,9 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
 
 export default async (bot, message) => {
   const cdnChannelID = 'C016DEDUL87'
-  const botSpamChannelID = 'C0P5NE354'
 
-  const { ts, channel, files, user } = message
-  if (channel != botSpamChannelID) {
+  const { ts, channel, files } = message
+  if (channel != cdnChannelID) {
     return
   }
 
