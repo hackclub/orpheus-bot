@@ -15,7 +15,8 @@ const generateLink = file => {
         .then(r => r.text())
         .then(html => {
           const $ = cheerio.load(html)
-          const link = $('a.file_header').href
+          console.log($('a.file_header'))
+          const link = $('a.file_header').attr('href')
           console.log('step 2', link)
           resolve(link)
         })
