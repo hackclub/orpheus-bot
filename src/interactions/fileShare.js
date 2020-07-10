@@ -46,7 +46,11 @@ const generateLinks = async files => {
       console.log(file)
       const pageURL = await generateLink(file)
       console.log('public page url', pageURL)
-      const fileURL = await scrapePage(pageURL)
+      const urlRegex = /([A-Za-z0-9]+)/g
+      const urlChunks = pageURL.replace('https://slack-files.com/', '').match(urlRegex)
+      const [teamID, fileID, pubSecret] = urlChunks
+      const fileURL = `https://files.slack.com/files-pri/${teamID}-${fileID}/${file.name}?pub_secret=${pubSecret}`
+      // const fileURL = await scrapePage(pageURL)
       console.log('file url', fileURL)
       const shortURL = await ratelimiter.schedule(() =>
         createShortLink(fileURL, 'cdn')
