@@ -33,6 +33,12 @@ export async function run(bot, message) {
     return
   }
 
+  await bot.replyPrivateDelayed(
+    message,
+    transcript('promos.githubGrant.programClosed')
+  )
+  return // we're closing down grants this semester until we get more funding from GitHub
+
   const lastGrant = await airFind(
     'GitHub Grants',
     `AND({Dummy} = 0, {Club} = '${club.fields['ID']}')`,

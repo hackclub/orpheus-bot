@@ -374,6 +374,8 @@ promos:
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
   adafruit: Go to adafruit.com and use \`HACKCLUB\` as a promo code to get a 10% discount! 
   githubGrant:
+    programClosed: |
+      We've given out all the money from GitHub's grant fund from the 2019-2020 school year. We're currently talking to them about renewing the fund for next year, so check back later.
     alreadyGranted: |
       I already see a grant request submitted <!date^${this.lastGrantDate.getTime()/1000}^{date_short_pretty}|on ${this.lastGrantDate}> submitted by <@${this.requester}> this semester.
       We can only automatically send grants once per semester, but if you think there's an error or are looking for an exception reach out to staff.
