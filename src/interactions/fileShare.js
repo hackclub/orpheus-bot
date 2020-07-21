@@ -8,21 +8,6 @@ const ratelimiter = new Bottleneck({
   maxConcurrent: 1,
 })
 
-const scrapePage = url => {
-  console.log('pulling file info from', url)
-  return new Promise((resolve, reject) => {
-    fetch(url + '?nojs=1')
-      .then(r => r.text())
-      .then(html => {
-        console.log(html)
-        const $ = cheerio.load(html)
-        const link = $('a.file_header,a.file_body').attr('href')
-        resolve(link)
-      })
-      .catch(reject)
-  })
-}
-
 const generateLink = file => {
   console.log('generating link for file', file.id)
   return new Promise((resolve, reject) => {
