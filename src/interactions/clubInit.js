@@ -46,3 +46,5 @@ const createClubChannel = (id, user) => (
     })
   })
 )
+
+export default interactionClubInit
