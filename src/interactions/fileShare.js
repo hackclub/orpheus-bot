@@ -110,7 +110,7 @@ const uploadToCDN = async (files) => {
     },
     body: files
   })
-  return result
+  return result.json()
 }
 
 export default async (bot = initBot(), message) => {
