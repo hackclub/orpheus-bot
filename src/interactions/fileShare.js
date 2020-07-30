@@ -101,31 +101,36 @@ const createShortLink = async (url = '/', preferredPath) => {
   return 'https://hack.af/' + shortRecord.fields['slug']
 }
 
-const uploadToCDN = async (files) => {
+const uploadToCDN = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
   console.log('File links are:', files)
 
-  const fileURLs = await Promise.all(files.map(async file => {
-    const pageURL = await generateLink(file)
-    console.log('public page url', pageURL)
-    const urlRegex = /([A-Za-z0-9]+)/g
-    const urlChunks = pageURL
-      .replace('https://slack-files.com/', '')
-      .match(urlRegex)
-    const [teamID, fileID, pubSecret] = urlChunks
-    console.log('url chunks', urlChunks)
-    const fileURL = `${file.url_private}?pub_secret=${pubSecret}`
-    return fileURL
-  }))
+  const fileURLs = await Promise.all(
+    files.map(async file => {
+      const pageURL = await generateLink(file)
+      console.log('public page url', pageURL)
+      const urlRegex = /([A-Za-z0-9]+)/g
+      const urlChunks = pageURL
+        .replace('https://slack-files.com/', '')
+        .match(urlRegex)
+      const [teamID, fileID, pubSecret] = urlChunks
+      console.log('url chunks', urlChunks)
+      const fileURL = `${file.url_private}?pub_secret=${pubSecret}`
+      return fileURL
+    })
+  )
 
   return new Promise((resolve, reject) => {
     fetch('https://cdn.hackclub.com/api/new', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(fileURLs)
-    }).then(r => r.json()).then(resolve).catch(reject)
+      body: JSON.stringify(fileURLs),
+    })
+      .then(r => r.json())
+      .then(resolve)
+      .catch(reject)
   })
 }
 
@@ -141,11 +146,13 @@ export default async (bot = initBot(), message) => {
     const results = {}
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
-      uploadToCDN(files).then(f => {
-        results.links = f
-      }).catch(e => {
-        results.error = e
-      })
+      uploadToCDN(files)
+        .then(f => {
+          results.links = f
+        })
+        .catch(e => {
+          results.error = e
+        }),
       // generateLinks(files)
       //   .then(f => {
       //     results.links = f
