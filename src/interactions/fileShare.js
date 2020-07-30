@@ -1,4 +1,3 @@
-import cheerio from 'cheerio'
 import Bottleneck from 'bottleneck'
 import fetch from 'isomorphic-unfetch'
 
@@ -7,21 +6,6 @@ import { initBot, transcript, airGet, airCreate } from '../utils'
 const ratelimiter = new Bottleneck({
   maxConcurrent: 1,
 })
-
-const scrapePage = url => {
-  console.log('pulling file info from', url)
-  return new Promise((resolve, reject) => {
-    fetch(url + '?nojs=1')
-      .then(r => r.text())
-      .then(html => {
-        console.log(html)
-        const $ = cheerio.load(html)
-        const link = $('a.file_header,a.file_body').attr('href')
-        resolve(link)
-      })
-      .catch(reject)
-  })
-}
 
 const generateLink = file => {
   console.log('generating link for file', file.id)
@@ -117,7 +101,19 @@ const createShortLink = async (url = '/', preferredPath) => {
   return 'https://hack.af/' + shortRecord.fields['slug']
 }
 
-export default async (bot, message) => {
+const uploadToCDN = async (files) => {
+  console.log('Generating links for ', files.length, 'file(s)')
+  const result = await fetch('https://cdn.hackclub.com/api/new', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: files
+  })
+  return result
+}
+
+export default async (bot = initBot(), message) => {
   const cdnChannelID = 'C016DEDUL87'
 
   const { ts, channel, files } = message
@@ -129,13 +125,18 @@ export default async (bot, message) => {
     const results = {}
     await Promise.all([
       reaction(bot, 'add', channel, ts, 'beachball'),
-      generateLinks(files)
-        .then(f => {
-          results.links = f
-        })
-        .catch(e => {
-          results.error = e
-        }),
+      uploadToCDN(files).then(f => {
+        results.links = f
+      }).catch(e => {
+        results.error = e
+      })
+      // generateLinks(files)
+      //   .then(f => {
+      //     results.links = f
+      //   })
+      //   .catch(e => {
+      //     results.error = e
+      //   }),
     ])
     if (results.error) {
       throw results.error

@@ -45,6 +45,7 @@ import interactionSOMInvite from './interactions/som/invite.js'
 import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
 import interactionSOMBan from './interactions/som/ban'
+import fileShare from './interactions/fileShare'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
