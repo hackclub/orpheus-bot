@@ -101,7 +101,7 @@ const createShortLink = async (url = '/', preferredPath) => {
   return 'https://hack.af/' + shortRecord.fields['slug']
 }
 
-const uploadToCDN = async (files) => {
+const uploadToCDN = (files) => {
   console.log('Generating links for ', files.length, 'file(s)')
   return Promise((resolve, reject) => {
     fetch('https://cdn.hackclub.com/api/new', {
