@@ -41,7 +41,7 @@ const createClubChannel = (id, user) => (
       bot.api.conversations.invite({
         token: bot.config.bot.access_token,
         channel: channel.channel.id,
-        users: `${userId},UM1L1C38X`
+        users: `${user},UM1L1C38X`
       }).then(() => resolve(channel.channel.id))
     })
   })
