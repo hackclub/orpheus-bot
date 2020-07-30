@@ -1,5 +1,4 @@
-import fetch from 'isomorphic-unfetch'
-import { initBot, airFind, airCreate, getSlackUser, getInfoForUser, airPatch } from '../utils'
+import { initBot, airCreate, getInfoForUser, airPatch } from '../utils'
 
 const interactionClubInit = async (bot = initBot(), message) => {
   // find person record, create if it doesn't exist
