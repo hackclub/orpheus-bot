@@ -103,13 +103,13 @@ const createShortLink = async (url = '/', preferredPath) => {
 
 const uploadToCDN = (files) => {
   console.log('Generating links for ', files.length, 'file(s)')
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     fetch('https://cdn.hackclub.com/api/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(['https://files.slack.com/files-pri/T0266FRGM-F017XUA0P61/download.png'])
+      body: JSON.stringify(files)
     }).then(r => r.json()).then(resolve).catch(reject)
   })
 }
