@@ -110,6 +110,7 @@ const uploadToCDN = async (files) => {
     },
     body: files
   })
+  console.log('result', result)
   return result.json()
 }
 
