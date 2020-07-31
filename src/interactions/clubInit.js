@@ -41,6 +41,7 @@ const createClubChannel = (id, user) => (
     const clubChannel = await bot.api.conversations.create({
       name: id
     })
+    console.log('club channel', clubChannel)
     await bot.api.conversations.invite({
       channel: clubChannel.channel.id,
       users: `${user},UM1L1C38X`
