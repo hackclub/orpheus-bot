@@ -40,7 +40,7 @@ const createClubChannel = (id, user) => (
   new Promise(async (resolve, reject) => {
     const clubChannel = await bot.api.conversations.create({
       name: id
-    })
+    }, err => console.log('error creating club channel', err))
     console.log('club channel', clubChannel)
     await bot.api.conversations.invite({
       channel: clubChannel.channel.id,
