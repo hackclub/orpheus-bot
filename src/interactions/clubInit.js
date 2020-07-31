@@ -38,15 +38,16 @@ const interactionClubInit = async (bot = initBot(), message) => {
 
 const createClubChannel = (id, user) => (
   new Promise(async (resolve, reject) => {
-    const channel = await bot.api.conversations.create({
+    const clubChannel = await bot.api.conversations.create({
       token: bot.config.bot.access_token,
       name: id
     })
+    console.log('club channel', clubChannel)
     await bot.api.conversations.invite({
       token: bot.config.bot.access_token,
-      channel: channel.channel.id,
+      channel: clubChannel.channel.id,
       users: `${user},UM1L1C38X`
-    }).then(() => resolve(channel.channel.id))
+    }).then(() => resolve(clubChannel.channel.id))
   })
 )
 
