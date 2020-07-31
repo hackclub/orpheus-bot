@@ -39,7 +39,7 @@ const interactionClubInit = async (bot = initBot(), message) => {
 const createClubChannel = (id, user) => (
   new Promise(async (resolve, reject) => {
     const clubChannel = await bot.api.conversations.create({
-      token: bot.config.bot.access_token,
+      token: process.env.SLACK_BOT_TOKEN,
       name: id
     })
     console.log('club channel', clubChannel)
