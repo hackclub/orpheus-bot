@@ -41,7 +41,7 @@ const createClubChannel = (id, user) => (
     const clubChannel = await bot.api.conversations.create({
       token: process.env.SLACK_BOT_TOKEN,
       name: id
-    })
+    }).catch(err => console.log('error creating club channel', err))
     console.log('club channel', clubChannel)
     await bot.api.conversations.invite({
       token: bot.config.bot.access_token,
