@@ -46,6 +46,7 @@ import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
 import interactionSOMBan from './interactions/som/ban'
 import fileShare from './interactions/fileShare'
+import interactionClubInit from './interactions/clubInit'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -239,6 +240,10 @@ controller.on('slash_command', async (bot, message) => {
 
           case '/leader-list':
             await interactionLeaderList(bot, message)
+            break
+
+          case '/club-init':
+            await interactionClubInit(bot, message)
             break
 
           default:
