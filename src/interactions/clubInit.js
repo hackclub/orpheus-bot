@@ -42,12 +42,15 @@ const createClubChannel = (id, user) => (
       name: id
     }, (err, res) => {
       if (err) reject('error creating club channel', err)
-      console.log('new club channel created!', res)
+      console.log('new club channel created!', res, res.channel.id)
       bot.api.conversations.invite({
         channel: res.channel.id,
         users: `${user},UM1L1C38X`
       }, (err, res) => {
-        if (err) reject('error inviting user to new club channel', err)
+        if (err) {
+          console.log('error inviting user to new club channel', err)
+          reject(err)
+        }
         resolve(res.channel.id)
       })
     })
