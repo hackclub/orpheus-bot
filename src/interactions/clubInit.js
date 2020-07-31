@@ -38,18 +38,10 @@ const interactionClubInit = async (bot = initBot(), message) => {
 
 const createClubChannel = (id, user) => (
   new Promise(async (resolve, reject) => {
-    try {
-      const clubChannel = await bot.api.conversations.create({
-        token: process.env.SLACK_BOT_TOKEN,
-        name: id
-      })
-      console.log('club channel', clubChannel)
-    } catch (err) {
-      console.log('error creating club channel', err)
-    }
-
+    const clubChannel = await bot.api.conversations.create({
+      name: id
+    })
     await bot.api.conversations.invite({
-      token: bot.config.bot.access_token,
       channel: clubChannel.channel.id,
       users: `${user},UM1L1C38X`
     }).then(() => resolve(clubChannel.channel.id))
