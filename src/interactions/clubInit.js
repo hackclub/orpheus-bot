@@ -10,7 +10,8 @@ const interactionClubInit = async (bot = initBot(), message) => {
   const userId = message.user
   const userInfo = await getInfoForUser(userId)
   const personRecord = userInfo.person
-  const fullName = userInfo.slackUser.user.real_name
+  const fullName = userInfo.slackUser.real_name
+  console.log('user info', userInfo)
   console.log('person', personRecord)
 
   const clubRecord = await airCreate('Clubs', {
@@ -30,6 +31,9 @@ const interactionClubInit = async (bot = initBot(), message) => {
       text: 'hiiii'
     })
   ])
+
+  // Fill in any fields that aren't already filled in
+  getInfoForUser(userId)
 }
 
 const createClubChannel = (id, user) => (
