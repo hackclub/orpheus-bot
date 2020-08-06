@@ -4,7 +4,8 @@
             "@babel/env", {
                 "targets": {
                     "node": "current"
-                }
+                },
+                "bugfixes": true
             }
         ]
     ]
