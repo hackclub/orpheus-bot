@@ -1,12 +1,12 @@
 {
     "presets": [
         [
-            "env", {
+            "@babel/env", {
                 "targets": {
                     "node": "current"
-                }
+                },
+                "bugfixes": true
             }
         ]
-    ],
-    "plugins": ["transform-object-rest-spread"]
+    ]
 }
