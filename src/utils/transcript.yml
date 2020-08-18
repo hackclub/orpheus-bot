@@ -363,7 +363,7 @@ leaderList:
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
   stickerEnvelope:
-    success: Your envelope has been sent to mail-team with the note \`${this.note}\`! A nodemaster will take it from here.
+    success: Your order is recieved! Now just hang tight- your envelope has been sent to the Mail Team and you can expect it in 1-2 weeks.
   stickermule:
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
     success: Go to hack.af/stickermule to get your StickerMule promo code
