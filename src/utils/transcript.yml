@@ -220,9 +220,9 @@ tutorial:
   getSticker:
     start: |
       Now let's get some goodies. Hack Club has a long tradition of club stickers (hackclub.com/stickers), and we want to get some shipped to you ASAP.
-      Run \`/get sticker box\` to get a box of stickers.
+      Run \`/get sticker envelope\` to get a envelope of stickers.
     finished: |
-      Great! Now that you've ordered one stickerbox you can always order another– we're happy to give more stickers to clubs in need.
+      Great! Now that you've ordered one sticker envelope you can always order another– we're happy to give more stickers to clubs in need.
       There are a couple more promos available, but some of them are only available to clubs that are actively meeting. We'll play around with that later on in the tutorial, but we'll need to record a meeting.
   meetingAdd:
     start: |
