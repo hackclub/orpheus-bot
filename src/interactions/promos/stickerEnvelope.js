@@ -1,32 +1,24 @@
-import { getInfoForUser, transcript } from '../../utils'
+import { transcript } from '../../utils'
 import interactionMailMission from '../mailMission'
 import interactionTutorial from '../tutorial'
 
-export const names = ['Sticker Box']
+export const names = ['Sticker Envelope']
 export const details =
   'Available to club leaders. Optionally include a note to the nodemaster packing your order.'
 export async function run(bot, message) {
   const { user } = message
-  const { leader, club } = await getInfoForUser(user)
-  if (!leader || !club) {
-    await bot.replyPrivateDelayed(
-      message,
-      transcript('promos.stickerBox.notAuthorized')
-    )
-    return
-  }
 
-  const note = message.text.replace(/sticker box/i, '')
+  const note = message.text.replace(/sticker envelope/i, '')
 
   await interactionMailMission(undefined, {
     user,
-    text: 'sticker_box',
+    text: 'sticker_envelope',
     note,
   })
 
   await bot.replyPrivateDelayed(
     message,
-    transcript('promos.stickerBox.success', { note })
+    transcript('promos.stickerEnvelope.success', { note })
   )
 
   await interactionTutorial(bot, message)

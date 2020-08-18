@@ -362,8 +362,7 @@ leaderList:
     ${this.leaders.map(leader => this.t('leaderList.leader', { leader } ))}
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
-  stickerBox:
-    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+  stickerEnvelope:
     success: Your box has been sent to mail-team with the note \`${this.note}\`! A nodemaster will take it from here.
   stickermule:
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
