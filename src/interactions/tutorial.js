@@ -72,9 +72,9 @@ const interactionTutorial = async (bot, message) => {
       }
       break
     case '/get':
-      const isStickerPromo = text.includes('sticker box')
+      const isStickerPromo = text.includes('sticker envelope')
       const finishedStickerTutorial =
-        userRecord.fields['Flag: Tutorial /promo sticker box']
+        userRecord.fields['Flag: Tutorial /promo sticker envelope']
       if (isStickerPromo && !finishedStickerTutorial) {
         await asyncReply(
           bot,
@@ -82,7 +82,7 @@ const interactionTutorial = async (bot, message) => {
           transcript('tutorial.getSticker.finished')
         )
         await asyncReply(bot, message, transcript('tutorial.meetingAdd.start'))
-        userRecord.patch({ 'Flag: Tutorial /promo sticker box': true })
+        userRecord.patch({ 'Flag: Tutorial /promo sticker envelope': true })
         return
       }
 

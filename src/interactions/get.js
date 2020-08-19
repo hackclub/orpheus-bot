@@ -1,13 +1,13 @@
 import { transcript } from '../utils'
 import * as githubGrant from './promos/githubGrant'
 import * as hackPack from './promos/hackPack'
-import * as stickerBox from './promos/stickerBox'
+import * as stickerEnvelope from './promos/stickerEnvelope'
 import * as notionPremium from './promos/notionPremium'
 import * as stickermule from './promos/stickermule'
 import * as adafruitDiscount from './promos/adafruitDiscount'
 
 const promos = [
-  stickerBox,
+  stickerEnvelope,
   notionPremium,
   stickermule,
   hackPack,
