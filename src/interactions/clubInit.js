@@ -1,4 +1,4 @@
-import { initBot, airCreate, getInfoForUser, airPatch } from '../utils'
+import { initBot, airCreate, getInfoForUser, airPatch, transcript } from '../utils'
 
 const interactionClubInit = async (bot = initBot(), message) => {
   // find person record, create if it doesn't exist
@@ -26,9 +26,8 @@ const interactionClubInit = async (bot = initBot(), message) => {
       'Slack Channel ID': clubChannel
     }),
     bot.api.chat.postMessage({
-      token: bot.config.bot.access_token,
       channel: clubChannel,
-      text: 'hiiii'
+      text: transcript('tutorial.init.start')
     })
   ])
 
