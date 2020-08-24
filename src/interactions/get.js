@@ -1,4 +1,4 @@
-import { transcript } from '../utils'
+import { transcript, initBot } from '../utils'
 import * as githubGrant from './promos/githubGrant'
 import * as hackPack from './promos/hackPack'
 import * as stickerEnvelope from './promos/stickerEnvelope'
@@ -15,7 +15,7 @@ const promos = [
   adafruitDiscount,
 ]
 
-const interactionGet = async (bot, message) => {
+const interactionGet = async (bot = initBot(), message) => {
   const args = message.text.toLowerCase()
 
   if (args == 'help') {
