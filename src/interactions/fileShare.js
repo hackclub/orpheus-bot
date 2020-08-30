@@ -36,7 +36,6 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
 
 const uploadToCDN = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  console.log('File links are:', files)
 
   const fileURLs = await Promise.all(
     files.map(async file => {
