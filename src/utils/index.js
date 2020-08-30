@@ -274,6 +274,8 @@ export const getInfoForUser = user =>
       .then(async () => {
         if (!results.person && results.slackUser) {
           results.person = await initPerson(results)
+        } else if (results.person && !results.person.fields['Email'] && results.slackUser.profile.email) {
+          results.person = await airPatch('People', results.person.id, {'Email': results.slackUser.profile.email })
         }
       })
       .then(() => {
