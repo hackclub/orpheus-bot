@@ -15,7 +15,7 @@ export async function run(bot, message) {
     return
   }
 
-  const recipientID = message.text.replace(/sticker envelope/i, '').trim()
+  let recipientID = message.text.replace(/sticker envelope/i, '').trim()
 
   if (!recipientID) {
     await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.help', { user: message.user, email: creator.person.fields['Email'] }))
@@ -23,10 +23,14 @@ export async function run(bot, message) {
   }
 
   let recipientRecord
+  let selfSend = false
+  let slackID
   const slackRegex = /<@([a-zA-Z0-9]+).*>/
   if (slackRegex.test(recipientID)) {
-    let slackID = recipientID.match(slackRegex)[1].replace(/\|.*/,'')
+    slackID = recipientID.match(slackRegex)[1].replace(/\|.*/,'')
     recipientRecord = (await getInfoForUser(slackID)).person
+    recipientID = slackID
+    selfSend = slackID == message.user
   } else {
     recipientRecord = await airFind('People', 'Email', recipientID)
   }
