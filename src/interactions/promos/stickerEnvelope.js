@@ -48,7 +48,7 @@ export async function run(bot, message) {
       selfSend = true
       recipientRecord = creator.person
     } else {
-      recipientRecord = await airFind('People', 'Email', recipientID)
+      recipientRecord = await airFind('People', 'Email', email)
     }
   } else {
     // we couldn't match with anything, give the help text
@@ -61,6 +61,9 @@ export async function run(bot, message) {
     console.log(recipientRecord.mailMissions.length)
   }
 
+  if (recipientRecord) {
+    recipientID = recipientRecord.fields['Slack ID'] || recipientID
+  }
   await Promise.all([
     interactionMailMission(undefined, {
       user: message.user,
