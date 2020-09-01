@@ -40,12 +40,8 @@ import interactionBreakoutUpdate from './interactions/trigger/updateBreakouts'
 
 import interactionFileShare from './interactions/fileShare'
 
-import interactionSOMReport from './interactions/som/report.js'
-import interactionSOMInvite from './interactions/som/invite.js'
 import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
-import interactionSOMBan from './interactions/som/ban'
-import fileShare from './interactions/fileShare'
 import interactionClubInit from './interactions/clubInit'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)

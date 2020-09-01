@@ -429,15 +429,6 @@ som:
     stillGuest: <@${this.user}> is still a guest! Someone needs to approve them as a full Slack user before I can lookup who approved them.
     found: <@${this.user}> was promoted from guest user to a full slack member by <@${this.approver}>.
     notFound: No guest history found for <@${this.user}>. This probably means they joined the Slack as a full user instead of being invited as a guest and approved by another member.
-  report:
-    help: |
-      You can use this to report a multi-channel guest misbehaving in Slack. Your report is confidential & submitted directly to the staff.
-      If you'd be more comfortable submitting a test report first, feel free to submit a report against me to understand the process.
-      \`/som-report @orpheus\`
-    submitted: I'm creating a confidential report to staff about <@${this.subject}>. Please fill in any details at ${this.reportFormUrl}.
-  ban:
-    notAdmin: You must be an admin to use this command!
-    deactivated: <@${this.user}> has been deactivated.
 breakout:
   loading: ":beachball:"
   created: Just created <#${this.channel}>. It will be archived after 30 minutes of inactivity.
