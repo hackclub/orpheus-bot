@@ -22,49 +22,49 @@ const substitutions = (text, targetChannel) =>
     }
   })
 
-const interactionDM = (bot, message) => {
-  const { user, text } = message
-  getInfoForUser(user)
-    .then(({ slackUser }) => {
-      if (!slackUser.is_owner) {
-        throw new Error('This command is admin only')
-      }
+const interactionDM = async (bot, message) => {
+  try {
+    const { user, text } = message
+    const { slackUser } = await getInfoForUser(user)
 
-      const encodedText = text
-        .replace('&lt;', '<text')
-        .replace('&gt;', '>')
-        .replace(/@_/, '@')
-      const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>\s*((?:.|\s)*)/
-      const [, targetChannel, targetMessage] = encodedText.match(messageRegex)
+    if (!slackUser.is_owner) {
+      throw new Error('This command is admin only')
+    }
 
-      return substitutions(targetMessage, targetChannel).then(
-        substitutedMessage => {
-          bot.say(
-            { text: substitutedMessage, channel: targetChannel },
-            (err, response) => {
-              if (err) {
-                throw err
-              }
-              bot.api.reactions.add({
-                timestamp: message.ts,
-                channel: message.channel,
-                name: 'white_check_mark',
-              })
+    const encodedText = text
+      .replace('&lt;', '<text')
+      .replace('&gt;', '>')
+      .replace(/@_/, '@')
+    const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>\s*((?:.|\s)*)/
+    const [_, targetChannel, targetMessage] = encodedText.match(messageRegex)
+
+    return substitutions(targetMessage, targetChannel).then(
+      substitutedMessage => {
+        bot.say(
+          { text: substitutedMessage, channel: targetChannel },
+          (err, response) => {
+            if (err) {
+              throw err
             }
-          )
-        }
-      )
-    })
-    .catch(err => {
-      console.error(err)
-      bot.reply(message, transcript('errors.general', { err }))
+            bot.api.reactions.add({
+              timestamp: message.ts,
+              channel: message.channel,
+              name: 'white_check_mark',
+            })
+          }
+        )
+      }
+    )
+  } catch (err) {
+    console.error(err)
+    bot.reply(message, transcript('errors.general', { err }))
 
-      bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'no_entry',
-      })
+    bot.api.reactions.add({
+      timestamp: message.ts,
+      channel: message.channel,
+      name: 'no_entry',
     })
+  }
 }
 
 export default interactionDM

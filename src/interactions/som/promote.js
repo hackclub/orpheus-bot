@@ -1,9 +1,5 @@
 import FormData from 'form-data'
-import {
-  getInfoForUser,
-  transcript,
-  initBot,
-} from '../../utils'
+import { getInfoForUser, transcript, initBot } from '../../utils'
 import fetch from 'isomorphic-unfetch'
 
 const approveUser = async user =>
@@ -25,7 +21,7 @@ const approveUser = async user =>
       .catch(err => reject(err))
   })
 
-const clippyApprove = async ({promoterId, promotedId}) => {
+const clippyApprove = async ({ promoterId, promotedId }) => {
   return await fetch('https://clippy-bot-hackclub.herokuapp.com/promote', {
     method: 'POST',
     headers: {
@@ -58,7 +54,7 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
   }
   await Promise.all([
     approveUser(taggedUserID),
-    clippyApprove({promotedId:taggedUserID, promoterId:message.user}),
+    clippyApprove({ promotedId: taggedUserID, promoterId: message.user }),
     bot.replyPrivateDelayed(message, transcript('som.approve.success')),
   ])
 }
