@@ -40,7 +40,7 @@ export async function run(bot, message) {
     recipientID = slackID
   } else {
     console.log('I think this user is sending it to another user:', recipientID)
-    emailRegex = /mailto:(.*)|/
+    const emailRegex = /mailto:(.*)|/
     if (emailRegex.test(recipientID)) {
       console.log('I think this is an email')
       email = recipientID.match(emailRegex)[1].replace(/\|.*/,'')
