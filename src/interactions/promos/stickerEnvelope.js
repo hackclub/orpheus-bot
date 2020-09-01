@@ -28,9 +28,13 @@ export async function run(bot, message) {
   const slackRegex = /<@([a-zA-Z0-9]+).*>/
   if (slackRegex.test(recipientID)) {
     slackID = recipientID.match(slackRegex)[1].replace(/\|.*/,'')
-    recipientRecord = (await getInfoForUser(slackID)).person
-    recipientID = slackID
     selfSend = slackID == message.user
+    if (selfSend) {
+      recipientRecord = creator.person
+    } else {
+      recipientRecord = (await getInfoForUser(slackID)).person
+    }
+    recipientID = slackID
   } else {
     recipientRecord = await airFind('People', 'Email', recipientID)
   }
