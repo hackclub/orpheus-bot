@@ -34,7 +34,7 @@ startup:
     - Now with startup messages!
 addYourOwn: |
   All my messages are open source if you'd like to add your own https://github.com/hackclub/orpheus-bot/blob/master/src/utils/transcript.yml#L29-L34
-mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} <@${this.recipient}> ${this.note}
+mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
 hello:
   - hellp
   - helli
