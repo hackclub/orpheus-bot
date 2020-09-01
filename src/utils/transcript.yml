@@ -240,9 +240,6 @@ tutorial:
   meetingTime:
     start: We're close now! There's one last thing in this tutorial. If you run \`/meeting-time\`, it'll let me know when your meetings are held. Once your meeting time is set I'll quickly check in after every meeting to make sure you record it.
     finished: If you ever need me to silence check-in notifications for a while (ie. spring break), all you have to do is type \`/meeting-time\` with a time after your spring break– I won't post any check-in messages until that date.
-  init:
-    start: |
-      Hey there, you found the club-init command! This command is in active development and isn't ready to be used by new club leaders. Hang tight!
 errors:
   general: |
     Something went wrong\: \`${this.err}\`
@@ -450,3 +447,4 @@ fileShare:
   success: |
     Yeah! Here's yo' links
     ${this.links.join('\n')}
+clubInit: Hey! You've found a command that's still unfinished. The recommended way to start a club with Hack Club is going to https://apply.hackclub.com.
