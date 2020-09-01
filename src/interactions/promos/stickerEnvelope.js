@@ -39,7 +39,7 @@ export async function run(bot, message) {
     recipientRecord = await airFind('People', 'Email', recipientID)
   }
 
-  if (recipientRecord.mailMissions) {
+  if (recipientRecord && recipientRecord.mailMissions) {
     console.log(recipientRecord.mailMissions.length)
   }
 
