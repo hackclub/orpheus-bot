@@ -23,7 +23,7 @@ export async function run(bot, message) {
   }
 
   let recipientRecord
-  const slackRegex = /<@(.+).*>/
+  const slackRegex = /<@([a-zA-Z0-9]+).*>/
   if (slackRegex.test(recipientID)) {
     let slackID = recipientID.match(slackRegex)[1].replace(/\|.*/,'')
     recipientRecord = (await getInfoForUser(slackID)).person
