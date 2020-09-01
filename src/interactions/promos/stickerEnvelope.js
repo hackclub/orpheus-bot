@@ -73,36 +73,9 @@ export async function run(bot, message) {
     bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.success'))
   ])
 
-  // const formula = `AND(${[
-  //   `{Scenario Name}='Sticker Envelope'`,
-  //   `{Receiver Address}='${personAddress.fields['ID']}'`,
-  //   `OR('1 Unassigned'={Status},'2 Assigned'={Status},'3 Purchased'={Status})`,
-  // ].join(',')})`
-  // const existingMission = await airFind('Mail Missions', formula)
-
-  // const note = message.text.replace(/sticker envelope/i, '')
-
-  // if (existingMission) {
-  //   await bot.replyPrivateDelayed(
-  //     message,
-  //     transcript('promos.stickerEnvelope.alreadyOrdered')
-  //   )
-  // } else {
-  //   await interactionMailMission(undefined, {
-  //     user,
-  //     text: 'sticker_envelope',
-  //     note,
-  //   })
-
-  //   await bot.replyPrivateDelayed(
-  //     message,
-  //     transcript('promos.stickerEnvelope.success')
-  //   )
-  // }
-
-  // if (personAddress.fields['Missing Fields']) {
-  //   await interactionAddress(bot, message)
-  // }
+  if (selfSend) {
+    await interactionAddress(bot, message)
+  }
 
   await interactionTutorial(bot, message)
 }
