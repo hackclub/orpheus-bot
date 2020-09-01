@@ -299,6 +299,14 @@ export const getInfoForUser = user =>
               .catch(reject)
           }),
           new Promise((resolve, reject) => {
+            if (!results.person.fields['Address']) {
+              resolve()
+            }
+            const missionIDs = results.person.fields['Current Receiver Mail Missions']
+            const formula = `OR(${missionIDs.map(m => `RECORD_ID()='${m}'`).join(',')})`
+            airGet('Mail Missions', formula).then(missions => (results.mailMissions = missions)).then(resolve).catch(reject)
+          }),
+          new Promise((resolve, reject) => {
             if (!results.person) {
               resolve()
             }
