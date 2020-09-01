@@ -44,9 +44,11 @@ export async function run(bot, message) {
     console.log('I think this is an email')
     email = recipientID.match(emailRegex)[1]
     recipientID = email
-    recipientRecord = await airFind('People', 'Email', recipientID)
-    if (recipientRecord && recipientRecord.person.fields['Slack ID'] == message.user) {
+    if (creator.person.fields['Email'] == email) {
       selfSend = true
+      recipientRecord = creator.person
+    } else {
+      recipientRecord = await airFind('People', 'Email', recipientID)
     }
   } else {
     // we couldn't match with anything, give the help text
@@ -55,6 +57,7 @@ export async function run(bot, message) {
   }
 
   if (recipientRecord && recipientRecord.mailMissions) {
+    console.log('cake')
     console.log(recipientRecord.mailMissions.length)
   }
 
