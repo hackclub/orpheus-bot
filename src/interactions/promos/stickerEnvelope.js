@@ -56,13 +56,8 @@ export async function run(bot, message) {
     return
   }
 
-  if (recipientRecord && recipientRecord.mailMissions) {
-    console.log('cake')
-    console.log(recipientRecord.mailMissions.length)
-  }
-
-  if (recipientRecord) {
-    recipientID = recipientRecord.fields['Slack ID'] || recipientID
+  if (recipientRecord && recipientRecord.fields['Slack ID']) {
+    recipientID = `<@${recipientRecord.fields['Slack ID']}>`
   }
   await Promise.all([
     interactionMailMission(undefined, {
