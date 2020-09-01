@@ -4,21 +4,28 @@ import interactionTutorial from '../tutorial'
 import interactionAddress from '../address'
 
 export const names = ['Sticker Envelope']
-export const details =
-  'Available to active club leaders.'
+export const details = 'Available to active club leaders.'
 export async function run(bot, message) {
-
   const creator = await getInfoForUser(message.user)
 
   if (!creator.leader || !creator.club) {
-    await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.notAuthorized'))
+    await bot.replyPrivateDelayed(
+      message,
+      transcript('promos.stickerEnvelope.notAuthorized')
+    )
     return
   }
 
   let recipientID = message.text.replace(/sticker envelope/i, '').trim()
 
   if (!recipientID) {
-    await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.help', { user: message.user, email: creator.person.fields['Email'] }))
+    await bot.replyPrivateDelayed(
+      message,
+      transcript('promos.stickerEnvelope.help', {
+        user: message.user,
+        email: creator.person.fields['Email'],
+      })
+    )
     return
   }
 
@@ -27,10 +34,9 @@ export async function run(bot, message) {
   let slackID, email
   const slackRegex = /<@([a-zA-Z0-9]+).*>/
   const emailRegex = /mailto:(.+)\|/
-  console.log({recipientID})
   if (slackRegex.test(recipientID)) {
     console.log('I think this is a slack user')
-    slackID = recipientID.match(slackRegex)[1].replace(/\|.*/,'')
+    slackID = recipientID.match(slackRegex)[1].replace(/\|.*/, '')
     selfSend = slackID == message.user
     if (selfSend) {
       console.log('I think this is a user sending to themselves')
@@ -52,7 +58,13 @@ export async function run(bot, message) {
     }
   } else {
     // we couldn't match with anything, give the help text
-    await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.help', { user: message.user, email: creator.person.fields['Email'] }))
+    await bot.replyPrivateDelayed(
+      message,
+      transcript('promos.stickerEnvelope.help', {
+        user: message.user,
+        email: creator.person.fields['Email'],
+      })
+    )
     return
   }
 
@@ -60,12 +72,19 @@ export async function run(bot, message) {
     recipientID = `<@${recipientRecord.fields['Slack ID']}>`
   }
   await Promise.all([
-    interactionMailMission(undefined, {
-      user: message.user,
-      text: 'sticker_envelope',
-      note: ''
-    }, {recipient: recipientID}),
-    bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.success'))
+    interactionMailMission(
+      undefined,
+      {
+        user: message.user,
+        text: 'sticker_envelope',
+        note: '',
+      },
+      { recipient: recipientID }
+    ),
+    bot.replyPrivateDelayed(
+      message,
+      transcript('promos.stickerEnvelope.success')
+    ),
   ])
 
   if (selfSend) {
