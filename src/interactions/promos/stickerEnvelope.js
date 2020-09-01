@@ -41,10 +41,10 @@ export async function run(bot, message) {
 
   await Promise.all([
     interactionMailMission(undefined, {
-      user: recipientID,
+      user: message.user,
       text: 'sticker envelope',
       note: ''
-    }),
+    }, {recipient: recipientID}),
     bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.success'))
   ])
 
