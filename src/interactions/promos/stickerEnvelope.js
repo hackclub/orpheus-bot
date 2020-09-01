@@ -23,9 +23,10 @@ export async function run(bot, message) {
   }
 
   let recipientRecord
-  const slackRegex = /<@.+>/
+  const slackRegex = /<@(.+)>/
   if (slackRegex.test(recipientID)) {
-    recipientRecord = (await getInfoForUser(recipientID)).person
+    let slackID = slackRegex.match(recipientID)[0]
+    recipientRecord = (await getInfoForUser(slackID)).person
   } else {
     recipientRecord = await airFind('People', 'Email', recipientID)
   }
