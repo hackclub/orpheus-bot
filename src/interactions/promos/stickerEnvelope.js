@@ -26,6 +26,8 @@ export async function run(bot, message) {
   let selfSend = false
   let slackID
   const slackRegex = /<@([a-zA-Z0-9]+).*>/
+  const emailRegex = /mailto:(.*)|/
+  console.log({recipientID})
   if (slackRegex.test(recipientID)) {
     console.log('I think this is a slack user')
     slackID = recipientID.match(slackRegex)[1].replace(/\|.*/,'')
@@ -38,14 +40,17 @@ export async function run(bot, message) {
       recipientRecord = (await getInfoForUser(slackID)).person
     }
     recipientID = slackID
-  } else {
-    console.log('I think this user is sending it to another user:', recipientID)
-    const emailRegex = /mailto:(.*)|/
-    if (emailRegex.test(recipientID)) {
-      console.log('I think this is an email')
-      email = recipientID.match(emailRegex)[1].replace(/\|.*/,'')
-      recipientRecord = await airFind('People', 'Email', recipientID)
+  } else if (emailRegex.test(recipientID)) {
+    console.log('I think this is an email')
+    email = recipientID.match(emailRegex)[1].replace(/\|.*/,'')
+    recipientRecord = await airFind('People', 'Email', recipientID)
+    if (recipientRecord && recipientRecord.person.fields['Slack ID'] == message.user) {
+      selfSend = true
     }
+  } else {
+    // we couldn't match with anything, give the help text
+    await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.help', { user: message.user, email: creator.person.fields['Email'] }))
+    return
   }
 
   if (recipientRecord && recipientRecord.mailMissions) {
