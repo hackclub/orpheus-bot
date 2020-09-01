@@ -42,7 +42,7 @@ export async function run(bot, message) {
   await Promise.all([
     interactionMailMission(undefined, {
       user: message.user,
-      text: 'sticker envelope',
+      text: 'sticker_envelope',
       note: ''
     }, {recipient: recipientID}),
     bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.success'))
