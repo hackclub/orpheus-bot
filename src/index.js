@@ -159,6 +159,7 @@ controller.on('slash_command', async (bot, message) => {
 
       try {
         switch (command) {
+          case '/promote':
           case '/som-promote':
           case '/som-approve':
             await interactionSOMPromote(bot, message)
@@ -166,15 +167,15 @@ controller.on('slash_command', async (bot, message) => {
           case '/som-lookup':
             await interactionSOMLookup(bot, message)
             break
-          case '/som-report':
-            await interactionSOMReport(bot, message)
-            break
-          case '/som-ban':
-            await interactionSOMBan(bot, message)
-            break
-          case '/som-invite':
-            await interactionSOMInvite(bot, message)
-            break
+          // case '/som-report':
+          //   await interactionSOMReport(bot, message)
+          //   break
+          // case '/som-ban':
+          //   await interactionSOMBan(bot, message)
+          //   break
+          // case '/som-invite':
+          //   await interactionSOMInvite(bot, message)
+          //   break
           case '/stats':
           case '/meeting-stats':
             await interactionStats.default(bot, message)
