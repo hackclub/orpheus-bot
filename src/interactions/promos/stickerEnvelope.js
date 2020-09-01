@@ -24,7 +24,7 @@ export async function run(bot, message) {
 
   let recipientRecord
   let selfSend = false
-  let slackID
+  let slackID, email
   const slackRegex = /<@([a-zA-Z0-9]+).*>/
   const emailRegex = /mailto:(.+)\|/
   console.log({recipientID})
