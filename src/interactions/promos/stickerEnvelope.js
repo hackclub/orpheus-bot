@@ -5,41 +5,74 @@ import interactionAddress from '../address'
 
 export const names = ['Sticker Envelope']
 export const details =
-  'Available to anyone in the Slack. Optionally include a note to the nodemaster packing your order.'
+  'Available to active club leaders.'
 export async function run(bot, message) {
-  const { user } = message
 
-  const { personAddress } = await getInfoForUser(user)
-  const formula = `AND(${[
-    `{Scenario Name}='Sticker Envelope'`,
-    `{Receiver Address}='${personAddress.fields['ID']}'`,
-    `OR('1 Unassigned'={Status},'2 Assigned'={Status},'3 Purchased'={Status})`,
-  ].join(',')})`
-  const existingMission = await airFind('Mail Missions', formula)
+  const creator = await getInfoForUser(message.user)
 
-  const note = message.text.replace(/sticker envelope/i, '')
+  if (!creator.leader || !creator.club) {
+    await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.notAuthorized'))
+    return
+  }
 
-  if (existingMission) {
-    await bot.replyPrivateDelayed(
-      message,
-      transcript('promos.stickerEnvelope.alreadyOrdered')
-    )
+  const recipientID = message.text.replace(/sticker envelope/i, '').trim()
+
+  if (!recipientID) {
+    await bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.help', { user: message.user, email: creator.person.fields['Email'] }))
+    return
+  }
+
+  let recipientRecord
+  const slackRegex = /<@.+>/
+  if (slackRegex.test(recipientID)) {
+    recipientRecord = (await getInfoForUser(recipientID)).person
   } else {
-    await interactionMailMission(undefined, {
-      user,
-      text: 'sticker_envelope',
-      note,
-    })
-
-    await bot.replyPrivateDelayed(
-      message,
-      transcript('promos.stickerEnvelope.success')
-    )
+    recipientRecord = await airFind('People', 'Email', recipientID)
   }
 
-  if (personAddress.fields['Missing Fields']) {
-    await interactionAddress(bot, message)
+  if (recipientRecord.mailMissions) {
+    console.log(recipientRecord.mailMissions.length)
   }
+
+  await Promise.all([
+    interactionMailMission(undefined, {
+      user: recipientID,
+      text: 'sticker envelope',
+      note: ''
+    }),
+    bot.replyPrivateDelayed(message, transcript('promos.stickerEnvelope.success'))
+  ])
+
+  // const formula = `AND(${[
+  //   `{Scenario Name}='Sticker Envelope'`,
+  //   `{Receiver Address}='${personAddress.fields['ID']}'`,
+  //   `OR('1 Unassigned'={Status},'2 Assigned'={Status},'3 Purchased'={Status})`,
+  // ].join(',')})`
+  // const existingMission = await airFind('Mail Missions', formula)
+
+  // const note = message.text.replace(/sticker envelope/i, '')
+
+  // if (existingMission) {
+  //   await bot.replyPrivateDelayed(
+  //     message,
+  //     transcript('promos.stickerEnvelope.alreadyOrdered')
+  //   )
+  // } else {
+  //   await interactionMailMission(undefined, {
+  //     user,
+  //     text: 'sticker_envelope',
+  //     note,
+  //   })
+
+  //   await bot.replyPrivateDelayed(
+  //     message,
+  //     transcript('promos.stickerEnvelope.success')
+  //   )
+  // }
+
+  // if (personAddress.fields['Missing Fields']) {
+  //   await interactionAddress(bot, message)
+  // }
 
   await interactionTutorial(bot, message)
 }
