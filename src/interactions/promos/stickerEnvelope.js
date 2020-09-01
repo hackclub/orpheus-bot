@@ -43,6 +43,7 @@ export async function run(bot, message) {
   } else if (emailRegex.test(recipientID)) {
     console.log('I think this is an email')
     email = recipientID.match(emailRegex)[1]
+    recipientID = email
     recipientRecord = await airFind('People', 'Email', recipientID)
     if (recipientRecord && recipientRecord.person.fields['Slack ID'] == message.user) {
       selfSend = true
