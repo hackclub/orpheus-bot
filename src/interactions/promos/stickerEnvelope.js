@@ -26,7 +26,7 @@ export async function run(bot, message) {
   let selfSend = false
   let slackID
   const slackRegex = /<@([a-zA-Z0-9]+).*>/
-  const emailRegex = /mailto:(.*)|/
+  const emailRegex = /mailto:(.+)\|/
   console.log({recipientID})
   if (slackRegex.test(recipientID)) {
     console.log('I think this is a slack user')
@@ -42,7 +42,7 @@ export async function run(bot, message) {
     recipientID = slackID
   } else if (emailRegex.test(recipientID)) {
     console.log('I think this is an email')
-    email = recipientID.match(emailRegex)[1].replace(/\|.*/,'')
+    email = recipientID.match(emailRegex)[1]
     recipientRecord = await airFind('People', 'Email', recipientID)
     if (recipientRecord && recipientRecord.person.fields['Slack ID'] == message.user) {
       selfSend = true
