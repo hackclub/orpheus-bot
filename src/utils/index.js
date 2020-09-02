@@ -310,13 +310,17 @@ export const getInfoForUser = user =>
             }
             const missionIDs =
               results.person.fields['Current Receiver Mail Missions']
-            const formula = `OR(${missionIDs
-              .map(m => `RECORD_ID()='${m}'`)
-              .join(',')})`
-            airGet('Mail Missions', formula)
-              .then(missions => (results.mailMissions = missions))
-              .then(resolve)
-              .catch(reject)
+            if (missionIDs && missionIDs.length > 0) {
+              const formula = `OR(${missionIDs
+                .map(m => `RECORD_ID()='${m}'`)
+                .join(',')})`
+              airGet('Mail Missions', formula)
+                .then(missions => (results.mailMissions = missions))
+                .then(resolve)
+                .catch(reject)
+            } else {
+              resolve()
+            }
           }),
           new Promise((resolve, reject) => {
             if (!results.person) {
