@@ -241,9 +241,18 @@ tutorial:
     start: We're close now! There's one last thing in this tutorial. If you run \`/meeting-time\`, it'll let me know when your meetings are held. Once your meeting time is set I'll quickly check in after every meeting to make sure you record it.
     finished: If you ever need me to silence check-in notifications for a while (ie. spring break), all you have to do is type \`/meeting-time\` with a time after your spring break– I won't post any check-in messages until that date.
 errors:
+  video: This footage was taken moments before the incident ${this.t('errrors.videoURLs')}
+  videoURLs:
+    - https://www.youtube.com/watch?v=O6WE5C__a70
+    - https://youtu.be/8tAu79kB57s
+    - https://youtu.be/yZ5AVxKf0EM
+    - https://youtu.be/fYM0RuKElIQ
+    - https://youtu.be/r1gNHREgecI
+    - https://youtu.be/ljbSoFJSn1U
   general: |
     Something went wrong\: \`${this.err}\`
     ${this.err.stack ? this.t('errors.stack', {err:this.err}):''}
+    ${Math.random() < 0.1 ? this.t('errors.video'):''}
   stack: |
     \`\`\`
     // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
