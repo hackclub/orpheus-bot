@@ -90,8 +90,9 @@ async function getZoomUser(zoomID) {
 
 async function createZoomUser(person) {
   // Autofill name b/c 'first' & 'last' are required by Zoom, but not by us
-  const first_name = person.fields['Full Name'].split(' ')[0] || 'Orpheus'
-  const last_name = person.fields['Full Name'].split(' ')[1] || 'Hacksworth'
+  const nameArray = person.fields['Full Name'].split(' ')
+  const first_name = nameArray[0] || 'Orpheus'
+  const last_name = nameArray.slice(1, nameArray.length).reverse()[0] || 'Hacksworth'
   const email = person.fields['Email']
 
   const body = JSON.stringify({
