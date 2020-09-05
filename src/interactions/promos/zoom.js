@@ -85,7 +85,7 @@ async function getZoomUser(zoomID) {
     },
   })
 
-  return result
+  return result.body
 }
 
 async function createZoomUser(person) {
@@ -112,9 +112,10 @@ async function createZoomUser(person) {
     },
     body,
   })
-  console.log(result)
+  console.log({token})
+  console.log(result.body)
 
-  return result
+  return result.body
 }
 
 async function updateZoomUser(zoomID, upOrDowngrade) {
@@ -131,5 +132,5 @@ async function updateZoomUser(zoomID, upOrDowngrade) {
     body,
   })
 
-  return result
+  return result.body
 }
