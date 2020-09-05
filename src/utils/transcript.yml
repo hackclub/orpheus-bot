@@ -371,6 +371,16 @@ leaderList:
     ${this.leaders.map(leader => this.t('leaderList.leader', { leader } ))}
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
+  zoom:
+    help: |
+      Help message
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+    notPOC:
+      exists: This promo is for your club's "point of contact" (looks like that'd be <@${this.pocID}>).
+      doesntExist: This promo is for your club's "point of contact".
+    createdAccount: Your Zoom Pro account was just created! Next step is to open the invite email sent to you (${this.email}) to accept the invite.
+    pendingAccount: Your Zoom Pro account is waiting activation. Accept the invite email sent to *${this.email}*. Also check your spam folder!
+    toggleAccount: Not yet implemented.
   stickerEnvelope:
     help: |
       Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
