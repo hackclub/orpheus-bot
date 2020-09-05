@@ -54,7 +54,6 @@ export async function run(bot, message) {
   } else {
     // they already have a Zoom account– let's toggle the account type
     const zoomAccount = await getZoomUser(zoomID)
-    console.log(zoomAccount)
     if (!zoomAccount.type) {
       // account is 'pending' activation– ask the user to check their email
       bot.replyPrivateDelayed(

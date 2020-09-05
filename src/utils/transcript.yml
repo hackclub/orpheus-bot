@@ -380,7 +380,7 @@ promos:
       doesntExist: This promo is for your club's "point of contact".
     createdAccount: Your Zoom Pro account was just created! Next step is to open the invite email sent to you (${this.email}) to accept the invite.
     pendingAccount: Your Zoom Pro account is waiting activation. Accept the invite email sent to *${this.email}*. Also check your spam folder!
-    toggleAccount: Not yet implemented.
+    toggleAccount: ":white_check_mark: You have a Pro account already, so normally this would toggle your account or something, but that's not yet implemented."
   stickerEnvelope:
     help: |
       Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
