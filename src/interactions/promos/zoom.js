@@ -112,6 +112,7 @@ async function createZoomUser(person) {
     },
     body,
   })
+  console.log(result)
 
   return result
 }
