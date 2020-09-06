@@ -5,7 +5,7 @@ export const names = [
   'Replit',
   'Repl.it'
 ]
-export const details = 'Available to anyonne'
+export const details = 'Available to anyone'
 export async function run(bot, message) {
   await bot.replyPrivateDelayed(message, transcript('promos.replit'))
 }
