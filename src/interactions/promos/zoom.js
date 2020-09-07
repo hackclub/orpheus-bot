@@ -71,6 +71,7 @@ export async function run(bot, message) {
   const zoomUsage = await getZoomUsage()
   const { hosts, usage } = zoomUsage.plan_base
   const BOT_SPAM_CHANNEL = 'C0P5NE354'
+  console.log('Zoom license usage is at', usage, '/', hosts)
   if (hosts == usage) {
     bot.say({
       channel: BOT_SPAM_CHANNEL,
