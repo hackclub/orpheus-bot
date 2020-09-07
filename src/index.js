@@ -239,10 +239,6 @@ controller.on('slash_command', async (bot, message) => {
             await interactionLeaderList(bot, message)
             break
 
-          case '/club-init':
-            await interactionClubInit(bot, message)
-            break
-
           default:
             bot.replyPrivateDelayed(
               message,
