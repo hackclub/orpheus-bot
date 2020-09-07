@@ -381,6 +381,21 @@ promos:
     createdAccount: Your Zoom Pro account was just created! Next step is to open the invite email sent to you (${this.email}) to accept the invite.
     pendingAccount: Your Zoom Pro account is waiting activation. Accept the invite email sent to *${this.email}*. Also check your spam folder!
     toggleAccount: ":white_check_mark: You have a Pro account already, so normally this would toggle your account or something, but that's not yet implemented."
+    upgradeLink: https://zoom.us/account/billing/buy?plan=biz&subPlan=none&type=edit&oldPlanCode=business_monthly_c50&oldHosts=${this.usage + 10}
+    reachedLimit: Uhhh....
+      - Oh boy. Ok. Everything is on fire. ZOom is screaming at me PLEASE UPGRADE THE plan https://cloud-maxaw9s1x.vercel.app/fsv89.gif
+      - OhKay.
+    dangerZone:
+      - ":warning: Officially reaching **the danger zone**. We're at ${this.usage}/${this.hosts} licenses used"
+      - We're at 87 miles per hour! ${this.usage} of the ${this.hosts} Zoom licenses have been used. https://cloud-n152gnfmx.vercel.app/qsoi5ab.gif
+      - Ok, the engine is really starting to heat up. Can y'all upgrade the Zoom plan ASAP? https://cloud-yupgj2ro4.vercel.app/1cc65fbecd5ff0f7c8dedd01b9e5aced.jpg
+      - <@${this.user}> just activated a Zoom Pro license. Seriously, call Kenny Loggins, cause you're in the _danger zone_. (fr tho, we're at ${this.usage}/${this.hosts} licenses used)
+    approachingLimit:
+      - Hey, just a heads up that <@${this.user}> just got a Zoom Pro account & now we're at ${this.usage}/${this.hosts} licenses used. Might want to check into upping our licenses. https://cloud-cyd4mmnr0.vercel.app/check-engine-light.gif
+      - The engine's running a little hot captain! Maybe ya could look into upgrading our Zoom account to increase our licenses? https://cloud-6dzm602ef.vercel.app/1392905439649605409.gif
+      - Oh boy, uh, we uh, hmmmmmmmm. Our Zoom Pro account is almost out of open licenses. We're at ${this.usage} of ${this.hosts} used. Can someone bump the billing up for me?
+      - "VRRRRRRRROOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMM:racecar: <- that's our Zoom account racing towards our license limit. Could someone lay down some track for me?"
+      - Not crazy time sensitive, but could you upgrade the Zoom licenses? <@${this.user}> just got an account & now we have ${this.hosts-this.usage} license left. https://cloud-1desdbmuy.vercel.app/bhb-gg.gif
   stickerEnvelope:
     help: |
       Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*

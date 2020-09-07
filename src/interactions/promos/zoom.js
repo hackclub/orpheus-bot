@@ -67,6 +67,35 @@ export async function run(bot, message) {
       bot.replyPrivateDelayed(message, transcript('promos.zoom.toggleAccount'))
     }
   }
+
+  const zoomUsage = await getZoomUsage()
+  const { hosts, usage } = zoomUsage.plan_base
+  const BOT_SPAM_CHANNEL = 'C0P5NE354'
+  if (hosts == usage) {
+    bot.say({
+      channel: BOT_SPAM_CHANNEL,
+      text: transcript('promos.zoom.reachedLimit', { usage, user }),
+    })
+    bot.say({
+      channel: BOT_SPAM_CHANNEL,
+      text: transcript('promos.zoom.upgradeLink', { usage }),
+    })
+  } else if (hosts < usage + 3) {
+    bot.say({
+      channel: BOT_SPAM_CHANNEL,
+      text: transcript('promos.zoom.dangerZone', { usage, hosts, user }),
+    })
+    bot.say({ text, channel: BOT_SPAM_CHANNEL })
+  } else if (hosts < usage + 10) {
+    bot.say({
+      channel: BOT_SPAM_CHANNEL,
+      text: transcript('promos.zoom.approachingLimit', { usage, hosts, user }),
+    })
+    bot.say({
+      channel: BOT_SPAM_CHANNEL,
+      text: transcript('promos.zoom.upgradeLink', { usage }),
+    })
+  }
 }
 
 // Zoom function stuff
@@ -76,6 +105,17 @@ const payload = {
   exp: new Date().getTime() + 5000,
 }
 const token = jwt.sign(payload, process.env.ZOOM_SECRET)
+
+async function getZoomUsage() {
+  const result = await fetch(`https://api.zoom.us/v2/accounts/me/plans/usage`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  return await result.json()
+}
 
 async function getZoomUser(zoomID) {
   const result = await fetch(`https://api.zoom.us/v2/users/${zoomID}`, {
@@ -92,7 +132,8 @@ async function createZoomUser(person) {
   // Autofill name b/c 'first' & 'last' are required by Zoom, but not by us
   const nameArray = person.fields['Full Name'].split(' ')
   const first_name = nameArray[0] || 'Orpheus'
-  const last_name = nameArray.slice(1, nameArray.length).reverse()[0] || 'Hacksworth'
+  const last_name =
+    nameArray.slice(1, nameArray.length).reverse()[0] || 'Hacksworth'
   const email = person.fields['Email']
 
   const body = JSON.stringify({
