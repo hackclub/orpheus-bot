@@ -32,7 +32,7 @@ startup:
     - Alive in interesting times!
     - '*0* days since last accident!'
     - Now with startup messages!
-mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} <@${this.recipient}> ${this.note}
+mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
 hello:
   - hellp
   - helli
@@ -240,13 +240,19 @@ tutorial:
   meetingTime:
     start: We're close now! There's one last thing in this tutorial. If you run \`/meeting-time\`, it'll let me know when your meetings are held. Once your meeting time is set I'll quickly check in after every meeting to make sure you record it.
     finished: If you ever need me to silence check-in notifications for a while (ie. spring break), all you have to do is type \`/meeting-time\` with a time after your spring break– I won't post any check-in messages until that date.
-  init:
-    start: |
-      Hey there, you found the club-init command! This command is in active development and isn't ready to be used by new club leaders. Hang tight!
 errors:
+  video: This footage was taken moments before the incident ${this.t('errors.videoURLs')}
+  videoURLs:
+    - https://www.youtube.com/watch?v=O6WE5C__a70
+    - https://youtu.be/8tAu79kB57s
+    - https://youtu.be/yZ5AVxKf0EM
+    - https://youtu.be/fYM0RuKElIQ
+    - https://youtu.be/r1gNHREgecI
+    - https://youtu.be/ljbSoFJSn1U
   general: |
     Something went wrong\: \`${this.err}\`
     ${this.err.stack ? this.t('errors.stack', {err:this.err}):''}
+    ${Math.random() < 0.1 ? this.t('errors.video'):''}
   stack: |
     \`\`\`
     // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
@@ -365,7 +371,34 @@ leaderList:
     ${this.leaders.map(leader => this.t('leaderList.leader', { leader } ))}
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
+  zoom:
+    help: |
+      Help message
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+    notPOC:
+      exists: This promo is for your club's "point of contact" (looks like that'd be <@${this.pocID}>).
+      doesntExist: This promo is for your club's "point of contact".
+    createdAccount: Your Zoom Pro account was just created! Next step is to open the invite email sent to you (${this.email}) to accept the invite.
+    pendingAccount: Your Zoom Pro account is waiting activation. Accept the invite email sent to *${this.email}*. Also check your spam folder!
+    toggleAccount: ":white_check_mark: You have a Pro account already, so normally this would toggle your account or something, but that's not yet implemented."
+    upgradeLink: https://zoom.us/account/billing/buy?plan=biz&subPlan=none&type=edit&oldPlanCode=business_monthly_c50&oldHosts=${this.usage + 10}
+    reachedLimit: Uhhh....
+      - Oh boy. Ok. Everything is on fire. ZOom is screaming at me PLEASE UPGRADE THE plan https://cloud-maxaw9s1x.vercel.app/fsv89.gif
+      - OhKay.
+    dangerZone:
+      - ":warning: Officially reaching **the danger zone**. We're at ${this.usage}/${this.hosts} licenses used"
+      - We're at 87 miles per hour! ${this.usage} of the ${this.hosts} Zoom licenses have been used. https://cloud-n152gnfmx.vercel.app/qsoi5ab.gif
+      - Ok, the engine is really starting to heat up. Can y'all upgrade the Zoom plan ASAP? https://cloud-yupgj2ro4.vercel.app/1cc65fbecd5ff0f7c8dedd01b9e5aced.jpg
+      - <@${this.user}> just activated a Zoom Pro license. Seriously, call Kenny Loggins, cause you're in the _danger zone_. (fr tho, we're at ${this.usage}/${this.hosts} licenses used)
+    approachingLimit:
+      - Hey, just a heads up that <@${this.user}> just got a Zoom Pro account & now we're at ${this.usage}/${this.hosts} licenses used. Might want to check into upping our licenses. https://cloud-cyd4mmnr0.vercel.app/check-engine-light.gif
+      - The engine's running a little hot captain! Maybe ya could look into upgrading our Zoom account to increase our licenses? https://cloud-6dzm602ef.vercel.app/1392905439649605409.gif
+      - Oh boy, uh, we uh, hmmmmmmmm. Our Zoom Pro account is almost out of open licenses. We're at ${this.usage} of ${this.hosts} used. Can someone bump the billing up for me?
+      - "VRRRRRRRROOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMM:racecar: <- that's our Zoom account racing towards our license limit. Could someone lay down some track for me?"
+      - Not crazy time sensitive, but could you upgrade the Zoom licenses? <@${this.user}> just got an account & now we have ${this.hosts-this.usage} license left. https://cloud-1desdbmuy.vercel.app/bhb-gg.gif
   stickerEnvelope:
+    help: |
+      Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
     success: Your stickers are on the way! Now just hang tight- your envelope has been sent to the Mail Team and you can expect it in 2-3 weeks.
     alreadyOrdered: You've already got a sticker envelope on the way!
   stickermule:
@@ -433,15 +466,6 @@ som:
     stillGuest: <@${this.user}> is still a guest! Someone needs to approve them as a full Slack user before I can lookup who approved them.
     found: <@${this.user}> was promoted from guest user to a full slack member by <@${this.approver}>.
     notFound: No guest history found for <@${this.user}>. This probably means they joined the Slack as a full user instead of being invited as a guest and approved by another member.
-  report:
-    help: |
-      You can use this to report a multi-channel guest misbehaving in Slack. Your report is confidential & submitted directly to the staff.
-      If you'd be more comfortable submitting a test report first, feel free to submit a report against me to understand the process.
-      \`/som-report @orpheus\`
-    submitted: I'm creating a confidential report to staff about <@${this.subject}>. Please fill in any details at ${this.reportFormUrl}.
-  ban:
-    notAdmin: You must be an admin to use this command!
-    deactivated: <@${this.user}> has been deactivated.
 breakout:
   loading: ":beachball:"
   created: Just created <#${this.channel}>. It will be archived after 30 minutes of inactivity.
@@ -451,3 +475,4 @@ fileShare:
   success: |
     Yeah! Here's yo' links
     ${this.links.join('\n')}
+clubInit: Hey! You've found a command that's still unfinished. The recommended way to start a club with Hack Club is going to https://apply.hackclub.com.

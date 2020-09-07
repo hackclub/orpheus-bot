@@ -274,6 +274,14 @@ export const getInfoForUser = user =>
       .then(async () => {
         if (!results.person && results.slackUser) {
           results.person = await initPerson(results)
+        } else if (
+          results.person &&
+          !results.person.fields['Email'] &&
+          results.slackUser.profile.email
+        ) {
+          results.person = await airPatch('People', results.person.id, {
+            Email: results.slackUser.profile.email,
+          })
         }
       })
       .then(() => {
@@ -295,6 +303,24 @@ export const getInfoForUser = user =>
               .then(mailSender => (results.mailSender = mailSender))
               .then(resolve)
               .catch(reject)
+          }),
+          new Promise((resolve, reject) => {
+            if (!results.person.fields['Address']) {
+              resolve()
+            }
+            const missionIDs =
+              results.person.fields['Current Receiver Mail Missions']
+            if (missionIDs && missionIDs.length > 0) {
+              const formula = `OR(${missionIDs
+                .map(m => `RECORD_ID()='${m}'`)
+                .join(',')})`
+              airGet('Mail Missions', formula)
+                .then(missions => (results.mailMissions = missions))
+                .then(resolve)
+                .catch(reject)
+            } else {
+              resolve()
+            }
           }),
           new Promise((resolve, reject) => {
             if (!results.person) {

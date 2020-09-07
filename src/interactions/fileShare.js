@@ -1,11 +1,6 @@
-import Bottleneck from 'bottleneck'
 import fetch from 'isomorphic-unfetch'
 
-import { initBot, transcript, airGet, airCreate } from '../utils'
-
-const ratelimiter = new Bottleneck({
-  maxConcurrent: 1,
-})
+import { initBot, transcript } from '../utils'
 
 const generateLink = file => {
   console.log('generating link for file', file.id)
@@ -21,30 +16,6 @@ const generateLink = file => {
       resolve(res.file.permalink_public)
     })
   })
-}
-
-const generateLinks = async files => {
-  console.log('Generating links for ', files.length, 'file(s)')
-  return await Promise.all(
-    files.map(async file => {
-      console.log(file)
-      const pageURL = await generateLink(file)
-      console.log('public page url', pageURL)
-      const urlRegex = /([A-Za-z0-9]+)/g
-      const urlChunks = pageURL
-        .replace('https://slack-files.com/', '')
-        .match(urlRegex)
-      const [teamID, fileID, pubSecret] = urlChunks
-      console.log('url chunks', urlChunks)
-      const fileURL = `${file.url_private}?pub_secret=${pubSecret}`
-      // const fileURL = await scrapePage(pageURL)
-      console.log('file url', fileURL)
-      const shortURL = await ratelimiter.schedule(() =>
-        createShortLink(fileURL, 'cdn')
-      )
-      return shortURL
-    })
-  )
 }
 
 const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
@@ -63,47 +34,8 @@ const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
   })
 }
 
-const createShortLink = async (url = '/', preferredPath) => {
-  console.log(
-    'Creating a short link for',
-    url,
-    'with the preferred slug of',
-    preferredPath
-  )
-  const existingRecords = await airGet(
-    'Links',
-    `FIND('${preferredPath}',{slug}) > 0`,
-    null,
-    { base: 'hackaf' }
-  )
-  const takenSlugs = existingRecords.map(r => r.fields['slug'])
-  console.log('takenSlugs are', takenSlugs)
-
-  let i = 0
-  let preferredSlug = preferredPath
-  while (takenSlugs.includes(preferredSlug)) {
-    console.log(
-      'preferredSlug',
-      preferredSlug,
-      'already exists in hack.af, trying something else...'
-    )
-    preferredSlug = preferredPath + '-' + i++
-  }
-
-  console.log('using slug', preferredSlug, 'because it is unused')
-
-  const shortRecord = await airCreate(
-    'Links',
-    { slug: preferredSlug, destination: url },
-    { base: 'hackaf' }
-  )
-
-  return 'https://hack.af/' + shortRecord.fields['slug']
-}
-
 const uploadToCDN = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  console.log('File links are:', files)
 
   const fileURLs = await Promise.all(
     files.map(async file => {
@@ -153,13 +85,6 @@ export default async (bot = initBot(), message) => {
         .catch(e => {
           results.error = e
         }),
-      // generateLinks(files)
-      //   .then(f => {
-      //     results.links = f
-      //   })
-      //   .catch(e => {
-      //     results.error = e
-      //   }),
     ])
     if (results.error) {
       throw results.error

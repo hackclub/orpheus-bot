@@ -40,12 +40,8 @@ import interactionBreakoutUpdate from './interactions/trigger/updateBreakouts'
 
 import interactionFileShare from './interactions/fileShare'
 
-import interactionSOMReport from './interactions/som/report.js'
-import interactionSOMInvite from './interactions/som/invite.js'
 import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
-import interactionSOMBan from './interactions/som/ban'
-import fileShare from './interactions/fileShare'
 import interactionClubInit from './interactions/clubInit'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
@@ -159,6 +155,7 @@ controller.on('slash_command', async (bot, message) => {
 
       try {
         switch (command) {
+          case '/promote':
           case '/som-promote':
           case '/som-approve':
             await interactionSOMPromote(bot, message)
@@ -166,15 +163,15 @@ controller.on('slash_command', async (bot, message) => {
           case '/som-lookup':
             await interactionSOMLookup(bot, message)
             break
-          case '/som-report':
-            await interactionSOMReport(bot, message)
-            break
-          case '/som-ban':
-            await interactionSOMBan(bot, message)
-            break
-          case '/som-invite':
-            await interactionSOMInvite(bot, message)
-            break
+          // case '/som-report':
+          //   await interactionSOMReport(bot, message)
+          //   break
+          // case '/som-ban':
+          //   await interactionSOMBan(bot, message)
+          //   break
+          // case '/som-invite':
+          //   await interactionSOMInvite(bot, message)
+          //   break
           case '/stats':
           case '/meeting-stats':
             await interactionStats.default(bot, message)
@@ -240,10 +237,6 @@ controller.on('slash_command', async (bot, message) => {
 
           case '/leader-list':
             await interactionLeaderList(bot, message)
-            break
-
-          case '/club-init':
-            await interactionClubInit(bot, message)
             break
 
           default:
