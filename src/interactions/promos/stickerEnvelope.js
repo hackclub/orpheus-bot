@@ -71,7 +71,7 @@ export async function run(bot, message) {
   const missionIDs = recipientRecord.fields['Current Receiver Mail Missions']
   const formula = `AND(OR(${missionIDs.map(m => `RECORD_ID()='${m}'`).join(',')},FALSE()),OR({Status}='1 Unassigned',{Status}='2 Assigned',{Status}='3 Purchased'),{Scenario Name}='Sticker Envelope')`
   const missions = await airGet('Mail Missions', formula)
-  if (missions) {
+  if (missions.length > 0) {
     await bot.replyPrivateDelayed(
       message,
       transcript('promos.stickerEnvelope.alreadyEnroute')
