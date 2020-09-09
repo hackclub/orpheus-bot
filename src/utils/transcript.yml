@@ -399,9 +399,9 @@ promos:
   stickerEnvelope:
     help: |
       Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
-    success: Your stickers are on the way! Now just hang tight- your envelope has been sent to the Mail Team and you can expect it in 2-3 weeks.
-    alreadyOrdered: You've already got a sticker envelope on the way!
-    alreadyEnroute: There's already a sticker envelope enroute!
+    success: ":white_check_mark: Your stickers are on the way! Now just hang tight- your envelope has been sent to the Mail Team and you can expect it in 2-3 weeks."
+    alreadyOrdered: ":white_check_mark: You've already got a sticker envelope on the way! Just hang tight for now."
+    alreadyEnroute: ":white_check_mark: There's already a sticker envelope enroute! Just sit tight, it will get there eventually."
   stickermule:
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
     success: Go to hack.af/stickermule to get your StickerMule promo code
