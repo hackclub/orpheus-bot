@@ -1,3 +1,5 @@
+import { transcript, getInfoForUser } from "../utils"
+
 export default async (bot, message) => {
   let name = ':warning:'
 
@@ -16,12 +18,13 @@ export default async (bot, message) => {
       )
     }
 
-    name = ':white_check_mark:'
+    name = 'white_check_mark'
   } catch (err) {
     console.error(err)
     bot.replyInThread(message, transcript('errors.general', { err }))
 
     bot.replyPrivateDelayed(message, transcript('errors.general', { err }))
+    name = 'no_entry'
   }
 
   bot.api.reactions.add({ timestamp, channel, name }, err => {
