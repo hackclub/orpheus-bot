@@ -1,4 +1,4 @@
-import { transcript, getInfoForUser } from "../utils"
+import { transcript, getInfoForUser } from '../utils'
 
 export default async (bot, message) => {
   let name = ':warning:'
@@ -27,7 +27,10 @@ export default async (bot, message) => {
     name = 'no_entry'
   }
 
-  bot.api.reactions.add({ timestamp: message.ts, channel: message.channel, name }, err => {
-    if (err) console.error(err)
-  })
+  bot.api.reactions.add(
+    { timestamp: message.ts, channel: message.channel, name },
+    err => {
+      if (err) console.error(err)
+    }
+  )
 }
