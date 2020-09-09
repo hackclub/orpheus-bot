@@ -1,4 +1,4 @@
-import { transcript, airFind, getInfoForUser } from '../../utils'
+import { transcript, airFind, getInfoForUser, airGet } from '../../utils'
 import interactionMailMission from '../mailMission'
 import interactionTutorial from '../tutorial'
 import interactionAddress from '../address'
@@ -64,6 +64,17 @@ export async function run(bot, message) {
         user: message.user,
         email: creator.person.fields['Email'],
       })
+    )
+    return
+  }
+
+  const missionIDs = recipientRecord.fields['Current Receiver Mail Missions']
+  const formula = `AND(OR(${missionIDs.map(m => `RECORD_ID()='${m}'`).join(',')},FALSE()),OR({Status}='1 Unassigned',{Status}='2 Assigned',{Status}='3 Purchased'),{Scenario Name}='Sticker Envelope')`
+  const missions = await airGet('Mail Missions', formula)
+  if (missions) {
+    await bot.replyPrivateDelayed(
+      message,
+      transcript('promos.stickerEnvelope.alreadyEnroute')
     )
     return
   }
