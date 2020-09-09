@@ -27,7 +27,7 @@ export default async (bot, message) => {
     name = 'no_entry'
   }
 
-  bot.api.reactions.add({ timestamp: message.ts, channel, name }, err => {
+  bot.api.reactions.add({ timestamp: message.ts, channel: message.channel, name }, err => {
     if (err) console.error(err)
   })
 }
