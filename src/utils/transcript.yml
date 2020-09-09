@@ -399,6 +399,8 @@ promos:
   stickerEnvelope:
     help: |
       Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
+
+      Please keep in mind we're doing this on a trust system –please just send one to yourself and your members– each request is reviewed by a human.
     success: ":white_check_mark: Your stickers are on the way! Now just hang tight- your envelope has been sent to the Mail Team and you can expect it in 2-3 weeks."
     alreadyOrdered: ":white_check_mark: You've already got a sticker envelope on the way! Just hang tight for now."
     alreadyEnroute: ":white_check_mark: There's already a sticker envelope enroute! Just sit tight, it will get there eventually."
