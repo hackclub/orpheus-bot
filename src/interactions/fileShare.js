@@ -94,10 +94,10 @@ export default async (bot = initBot(), message) => {
       await Promise.all([
         reaction(bot, 'remove', channel, ts, 'beachball'),
         reaction(bot, 'add', channel, ts, 'white_check_mark'),
-        bot.replyInThread(
-          message,
-          transcript('fileShare.success', { links: results.links })
-        ),
+        bot.replyInThread(message, {
+          text: transcript('fileShare.success', { links: results.links }),
+          unfurl_media: false,
+        }),
       ])
     }
   } catch (err) {
