@@ -97,6 +97,7 @@ export default async (bot = initBot(), message) => {
         bot.replyInThread(message, {
           text: transcript('fileShare.success', { links: results.links }),
           unfurl_media: false,
+          unfurl_links: false,
         }),
       ])
     }
