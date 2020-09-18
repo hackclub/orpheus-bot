@@ -100,7 +100,7 @@ export async function run(bot, message) {
       {
         user: message.user,
         text: 'sticker_envelope',
-        note: '',
+        note: `requested by <@${message.user}>`,
       },
       { recipient: recipientID }
     ),
