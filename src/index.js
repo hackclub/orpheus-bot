@@ -173,7 +173,7 @@ controller.on('slash_command', async (bot, message) => {
           //   await interactionSOMInvite(bot, message)
           //   break
           case '/stats':
-          case '/club-stats':
+          case '/meeting-stats':
             await interactionStats(bot, message)
             break
 
