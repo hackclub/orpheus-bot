@@ -1,3 +1,4 @@
+import { forEach } from 'lodash'
 import { getInfoForUser, transcript } from '../utils'
 
 export default async (bot, message) => {
@@ -17,12 +18,12 @@ export default async (bot, message) => {
     }
 
     const results = {}
-    results.personAirtableRecord = `https://airtable.com/tbl4xjBzoIJGHhWxF/${info.person.id}?blocks=hide`
+    results.personAirtableRecord = `<Person record|https://airtable.com/tbl4xjBzoIJGHhWxF/${info.person.id}?blocks=hide>`
     if (info.club && info.club.id) {
-      results.clubAirtableRecord = `https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide`
+      results.clubAirtableRecord = `<Club record|https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide>`
     }
     if (info.club && info.club.fields['HCB Account URL']) {
-      results.hcbAccount = info.club.fields['HCB Account URL']
+      results.hcbAccount = `<Bank URL|info.club.fields['HCB Account URL']>`
     }
     if (info.club && info.club.fields['Slack Channel ID']) {
       results.clubChannel = `<#${info.club.fields['Slack Channel ID']}>`
@@ -33,11 +34,7 @@ export default async (bot, message) => {
 
     bot.replyPrivateDelayed(
       message,
-      `
-    \`\`\`
-    ${JSON.stringify(results, null, 2)}
-    \`\`\`
-    `
+      Object.keys(results).map(key => `${key}: ${results[key]}`).join('\n')
     )
   } catch (err) {
     console.error(err)
