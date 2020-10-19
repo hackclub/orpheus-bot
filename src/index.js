@@ -7,7 +7,7 @@ import { transcript } from './utils'
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'
 import interactionInfo from './interactions/info'
-import * as interactionStats from './interactions/stats'
+import interactionStats from './interactions/stats'
 import interactionHello from './interactions/hello'
 import interactionTrigger from './interactions/trigger'
 import interactionRename from './interactions/rename'
@@ -95,11 +95,11 @@ controller.hears(
   interactionLeaderInvite
 )
 
-controller.hears(
-  'stats',
-  'direct_mention,direct_message',
-  interactionStats.default
-)
+// controller.hears(
+//   'stats',
+//   'direct_mention,direct_message',
+//   interactionStats.default
+// )
 
 controller.hears(
   'what are you doing',
@@ -173,8 +173,8 @@ controller.on('slash_command', async (bot, message) => {
           //   await interactionSOMInvite(bot, message)
           //   break
           case '/stats':
-          case '/meeting-stats':
-            await interactionStats.default(bot, message)
+          case '/club-stats':
+            await interactionStats(bot, message)
             break
 
           case '/announcement':
