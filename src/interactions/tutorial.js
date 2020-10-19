@@ -67,9 +67,8 @@ const interactionTutorial = async (bot, message) => {
           message,
           transcript('tutorial.meetingAdd.finished')
         )
-        // await asyncReply(bot, message, transcript('tutorial.getGrant.start'))
-        await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
         userRecord.patch({ 'Flag: Tutorial /meeting-add': true })
+        await asyncReply(bot, message, transcript('tutorial.finished'))
       }
       break
     case '/get':
@@ -85,32 +84,6 @@ const interactionTutorial = async (bot, message) => {
         await asyncReply(bot, message, transcript('tutorial.meetingAdd.start'))
         userRecord.patch({ 'Flag: Tutorial /promo sticker envelope': true })
         return
-      }
-
-      // const isGrantPromo = text.includes('grant')
-      // const finishedGrantTutorial =
-      //   userRecord.fields['Flag: Tutorial /promo github grant']
-      // if (isGrantPromo && !finishedGrantTutorial) {
-      //   await asyncReply(bot, message, transcript('tutorial.getGrant.finished'))
-      //   await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
-      //   userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
-      // }
-      break
-    case '/meeting-time':
-      if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
-        await asyncReply(
-          bot,
-          message,
-          transcript('tutorial.meetingTime.finished')
-        )
-        await asyncReply(bot, message, transcript('tutorial.finished'))
-        userRecord.patch({ 'Flag: Tutorial /meeting-time': true })
-        // setTimeout(() => {
-        //   interactionCheckinNotification(undefined, {
-        //     channel: record.fields['Slack Channel ID'],
-        //     user,
-        //   })
-        // }, 4000)
       }
       break
     case '/orpheus-tutorial':

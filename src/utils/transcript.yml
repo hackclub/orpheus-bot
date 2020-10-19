@@ -234,12 +234,6 @@ tutorial:
     progress: Great! Now add another \`/meeting-add last friday, 21 members\`
     finished: 
       Great! Now that you've got meetings recorded, your club is "active". Active clubs get access to a couple exclusive tools and services.
-  # getGrant:
-  #   start: There's a whole list of promos only available to clubs. Request some stickers for yourself with \`/get sticker envelope\`.
-  #   finished: Great! You can always see a list of promos available by running \`/get\`.
-  meetingTime:
-    start: We're close now! There's one last thing in this tutorial. If you run \`/meeting-time\`, it'll let me know when your meetings are held. Once your meeting time is set I'll quickly check in after every meeting to make sure you record it.
-    finished: If you ever need me to silence check-in notifications for a while (ie. spring break), all you have to do is type \`/meeting-time\` with a time after your spring break– I won't post any check-in messages until that date.
 errors:
   video: This footage was taken moments before the incident ${this.t('errors.videoURLs')}
   videoURLs:
