@@ -1,6 +1,11 @@
 import { transcript } from "../utils"
 
-const replyFancy = async ({bot, message, textSteps}) => {
+const replyFancy = async ({bot, message, content}) => {
+  const textSteps = content.split('').map((letter, i, array) => {
+    const text = array.slice(0, i).join('') + randomFlavor(array[i])
+    return transcript('documentation.formatLink', { text } )
+  })
+
   bot.replyAndUpdate(
     message,
     textSteps[0],
@@ -35,15 +40,31 @@ const randomFlavor = (l) => {
   }
 }
 
+const replyTypo = async ({bot, message}) => {
+  bot.replyAndUpdate(
+    message,
+    transcript('documentation.formatLink', {text: transcript('documentation.typos')}),
+    (err, src, updateResponse) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+      setTimeout(() => {
+        updateResponse(transcript('documentation.formatLink', {text: 'README'}), err => {
+          if (err) console.error(err)
+        })
+      }, Math.random() * 5000 + 2000)
+    }
+  )
+}
+
 const interactionDocumentation = async (bot, message) => {
   try {
-    const content = transcript('documentation.flavor')
-    const textSteps = content.split('').map((letter, i, array) => {
-      const text = array.slice(0, i).join('') + randomFlavor(array[i])
-      return transcript('documentation.formatLink', { text } )
-    })
-
-    await replyFancy({bot, message, textSteps})
+    if (Math.random() < 0.1) {
+      replyTypo({bot, message})
+    } else {
+      await replyFancy({bot, message, content: transcript('documentation.flavor') })
+    }
   } catch (err) {
     console.error(err)
     bot.reply(message, transcript('errors.general', { err }))

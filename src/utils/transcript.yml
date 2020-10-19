@@ -476,9 +476,13 @@ clubInit: Hey! You've found a command that's still unfinished. The recommended w
 documentation:
   url: https://github.com/hackclub/orpheus-bot
   formatLink: <${this.t('documentation.url')}|${this.text}>
+  typos:
+    - EATME
+    - REAMDE
   flavor:
     - README!
     - Read my docs!
     - Check out these docs
     - Docs, Docs, get 'em while they're hot!
     - READIT!
+    - RTFM– read the _fabulous_ manual
