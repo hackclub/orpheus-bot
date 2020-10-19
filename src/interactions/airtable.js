@@ -1,4 +1,3 @@
-import { forEach } from 'lodash'
 import { getInfoForUser, transcript } from '../utils'
 
 export default async (bot, message) => {
