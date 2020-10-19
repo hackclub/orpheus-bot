@@ -38,7 +38,7 @@ const interactionDocumentation = async (bot, message) => {
           console.error(err)
           return
         }
-        for (const step in textSteps) {
+        for (const step of textSteps) {
           await new Promise((resolve,reject)=> {
             updateResponse(step, err => {
               if (err) reject(err)
