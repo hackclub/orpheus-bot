@@ -34,7 +34,6 @@ import interactionCheckinNotification from './interactions/checkinNotification'
 import interactionCheckinReply from './interactions/checkinReply'
 import interactionClubCard from './interactions/clubCard'
 import interactionFindOrCreate from './interactions/findOrCreate'
-import interactionDocumentation from './interactions/documentation'
 
 import interactionBreakout from './interactions/breakout'
 import interactionBreakoutUpdate from './interactions/trigger/updateBreakouts'
@@ -115,8 +114,6 @@ controller.hears('find or create', 'direct_mention', interactionFindOrCreate)
 controller.hears('date', 'direct_mention', interactionDate)
 
 controller.hears('breakout', 'direct_mention', interactionBreakout)
-
-controller.hears(['docs', 'documentation', 'readme'], interactionDocumentation)
 
 controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
   if (message.thread.originalPoster) {
