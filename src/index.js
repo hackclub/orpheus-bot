@@ -172,8 +172,8 @@ controller.on('slash_command', async (bot, message) => {
           // case '/som-invite':
           //   await interactionSOMInvite(bot, message)
           //   break
-          case '/stats':
           case '/meeting-stats':
+          case '/stats':
             await interactionStats(bot, message)
             break
 
