@@ -470,6 +470,6 @@ breakout:
   warning: This channel will be archived soon due to inactivity.
 fileShare:
   success: |
-    Yeah! Here's yo' links
+    Yeah! Here's yo' links <@${this.user}>
     ${this.links.join('\n')}
 clubInit: Hey! You've found a command that's still unfinished. The recommended way to start a club with Hack Club is going to https://apply.hackclub.com.

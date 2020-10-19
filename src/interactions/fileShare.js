@@ -95,7 +95,7 @@ export default async (bot = initBot(), message) => {
         reaction(bot, 'remove', channel, ts, 'beachball'),
         reaction(bot, 'add', channel, ts, 'white_check_mark'),
         bot.replyInThread(message, {
-          text: transcript('fileShare.success', { links: results.links }),
+          text: transcript('fileShare.success', { links: results.links, user: message.user }),
           unfurl_media: false,
           unfurl_links: false,
         }),
