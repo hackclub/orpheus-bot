@@ -1,20 +1,21 @@
 ![](https://raw.githubusercontent.com/hackclub/dinosaurs/master/club_dinosaur.png)
 
 - [Commands](#commands)
+  - [Legend](#legend)
   - [Slash Commands](#slash-commands)
-    - [Anyone](#anyone)
-    - [Full Slack Users](#full-slack-users)
-    - [Club leaders](#club-leaders)
-    - [Slack Owner/Admin](#slack-owneradmin)
+    - [Anyone ‡](#anyone-)
+    - [Full Slack Users §](#full-slack-users-)
+    - [Club leaders Δ](#club-leaders-δ)
+    - [Slack Owner/Admin ◊](#slack-owneradmin-)
   - [Message commands](#message-commands)
-    - [Anyone](#anyone-1)
-    - [Club leaders](#club-leaders-1)
-    - [Slack Owner/Admin](#slack-owneradmin-1)
+    - [Anyone ‡](#anyone--1)
+    - [Club leaders Δ](#club-leaders-δ-1)
+    - [Slack Owner/Admin ◊](#slack-owneradmin--1)
 - [Misc Interactions](#misc-interactions)
 
 ## Commands
-### Slash Commands
-_Every Slash command comes with a help message. For example, to learn to use `/stats`, type `/stats help` in Slack._
+
+### Legend
 
 ‡ = anyone  
 § = full Slack user only (not multi-channel or single-channel guest)  
@@ -22,7 +23,10 @@ _Every Slash command comes with a help message. For example, to learn to use `/s
 ◊ = Slack owner/admin only  
 **†** = deprecated  
 
-#### Anyone
+### Slash Commands
+_Every Slash command comes with a help message. For example, to learn to use `/stats`, type `/stats help` in Slack._
+
+#### Anyone ‡
 - ‡[`/airtable`](/src/interactions/airtable.js) Post the database links of a Slack user
 - ‡[`/address` `/leader-address`](src/interactions/address.js) Post the current user's address with a link to edit
 - ‡[`/stats @USER`](/src/interactions/stats.js) Get tagged user's meeting stats
@@ -33,14 +37,20 @@ _Every Slash command comes with a help message. For example, to learn to use `/s
 - **†** ‡`/som-report` Report a Slack user's behavior
 - **†** ‡[`/promo`](src/interactions/promo.js) Renamed to `/get`
 
-#### Full Slack Users
-_This doesn't include Slack guests, such as multi-channel or single-channel users_
+_‡ = anyone_  
+_**†** = deprecated_
+
+#### Full Slack Users §
+_This excludes Slack guests, such as multi-channel or single-channel users._
 
 - §[`/som-lookup`](src/interactions/som/lookup.js) Lookup who promoted a multi-channel guest to a full Slack user during the Summer of Making.
 - **†** §`/som-invite` Invite a multi-channel guest for the Summer of Making.
 - **†** §[`/club-init`](src/interactions/clubInit.js) Become a club leader by creating a club
 
-#### Club leaders
+_§ = full Slack user only (not multi-channel or single-channel guest)_  
+_**†** = deprecated_
+
+#### Club leaders Δ
 - Δ[`/club-address`](src/interactions/clubAddress.js) Post the current user's club address with a link to edit
 - Δ[`/rename-channel`](src/interactions/rename.js) Rename your club channel
 - Δ[`/meeting-add`](src/interactions/meetingAdd.js) Add a meeting to your club's stats
@@ -62,7 +72,11 @@ _This doesn't include Slack guests, such as multi-channel or single-channel user
 - **†** Δ[`/club-card`](src/interactions/clubCard.js) Issue a credit card number for your club
 - **†** Δ[`/meeting-time`](src/interactions/meetingTime.js) Set the meeting time to get meeting notifications weekly
 
-#### Slack Owner/Admin
+_Δ = club leader only_  
+_‡ = anyone_  
+_**†** = deprecated_
+
+#### Slack Owner/Admin ◊
 - ◊[`/announcement`](src/interactions/announcement.js) Send an announcement to all clubs in Airtable queued for announcements
   - ◊[`/announcement address`](src/interactions/announcement.js) See a list of the enqueued clubs
   - ◊[`/announcement status`](src/interactions/announcement.js) Get the number of successful messages sent / the total messages to send
@@ -71,29 +85,34 @@ _This doesn't include Slack guests, such as multi-channel or single-channel user
 - ◊[`/som-promote @USER`](src/interactions/som/promote.js) Promote a multi-channel guest to a full Slack user.
 - **†** ◊`/som-ban` Deactivate a Slack user
 
+_Δ = club leader only_  
+_**†** = deprecated_
+
 ### Message commands
 
-‡ = anyone  
-Δ = club leader only  
-◊ = Slack owner/admin only  
-**†** = deprecated  
-
-#### Anyone
+#### Anyone ‡
 - ‡[`@orpheus breakout`](src/interactions/breakout.js) creates an ephemeral channel based on the current channel
 - ‡[`@orpheus info`](src/interactions/info.js) Print the current uptime (used as a [startup message](src/interactions/startup.js))
 - ‡[`@orpheus forget`](src/interactions/forget.js) Deletes a Slack user from @orpheus' memory. Used for debugging.
 - ‡[`@orpheus find or create @USER`](src/interactions/findOrCreate.js) Finds or creates a user record in the Airtable database. Used by automations.
 - ‡[`@orpheus date`](src/interactions/date.js) Command that returns a parsed date. Used for debugging.
 
-#### Club leaders
+_‡ = anyone_  
+
+#### Club leaders Δ
 - **†** Δ[`@orpheus checkin`](src/interactions/checkin.js) Start a check-in with the current user
 
-#### Slack Owner/Admin
+_Δ = club leader only_  
+_**†** = deprecated_
+
+#### Slack Owner/Admin ◊
 - ◊[`thump`](src/interactions/trigger/index.js) Trigger scheduled tasks (ex. close inactive breakout channels)
 - ◊[`@orpheus dm`](src/interactions/dm.js) Send a message as @orpheus
   - ◊[`@orpheus dm @USER Hello world`](src/interactions/dm.js) Send a DM to @USER of "Hello world"
   - ◊[`@orpheus dm #CHANNEL Hello world`](src/interactions/dm.js) Send a DM to #CHANNEL of "Hello world"
 - ◊[`@orpheus add this team to the leaders channel`](src/interactions/leaderInvite.js) Use in a club channel to invite all associated leader to the private `#leaders` channel
+
+_◊ = Slack owner/admin only_
 
 ## Misc Interactions
 
