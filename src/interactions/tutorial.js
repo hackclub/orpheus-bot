@@ -67,7 +67,8 @@ const interactionTutorial = async (bot, message) => {
           message,
           transcript('tutorial.meetingAdd.finished')
         )
-        await asyncReply(bot, message, transcript('tutorial.getGrant.start'))
+        // await asyncReply(bot, message, transcript('tutorial.getGrant.start'))
+        await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
         userRecord.patch({ 'Flag: Tutorial /meeting-add': true })
       }
       break
@@ -86,14 +87,14 @@ const interactionTutorial = async (bot, message) => {
         return
       }
 
-      const isGrantPromo = text.includes('grant')
-      const finishedGrantTutorial =
-        userRecord.fields['Flag: Tutorial /promo github grant']
-      if (isGrantPromo && !finishedGrantTutorial) {
-        await asyncReply(bot, message, transcript('tutorial.getGrant.finished'))
-        await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
-        userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
-      }
+      // const isGrantPromo = text.includes('grant')
+      // const finishedGrantTutorial =
+      //   userRecord.fields['Flag: Tutorial /promo github grant']
+      // if (isGrantPromo && !finishedGrantTutorial) {
+      //   await asyncReply(bot, message, transcript('tutorial.getGrant.finished'))
+      //   await asyncReply(bot, message, transcript('tutorial.meetingTime.start'))
+      //   userRecord.patch({ 'Flag: Tutorial /promo github grant': true })
+      // }
       break
     case '/meeting-time':
       if (!userRecord.fields['Flag: Tutorial /meeting-time']) {
