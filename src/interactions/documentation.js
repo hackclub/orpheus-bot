@@ -27,11 +27,11 @@ const randomFlavor = (l) => {
   }
   switch (Math.floor(Math.random() * 3)) {
     case 0:
-      return ` *${l.toUpperCase()}*`
+      return `\u200b*${l.toUpperCase()}*`
     case 1:
-      return ` _*${l.toUpperCase()}*_`
+      return `\u200b_*${l.toUpperCase()}*_`
     case 2:
-      return ` _${l.toUpperCase()}_`
+      return `\u200b_${l.toUpperCase()}_`
   }
 }
 
