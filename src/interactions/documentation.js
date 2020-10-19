@@ -11,7 +11,6 @@ const replyFancy = async ({bot, message, textSteps}) => {
       }
       for (const step of textSteps) {
         await new Promise((resolve,reject)=> {
-          console.log(step)
           updateResponse(step, err => {
             if (err) reject(err)
             resolve()
