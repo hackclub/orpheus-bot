@@ -2,29 +2,74 @@ import { transcript } from "../utils"
 
 const documentationURL = 'https://github.com/hackclub/orpheus-bot'
 
+const replyFancy = async ({bot, message, textSteps}) => {
+  bot.replyAndUpdate(message, (err, src, updateResponse) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    textSteps.map(step => {
+    })
+  })
+}
+
 const interactionDocumentation = async (bot, message) => {
   try {
-
+    const textSteps = [
+      'R',
+      'rE',
+      'reA',
+      'reaD',
+      'read ',
+      'read M',
+      'read mY',
+      'read my ',
+      'read my D',
+      'read my dO',
+      'read my doC',
+      'read my docS',
+      'read my docs',
+    ]
     bot.replyAndUpdate(
       message,
-      'READ',
+      textSteps[0],
       (err, src, updateResponse) => {
         if (err) {
           console.error(err)
           return
         }
-        setTimeout(() => {
-          updateResponse('read MY', err => {
-            if (err) console.error(err)
-          })
-          setTimeout(() => {
-            updateResponse('read my DOCS', err => {
-              if (err) console.error(err)
+        for (const step in textSteps) {
+          await new Promise((resolve,reject)=> {
+            updateResponse(step, err => {
+              if (err) reject(err)
+              resolve()
             })
-          }, Math.random() * 1000 + 1000)
-        }, Math.random() * 1000 + 1000)
+          })
+        }
       }
     )
+
+    // bot.replyAndUpdate(
+    //   message,
+    //   'READ',
+    //   (err, src, updateResponse) => {
+    //     if (err) {
+    //       console.error(err)
+    //       return
+    //     }
+    //     setTimeout(() => {
+    //       updateResponse('read MY', err => {
+    //         if (err) console.error(err)
+    //       })
+    //       setTimeout(() => {
+    //         updateResponse('read my DOCS', err => {
+    //           if (err) console.error(err)
+    //         })
+    //       }, Math.random() * 1000 + 1000)
+    //     }, Math.random() * 1000 + 1000)
+    //   }
+    // )
+
     // let sent = await bot.reply(message, 'READ')
     // sent = await bot.updateMessage({
     //   text: 'read MY',
