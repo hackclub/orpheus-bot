@@ -116,7 +116,7 @@ controller.hears('date', 'direct_mention', interactionDate)
 
 controller.hears('breakout', 'direct_mention', interactionBreakout)
 
-controller.hears(['docs', 'documentation', 'readme'], interactionDocumentation)
+controller.hears(['docs', 'documentation', 'readme'], 'direct_mention',interactionDocumentation)
 
 controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
   if (message.thread.originalPoster) {
