@@ -40,10 +40,13 @@ const interactionDocumentation = async (bot, message) => {
     const content = transcript('documentation.flavor')
     const textSteps = content.split('').map((letter, i, array) => {
       const text = array.slice(0, i).join('') + randomFlavor(array[i])
-      console.log(text)
-      return transcript('documentation.formatLink', { text } )
+      return {
+        blocks: [{
+          type: "mrkdwn",
+          text: transcript('documentation.formatLink', { text } )
+        }]
+      }
     })
-    textSteps.push(content)
 
     await replyFancy({bot, message, textSteps})
   } catch (err) {
