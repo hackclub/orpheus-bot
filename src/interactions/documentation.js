@@ -28,11 +28,11 @@ const randomFlavor = (l) => {
   }
   switch (Math.floor(Math.random() * 3)) {
     case 0:
-      return `*${l.toUpperCase()}*`
+      return ` *${l.toUpperCase()}*`
     case 1:
-      return `**${l.toUpperCase()}**`
+      return ` **${l.toUpperCase()}**`
     case 2:
-      return `_${l.toUpperCase()}_`
+      return ` _${l.toUpperCase()}_`
   }
 }
 
@@ -41,12 +41,7 @@ const interactionDocumentation = async (bot, message) => {
     const content = transcript('documentation.flavor')
     const textSteps = content.split('').map((letter, i, array) => {
       const text = array.slice(0, i).join('') + randomFlavor(array[i])
-      return {
-        blocks: [{
-          type: "mrkdwn",
-          text: transcript('documentation.formatLink', { text } )
-        }]
-      }
+      return transcript('documentation.formatLink', { text } )
     })
 
     await replyFancy({bot, message, textSteps})
