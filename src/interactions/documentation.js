@@ -33,7 +33,7 @@ const interactionDocumentation = async (bot, message) => {
     bot.replyAndUpdate(
       message,
       textSteps[0],
-      (err, src, updateResponse) => {
+      async (err, src, updateResponse) => {
         if (err) {
           console.error(err)
           return
