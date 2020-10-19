@@ -61,7 +61,7 @@ const interactionTutorial = async (bot, message) => {
         return
       }
       // if there are 2 meetings recorded, go to the next step in the tutorial
-      if (recordedMeetings == 2 && !finishedMeetingAddTutorial) {
+      if (recordedMeetings >= 2 && !finishedMeetingAddTutorial) {
         await asyncReply(
           bot,
           message,
