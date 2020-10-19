@@ -86,6 +86,7 @@ export async function run(bot, message) {
             missionTS: missionTS,
           })
         )
+        await interactionTutorial(bot, message)
         return
       }
     }
