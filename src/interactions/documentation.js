@@ -37,10 +37,13 @@ const randomFlavor = (l) => {
 
 const interactionDocumentation = async (bot, message) => {
   try {
-    const textSteps = transcript('documentation.flavor').split('').map((letter, i, array) => {
+    const content = transcript('documentation.flavor')
+    const textSteps = text.split('').map((letter, i, array) => {
       const text = array.slice(0, i).join('') + randomFlavor(array[i])
+      console.log(text)
       return transcript('documentation.formatLink', { text } )
     })
+    textSteps.push(content)
 
     await replyFancy({bot, message, textSteps})
   } catch (err) {
