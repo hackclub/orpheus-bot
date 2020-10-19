@@ -86,7 +86,7 @@ _This doesn't include Slack guests, such as multi-channel or single-channel user
 - ‡[`@orpheus date`](src/interactions/date.js) Command that returns a parsed date. Used for debugging.
 
 #### Club leaders
-- **†** [Δ`@orpheus checkin`](src/interactions/checkin.js) Start a check-in with the current user
+- **†** Δ[`@orpheus checkin`](src/interactions/checkin.js) Start a check-in with the current user
 
 #### Slack Owner/Admin
 - ◊[`thump`](src/interactions/trigger/index.js) Trigger scheduled tasks (ex. close inactive breakout channels)
