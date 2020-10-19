@@ -10,7 +10,7 @@ export default async (bot, message) => {
 
     const info = await getInfoForUser(taggedUserID)
     const caller = await getInfoForUser(message.user)
-    const runByAdmin = user.caller?.slackUser?.is_admin
+    const runByAdmin = caller?.slackUser?.is_admin
 
     if (!info.person) {
       throw new Error(
