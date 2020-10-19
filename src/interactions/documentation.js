@@ -37,7 +37,7 @@ const randomFlavor = (l) => {
 
 const interactionDocumentation = async (bot, message) => {
   try {
-    const textSteps = transcript('documentation.flavortext').split('').map((letter, i, array) => {
+    const textSteps = transcript('documentation.flavor').split('').map((letter, i, array) => {
       const text = array.slice(0, i).join('') + randomFlavor(array[i])
       return transcript('documentation.formatLink', { text } )
     })
