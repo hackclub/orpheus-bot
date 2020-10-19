@@ -29,7 +29,7 @@ const randomFlavor = (l) => {
     case 0:
       return ` *${l.toUpperCase()}*`
     case 1:
-      return ` **${l.toUpperCase()}**`
+      return ` _*${l.toUpperCase()}*_`
     case 2:
       return ` _${l.toUpperCase()}_`
   }
