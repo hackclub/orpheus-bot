@@ -19,12 +19,12 @@ export default async (bot, message) => {
     }
 
     const results = {}
-    results.personAirtableRecord = `<https://airtable.com/tbl4xjBzoIJGHhWxF/${info.person.id}?blocks=hide|Person record>`
+    results.personAirtableRecord = `<airtable:///tbl4xjBzoIJGHhWxF/${info.person.id}|Person record>`
     if (info.address && info.address.id) {
-      results.addressAirtableRecord = `<https://airtable.com/tblbcZKrj9gFPzj1l/${info.address.id}?blocks=hide|Address record>`
+      results.addressAirtableRecord = `<airtable:///tblbcZKrj9gFPzj1l/${info.address.id}|Address record>`
     }
     if (info.club && info.club.id) {
-      results.clubAirtableRecord = `<https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide|Club record>`
+      results.clubAirtableRecord = `<airtable:///tbloCEFJtbxsKYJEv/${info.club.id}|Club record>`
     }
     if (info.club && info.club.fields['HCB Account URL']) {
       results.hcbAccount = `<${info.club.fields['HCB Account URL']}|Bank URL>`
@@ -33,7 +33,7 @@ export default async (bot, message) => {
       results.clubChannel = `<#${info.club.fields['Slack Channel ID']}>`
     }
     if (info.mailSender) {
-      results.senderAirtableRecord = `<https://airtable.com/tblvW60Qdo2AdoN1s/${info.mailSender.id}?blocks=hide|Sender record>`
+      results.senderAirtableRecord = `<airtable:///tblvW60Qdo2AdoN1s/${info.mailSender.id}|Sender record>`
     }
     if (runByAdmin) {
       results.email = info.person.fields['Full Name']
