@@ -38,7 +38,7 @@ export default async (bot, message) => {
     if (runByAdmin) {
       results.email = info.person.fields['Full Name']
       results.email = info.person.fields['Email']
-      results.phoneNumber = info.person.fields['Phone Number']
+      results.phoneNumber = info.person.fields['Phone number']
     }
 
     bot.replyPrivateDelayed(
