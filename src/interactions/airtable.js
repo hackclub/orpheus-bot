@@ -17,18 +17,18 @@ export default async (bot, message) => {
     }
 
     const results = {}
-    results.personAirtableRecord = `<Person record|https://airtable.com/tbl4xjBzoIJGHhWxF/${info.person.id}?blocks=hide>`
+    results.personAirtableRecord = `<https://airtable.com/tbl4xjBzoIJGHhWxF/${info.person.id}?blocks=hide|Person record>`
     if (info.club && info.club.id) {
-      results.clubAirtableRecord = `<Club record|https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide>`
+      results.clubAirtableRecord = `<https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide|Club record>`
     }
     if (info.club && info.club.fields['HCB Account URL']) {
-      results.hcbAccount = `<Bank URL|info.club.fields['HCB Account URL']>`
+      results.hcbAccount = `<info.club.fields['HCB Account URL']|Bank URL>`
     }
     if (info.club && info.club.fields['Slack Channel ID']) {
       results.clubChannel = `<#${info.club.fields['Slack Channel ID']}>`
     }
     if (info.mailSender) {
-      results.senderAirtableRecord = `https://airtable.com/tblvW60Qdo2AdoN1s/${info.mailSender.id}?blocks=hide`
+      results.senderAirtableRecord = `<https://airtable.com/tblvW60Qdo2AdoN1s/${info.mailSender.id}?blocks=hide|Sender record>`
     }
 
     bot.replyPrivateDelayed(
