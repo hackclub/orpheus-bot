@@ -10,7 +10,7 @@ const getAdmin = (bot, user) =>
         console.error(err)
         reject(err)
       }
-      resolve(res.user.is_owner)
+      resolve(res.user.is_admin)
     })
   })
 

@@ -27,7 +27,7 @@ const interactionDM = async (bot, message) => {
     const { user, text } = message
     const { slackUser } = await getInfoForUser(user)
 
-    if (!slackUser.is_owner) {
+    if (!slackUser.is_admin) {
       throw new Error('This command is admin only')
     }
 

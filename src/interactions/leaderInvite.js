@@ -36,7 +36,7 @@ const interactionLeaderInvite = (bot, message) => {
 
   getInfoForUser(user)
     .then(({ slackUser }) => {
-      if (!slackUser.is_owner) {
+      if (!slackUser.is_admin) {
         bot.reply(message, transcript('leaderInvite.notAdmin'))
         return
       }
