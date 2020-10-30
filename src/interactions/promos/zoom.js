@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch'
 
 import { getInfoForUser, airFind, airPatch, transcript } from '../../utils'
 
-export const names = ['Zoom Pro', 'zoom']
+export const names = ['Zoom Pro', 'zoom', 'zoompro']
 export const details =
   'Available for one club leader at each club (the point of contact). They can add their co-leaders and members to their account.'
 export async function run(bot, message) {
