@@ -127,7 +127,7 @@ controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
 
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
 
-controllers.hears(['sass','mock'], 'direct_message,direct_mention', interactionMocking)
+controller.hears(['sass','mock'], 'direct_message,direct_mention', interactionMocking)
 
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
