@@ -19,6 +19,7 @@ import interactionMeetingRemove from './interactions/meetingRemove'
 import interactionMeetingTime from './interactions/meetingTime'
 import interactionTutorial from './interactions/tutorial'
 import interactionCatchall from './interactions/catchall'
+import interactionMocking from './interactions/mocking'
 import interactionPromo from './interactions/promo'
 import interactionGet from './interactions/get'
 import interactionAnnouncement from './interactions/announcement'
@@ -125,6 +126,8 @@ controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
 })
 
 controller.hears('hello', 'direct_mention,direct_message', interactionHello)
+
+controllers.hears(['sass','mock'], 'direct_message,direct_mention', interactionMocking)
 
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)

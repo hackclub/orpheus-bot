@@ -1,29 +1,5 @@
 import { transcript, getInfoForUser } from '../utils'
-
-const spongebobTransform = (text) => {
-  let inBracket = 0
-  return text.split('').map((l, i) => {
-    if (l == '<') {
-      inBracket++
-      return l
-    } else if (l == '>') {
-      inBracket--
-      return l
-    } else if (inBracket > 0) {
-      return l
-    } else {
-      if (i%2==1) {
-        return l
-      } else {
-        if (l.toUpperCase() === l) {
-          return l.toLowerCase();
-        } else {
-          return l.toUpperCase();
-        }
-      }
-    }
-  }).join('')
-}
+import interactionMocking from './mocking'
 
 const interactionCatchall = (bot, message) => {
   const { ts: timestamp, channel, user } = message
@@ -32,13 +8,11 @@ const interactionCatchall = (bot, message) => {
     if (slackUser.is_bot) {
       bot.replyInThread(message, transcript('catchall.botReply'))
     } else {
-      bot.replyInThread(message, ":spongebob-mocking:\n"+ spongebobTransform(message.text))
-      return // temporary increase to 100% sass
       if (Math.random() > 0.5) {
-        if (Math.random() < 0.05) {
+        if (Math.random() > 0.15) {
           bot.replyInThread(message, transcript('catchall.reply'))
         } else {
-          bot.replyInThread(message, ":spongebob-mocking:\n"+ spongebobTransform(message.text))
+          interactionMocking(bot, message)
         }
       } else {
         bot.api.reactions.add(
