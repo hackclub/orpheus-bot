@@ -32,6 +32,8 @@ const interactionCatchall = (bot, message) => {
     if (slackUser.is_bot) {
       bot.replyInThread(message, transcript('catchall.botReply'))
     } else {
+      bot.replyInThread(message, ":spongebob-mocking:\n"+ spongebobTransform(message.text))
+      return // temporary increase to 100% sass
       if (Math.random() > 0.5) {
         if (Math.random() < 0.05) {
           bot.replyInThread(message, transcript('catchall.reply'))
