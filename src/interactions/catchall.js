@@ -11,7 +11,7 @@ const interactionCatchall = (bot, message) => {
         if (Math.random() < 0.05) {
           bot.replyInThread(message, transcript('catchall.reply'))
         } else {
-          const spongebobMocking = message.text.split('').map((l, i) => i.match(/[a-z]/i) ? i%2==0 ? l.toLowerCase() : l.toUpperCase() : l).join('')
+          const spongebobMocking = message.text.split('').map((l, i) => l.match(/[a-z]/i) ? i%2==0 ? l.toLowerCase() : l.toUpperCase() : l).join('')
           bot.replyInThread(message, ":spongebob-mocking:\n"+spongebobMocking)
         }
       } else {
