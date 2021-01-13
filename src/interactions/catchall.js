@@ -1,5 +1,30 @@
 import { transcript, getInfoForUser } from '../utils'
 
+const spongebobTransform = (text) => {
+  let inBracket = 0
+  return text.split('').map((l, i) => {
+    if (l == '<') {
+      inBracket++
+      return l
+    } else if (l == '>') {
+      inBracket--
+      return l
+    } else if (inBracket > 0) {
+      return l
+    } else {
+      if (i%2==1) {
+        return l
+      } else {
+        if (l.toUpperCase() === l) {
+          return l.toLowerCase();
+        } else {
+          return l.toUpperCase();
+        }
+      }
+    }
+  }).join('')
+}
+
 const interactionCatchall = (bot, message) => {
   const { ts: timestamp, channel, user } = message
 
@@ -11,8 +36,7 @@ const interactionCatchall = (bot, message) => {
         if (Math.random() < 0.05) {
           bot.replyInThread(message, transcript('catchall.reply'))
         } else {
-          const spongebobMocking = message.text.split('').map((l, i) => l.match(/[a-z]/i) ? i%2==0 ? l.toLowerCase() : l.toUpperCase() : l).join('')
-          bot.replyInThread(message, ":spongebob-mocking:\n"+spongebobMocking)
+          bot.replyInThread(message, ":spongebob-mocking:\n"+ spongebobTransform(message.text))
         }
       } else {
         bot.api.reactions.add(
