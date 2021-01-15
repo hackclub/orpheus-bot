@@ -102,10 +102,10 @@ export async function run(bot, message) {
 // Zoom function stuff
 import jwt from 'jsonwebtoken'
 const payload = {
-  iss: process.env.ZOOM_KEY,
+  iss: process.env.TEMP_ZOOM_KEY,
   exp: new Date().getTime() + 5000,
 }
-const token = jwt.sign(payload, process.env.ZOOM_SECRET)
+const token = jwt.sign(payload, process.env.TEMP_ZOOM_SECRET)
 
 async function getZoomUsage() {
   const result = await fetch(`https://api.zoom.us/v2/accounts/me/plans/usage`, {
