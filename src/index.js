@@ -116,6 +116,7 @@ controller.hears('find or create', 'direct_mention', interactionFindOrCreate)
 controller.hears('date', 'direct_mention', interactionDate)
 
 controller.hears('breakout', 'direct_mention', interactionBreakout)
+controller.hears('get a room', 'ambient', interactionBreakout)
 
 controller.hears(['docs', 'documentation', 'readme'], 'direct_mention',interactionDocumentation)
 

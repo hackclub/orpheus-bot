@@ -494,6 +494,22 @@ export const userRecord = user =>
       .catch(err => reject(err))
   })
 
+export const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
+  return new Promise((resolve, reject) => {
+    bot.api.reactions[addOrRemove](
+      { channel, timestamp: ts, name },
+      (err, res) => {
+        if (err) {
+          console.error('error while', addOrRemove, name, ':', err)
+          reject(err)
+        } else {
+          resolve(name)
+        }
+      }
+    )
+  })
+}
+
 const loadTranscript = () => {
   try {
     const doc = yaml.safeLoad(
