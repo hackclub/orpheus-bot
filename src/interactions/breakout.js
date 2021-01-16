@@ -64,8 +64,6 @@ const interactionBreakout = async (bot, message) => {
     text: transcript('breakout.intro', { channel }),
   })
   bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
-  reaction(bot, 'remove', channel, timestamp, 'beachball'),
-  reaction(bot, 'add', channel, timestamp, 'dino_thumbsup')
 
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
@@ -75,6 +73,8 @@ const interactionBreakout = async (bot, message) => {
     'Creation Timestamp': timestamp,
     'Last Updated Timestamp': timestamp,
   })
+  reaction(bot, 'remove', channel, timestamp, 'beachball'),
+  reaction(bot, 'add', channel, timestamp, 'thumbsup-dino')
 }
 
 export default interactionBreakout
