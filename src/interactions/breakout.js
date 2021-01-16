@@ -1,7 +1,7 @@
 import animals from 'animals'
 import { plural } from 'pluralize'
 
-import { getInfoForUser, initBot, airCreate, transcript } from '../utils'
+import { getInfoForUser, initBot, airCreate, transcript, reaction } from '../utils'
 
 const getChannelName = async channel =>
   new Promise((resolve, reject) => {
@@ -46,7 +46,13 @@ const interactionBreakout = async (bot, message) => {
   const { ts: timestamp, channel, user } = message
   const { slackUser } = await getInfoForUser(user)
 
+  await reaction(bot, 'add', channel, timestamp, 'beachball')
+
   if (slackUser.is_restricted) {
+    await Promise.all([
+      reaction(bot, 'remove', channel, timestamp, 'beachball'),
+      reaction(bot, 'add', channel, timestamp, 'no_entry')
+    ])
     return // MCG can't create channels
   }
 
@@ -58,6 +64,8 @@ const interactionBreakout = async (bot, message) => {
     text: transcript('breakout.intro', { channel }),
   })
   bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
+  reaction(bot, 'remove', channel, timestamp, 'beachball'),
+  reaction(bot, 'add', channel, timestamp, 'dino_thumbsup')
 
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
