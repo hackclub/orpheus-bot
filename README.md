@@ -123,3 +123,4 @@ _◊ = Slack owner/admin only_
 - Mentioning `@orpheus` in a message that contains `sass` or `mock` will [trigger a sassy response](src/interactions/mocking.js)
 - Asking `what are you doing` in a message `@orpheus` is tagged in will trigger a response
 - Tagging `@orpheus` in a message that doesn't map to an existing interaction will [trigger a confused response](src/interactions/catchall.js)
+- The phrase `get a room` in a post or thread will [trigger the breakout commmand](src/interactions/breakout.js)
