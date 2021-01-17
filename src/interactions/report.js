@@ -4,7 +4,7 @@ const interactionReport = async (bot, message) => {
   const report = await airCreate(
     'User Instance',
     { 'Slack ID': message.user, },
-    { base: 'conduct_reports' }
+    { base: 'conduct' }
   )
 
   const reportFormUrl =
