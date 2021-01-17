@@ -20,6 +20,9 @@ bases.sdp = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
 bases.som = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   'appaqcJtn33vb59Au'
 )
+bases.conduct = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
+  'appWBF7Y4iVV3dI5q'
+)
 
 const airtableRatelimiter = new Bottleneck({
   // maxConcurrent: 5,

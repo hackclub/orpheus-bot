@@ -29,6 +29,7 @@ import interactionAddress from './interactions/address'
 import interactionClubAddress from './interactions/clubAddress'
 import interactionDM from './interactions/dm'
 import interactionStartup from './interactions/startup'
+import interactionReport from './interactions/report'
 import interactionForget from './interactions/forget'
 import interactionAirtable from './interactions/airtable'
 import interactionCheckinNotification from './interactions/checkinNotification'
@@ -213,6 +214,10 @@ controller.on('slash_command', async (bot, message) => {
 
           case '/rename-channel':
             await interactionRename(bot, message)
+            break
+
+          case '/report':
+            await interactionReport(bot, message)
             break
 
           case '/meeting-time':

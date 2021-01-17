@@ -471,6 +471,7 @@ fileShare:
     Yeah! Here's yo' links <@${this.user}>
     ${this.links.join('\n')}
 clubInit: Hey! You've found a command that's still unfinished. The recommended way to start a club with Hack Club is going to https://apply.hackclub.com.
+report: Here's the form to fill out a CoC report. ${this.reportFormUrl}
 documentation:
   url: https://github.com/hackclub/orpheus-bot
   formatLink: <${this.t('documentation.url')}|${this.text}>
