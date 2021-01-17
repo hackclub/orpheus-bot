@@ -60,7 +60,7 @@ const replyTypo = async ({bot, message}) => {
 
 const interactionDocumentation = async (bot, message) => {
   try {
-    if (Math.random() < 0.1) {
+    if (Math.random() < 0.3) {
       replyTypo({bot, message})
     } else {
       await replyFancy({bot, message, content: transcript('documentation.flavor') })

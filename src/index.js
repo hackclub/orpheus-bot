@@ -118,7 +118,7 @@ controller.hears('date', 'direct_mention', interactionDate)
 controller.hears('breakout', 'direct_mention', interactionBreakout)
 controller.hears('get a room', 'ambient', interactionBreakout)
 
-controller.hears(['docs', 'documentation', 'readme'], 'direct_mention',interactionDocumentation)
+controller.hears(['docs', 'documentation', 'readme'], 'direct_mention,direct_message',interactionDocumentation)
 
 controller.hears(/(\d+)/, 'message_replied', async (bot, message) => {
   if (message.thread.originalPoster) {

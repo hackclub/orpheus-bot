@@ -477,10 +477,12 @@ documentation:
   typos:
     - EATME
     - REAMDE
+    - REMEAD
+    - MEREAD
   flavor:
     - README!
     - Read my docs!
-    - Check out these docs
+    - Check out these docs!
     - Docs, Docs, get 'em while they're hot!
     - READIT!
-    - RTFM– read the _fabulous_ manual
+    - RTFM– read the _fabulous_ manual!
