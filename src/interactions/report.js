@@ -1,4 +1,4 @@
-import { airCreate, transcript } from '../../utils'
+import { airCreate, transcript } from '../utils'
 
 const interactionReport = async (bot, message) => {
   const report = await airCreate(
