@@ -1,4 +1,4 @@
-import { transcript, getInfoForUser } from '../utils'
+import { transcript, getInfoForUser, reaction } from '../utils'
 import interactionMocking from './mocking'
 
 const interactionCatchall = (bot, message) => {
@@ -15,12 +15,7 @@ const interactionCatchall = (bot, message) => {
           interactionMocking(bot, message)
         }
       } else {
-        bot.api.reactions.add(
-          { timestamp, channel, name: transcript('catchall.emoji') },
-          err => {
-            if (err) console.error(err)
-          }
-        )
+        reaction(bot, 'add', channel, timestamp, transcript('catchall.emoji'))
       }
     }
   })

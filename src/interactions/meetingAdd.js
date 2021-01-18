@@ -1,6 +1,6 @@
 import { parseDate } from 'chrono-node'
 
-import { recordMeeting, getInfoForUser, transcript, initBot } from '../utils'
+import { recordMeeting, getInfoForUser, transcript, initBot, reaction } from '../utils'
 
 import interactionTutorial from './tutorial'
 
@@ -40,18 +40,7 @@ const reactOnSuccess = ({ club, history }) => {
         })
     )
     .then(message => {
-      initBot().api.reactions.add(
-        {
-          timestamp: message.ts,
-          channel: message.channel.id,
-          name: 'white_check_mark',
-        },
-        err => {
-          if (err) {
-            console.error(err)
-          }
-        }
-      )
+      reaction(initBot(), 'add', message.channel.id, message.ts, 'white_check_mark')
 
       initBot().replyInThread(
         { channel: message.channel.id, ts: message.ts },

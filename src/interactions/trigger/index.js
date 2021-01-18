@@ -1,7 +1,7 @@
 import dinoBadge from './dinoBadge'
 import scheduleCheckin from './scheduleCheckin'
 import updateBreakouts from './updateBreakouts'
-import { initBot } from '../../utils'
+import { initBot, reaction } from '../../utils'
 
 const getAdmin = (bot, user) =>
   new Promise((resolve, reject) => {
@@ -21,22 +21,14 @@ const triggerInteraction = (bot = initBot(), message) => {
   getAdmin(bot, user)
     .then(admin => {
       if (!admin) {
-        bot.api.reactions.add({
-          timestamp: ts,
-          channel: channel,
-          name: 'broken_heart',
-        })
+        reaction(bot, 'add', channel, ts, 'broken_heart')
         throw new Error('user_not_leader')
       }
 
       console.log(
         'I can hear my heart beat in my chest... it fills me with determination'
       )
-      bot.api.reactions.add({
-        timestamp: ts,
-        channel: channel,
-        name: 'heartbeat',
-      })
+      reaction(bot,'add', channel, ts, 'heartbeat')
 
       return Promise.all([
         // We're forcing dryrun to true on schedule checkin while the pandemic

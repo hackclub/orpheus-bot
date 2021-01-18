@@ -1,4 +1,4 @@
-import { getInfoForUser, transcript, airFind } from '../utils'
+import { getInfoForUser, transcript, airFind, reaction } from '../utils'
 
 const substitutions = (text, targetChannel) =>
   new Promise((resolve, reject) => {
@@ -46,11 +46,7 @@ const interactionDM = async (bot, message) => {
             if (err) {
               throw err
             }
-            bot.api.reactions.add({
-              timestamp: message.ts,
-              channel: message.channel,
-              name: 'white_check_mark',
-            })
+            reaction(bot, 'add', message.channel, message.ts, 'white_check_mark')
           }
         )
       }
@@ -59,11 +55,7 @@ const interactionDM = async (bot, message) => {
     console.error(err)
     bot.reply(message, transcript('errors.general', { err }))
 
-    bot.api.reactions.add({
-      timestamp: message.ts,
-      channel: message.channel,
-      name: 'no_entry',
-    })
+    reaction(bot, 'add', message.channel, message.ts, 'no_entry')
   }
 }
 

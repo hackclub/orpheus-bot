@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 
-import { initBot, transcript } from '../utils'
+import { initBot, transcript, reaction } from '../utils'
 
 const generateLink = file => {
   console.log('generating link for file', file.id)
@@ -19,22 +19,6 @@ const generateLink = file => {
         reject(new Error('Slack could not generate public link'))
       }
     })
-  })
-}
-
-const reaction = async (bot = initBot(), addOrRemove, channel, ts, name) => {
-  return new Promise((resolve, reject) => {
-    bot.api.reactions[addOrRemove](
-      { channel, timestamp: ts, name },
-      (err, res) => {
-        if (err) {
-          console.error('error while', addOrRemove, name, ':', err)
-          reject(err)
-        } else {
-          resolve(name)
-        }
-      }
-    )
   })
 }
 
