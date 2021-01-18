@@ -2,10 +2,11 @@ import { airCreate } from "../utils"
 
 const interactionReportFormSubmit = async (bot, message) => {
   const notes = message.view.state.values.notes.notesValue.value
+  console.log('submitting form')
 
   const report = await airCreate(
     'User Instance',
-    { 'Slack ID': message.user, },
+    { 'Slack ID': message.user.id, },
     { base: 'conduct' }
   )
 
