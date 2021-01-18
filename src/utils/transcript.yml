@@ -501,10 +501,11 @@ reportForm:
         type: mrkdwn
         text: ${this.quote}
     - type: input
+      block_id: notes
       element:
         type: plain_text_input
         multiline: True
-        action_id: plain_text_input-action
+        action_id: notesValue
       label:
         type: plain_text
         text: Extra details
