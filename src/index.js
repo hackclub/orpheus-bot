@@ -47,6 +47,7 @@ import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
 import interactionClubInit from './interactions/clubInit'
 import interactionReportForm from './interactions/reportForm'
+import interactionReportFormSubmit from './interactions/reportFormSubmit'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -132,6 +133,12 @@ controller.hears(['sass','mock'], 'direct_message,direct_mention', interactionMo
 
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
+
+controller.on('view_submission', async (bot, message) => {
+  bot.replyAcknowledge()
+
+  await interactionReportFormSubmit(bot, message)
+})
 
 controller.on('message_action', async (bot, message) => {
   const { callback_id, user, channel } = message
