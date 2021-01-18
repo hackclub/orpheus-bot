@@ -54,7 +54,7 @@ const scryMiddleware = message => {
     contextPoints.push(`a ${message.type.replace(/_/, ' ')}`)
   }
   if (message.user) {
-    contextPoints.push(`from <@${message.user}>`)
+    contextPoints.push(`from <@${message?.user?.id || message.user}>`)
   }
   if (message.channel) {
     contextPoints.push(`in <#${message.channel}> (${message.channel})`)
