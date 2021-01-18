@@ -38,7 +38,10 @@ const scryMiddleware = message => {
       quote = `${message.command} ${message.text}`
       break
     case 'message_action':
-      quote = `message action`
+      quote = "`"+JSON.stringify(message, undefined, 2)+"`"
+      break
+    case 'view_submission':
+      quote = "`"+JSON.stringify(message, undefined, 2)+"`"
       break
     default:
       console.log(`Middleware: Not scrying message with type '${type}'`)
