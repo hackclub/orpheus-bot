@@ -148,6 +148,8 @@ controller.on('message_action', async (bot, message) => {
         bot.sendEphemeral({ channel, user, text: "I don't know how to do that message action!" })
         break
     }
+  } catch (err) {
+    console.error(err)
   }
 })
 
