@@ -37,6 +37,9 @@ const scryMiddleware = message => {
     case 'slash_command':
       quote = `${message.command} ${message.text}`
       break
+    case 'message_action':
+      quote = `message action`
+      break
     default:
       console.log(`Middleware: Not scrying message with type '${type}'`)
       return

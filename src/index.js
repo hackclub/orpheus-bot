@@ -133,7 +133,7 @@ controller.hears(['sass','mock'], 'direct_message,direct_mention', interactionMo
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
 controller.on('message_action', async (bot, message) => {
-  console.log(`Received message action from user ${user} in ${channel}`)
+  console.log(`Received message action`)
   console.log({message})
 })
 
