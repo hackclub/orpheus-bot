@@ -487,3 +487,29 @@ documentation:
     - Docs, Docs, get 'em while they're hot!
     - READIT!
     - RTFM– read the _fabulous_ manual!
+reportForm:
+  type: modal
+  title:
+    type: plain_text
+    text: Flag a post
+  submit:
+    type: plain_text
+    text: Submit
+  blocks:
+    - type: section
+      text:
+        type: mrkdwn
+        text: `${this.quote}`
+    - type: input
+      element:
+        type: plain_text_input
+        multiline: true
+        action_id: plain_text_input-action
+      label:
+        type: plain_text
+        text: Label
+        emoji: true
+    - type: context
+      elements:
+        - type: 'mrkdwn'
+          text: 'Optionally include extra details in the notes field.'
