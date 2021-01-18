@@ -506,6 +506,10 @@ reportForm:
         type: plain_text_input
         multiline: True
         action_id: notesValue
+      optional: true
+      hint:
+        type: plain_text
+        text: This is the hint for the form
       label:
         type: plain_text
         text: Extra details
