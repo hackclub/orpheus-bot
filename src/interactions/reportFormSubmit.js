@@ -10,7 +10,7 @@ const interactionReportFormSubmit = async (bot, message) => {
     { base: 'conduct' }
   )
 
-  const submission = await airCreate('Submission', {
+  const submission = await airCreate('Submissions', {
     'Report ID': report.id,
     'Summary': 'This would normally contain a link to the post',
     'Notes': notes
