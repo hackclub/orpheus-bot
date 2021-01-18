@@ -62,7 +62,7 @@ controller.hears(
   }
 )
 
-controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
+controller.hears('checkin', 'direct_message,direct_mention', async (bot, message) => {
     await reaction(bot, 'add', message.channel, message.ts, 'beachball')
     await interactionCheckin(bot, message)
     await Promise.all([
