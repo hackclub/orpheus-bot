@@ -133,8 +133,22 @@ controller.hears(['sass','mock'], 'direct_message,direct_mention', interactionMo
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
 controller.on('message_action', async (bot, message) => {
-  console.log(`Received message action`)
-  console.log({message})
+  const { callback_id, user, channel } = message
+
+  console.log(`Received ${callback_id} message action from user ${user} on a comment in channel ${channel}`)
+
+  bot.replyAcknowledge()
+
+  try {
+    switch (callback_id) {
+      case 'flag_comment':
+        console.log('flag_comment stub')
+        break
+      default:
+        bot.sendEphemeral({ channel, user, text: "I don't know how to do that!" })
+        break
+    }
+  }
 })
 
 controller.on('slash_command', async (bot, message) => {
