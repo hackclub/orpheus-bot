@@ -34,6 +34,7 @@ _Every Slash command comes with a help message. For example, to learn to use `/s
 - ‡[`/get`](/src/interactions/get.js) See a list of available promotions
   - ‡[`/get notion premium`](src/interactions/promos/notionPremium.js) Get a Premium Notion account
   - ‡[`/get adafruit discount`](src/interactions/promos/adafruitDiscount.js) Get a discount code for Adafruit
+- ‡`/report` File a misconduct report
 - **†** ‡`/som-report` Report a Slack user's behavior
 - **†** ‡[`/promo`](src/interactions/promo.js) Renamed to `/get`
 
