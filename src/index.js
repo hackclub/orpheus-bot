@@ -145,7 +145,7 @@ controller.on('message_action', async (bot, message) => {
         console.log('flag_comment stub')
         break
       default:
-        bot.sendEphemeral({ channel, user, text: "I don't know how to do that!" })
+        bot.sendEphemeral({ channel, user, text: "I don't know how to do that message action!" })
         break
     }
   }
