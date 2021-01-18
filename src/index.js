@@ -46,6 +46,7 @@ import interactionFileShare from './interactions/fileShare'
 import interactionSOMPromote from './interactions/som/promote.js'
 import interactionSOMLookup from './interactions/som/lookup'
 import interactionClubInit from './interactions/clubInit'
+import interactionReportForm from './interactions/reportForm'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -143,6 +144,7 @@ controller.on('message_action', async (bot, message) => {
     switch (callback_id) {
       case 'flag_comment':
         console.log('flag_comment stub')
+        await interactionReportForm(bot, message)
         break
       default:
         bot.sendEphemeral({ channel, user, text: "I don't know how to do that message action!" })
