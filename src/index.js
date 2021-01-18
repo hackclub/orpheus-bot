@@ -132,6 +132,11 @@ controller.hears(['sass','mock'], 'direct_message,direct_mention', interactionMo
 // catch-all for direct messages
 controller.hears('.*', 'direct_message,direct_mention', interactionCatchall)
 
+controller.on('message_action', async (bot, message) => {
+  console.log(`Received message action from user ${user} in ${channel}`)
+  console.log({message})
+})
+
 controller.on('slash_command', async (bot, message) => {
   const { command, user, channel, text } = message
 
