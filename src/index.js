@@ -2,7 +2,7 @@ process.env.STARTUP_TIME = Date.now()
 import bugsnag from '@bugsnag/js'
 
 import controller, { initBot } from './controller'
-import { transcript } from './utils'
+import { reaction, transcript } from './utils'
 
 import interactionCheckin from './interactions/checkin'
 import interactionDate from './interactions/date'
@@ -53,24 +53,22 @@ controller.hears(
   'checkin notification',
   'direct_message,direct_mention',
   async (bot, message) => {
-    bot.api.reactions.add({
-      timestamp: message.ts,
-      channel: message.channel,
-      name: 'thumbsup-dino',
-    })
-
-    interactionCheckinNotification(undefined, { user: message.user })
+    await reaction(bot, 'add', message.channel, message.ts, 'beachball')
+    await interactionCheckinNotification(undefined, { user: message.user })
+    await Promise.all([
+      reaction(bot, 'remove', message.channel, message.ts, 'beachball'),
+      reaction(bot, 'add', message.channel, message.ts, 'thumbsup-dino')
+    ])
   }
 )
 
 controller.hears('checkin', 'direct_message,direct_mention', (bot, message) => {
-  bot.api.reactions.add({
-    timestamp: message.ts,
-    channel: message.channel,
-    name: 'thumbsup-dino',
-  })
-
-  interactionCheckin(bot, message)
+    await reaction(bot, 'add', message.channel, message.ts, 'beachball')
+    await interactionCheckin(bot, message)
+    await Promise.all([
+      reaction(bot, 'remove', message.channel, message.ts, 'beachball'),
+      reaction(bot, 'add', message.channel, message.ts, 'thumbsup-dino')
+    ])
 })
 
 controller.hears('thump', 'ambient', interactionTrigger)
