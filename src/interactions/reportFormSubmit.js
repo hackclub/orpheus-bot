@@ -14,6 +14,8 @@ const interactionReportFormSubmit = async (bot, message) => {
     'Report ID': report.id,
     'Summary': 'This would normally contain a link to the post',
     'Notes': notes
-  })
+  },
+    { base: 'conduct' }
+  )
 }
 export default interactionReportFormSubmit
