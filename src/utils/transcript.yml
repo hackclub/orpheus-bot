@@ -499,7 +499,7 @@ reportForm:
     - type: section
       text:
         type: mrkdwn
-        text: `${this.quote}`
+        text: ${this.quote}
     - type: input
       element:
         type: plain_text_input
