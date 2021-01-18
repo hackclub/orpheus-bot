@@ -60,7 +60,7 @@ const scryMiddleware = message => {
     contextPoints.push(`in <#${message.channel}> (${message.channel})`)
   }
   if (message.type === 'view_submission') {
-    console.log(contextPoints)
+    console.log({contextPoints})
   }
   const context = contextPoints.join(' ')
 
