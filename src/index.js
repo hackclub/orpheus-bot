@@ -150,7 +150,6 @@ controller.on('message_action', async (bot, message) => {
   try {
     switch (callback_id) {
       case 'flag_comment':
-        console.log('flag_comment stub')
         await interactionReportForm(bot, message)
         break
       default:
