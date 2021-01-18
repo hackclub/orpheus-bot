@@ -565,8 +565,25 @@ export const transcript = (search, vars) => {
   }
   const searchArr = search.split('.')
   const transcriptObj = loadTranscript()
-
-  return evalTranscript(recurseTranscript(searchArr, transcriptObj), vars)
+  const dehydratedTarget = recurseTranscript(searchArr, transcriptObj)
+  return hydrateObj(dehydratedTarget, vars)
+}
+const hydrateObj = (obj, vars = {}) => {
+  if (obj == null) {
+    return null
+  }
+  if (typeof obj === 'string') {
+    return evalTranscript(obj, vars)
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(o => hydrateObj(o, vars))
+  }
+  if (typeof obj === 'object') {
+    Object.keys(obj).forEach(key => {
+      obj[key] = hydrateObj(obj[key], vars)
+    })
+    return obj
+  }
 }
 const evalTranscript = (target, vars = {}) =>
   function () {
