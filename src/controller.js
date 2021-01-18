@@ -41,7 +41,7 @@ const scryMiddleware = message => {
       quote = JSON.stringify(message, undefined, 2)
       break
     case 'view_submission':
-      quote = JSON.stringify(message, undefined, 2)
+      quote = JSON.stringify(message.view.state, undefined, 2)
       break
     default:
       console.log(`Middleware: Not scrying message with type '${type}'`)
