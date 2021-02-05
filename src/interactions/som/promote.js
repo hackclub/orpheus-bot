@@ -51,6 +51,7 @@ const interactionSOMPromote = async (bot = initBot(), message) => {
   if (!user.caller.slackUser.is_admin) {
     console.log('caller is not an admin, cancelling')
     bot.replyPrivateDelayed(message, transcript('som.approve.notAdmin'))
+    return
   }
   if (!user.tagged.slackUser.is_restricted) {
     console.log('tagged is not restricted, cancelling')
