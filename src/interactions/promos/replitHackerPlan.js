@@ -9,7 +9,7 @@ export const names = [
   'Replit Hacker'
 ]
 
-export const details = 'Available to anyone'
+export const details = 'Available for club leaders to give their members'
 export async function run(bot, message) {
   const { user } = message
   const { leader, club } = await getInfoForUser(user)
