@@ -404,6 +404,9 @@ promos:
     success: You and all your club members can use this link to apply hack.af/pack. Make sure to select "${this.referrer}" in the "Hack Club / Hackathon" field.
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
   adafruit: Go to adafruit.com and use \`HACKCLUB\` as a promo code to get a 10% discount! 
+  replit:
+    success: Go to https://repl.it/claim?code=h4ckc1ub21 to claim a free Hacker Plan. Feel free to share this with your coleads and club members, but nobody else (we have a limited amount of codes available).
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
   githubGrant:
     programClosed: |
       We've given out all the money from GitHub's grant fund from the 2019-2020 school year. We're currently talking to them about renewing the fund for next year, so check back later.
