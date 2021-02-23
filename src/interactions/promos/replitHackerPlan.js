@@ -1,4 +1,4 @@
-import { transcript } from '../../utils'
+import { transcript, getInfoForUser } from '../../utils'
 
 export const names = [
   'Replit',
