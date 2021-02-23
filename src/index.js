@@ -48,6 +48,7 @@ import interactionSOMLookup from './interactions/som/lookup'
 import interactionClubInit from './interactions/clubInit'
 import interactionReportForm from './interactions/reportForm'
 import interactionReportFormSubmit from './interactions/reportFormSubmit'
+import interactionEmail from './interactions/email'
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY)
 
@@ -237,6 +238,10 @@ controller.on('slash_command', async (bot, message) => {
 
           case '/get':
             await interactionGet(bot, message)
+            break
+
+          case '/my-email':
+            await interactionEmail(bot, message)
             break
 
           case '/rename-channel':
