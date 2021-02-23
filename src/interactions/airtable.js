@@ -11,6 +11,7 @@ export default async (bot, message) => {
     const info = await getInfoForUser(taggedUserID)
     const caller = await getInfoForUser(message.user)
     const runByAdmin = caller?.slackUser?.is_admin
+    const runBySelf = message.user == taggedUserID
 
     if (!info.person) {
       throw new Error(
@@ -35,8 +36,8 @@ export default async (bot, message) => {
     if (info.mailSender) {
       results.senderAirtableRecord = `<https://airtable.com/tblvW60Qdo2AdoN1s/${info.mailSender.id}?blocks=hide|Sender record>`
     }
-    if (runByAdmin) {
-      results.email = info.person.fields['Full Name']
+    if (runByAdmin || runBySelf) {
+      results.fullName = info.person.fields['Full Name']
       results.email = info.person.fields['Email']
       results.phoneNumber = info.person.fields['Phone number']
     }
