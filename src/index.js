@@ -165,7 +165,7 @@ controller.on('message_action', async (bot, message) => {
 controller.on('slash_command', async (bot, message) => {
   const { command, user, channel, text } = message
 
-  console.log(`Received ${command} command from user ${user} in ${channel}`)
+  console.log(`Received ${command} command from user ${user} in ${channel} with text '${text}'`)
 
   bot.replyAcknowledge()
 
