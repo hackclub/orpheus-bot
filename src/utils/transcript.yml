@@ -364,6 +364,12 @@ leaderList:
   leader: "\n- <@${this.leader.fields['Slack ID']}>"
 promos:
   zoom:
+    discontinued: |
+      At the start of the 2020 school year we gave out Zoom Pro accounts to a single leader from each club through this command. Now we've built an even better platform that everyone in the Slack can use to run Zoom Pro meetings.
+
+      You can now start a Zoom Pro meeting anywhere in the Slack by running \`/z\`.
+
+      There's also a Google Calendar scheduling addon that will let you add Zoom Pro meetings to your calendar. You can join the beta by going to the app's homepage: <@U01MQRGUG5P>.
     help: |
       Help message
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.

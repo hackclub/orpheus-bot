@@ -9,6 +9,12 @@ export async function run(bot, message) {
   const { user } = message
   const { leader, club } = await getInfoForUser(user)
 
+  await bot.replyPrivateDelayed(
+    message,
+    transcript('promos.zoom.discontinued')
+  )
+  return
+
   if (!leader || !club) {
     await bot.replyPrivateDelayed(
       message,
