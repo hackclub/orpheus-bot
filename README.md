@@ -65,7 +65,7 @@ _**†** = deprecated_
 - Δ[`/leader-add @USER`](src/interactions/leaderAdd.js) Add another Slack user as a leader for your club
 - Δ[`/leader-list`](src/interactions/leaderList.js) Print out the Slack accounts of registered co-leads
 - ‡[`/get`](src/interactions/get.js) See a list of available promotions
-  - Δ[`/get zoom pro`](src/interactions/promos/zoom.js) Upgrade to a Zoom Pro account
+  - **†** Δ[`/get zoom pro`](src/interactions/promos/zoom.js) Upgrade to a Zoom Pro account. Deprecated in favor of https://github.com/hackclub/slash-z
   - Δ[`/get hack pack`](src/interactions/promos/hackPack.js) Add club to list of Hack Pack approved clubs
   - Δ[`/get sticker envelope`](src/interactions/promos/stickerEnvelope.js) Order a sticker envelope for yourself or another slack user
   - Δ[`/get stickermule`](src/interactions/promos/stickermule.js) Request credit on StickerMule
