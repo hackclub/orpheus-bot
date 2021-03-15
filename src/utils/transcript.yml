@@ -365,6 +365,8 @@ leaderList:
 promos:
   zoom:
     discontinued: |
+      You don't need this promo anymore!
+
       At the start of the 2020 school year we gave out Zoom Pro accounts to a single leader from each club through this command. Now we've built an even better platform that everyone in the Slack can use to run Zoom Pro meetings.
 
       You can now start a Zoom Pro meeting anywhere in the Slack by running \`/z\`.
