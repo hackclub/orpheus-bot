@@ -1,4 +1,5 @@
 import { airGet, initBot, airPatch, transcript } from '../../utils'
+import interactionJoinChannel from '../joinChannel'
 
 export default async (bot = initBot(), message) => {
   const breakoutChannels = await airGet(
@@ -55,6 +56,7 @@ export default async (bot = initBot(), message) => {
 }
 
 const closeBreakout = async (bot, message, breakout) => {
+  await interactionJoinChannel(nil, { channel: breakout })
   const archivedName =
     'archived-' +
     breakout.fields['Breakout Channel Name'] +

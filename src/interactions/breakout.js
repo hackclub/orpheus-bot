@@ -65,6 +65,8 @@ const interactionBreakout = async (bot, message) => {
   })
   bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
 
+  interactionJoinChannel(bot, { channel: breakout })
+
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
     'Breakout Channel Name': breakout.name,
