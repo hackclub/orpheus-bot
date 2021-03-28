@@ -243,6 +243,7 @@ errors:
     - https://youtu.be/fYM0RuKElIQ
     - https://youtu.be/r1gNHREgecI
     - https://youtu.be/ljbSoFJSn1U
+    - https://www.youtube.com/watch?v=lMUSyvTBokc
   general: |
     Something went wrong\: \`${this.err}\`
     ${this.err.stack ? this.t('errors.stack', {err:this.err}):''}
