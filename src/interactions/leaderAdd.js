@@ -36,6 +36,18 @@ const interactionLeaderAdd = async (bot, message) => {
     Clubs: [...taggedUserClubs, recipientClub.id],
   })
 
+  // invite leader to #leaders and their club channel
+  bot.api.conversations.invite({
+    token: bot.config.bot.access_token,
+    channel,
+    users: taggedUserID
+  })
+  bot.api.conversations.invite({
+    token: bot.config.bot.access_token,
+    channel: 'GAE0FFNFN',
+    users: taggedUserID
+  })
+
   bot.replyPrivateDelayed(
     message,
     transcript('leaderAdd.success', { taggedUserID, channel })
