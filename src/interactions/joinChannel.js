@@ -13,6 +13,7 @@ const joinChannel = async channel => {
 
 const interactionJoinChannel = async (bot = initBot(), message = {}) => {
   const { channel } = message
+  console.log("I'm going to try joining", channel)
 
   const result = await joinChannel(channel)
 
