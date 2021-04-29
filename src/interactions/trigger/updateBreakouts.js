@@ -56,7 +56,7 @@ export default async (bot = initBot(), message) => {
 }
 
 const closeBreakout = async (bot, message, breakout) => {
-  await interactionJoinChannel(nil, { channel: breakout })
+  await interactionJoinChannel(null, { channel: breakout })
   const archivedName =
     'archived-' +
     breakout.fields['Breakout Channel Name'] +
