@@ -1,6 +1,8 @@
 import animals from 'animals'
 import { plural } from 'pluralize'
 
+import interactionJoinChannel from './joinChannel'
+
 import { getInfoForUser, initBot, airCreate, transcript, reaction } from '../utils'
 
 const getChannelName = async channel =>
