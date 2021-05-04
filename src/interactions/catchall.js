@@ -9,7 +9,7 @@ const interactionCatchall = (bot, message) => {
       bot.replyInThread(message, transcript('catchall.botReply'))
     } else {
       if (Math.random() > 0.5) {
-        if (Math.random() > 0.15) {
+        if (Math.random() > 0.5) {
           bot.replyInThread(message, transcript('catchall.reply'))
         } else {
           interactionMocking(bot, message)
