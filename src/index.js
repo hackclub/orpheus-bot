@@ -297,6 +297,7 @@ controller.on('slash_command', async (bot, message) => {
 })
 
 controller.on('reaction_added', async (bot, message) => {
+  bot.replyAcknowledge()
   const { reaction, user, item } = message
   const { channel } = item
   if (reaction == 'admission_tickets') {
