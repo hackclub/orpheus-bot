@@ -530,3 +530,8 @@ reportForm:
       elements:
         - type: 'mrkdwn'
           text: 'Optionally include extra details in the notes field.'
+secretProject:
+  ticket: >
+    Howdy there! Let's see that ticket
+    *Ka_chunk_* :ticket_punched:
+    Here you go! <https://tickets.hackclub.com/${this.user}|Your RSVP is confirmed.>
