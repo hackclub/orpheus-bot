@@ -296,15 +296,19 @@ controller.on('slash_command', async (bot, message) => {
   )
 })
 
-controller.on('reaction_added', (bot, message) => {
+controller.on('reaction_added', async (bot, message) => {
   const { reaction, user, item } = message
   const { channel } = item
   if (reaction == 'admission_tickets') {
     // if (channel == 'C0266FRGT' /* #announcements */) {
     if (channel == 'C0P5NE354' /* #bot-spam */) {
-      bot.say({
+      await bot.say({
         channel: user,
         text: transcript('secretProject.ticket', { user }),
+      })
+      await bot.say({
+        channel: user,
+        text: transcript('secretProject.link'),
       })
     }
   }
