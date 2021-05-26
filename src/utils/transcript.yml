@@ -533,5 +533,6 @@ reportForm:
 secretProject:
   ticket: |
     Howdy there! Let's see that ticket
-    _ka-**chunk_** :ticket_punched:
+    _ka- *chunk_* :ticket_punched:
     Here you go! <https://tickets.hackclub.com/${this.user}|Your RSVP is confirmed.>
+    The call will happen in *https://hack.af/summer-secret*
