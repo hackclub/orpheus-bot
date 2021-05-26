@@ -302,14 +302,24 @@ controller.on('reaction_added', async (bot, message) => {
   if (reaction == 'admission_tickets') {
     // if (channel == 'C0266FRGT' /* #announcements */) {
     if (channel == 'C0P5NE354' /* #bot-spam */) {
-      await bot.say({
+      bot.say({
         channel: user,
-        text: transcript('secretProject.ticket', { user }),
-      })
-      await bot.say({
-        channel: user,
-        text: transcript('secretProject.link'),
-      })
+        text: transcript('secretProject.ticket', {user}),
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: transcript('secretProject.ticket', {user})
+            }
+          },
+          {
+            "type": "image",
+            "image_url": transcript('secretProject.image', {user}),
+            "alt_text": "Your ticket"
+          }
+        ]}
+      )
     }
   }
 })
