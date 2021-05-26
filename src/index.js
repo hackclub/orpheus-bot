@@ -297,7 +297,9 @@ controller.on('slash_command', async (bot, message) => {
 })
 
 controller.on('reaction_added', (bot, message) => {
-  console.log({message})
+  if (message.reaction == 'admission_tickets') {
+    console.log({message})
+  }
 })
 
 controller.on('block_actions', (bot, message) => {
