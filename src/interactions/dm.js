@@ -1,4 +1,5 @@
 import { getInfoForUser, transcript, airFind, reaction } from '../utils'
+import interactionJoinChannel from './joinChannel'
 
 const substitutions = (text, targetChannel) =>
   new Promise((resolve, reject) => {
@@ -37,6 +38,14 @@ const interactionDM = async (bot, message) => {
       .replace(/@_/, '@')
     const messageRegex = /dm <.*?[@#](.+?(?=[>\|])).*?>\s*((?:.|\s)*)/
     const [_, targetChannel, targetMessage] = encodedText.match(messageRegex)
+
+    if (targetChannel[0].toLowerCase() == 'c') {
+      try {
+        await interactionJoinChannel(bot, {channel: targetChannel})
+      } catch (e) {
+        // oh well...
+      }
+    }
 
     return substitutions(targetMessage, targetChannel).then(
       substitutedMessage => {
