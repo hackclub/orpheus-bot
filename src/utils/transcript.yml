@@ -116,6 +116,21 @@ whatAreYouDoing:
   - my best...
   - ¯\\_(ツ)_/¯
   - ':shrug:'
+  - ':kanyeshrug:'
+whoAreYou: # also 'what are you'
+  - I'm a poorly drawn dinosaur!
+  - I'm a baby dinosaur!
+  - I'm a dinosaur!
+  - Check out my social! hack.af/dinos
+  - Check out my codebase! https://github.com/hackclub/orpheus-bot
+  - Check out my docs! https://github.com/hackclub/orpheus-bot
+  - I asked you first! Who are *you*?
+  - No, who are you?
+whereAreYou:
+  - in the cloud!
+  - hanging out with the other bots
+  - I'm chilling at 127.0.0.1
+  - i'm just hang'n out in heroku
 thanks:
   - you're welcome!
   - sure thing!

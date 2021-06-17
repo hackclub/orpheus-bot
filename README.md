@@ -119,6 +119,9 @@ _◊ = Slack owner/admin only_
 
 - Posting files in the `#cdn` channel will [host them on a cdn link](/src/interactions/fileShare.js)
 - Mentioning `@orpheus` in a message that contains `thanks/thank you/thnx` etc. will trigger a response
+- Mentioning `@orpheus` in a message that contains `who are you` etc. will trigger a response
+- Mentioning `@orpheus` in a message that contains `where are you` etc. will trigger a response
+- Mentioning `@orpheus` in a message that contains `what are you doing` etc. causes orpheus to shrug
 - Mentioning `hacktoberfest` in a message will trigger an [ephemeral response to the user](src/interactions/hacktoberfest.js) (but only in Oct)
 - Mentioning `@orpheus` in a message that contains `hello` will [trigger a response](src/interactions/hello.js)
 - Mentioning `@orpheus` in a message that contains `sass` or `mock` will [trigger a sassy response](src/interactions/mocking.js)

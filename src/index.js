@@ -113,6 +113,22 @@ controller.hears(
   }
 )
 
+controller.hears(
+  ['who are you', 'who is'],
+  'direct_mention,direct_message,mention',
+  (bot, message) => {
+    bot.reply(message, transcript('whoAreYou'))
+  }
+)
+
+controller.hears(
+  'where are you',
+  'direct_mention,direct_message,mention',
+  (bot, message) => {
+    bot.reply(message, transcript('whereAreYou'))
+  }
+)
+
 controller.hears('find or create', 'direct_mention', interactionFindOrCreate)
 
 controller.hears('date', 'direct_mention', interactionDate)
