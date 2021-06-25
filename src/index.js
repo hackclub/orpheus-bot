@@ -312,34 +312,6 @@ controller.on('slash_command', async (bot, message) => {
   )
 })
 
-controller.on('reaction_added', async (bot, message) => {
-  bot.replyAcknowledge()
-  const { reaction, user, item } = message
-  const { channel } = item
-  if (reaction == 'admission_tickets') {
-    if (channel == 'C0P5NE354' /* #bot-spam */ || channel == 'C0266FRGT' /* #announcements */) {
-      bot.say({
-        channel: user,
-        text: transcript('secretProject.ticket', {user}),
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: transcript('secretProject.ticket', {user})
-            }
-          },
-          {
-            "type": "image",
-            "image_url": transcript('secretProject.image', {user}),
-            "alt_text": "Your ticket"
-          }
-        ]}
-      )
-    }
-  }
-})
-
 controller.on('block_actions', (bot, message) => {
   try {
     const { channel, text } = message
