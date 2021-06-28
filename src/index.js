@@ -316,7 +316,7 @@ controller.on('reaction_added', async (bot, message) => {
   bot.replyAcknowledge()
   const { reaction, user, item } = message
   const { channel } = item
-  if (reaction == 'admission_tickets') {
+  if (reaction == 'face_with_cowboy_hat') {
     if (channel == 'C0P5NE354' /* #bot-spam */ || channel == 'C0266FRGT' /* #announcements */) {
       bot.say({
         channel: user,
