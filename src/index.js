@@ -317,7 +317,7 @@ controller.on('reaction_added', async (bot, message) => {
   const { reaction, user, item } = message
   const { channel } = item
   if (reaction == 'face_with_cowboy_hat') {
-    if (channel == 'C0P5NE354' /* #bot-spam */ || channel == 'C0266FRGT' /* #announcements */ || channel == 'C021TJA96UC' /* private-summer-channel */) {
+    if (channel == 'C0P5NE354' /* #bot-spam */ || channel == 'C0266FRGT' /* #announcements */ || channel == 'C021TJA96UC' /* private-summer-channel */ || channel == 'C0274DWBZQC'  /* private-testing-channel */) {
       bot.say({
         channel: user,
         text: transcript('secretProject.ticket', {user}),
