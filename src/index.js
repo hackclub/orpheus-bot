@@ -316,6 +316,7 @@ controller.on('reaction_added', async (bot, message) => {
   bot.replyAcknowledge()
   const { reaction, user, item } = message
   const { channel } = item
+  const names = ['Curly','Django','Billy','Smiley’,Blueridge','Poppy','Blackie','Buckey','Whitey','Mojo’,Lefty','Smokey','Shorty','Whiskey','Bronco','Trapper','Amarillo','Dakota','Cactus’,’Buck’,’Brownie','Pale Face','Pat','Paco','Gonzales','Bob','The Lucky’,’The Terrible’,’The Fearsome’,’The Hot-Tempered’,’The Lone’,’The Back-Stabbing','The Cross-Eyed','The Bad','The One-Eyed','The Ruthless','The Wanted','The Stubborn’,’The Desperate','The Mule-Headed','The Happy','The Crazy','The Lawless','The Saddlesore','The Sharp-Eyed','The Wild','The Unruly','The Paranoid','The Angry','The Blood-Thirsty','The Rotten','The Big','Gold-Digger','Stagecoach-Robber','Bull of the Woods','Sharpshooter','Farmer','Flapjack','Sundance Kid','Gunslinger','Rustler','Buffalo Hunter','Rattlesnake','Cotton-Mouth','Dude','Deadwood’,’Mustang','Cowbox','Gambler','Apache','Water trough diver’,’Gunslinger’,’Outlaw’,’Bushwacker’,’Bearcat’,’Jailbreaker’,’Itchy-Trigger’]
   if (reaction == 'face_with_cowboy_hat') {
     if (channel == 'C0P5NE354' /* #bot-spam */ || channel == 'C0266FRGT' /* #announcements */ || channel == 'C021TJA96UC' /* private-summer-channel */ || channel == 'C0274DWBZQC'  /* private-testing-channel */) {
       bot.say({
