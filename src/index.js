@@ -413,7 +413,7 @@ controller.on("reaction_added", async (bot, message) => {
     "Jailbreaker",
     "Itchy-Trigger",
   ];
-  if (reaction == "face_with_cowboy_hat" || reaction == "pleading_cowboy" || reaction == "sadcowboy" || reaction == "pensivecowboy" || reaction == "cowboy-turtle" || reaction == "shooting_pepe_cowboy") {
+  if (reaction == "face_with_cowboy_hatx" || reaction == "pleading_cowboyx" || reaction == "sadcowboyx" || reaction == "pensivecowboyx" || reaction == "cowboy-turtlex" || reaction == "shooting_pepe_cowboyx") {
     if (
       channel == "C0P5NE354" /* #bot-spam */ ||
       channel == "C0266FRGT" /* #announcements */ ||
