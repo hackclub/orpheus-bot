@@ -547,5 +547,5 @@ reportForm:
           text: 'Optionally include extra details in the notes field.'
 secretProject:
   ticket: |
-    Howdy there! I've got a new look for you, how about you try it out as a new PFP?
+    Howdy partner! I've got a new look for you, how about you try it out as a new PFP? You're going to want to download a nice crisp copy <http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}|here>.
   image:  http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}
