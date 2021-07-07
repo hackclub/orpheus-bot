@@ -549,3 +549,6 @@ secretProject:
   ticket: |
     Howdy partner, or should I say howdy ${this.name} <@${this.user}>! I've got a new look for you, how about you try it out as a new PFP? You're going to want to download a nice crisp copy <http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}|here>.
   image:  http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}
+secretProject2:
+  ticket: |
+    Welcome to the games <@${this.user}>! We're so excited to have you join us, check your email for me details!
