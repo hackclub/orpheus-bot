@@ -445,6 +445,7 @@ controller.on("reaction_added", async (bot, message) => {
       channel == "C021TJA96UC" /* private-summer-channel */ ||
       channel == "C0274DWBZQC" /* private-testing-channel */
     ) {
+      await fetch(`https://games.hackclub.dev/api/sign-up?username=${user}`)
       bot.say({
         channel: user,
         text: transcript("secretProject2.ticket", { user }),
