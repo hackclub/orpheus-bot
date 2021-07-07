@@ -551,4 +551,4 @@ secretProject:
   image:  http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}
 secretProject2:
   ticket: |
-    Welcome to the games <@${this.user}>! We're so excited to have you join us, check your email for me details!
+    Welcome to the games <@${this.user}>! We're so excited to have you join us, check your email for more details!
