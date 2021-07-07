@@ -440,6 +440,26 @@ controller.on("reaction_added", async (bot, message) => {
       });
     }
   }
+  else if (reaction == "trophy") {
+    if (
+      channel == "C021TJA96UC" /* private-summer-channel */ ||
+      channel == "C0274DWBZQC" /* private-testing-channel */
+    ) {
+      bot.say({
+        channel: user,
+        text: transcript("secretProject2.ticket", { user }),
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: transcript("secretProject2.ticket", { user }),
+            },
+          }
+        ],
+      });
+    }
+  }
 });
 
 controller.on("block_actions", (bot, message) => {
