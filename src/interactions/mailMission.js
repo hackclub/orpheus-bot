@@ -1,7 +1,7 @@
 import { initBot, transcript } from '../utils'
 
 const DEFAULT_CHANNEL = 'GNTFDNEF8'
-const POSTMASTER = 'UNRAW3K7F'
+const POSTMASTER = 'URZHZS3L6'
 
 const interactionMailMission = (
   bot = initBot(),
