@@ -440,8 +440,10 @@ controller.on("reaction_added", async (bot, message) => {
       });
     }
   }
-  else if (reaction == "trophy") {
+  else if (reaction == "earth_americas" || reaction == "earth_asia" || reaction == "earth_africa") {
     if (
+      channel == "C0P5NE354" /* #bot-spam */ ||
+      channel == "C0266FRGT" /* #announcements */ ||
       channel == "C021TJA96UC" /* private-summer-channel */ ||
       channel == "C0274DWBZQC" /* private-testing-channel */
     ) {
