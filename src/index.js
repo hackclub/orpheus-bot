@@ -440,7 +440,7 @@ controller.on("reaction_added", async (bot, message) => {
       });
     }
   }
-  else if (reaction == "earth_americas" || reaction == "earth_asia" || reaction == "earth_africa") {
+  else if (reaction == "earth_americas" || reaction == "earth_asia" || reaction == "earth_africa" || reaction == "ultrafastparrot" ) {
     if (
       channel == "C0P5NE354" /* #bot-spam */ ||
       channel == "C0266FRGT" /* #announcements */ ||
