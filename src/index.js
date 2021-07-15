@@ -442,10 +442,7 @@ controller.on("reaction_added", async (bot, message) => {
   }
   else if (reaction == "earth_americas" || reaction == "earth_asia" || reaction == "earth_africa" || reaction == "ultrafastparrot" ) {
     if (
-      channel == "C0P5NE354" /* #bot-spam */ ||
-      channel == "C0266FRGT" /* #announcements */ ||
-      channel == "C021TJA96UC" /* private-summer-channel */ ||
-      channel == "C0274DWBZQC" /* private-testing-channel */
+      channel == "C0266FRGT" /* #announcements */ &&  ts == "1626196839.245600"
     ) {
       await fetch(`https://games.hackclub.dev/api/sign-up?username=${user}`)
       bot.say({
