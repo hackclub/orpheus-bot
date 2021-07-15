@@ -339,7 +339,7 @@ controller.on("slash_command", async (bot, message) => {
 controller.on("reaction_added", async (bot, message) => {
   bot.replyAcknowledge();
   const { reaction, user, item } = message;
-  const { channel } = item;
+  const { channel, ts } = item;
   const names = [
     "Curly",
     "Django",
@@ -415,10 +415,10 @@ controller.on("reaction_added", async (bot, message) => {
   ];
   if (reaction == "face_with_cowboy_hat" || reaction == "pleading_cowboy" || reaction == "sadcowboy" || reaction == "pensivecowboy" || reaction == "cowboy-turtle" || reaction == "shooting_pepe_cowboy") {
     if (
-      channel == "C0P5NE354" /* #bot-spam */ ||
+      (channel == "C0P5NE354" /* #bot-spam */ ||
       channel == "C0266FRGT" /* #announcements */ ||
       channel == "C021TJA96UC" /* private-summer-channel */ ||
-      channel == "C0274DWBZQC" /* private-testing-channel */
+      channel == "C0274DWBZQC" /* private-testing-channel */) &&  ts == "1626196839.245600"
     ) {
       bot.say({
         channel: user,
