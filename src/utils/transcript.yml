@@ -292,7 +292,7 @@ slackInvite:
   noClubChannel: I couldn't find a club channel owned by you
   invalidUser: Only club leaders can use this command
   instructions: |
-      <#${this.channel}>'s invite link is: https://hack.af/slack?c=${this.channel}. If you'd like to put it on a poster, you can use  <https://api.qrserver.com/v1/create-qr-code/?data=https://hack.af/slack?c=${this.channel}&size=900x900|this QR code>! Or if you'd like to introduce Slack through a workshop you can try out the "Your First Ship" workshop (your club's slide link).
+      <#${this.channel}>'s invite link is: https://hack.af/slack?c=${this.channel}. If you'd like to put it on a poster, you can use <https://api.qrserver.com/v1/create-qr-code/?data=https://hack.af/slack?c=${this.channel}&size=900x900|this QR code>! Or if you'd like to introduce Slack through a workshop you can try out the <"Your First Ship" workshop|https://workshops.hackclub.com/your_first_ship/> <https://your-first-ship.hackclub.com/${this.channel}|(your club's slide link)>.
 meetingRemove:
   help: |
     This command will remove a club meeting for your club's history. Example usage\:
