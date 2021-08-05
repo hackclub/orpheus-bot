@@ -11,6 +11,7 @@ import interactionStats from "./interactions/stats";
 import interactionHello from "./interactions/hello";
 import interactionTrigger from "./interactions/trigger";
 import interactionRename from "./interactions/rename";
+import interactionSlackInvite from "./interactions/slack-invite";
 import interactionLeaderAdd from "./interactions/leaderAdd";
 import interactionLeaderList from "./interactions/leaderList";
 import interactionMeetingList from "./interactions/meetingList";
@@ -286,6 +287,10 @@ controller.on("slash_command", async (bot, message) => {
 
           case "/rename-channel":
             await interactionRename(bot, message);
+            break;
+
+          case "/slack-invite":
+            await interactionSlackInvite(bot, message);
             break;
 
           case "/report":
