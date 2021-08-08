@@ -2,7 +2,7 @@ import { initBot, transcript, getInfoForUser } from "../utils";
 import AirtablePlus from "airtable-plus";
 
 const joinTable = new AirtablePlus({
-  apiKey: process.env.AIRTABLE_API_KEY,
+  apiKey: process.env.AIRTABLE_KEY,
   baseID: "appaqcJtn33vb59Au",
   tableName: "Join Requests",
 });
