@@ -293,8 +293,7 @@ slackInvite:
   invalidUser: Only club leaders can use this command
   instructions: |
       <#${this.channel}>'s invite link is: https://hack.af/slack?c=${this.channel}. If you'd like to put it on a poster, you can use <https://api.qrserver.com/v1/create-qr-code/?data=https://hack.af/slack?c=${this.channel}&size=900x900|this QR code>! Or if you'd like to introduce Slack through a workshop you can try out the <https://workshops.hackclub.com/your_first_ship/|"Your First Ship" workshop> (<https://your-first-ship.hackclub.com/${this.channel}|your club's slide link>). Lastly, you can append an email address to this command to invite that email to the Slack.
-  invited: |
-      Invited <#${this.email}> to the Slack and your club channel!
+  invited: Invited ${this.email} to the Slack and your club channel!
   
 meetingRemove:
   help: |
