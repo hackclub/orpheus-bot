@@ -10,7 +10,7 @@ const joinTable = new AirtablePlus({
 export default async function interactionRename(bot, message) {
   const { user, channel } = message;
 
-  getInfoForUser(user).then(({ leader, club, userRecord }) => {
+  getInfoForUser(user).then(async ({ leader, club, userRecord }) => {
     if (!leader) {
       console.log(`${user} isn't a leader, so I told them this was restricted`);
       bot.replyPrivateDelayed(message, transcript("slackInvite.invalidUser"));
