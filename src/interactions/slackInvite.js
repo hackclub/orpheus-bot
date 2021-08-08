@@ -7,7 +7,7 @@ const joinTable = new AirtablePlus({
   tableName: "Join Requests",
 });
 
-const interactionRename = async (bot, message) => {
+export default async function interactionRename(bot, message) {
   const { user, channel } = message;
 
   getInfoForUser(user).then(({ leader, club, userRecord }) => {
@@ -82,4 +82,3 @@ const interactionRename = async (bot, message) => {
     }
   });
 };
-export default interactionRename;
