@@ -39,7 +39,7 @@ export default async function interactionRename(bot, message) {
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (emailRegex.test(recipientID)) {
       console.log("I think this is an email, sending an invite!");
-      email = recipientID.match(emailRegex)[1];
+      email = recipientID
       await joinTable.create({
         "Full Name": "Club Member Joining",
         "Email Address": email,
