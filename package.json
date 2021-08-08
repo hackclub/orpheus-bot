@@ -15,6 +15,7 @@
     "@bugsnag/js": "^6.4.0",
     "@octokit/request": "^5.3.1",
     "airtable": "0.7.2",
+    "airtable-plus": "^1.0.4",
     "animals": "0.0.3",
     "botkit": "0.7.5",
     "botkit-storage-redis": "^1.1.0",
