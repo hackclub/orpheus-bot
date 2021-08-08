@@ -36,7 +36,7 @@ export default async function interactionRename(bot, message) {
       return;
     }
     const recipientID = message.text.toLowerCase();
-    const emailRegex = /mailto:(.+)\|/;
+    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (emailRegex.test(recipientID)) {
       console.log("I think this is an email, sending an invite!");
       email = recipientID.match(emailRegex)[1];
