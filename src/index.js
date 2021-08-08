@@ -11,7 +11,7 @@ import interactionStats from "./interactions/stats";
 import interactionHello from "./interactions/hello";
 import interactionTrigger from "./interactions/trigger";
 import interactionRename from "./interactions/rename";
-import interactionSlackInvite from "./interactions/slack-invite";
+import interactionSlackInvite from "./interactions/slackInvite";
 import interactionLeaderAdd from "./interactions/leaderAdd";
 import interactionLeaderList from "./interactions/leaderList";
 import interactionMeetingList from "./interactions/meetingList";
