@@ -1,6 +1,6 @@
 import { transcript, getInfoForUser, airPatch } from "../utils";
 
-const interactionModerate = (bot, message) => {
+const interactionModerate = async (bot, message) => {
   const { user, channel } = message;
 
   if (message.text === "help") {
@@ -9,7 +9,7 @@ const interactionModerate = (bot, message) => {
     return;
   }
 
-  getInfoForUser(user).then(({ leader, club, userRecord }) => {
+  getInfoForUser(user).then(async ({ leader, club, userRecord }) => {
     if (!leader) {
       console.log(`${user} isn't a leader, so I told them this was restricted`);
       bot.replyPrivateDelayed(message, transcript("moderate.invalidUser"));
