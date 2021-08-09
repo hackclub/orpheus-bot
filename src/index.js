@@ -23,6 +23,7 @@ import interactionCatchall from "./interactions/catchall";
 import interactionMocking from "./interactions/mocking";
 import interactionPromo from "./interactions/promo";
 import interactionGet from "./interactions/get";
+import interactionModerate from "./interactions/moderate";
 import interactionAnnouncement from "./interactions/announcement";
 import interactionHacktoberfest from "./interactions/hacktoberfest";
 import interactionLeaderInvite from "./interactions/leaderInvite";
@@ -287,6 +288,10 @@ controller.on("slash_command", async (bot, message) => {
 
           case "/rename-channel":
             await interactionRename(bot, message);
+            break;
+
+          case "/moderate":
+            await interactionModerate(bot, message);
             break;
 
           case "/slack-invite":
