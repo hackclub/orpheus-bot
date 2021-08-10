@@ -54,7 +54,8 @@ _**†** = deprecated_
 #### Club leaders Δ
 - Δ[`/club-address`](src/interactions/clubAddress.js) Post the current user's club address with a link to edit
 - Δ[`/rename-channel`](src/interactions/rename.js) Rename your club channel
-- Δ[`/slack-invite`](src/interactions/slack-invite.js) Get custom club Slack invite link
+- Δ[`/slack-invite`](src/interactions/slack-invite.js) Get custom club Slack invite link & optionally invite an email to Slack
+- Δ[`/moderate`](src/interactions/moderate.js) Use this command to moderate your club's community channel, first run `/moderate` to link the channel and then `/moderate <slack message link>` to delete an inappropriate message.
 - Δ[`/meeting-add`](src/interactions/meetingAdd.js) Add a meeting to your club's stats
 - Δ[`/meeting-remove`](src/interactions/meetingRemove.js) Remove a mis-recorded meeting
 - Δ[`/meeting-list`](src/interactions/meetingList.js) Get a list of club meetings (useful for /meeting-remove)
