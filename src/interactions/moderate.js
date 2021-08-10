@@ -47,7 +47,7 @@ const interactionModerate = async (bot, message) => {
     const messageTS = message.text
       .toLowerCase()
       .trim()
-      .split(`${club.fields["Linked Community Channel"]}/p`)[0];
+      .split(`${club.fields["Linked Community Channel"]}/p`)[1];
     try {
       const deleting = await bot.api.chat.delete({
         channel: club.fields["Linked Community Channel"],
