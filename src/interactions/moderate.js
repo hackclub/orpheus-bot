@@ -53,7 +53,10 @@ const interactionModerate = async (bot, message) => {
         channel: club.fields["Linked Community Channel"],
         ts: messageTS,
       }, err => console.error(err));
-      console.log(deleting)
+      console.log({
+        channel: club.fields["Linked Community Channel"],
+        ts: messageTS,
+      })
       console.log(`${club.fields["Linked Community Channel"].toLowerCase().trim()}/p`)
       console.log(message.text
       .toLowerCase().trim().split(`${club.fields["Linked Community Channel"].toLowerCase().trim()}/p`))
