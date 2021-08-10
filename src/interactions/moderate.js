@@ -51,7 +51,7 @@ const interactionModerate = async (bot, message) => {
     try {
       const deleting = await bot.api.chat.delete({
         channel: club.fields["Linked Community Channel"],
-        ts: messageTS,
+        ts: messageTS.substring(0, 10) + '.' + messageTS.substring(10),
       }, err => console.error(err));
       console.log({
         channel: club.fields["Linked Community Channel"],
