@@ -53,14 +53,7 @@ const interactionModerate = async (bot, message) => {
         channel: club.fields["Linked Community Channel"],
         ts: messageTS.substring(0, 10) + '.' + messageTS.substring(10),
       }, err => console.error(err));
-      console.log({
-        channel: club.fields["Linked Community Channel"],
-        ts: messageTS,
-      })
-      console.log(`${club.fields["Linked Community Channel"].toLowerCase().trim()}/p`)
-      console.log(message.text
-      .toLowerCase().trim().split(`${club.fields["Linked Community Channel"].toLowerCase().trim()}/p`))
-      console.log(messageTS)
+      console.log(messageTS.substring(0, 10) + '.' + messageTS.substring(10))
       bot.replyPrivateDelayed(message, transcript("moderate.success"));
     } catch (err) {
       bot.replyPrivateDelayed(message, transcript("moderate.error", { err }));
