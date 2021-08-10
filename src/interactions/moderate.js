@@ -54,9 +54,9 @@ const interactionModerate = async (bot, message) => {
         ts: messageTS,
       }, err => console.error(err));
       console.log(deleting)
-      console.log(`${club.fields["Linked Community Channel"]}/p`)
+      console.log(`${club.fields["Linked Community Channel"].toLowerCase().trim()}/p`)
       console.log(message.text
-      .toLowerCase().trim().split(`${club.fields["Linked Community Channel"]}/p`))
+      .toLowerCase().trim().split(`${club.fields["Linked Community Channel"].toLowerCase().trim()}/p`))
       console.log(messageTS)
       bot.replyPrivateDelayed(message, transcript("moderate.success"));
     } catch (err) {
