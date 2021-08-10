@@ -52,7 +52,7 @@ const interactionModerate = async (bot, message) => {
       const deleting = await bot.api.chat.delete({
         channel: club.fields["Linked Community Channel"],
         ts: messageTS,
-      });
+      }, err => console.error(err));
       console.log(deleting)
       bot.replyPrivateDelayed(message, transcript("moderate.success"));
     } catch (err) {
