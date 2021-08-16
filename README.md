@@ -32,7 +32,7 @@ _Every Slash command comes with a help message. For example, to learn to use `/s
 - ‡[`/stats @USER`](/src/interactions/stats.js) Get tagged user's meeting stats
 - ‡[`/stats #CHANNEL`](/src/interactions/stats.js) Get tagged channel's meeting stats
 - ‡[`/get`](/src/interactions/get.js) See a list of available promotions
-  - ‡[`/get notion premium`](src/interactions/promos/notionPremium.js) Get a Premium Notion account
+  - **†** ‡[`/get notion premium`](src/interactions/promos/notionPremium.js) Get a Premium Notion account
   - ‡[`/get adafruit discount`](src/interactions/promos/adafruitDiscount.js) Get a discount code for Adafruit
 - ‡`/report` File a misconduct report
 - **†** ‡`/som-report` Report a Slack user's behavior

@@ -2,7 +2,7 @@ import { transcript, initBot } from '../utils'
 //import * as githubGrant from './promos/githubGrant'
 import * as hackPack from './promos/hackPack'
 import * as stickerEnvelope from './promos/stickerEnvelope'
-import * as notionPremium from './promos/notionPremium'
+// import * as notionPremium from './promos/notionPremium'
 import * as stickermule from './promos/stickermule'
 import * as adafruitDiscount from './promos/adafruitDiscount'
 import * as zoom from './promos/zoom'
@@ -10,7 +10,7 @@ import * as replitHackerPlan from './promos/replitHackerPlan'
 
 const promos = [
   stickerEnvelope,
-  notionPremium,
+  // notionPremium,
   stickermule,
   hackPack,
   //githubGrant,
