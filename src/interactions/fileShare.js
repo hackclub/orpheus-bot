@@ -68,6 +68,7 @@ export default async (bot = initBot(), message) => {
       console.log(copy)
       return copy
     } catch (e) {
+      console.log(e)
       return null
     }
   })
