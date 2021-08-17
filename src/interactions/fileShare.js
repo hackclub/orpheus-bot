@@ -64,7 +64,9 @@ export default async (bot = initBot(), message) => {
 
   const extFlavorOptions = files.map(file => {
     try {
-      return transcript(`fileShare.extensions.${file.filetype}`)
+      const copy = transcript(`fileShare.extensions.${file.filetype}`)
+      console.log(copy)
+      return copy
     } catch (e) {
       return null
     }
