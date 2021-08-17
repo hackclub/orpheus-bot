@@ -158,7 +158,15 @@ controller.hears(/(\d+)/, "message_replied", async (bot, message) => {
   }
 });
 
-controller.hears("hello", "direct_mention,direct_message", interactionHello);
+controller.hears("hello", "direct_mention,indirect_mention,direct_message", interactionHello);
+
+controller.hears("hi hey whats whatsup wazzup wazup".split(' '), "mention,direct_mention,direct_message,indirect_mention", (bot, message) => {
+  if (Math.random() < 0.1) {
+    interactionHello(bot, message);
+  } else {
+    bot.reply(message, transcript("hi"));
+  }
+})
 
 controller.hears(
   ["sass", "mock"],
