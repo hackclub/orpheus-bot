@@ -62,6 +62,16 @@ export default async (bot = initBot(), message) => {
     return
   }
 
+  const extFlavorOptions = files.map(file => {
+    const ext = file.split('.').pop().toLowerCase()
+    try {
+      return transcript(`fileShare.extensions.${ext}`)
+    } catch (e) {
+      return null
+    }
+  })
+  const extFlavor = extFlavorOptions[Math.floor(Math.random() * extFlavorOptions.length)]
+
   try {
     const results = {}
     await Promise.all([
@@ -73,6 +83,11 @@ export default async (bot = initBot(), message) => {
         .catch(e => {
           results.error = e
         }),
+      async () => {
+        if (Math.random() < 1 && extFlavor) {
+          await bot.replyInThread(message, { text: extFlavor })
+        }
+      }
     ])
     if (results.error) {
       throw results.error

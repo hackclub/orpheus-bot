@@ -512,6 +512,18 @@ fileShare:
   success: |
     Yeah! Here's yo' links <@${this.user}>
     ${this.links.join('\n')}
+  extensions:
+    gif:
+      - gif that file to me and i'll upload it
+      - gif me all all your files!
+    heic:
+      - What the heic
+    mov:
+      - I'll mov that to a permanent link for you
+    html:
+      - Oh, launching a new website?
+      - uwu, what's this site?
+      - WooOOAAah hey! Are you serving a site?
 clubInit: Hey! You've found a command that's still unfinished. The recommended way to start a club with Hack Club is going to https://apply.hackclub.com.
 report: Here's the form to fill out a CoC report. ${this.reportFormUrl}
 documentation:
