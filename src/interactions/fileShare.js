@@ -63,6 +63,7 @@ export default async (bot = initBot(), message) => {
   }
 
   const extFlavorOptions = files.map(file => {
+    console.log(file)
     const ext = file.split('.').pop().toLowerCase()
     try {
       return transcript(`fileShare.extensions.${ext}`)
