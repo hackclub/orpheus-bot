@@ -74,6 +74,10 @@ export default async (bot = initBot(), message) => {
   })
   const extFlavor = extFlavorOptions[Math.floor(Math.random() * extFlavorOptions.length)]
 
+  if (Math.random() < 1 && extFlavor) {
+    bot.replyInThread(message, { text: extFlavor })
+  }
+
   try {
     const results = {}
     await Promise.all([
@@ -85,11 +89,6 @@ export default async (bot = initBot(), message) => {
         .catch(e => {
           results.error = e
         }),
-      () => {
-        if (Math.random() < 1 && extFlavor) {
-          return bot.replyInThread(message, { text: extFlavor })
-        }
-      }
     ])
     if (results.error) {
       throw results.error
