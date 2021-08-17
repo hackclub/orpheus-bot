@@ -21,6 +21,12 @@ export const initBot = (admin = false) =>
     token: admin ? process.env.SLACK_LEGACY_TOKEN : process.env.SLACK_BOT_TOKEN,
   })
 
+const mentionMiddleware = message => {
+  if (message.type == 'ambient' && message.text.toLowerCase().includes('orpheus')) {
+    message.type = 'indirect_mention'
+  }
+}
+
 const scryMiddleware = message => {
   const SCRYING_CHANNEL = 'GQJ1QV8CF'
 
@@ -31,6 +37,7 @@ const scryMiddleware = message => {
   }
   switch (message.type) {
     case 'direct_mention':
+    case 'indirect_mention':
     case 'mention':
       quote = message.text
       break
@@ -144,6 +151,7 @@ controller.middleware.normalize.use(async (bot, message, next) => {
 
 controller.middleware.receive.use((bot, message, next) => {
   try {
+    mentionMiddleware(message)
     scryMiddleware(message)
   } catch (err) {
     console.error(err)
