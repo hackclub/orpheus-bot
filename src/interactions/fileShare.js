@@ -82,9 +82,9 @@ export default async (bot = initBot(), message) => {
         .catch(e => {
           results.error = e
         }),
-      async () => {
+      () => {
         if (Math.random() < 1 && extFlavor) {
-          await bot.replyInThread(message, { text: extFlavor })
+          return bot.replyInThread(message, { text: extFlavor })
         }
       }
     ])
