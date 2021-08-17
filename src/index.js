@@ -97,7 +97,7 @@ controller.hears("forget", "direct_mention,direct_message", interactionForget);
 
 controller.hears(
   ["thanks", "thank", "thnx", "thanx", "thx", "thnk"],
-  "mention,direct_mention,direct_message",
+  "mention,indirect_mention,direct_mention,direct_message",
   (bot, message) => {
     bot.reply(message, transcript("thanks"));
   }
@@ -117,7 +117,7 @@ controller.hears(
 
 controller.hears(
   "what are you doing",
-  "mention,direct_mention,direct_message",
+  "mention,indirect_mention,direct_mention,direct_message",
   (bot, message) => {
     bot.reply(message, transcript("whatAreYouDoing"));
   }
@@ -125,7 +125,7 @@ controller.hears(
 
 controller.hears(
   ["who are you", "who is"],
-  "direct_mention,direct_message,mention",
+  "direct_mention,indirect_mention,direct_message,mention",
   (bot, message) => {
     bot.reply(message, transcript("whoAreYou"));
   }
@@ -133,7 +133,7 @@ controller.hears(
 
 controller.hears(
   "where are you",
-  "direct_mention,direct_message,mention",
+  "direct_mention,indirect_mention,direct_message,mention",
   (bot, message) => {
     bot.reply(message, transcript("whereAreYou"));
   }
@@ -143,12 +143,12 @@ controller.hears("find or create", "direct_mention", interactionFindOrCreate);
 
 controller.hears("date", "direct_mention", interactionDate);
 
-controller.hears("breakout", "direct_mention", interactionBreakout);
+controller.hears("breakout", "direct_mention,indirect_mention", interactionBreakout);
 controller.hears("get a room", "ambient", interactionBreakout);
 
 controller.hears(
   ["docs", "documentation", "readme", "source", "repo"],
-  "direct_mention,direct_message",
+  "direct_mention,direct_message,indirect_mention",
   interactionDocumentation
 );
 
@@ -170,12 +170,12 @@ controller.hears("hi hey whats whatsup wazzup wazup".split(' '), "mention,direct
 
 controller.hears(
   ["sass", "mock"],
-  "direct_message,direct_mention",
+  "direct_message,indirect_mention,direct_mention",
   interactionMocking
 );
 
 // catch-all for direct messages
-controller.hears(".*", "direct_message,direct_mention", interactionCatchall);
+controller.hears(".*", "direct_message,indirect_mention,direct_mention", interactionCatchall);
 
 controller.on("view_submission", async (bot, message) => {
   bot.replyAcknowledge();
