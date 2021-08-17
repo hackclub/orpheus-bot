@@ -64,17 +64,14 @@ export default async (bot = initBot(), message) => {
 
   const extFlavorOptions = files.map(file => {
     try {
-      const copy = transcript(`fileShare.extensions.${file.filetype}`)
-      console.log(copy)
-      return copy
+      return transcript(`fileShare.extensions.${file.filetype}`)
     } catch (e) {
-      console.log(e)
       return null
     }
   })
   const extFlavor = extFlavorOptions[Math.floor(Math.random() * extFlavorOptions.length)]
 
-  if (Math.random() < 1 && extFlavor) {
+  if (Math.random() < 0.5 && extFlavor) {
     bot.replyInThread(message, { text: extFlavor })
   }
 
