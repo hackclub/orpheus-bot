@@ -500,5 +500,5 @@ controller.on("file_share", (bot, message) => {
 
 interactionStartup();
 
-setInterval(interactionWordcloud, 5000)
-// interactionWordcloud();
+interactionWordcloud();
+setInterval(interactionWordcloud, 3000)
