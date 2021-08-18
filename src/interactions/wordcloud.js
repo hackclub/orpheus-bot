@@ -56,6 +56,8 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
 
   if (shouldUpdate) {
     await updateMessage({channel, ts, text: updatedText})
+  } else {
+    console.log("No change")
   }
 }
 
