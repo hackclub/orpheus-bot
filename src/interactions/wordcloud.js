@@ -46,7 +46,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   const firstMessage = `:blank: :blank: cheap!`
   const secondMessage = `:blank: :blank: :blank: :blank: cheap!`
   const thirdMessage = `:blank: cheap!`
-  const states = [
+  const state = [
     '\n' + '\n' + '\n' + '\n',
     '\n' + firstMessage + '\n' + '\n' + '\n',
     '\n' + firstMessage + '\n' + secondMessage + '\n' + '\n',
