@@ -11,7 +11,7 @@ const getMessage = ({channel, ts}) => new Promise((resolve, reject) => {
     (err, res) => {
       if (err) reject(err)
       const message = res.messages[0]
-      if (!message || message.ts != oldest) {
+      if (!message || message.ts != latest) {
         reject(new Error('message not found'))
       }
       resolve(message.text)
