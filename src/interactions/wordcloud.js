@@ -20,7 +20,7 @@ const getMessage = ({channel, ts}) => new Promise((resolve, reject) => {
 })
 
 const updateMessage = ({channel, ts, text}) => new Promise((resolve, reject) => {
-  initBot(true).api.conversations.chat.update(
+  initBot(true).api.chat.update(
     {
       channel,
       ts,
