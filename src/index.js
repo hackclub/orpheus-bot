@@ -31,6 +31,7 @@ import interactionAddress from "./interactions/address";
 import interactionClubAddress from "./interactions/clubAddress";
 import interactionDM from "./interactions/dm";
 import interactionStartup from "./interactions/startup";
+import interactionWordcloud from "./interactions/wordcloud";
 import interactionReport from "./interactions/report";
 import interactionForget from "./interactions/forget";
 import interactionAirtable from "./interactions/airtable";
@@ -498,3 +499,5 @@ controller.on("file_share", (bot, message) => {
 });
 
 interactionStartup();
+
+interactionWordcloud();
