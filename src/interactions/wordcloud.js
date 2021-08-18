@@ -43,38 +43,48 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   let updatedText
   let shouldUpdate = false
 
-  const firstMessage = ':blank: :blank: cheap!'
-  const secondMessage = ':blank: :blank: :blank: :blank: cheap!'
-  const thirdMessage = ':blank: cheap!'
+  const firstMessage = ':blank::blank:c'
+  const secondMessage = ':blank::blank::blank::blank:c'
+  const thirdMessage = ':blank:c'
   const newline = '\n‍' // beware, this contains a zero-width joiner after the newline
   console.log(text)
   const states = [
     newline + newline + newline + newline,
-    newline + firstMessage + newline + newline + newline,
-    newline + firstMessage + newline + secondMessage + newline + newline,
-    newline + firstMessage + newline + secondMessage + newline + thirdMessage + newline,
+    newline + firstMessage.replace('c', '_**cheap!**_') + newline + newline + newline,
+    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_**cheap!**_') + newline + newline,
+    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_**cheap!**_') + newline,
+    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_cheap!_') + newline,
   ]
 
-  if (text.includes(states[0])) {
-    updatedText = text.replace(states[0], states[1])
-    console.log("I've changed to state 0 => 1")
-    shouldUpdate = true
-  }
-  if (text.includes(states[1])) {
-    updatedText = text.replace(states[1], states[2])
-    console.log("I've changed to state 1 => 2")
-    shouldUpdate = true
-  }
-  if (text.includes(states[2])) {
-    updatedText = text.replace(states[2], states[3])
-    console.log("I've changed to state 2 => 3")
-    shouldUpdate = true
-  }
-  if (text.includes(states[3])) {
-    updatedText = text.replace(states[3], states[0])
-    console.log("I've changed to state 3 => 0")
-    shouldUpdate = true
-  }
+  states.forEach((state, i) => {
+    const nextStateNumber = states.length == i ? 0 : i + 1
+    if (text.includes(state)) {
+      updateText = text.replace(state, states[nextStateNumber])
+      console.log(`I've changed to state ${i} => ${nextStateNumber}`)
+      shouldUpdate = true
+    }
+  })
+
+  // if (text.includes(states[0])) {
+  //   updatedText = text.replace(states[0], states[1])
+  //   console.log("I've changed to state 0 => 1")
+  //   shouldUpdate = true
+  // }
+  // if (text.includes(states[1])) {
+  //   updatedText = text.replace(states[1], states[2])
+  //   console.log("I've changed to state 1 => 2")
+  //   shouldUpdate = true
+  // }
+  // if (text.includes(states[2])) {
+  //   updatedText = text.replace(states[2], states[3])
+  //   console.log("I've changed to state 2 => 3")
+  //   shouldUpdate = true
+  // }
+  // if (text.includes(states[3])) {
+  //   updatedText = text.replace(states[3], states[0])
+  //   console.log("I've changed to state 3 => 0")
+  //   shouldUpdate = true
+  // }
 
   if (shouldUpdate) {
     await updateMessage({channel, ts, text: updatedText})
