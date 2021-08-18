@@ -43,33 +43,34 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   let updatedText
   let shouldUpdate = false
 
-  const firstMessage = `:blank: :blank: cheap!`
-  const secondMessage = `:blank: :blank: :blank: :blank: cheap!`
-  const thirdMessage = `:blank: cheap!`
-  const state = [
-    '\n' + '\n' + '\n' + '\n',
-    '\n' + firstMessage + '\n' + '\n' + '\n',
-    '\n' + firstMessage + '\n' + secondMessage + '\n' + '\n',
-    '\n' + firstMessage + '\n' + secondMessage + '\n' + thirdMessage + '\n',
+  const firstMessage = ':blank: :blank: cheap!'
+  const secondMessage = ':blank: :blank: :blank: :blank: cheap!'
+  const thirdMessage = ':blank: cheap!'
+  const newline = ' \n'
+  const states = [
+    newline + newline + newline + newline,
+    newline + firstMessage + newline + newline + newline,
+    newline + firstMessage + newline + secondMessage + newline + newline,
+    newline + firstMessage + newline + secondMessage + newline + thirdMessage + newline,
   ]
 
-  if (text.includes(state[0])) {
-    updatedText = text.replace(state[0], state[1])
+  if (text.includes(states[0])) {
+    updatedText = text.replace(states[0], states[1])
     console.log("I've changed to state 0 => 1")
     shouldUpdate = true
   }
-  if (text.includes(state[1])) {
-    updatedText = text.replace(state[1], state[2])
+  if (text.includes(states[1])) {
+    updatedText = text.replace(states[1], states[2])
     console.log("I've changed to state 1 => 2")
     shouldUpdate = true
   }
-  if (text.includes(state[2])) {
-    updatedText = text.replace(state[2], state[3])
+  if (text.includes(states[2])) {
+    updatedText = text.replace(states[2], states[3])
     console.log("I've changed to state 2 => 3")
     shouldUpdate = true
   }
-  if (text.includes(state[3])) {
-    updatedText = text.replace(state[3], state[0])
+  if (text.includes(states[3])) {
+    updatedText = text.replace(states[3], states[0])
     console.log("I've changed to state 3 => 0")
     shouldUpdate = true
   }
