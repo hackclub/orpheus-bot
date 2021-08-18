@@ -43,14 +43,34 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   let updatedText
   let shouldUpdate = false
 
-  if (text.includes('state 1')) {
-    updatedText = text.replace("state 1", "state 2")
-    console.log("I've changed to state 2")
+  const firstMessage = `:blank: :blank: cheap!`
+  const secondMessage = `:blank: :blank: :blank: :blank: cheap!`
+  const thirdMessage = `:blank: cheap!`
+  const states = [
+    '\n' + '\n' + '\n' + '\n',
+    '\n' + firstMessage + '\n' + '\n' + '\n',
+    '\n' + firstMessage + '\n' + secondMessage + '\n' + '\n',
+    '\n' + firstMessage + '\n' + secondMessage + '\n' + thirdMessage + '\n',
+  ]
+
+  if (text.includes(state[0])) {
+    updatedText = text.replace(state[0], state[1])
+    console.log("I've changed to state 0 => 1")
     shouldUpdate = true
   }
-  if (text.includes('state 2')) {
-    updatedText = text.replace("state 2", "state 1")
-    console.log("I've changed to state 1")
+  if (text.includes(state[1])) {
+    updatedText = text.replace(state[1], state[2])
+    console.log("I've changed to state 1 => 2")
+    shouldUpdate = true
+  }
+  if (text.includes(state[2])) {
+    updatedText = text.replace(state[2], state[3])
+    console.log("I've changed to state 2 => 3")
+    shouldUpdate = true
+  }
+  if (text.includes(state[3])) {
+    updatedText = text.replace(state[3], state[0])
+    console.log("I've changed to state 3 => 0")
     shouldUpdate = true
   }
 
