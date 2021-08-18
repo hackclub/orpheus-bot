@@ -50,9 +50,9 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   console.log(text)
   const states = [
     newline + newline + newline + newline,
-    newline + firstMessage.replace('c', '_**cheap!**_') + newline + newline + newline,
-    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_**cheap!**_') + newline + newline,
-    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_**cheap!**_') + newline,
+    newline + firstMessage.replace('c', '***cheap!***') + newline + newline + newline,
+    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '***cheap!***') + newline + newline,
+    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '***cheap!***') + newline,
     newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_cheap!_') + newline,
   ]
 
