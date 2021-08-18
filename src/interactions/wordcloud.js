@@ -59,7 +59,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   states.forEach((state, i) => {
     const nextStateNumber = states.length == i ? 0 : i + 1
     if (text.includes(state)) {
-      updateText = text.replace(state, states[nextStateNumber])
+      updatedText = text.replace(state, states[nextStateNumber])
       console.log(`I've changed to state ${i} => ${nextStateNumber}`)
       shouldUpdate = true
     }
