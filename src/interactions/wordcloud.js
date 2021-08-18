@@ -46,7 +46,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   const firstMessage = ':blank::blank:c'
   const secondMessage = ':blank::blank::blank::blank:c'
   const thirdMessage = ':blank:c'
-  const newline = '\n‍' // beware, this contains a zero-width joiner after the newline
+  const newline = '\n\u200B'
   console.log(text)
   const states = [
     newline + newline + newline + newline,
