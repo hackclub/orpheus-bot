@@ -41,17 +41,22 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
 
   const text = await getMessage({channel, ts})
   let updatedText
+  let shouldUpdate = false
 
   if (text.includes('state 1')) {
     updatedText = text.replace("state 1", "state 2")
     console.log("I've changed to state 2")
+    shouldUpdate = true
   }
   if (text.includes('state 2')) {
     updatedText = text.replace("state 2", "state 1")
     console.log("I've changed to state 1")
+    shouldUpdate = true
   }
 
-  await updateMessage({channel, ts, text: updatedText})
+  if (shouldUpdate) {
+    await updateMessage({channel, ts, text: updatedText})
+  }
 }
 
 export default interactionWordcloud
