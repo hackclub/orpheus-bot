@@ -43,27 +43,56 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   let updatedText
   let shouldUpdate = false
 
-  const firstMessage = ':blank::blank:c'
-  const secondMessage = ':blank::blank::blank::blank:c'
-  const thirdMessage = ':blank:c'
-  const newline = '\n\u200C'
-  console.log(text)
-  const states = [
-    newline + newline + newline + newline,
-    newline + firstMessage.replace('c', '***cheap!***') + newline + newline + newline,
-    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '***cheap!***') + newline + newline,
-    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '***cheap!***') + newline,
-    newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_cheap!_') + newline,
-  ]
+  const firstMessage = `
+  cheap!
+  `
+  const secondMessage = `
+  cheap!
 
-  states.forEach((state, i) => {
-    const nextStateNumber = states.length == i ? 0 : i + 1
-    if (text.includes(state)) {
-      updatedText = text.replace(state, states[nextStateNumber])
-      console.log(`I've changed to state ${i} => ${nextStateNumber}`)
-      shouldUpdate = true
+             cheap!
+  `
+  const thirdMessage = `
+  cheap!
+
+             cheap!
+
+      cheap!
+  `
+  const states = [firstMessage, secondMessage, thirdMessage]
+
+  let index = 0
+  setInterval(async () => {
+    index = (index + 1) % 3
+    const newText = text.replace("``````", states[index])
+    if (newText !== text) {
+      console.log('moving to state', index)
+      await updateMessage({channel, ts, text: newText})
+    } else {
+      console.log('no change')
     }
-  })
+  }, 1000)
+
+  // const firstMessage = ':blank::blank:c'
+  // const secondMessage = ':blank::blank::blank::blank:c'
+  // const thirdMessage = ':blank:c'
+  // const newline = '\n\u200C'
+  // console.log(text)
+  // const states = [
+  //   newline + newline + newline + newline,
+  //   newline + firstMessage.replace('c', '***cheap!***') + newline + newline + newline,
+  //   newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '***cheap!***') + newline + newline,
+  //   newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '***cheap!***') + newline,
+  //   newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_cheap!_') + newline,
+  // ]
+
+  // states.forEach((state, i) => {
+  //   const nextStateNumber = states.length == i ? 0 : i + 1
+  //   if (text.includes(state)) {
+  //     updatedText = text.replace(state, states[nextStateNumber])
+  //     console.log(`I've changed to state ${i} => ${nextStateNumber}`)
+  //     shouldUpdate = true
+  //   }
+  // })
 
   // if (text.includes(states[0])) {
   //   updatedText = text.replace(states[0], states[1])
