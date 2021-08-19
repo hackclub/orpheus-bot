@@ -120,7 +120,12 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     index = index+3
     let currentContent = contentForFrame(index)
     console.log(currentContent)
-    const newText = text.replace(/(```([^`])*```)/g, "```\n" + currentContent + "\n```")
+    let newText = text.replace(/(```([^`])*```)/g, "```\n" + currentContent + "\n```")
+    if (newText.includes('**STARTING YOUR OWN HACK CLUB.**')) {
+      newText = newText.replace('**STARTING YOUR OWN HACK CLUB.**', 'STARTING YOUR OWN HACK CLUB.')
+    } else {
+      newText = newText.replace('STARTING YOUR OWN HACK CLUB.', 'STARTING YOUR OWN HACK CLUB.')
+    }
     console.log('testing frame #', index)
     if (newText !== text) {
       console.log('moving to frame #', index)
