@@ -48,8 +48,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
 (   \` /  \ |    |    |                
  \`-.  |--| |    |--  |                
 .   ) |  | |    |                     
- \`-'  '  ' \`--' \`--' o                
-   `
+ \`-'  '  ' \`--' \`--' o                `
 
   // const banner = `
   //  .d8888b.        d8888 888      8888888888      
