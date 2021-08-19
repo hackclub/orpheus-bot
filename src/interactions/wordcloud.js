@@ -34,20 +34,6 @@ const updateMessage = ({channel, ts, text}) => new Promise((resolve, reject) => 
 })
 
 const interactionWordcloud = async (bot = initBot(true), message) => {
-  // const messageUrl = 'https://hackclub.slack.com/archives/DM4F8ES8P/p1629324742000400'
-  // const messageUrl = 'https://hackclub.slack.com/archives/C02AJJSKVTK/p1629335289006600'
-  // const messageUrl = 'https://hackclub.slack.com/archives/C0274DWBZQC/p1629335857002800'
-  // const messageUrl = 'https://hackclub.slack.com/archives/C0274DWBZQC/p1629345325393300'
-
-  // let updatedText
-  // let shouldUpdate = false
-//   const banner = `
-// ,-.   ,.  ,    ,--. .                
-// (   \` /  \ |    |    |                
-//  \`-.  |--| |    |--  |                
-// .   ) |  | |    |                     
-//  \`-'  '  ' \`--' \`--' o                `
-
   const banner = `
    .d8888b.        d8888 888      8888888888      
   d88P  Y88b      d88888 888      888             
@@ -68,49 +54,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     return updatedArray.join('\n')
   }
 
-  const zeroMessage = `\`\`\`
- 💵 
-  
-  
-  
-  
-\`\`\``
-  const firstMessage = `\`\`\`
- 💵 cheap!
-  
-  
-  
-  
-\`\`\``
-  const secondMessage = `\`\`\`
- 💵 cheap!
-  
-             cheap!
-  
-  
-\`\`\``
-  const thirdMessage = `\`\`\`
- 💵 cheap!
-  
-             cheap!
-  
-      cheap!
-\`\`\``
-  const states = [zeroMessage, firstMessage, secondMessage, thirdMessage]
-
   let index = 0
-  // setInterval(async () => {
-  //   const text = await getMessage({channel, ts})
-  //   index = (index + 1) % states.length
-  //   const newText = text.replace(/(```([^`])*```)/g, states[index])
-  //   if (newText !== text) {
-  //     console.log('moving to state', index)
-  //     await updateMessage({channel, ts, text: newText})
-  //   } else {
-  //     console.log('no change')
-  //   }
-  // }, 1000)
-
   setInterval(async () => {
     const messageUrl = process.env.WORDCLOUD_URL
     const channel = messageUrl.split('/')[4]
@@ -135,8 +79,6 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     } else {
       console.log('no change')
     }
-    // console.log(newText)
-      // await updateMessage({channel, ts, text: newText})
   }, 2000)
 }
 
