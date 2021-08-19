@@ -62,7 +62,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   //  "Y8888P" d88P     888 88888888 8888888888      `
 
   const bannerLines= banner.split('\n')
-  const maxFrames = bannerLines[1].length
+  const maxFrames = 50
   const contentForFrame = (frame) => {
     const updatedArray = bannerLines.map(line => {
       let currentFrame = frame % maxFrames
