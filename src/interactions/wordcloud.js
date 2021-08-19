@@ -73,7 +73,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   
       cheap!
 \`\`\``
-  const states = [firstMessage, secondMessage, thirdMessage]
+  const states = [zeroMessage, firstMessage, secondMessage, thirdMessage]
 
   let index = 0
   setInterval(async () => {
