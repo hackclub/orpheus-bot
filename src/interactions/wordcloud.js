@@ -41,7 +41,6 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   const tsString = messageUrl.split('/')[5].replace('p','')
   const ts = tsString.slice(0, 10) + '.' + tsString.slice(10, 16)
 
-  const text = await getMessage({channel, ts})
   // let updatedText
   // let shouldUpdate = false
 
@@ -77,8 +76,8 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
 
   let index = 0
   setInterval(async () => {
+    const text = await getMessage({channel, ts})
     index = (index + 1) % 3
-    console.log(text)
     const newText = text.replace(/(```([^`])*```)/g, states[index])
     if (newText !== text) {
       console.log('moving to state', index)
