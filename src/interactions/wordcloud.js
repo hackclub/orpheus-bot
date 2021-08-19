@@ -70,7 +70,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
       newText = newText.replace('**STARTING YOUR OWN HACK CLUB.**', 'STARTING YOUR OWN HACK CLUB.')
     } else {
       console.log('condition 2')
-      newText = newText.replace('STARTING YOUR OWN HACK CLUB.', 'STARTING YOUR OWN HACK CLUB.')
+      newText = newText.replace('STARTING YOUR OWN HACK CLUB.', '**STARTING YOUR OWN HACK CLUB.**')
     }
     console.log('testing frame #', index)
     if (newText !== text) {
