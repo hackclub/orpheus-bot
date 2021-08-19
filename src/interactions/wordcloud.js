@@ -45,28 +45,28 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   // let shouldUpdate = false
 
   const zeroMessage = `\`\`\`
-  
+        💵
   
   
   
   
 \`\`\``
   const firstMessage = `\`\`\`
-  cheap!
+  cheap!💵
   
   
   
   
 \`\`\``
   const secondMessage = `\`\`\`
-  cheap!
+  cheap!💵
   
              cheap!
   
   
 \`\`\``
   const thirdMessage = `\`\`\`
-  cheap!
+  cheap!💵
   
              cheap!
   
