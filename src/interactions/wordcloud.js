@@ -128,11 +128,11 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   //   shouldUpdate = true
   // }
 
-  if (shouldUpdate) {
-    await updateMessage({channel, ts, text: updatedText})
-  } else {
-    console.log("No change")
-  }
+  // if (shouldUpdate) {
+  //   await updateMessage({channel, ts, text: updatedText})
+  // } else {
+  //   console.log("No change")
+  // }
 }
 
 export default interactionWordcloud
