@@ -40,6 +40,8 @@ import interactionCheckinReply from "./interactions/checkinReply";
 import interactionClubCard from "./interactions/clubCard";
 import interactionFindOrCreate from "./interactions/findOrCreate";
 import interactionDocumentation from "./interactions/documentation";
+import interactionWildWildWest from "./interactions/wildWildWest";
+import interactionOlympics from "./interactions/olympics";
 
 import interactionBreakout from "./interactions/breakout";
 import interactionBreakoutUpdate from "./interactions/trigger/updateBreakouts";
@@ -365,127 +367,24 @@ controller.on("slash_command", async (bot, message) => {
 
 controller.on("reaction_added", async (bot, message) => {
   bot.replyAcknowledge();
-  const { reaction, user, item } = message;
-  const { channel, ts } = item;
-  const names = [
-    "Curly",
-    "Django",
-    "Billy",
-    "Smiley",
-    "Blueridge",
-    "Poppy",
-    "Buckey",
-    "Whitey",
-    "Mojo",
-    "Lefty",
-    "Smokey",
-    "Shorty",
-    "Whiskey",
-    "Bronco",
-    "Trapper",
-    "Amarillo",
-    "Dakota",
-    "Cactus",
-    "Buck",
-    "Pat",
-    "Paco",
-    "Gonzales",
-    "Bob",
-    "The Lucky",
-    "The Terrible",
-    "The Fearsome",
-    "The Hot-Tempered",
-    "The Lone",
-    "The Back-Stabbing",
-    "The Cross-Eyed",
-    "The Bad",
-    "The One-Eyed",
-    "The Ruthless",
-    "The Wanted",
-    "The Stubborn",
-    "The Desperate",
-    "The Mule-Headed",
-    "The Happy",
-    "The Crazy",
-    "The Lawless",
-    "The Saddlesore",
-    "The Sharp-Eyed",
-    "The Wild",
-    "The Unruly",
-    "The Paranoid",
-    "The Angry",
-    "The Blood-Thirsty",
-    "Stagecoach-Robber",
-    "Bull of the Woods",
-    "Sharpshooter",
-    "Farmer",
-    "Flapjack",
-    "Sundance Kid",
-    "Gunslinger",
-    "Rustler",
-    "Buffalo Hunter",
-    "Rattlesnake",
-    "Cotton-Mouth",
-    "Dude",
-    "Deadwood",
-    "Mustang",
-    "Cowbox",
-    "Gambler",
-    "Apache",
-    "Water trough diver",
-    "Gunslinger",
-    "Outlaw",
-    "Bushwacker",
-    "Bearcat",
-    "Jailbreaker",
-    "Itchy-Trigger",
-  ];
-  if (reaction == "face_with_cowboy_hat" || reaction == "pleading_cowboy" || reaction == "sadcowboy" || reaction == "pensivecowboy" || reaction == "cowboy-turtle" || reaction == "shooting_pepe_cowboy") {
-    if (
-      (channel == "C0P5NE354" /* #bot-spam */ ||
-      channel == "C0266FRGT" /* #announcements */ ||
-      channel == "C021TJA96UC" /* private-summer-channel */ ||
-      channel == "C0274DWBZQC" /* private-testing-channel */) &&  ts == "1626196839.245600"
-    ) {
-      bot.say({
-        channel: user,
-        text: transcript("secretProject.ticket", { user }),
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: transcript("secretProject.ticket", { user, name: names[Math.floor(Math.random() * names.length)] }),
-            },
-          },
-          {
-            type: "image",
-            image_url: transcript("secretProject.image", { user }),
-            alt_text: "Your ticket",
-          },
-        ],
-      });
-    }
-  }
-  else if (reaction == "earth_americas" || reaction == "earth_asia" || reaction == "earth_africa" || reaction == "ultrafastparrot" ) {
-    if (
-      channel == "C0266FRGT" /* #announcements */ &&  ts == "1626196839.245600"
-    ) {
-      await fetch(`https://games.hackclub.dev/api/sign-up?username=${user}`)
-      bot.say({
-        channel: user,
-        text: transcript("secretProject2.ticket", { user }),
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: transcript("secretProject2.ticket", { user }),
-            },
-          }
-        ],
-      });
-    }
+  const { reaction } = message;
+  switch (reaction) {
+    case 'ultrafastparrot':
+    case 'earth_americas':
+    case 'earth_africa':
+    case 'earth_asia':
+      await interactionOlympics(bot, message);
+      break;
+    case 'face_with_cowboy_hat':
+    case 'pleading_cowboy':
+    case 'sadcowboy':
+    case 'pensivecowboy':
+    case 'cowboy-turtle':
+    case 'shooting_pepe_cowboy':
+      await interactionWildWildWest(bot, message);
+      break;
+    default:
+      break;
   }
 });
 
@@ -509,4 +408,3 @@ controller.on("file_share", (bot, message) => {
 interactionStartup();
 
 interactionWordcloud();
-// setInterval(interactionWordcloud, 5000)
