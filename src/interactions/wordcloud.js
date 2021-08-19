@@ -64,8 +64,8 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   const bannerLines= banner.split('\n')
   const maxFrames = bannerLines[1].length
   const contentForFrame = (frame) => {
+    let currentFrame = frame % maxFrames
     const updatedArray = bannerLines.map(line => {
-      let currentFrame = frame % maxFrames
       return line.slice(currentFrame)+line.substring(0, currentFrame)
     })
     return updatedArray.join('\n')
