@@ -44,11 +44,11 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   // let updatedText
   // let shouldUpdate = false
   const banner = `
-,-.   ,.  ,    ,--. .      
-(   \` /  \ |    |    |      
- \`-.  |--| |    |--  |      
-.   ) |  | |    |           
- \`-'  '  ' \`--' \`--' o      
+,-.   ,.  ,    ,--. .                
+(   \` /  \ |    |    |                
+ \`-.  |--| |    |--  |                
+.   ) |  | |    |                     
+ \`-'  '  ' \`--' \`--' o                
    `
 
   // const banner = `
@@ -62,7 +62,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   //  "Y8888P" d88P     888 88888888 8888888888      `
 
   const bannerLines= banner.split('\n')
-  const maxFrames = 50
+  const maxFrames = bannerLines[0].length
   const contentForFrame = (frame) => {
     const updatedArray = bannerLines.map(line => {
       let currentFrame = frame % maxFrames
@@ -134,7 +134,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     } else {
       console.log('no change')
     }
-  }, 1200)
+  }, 1000)
 }
 
 export default interactionWordcloud
