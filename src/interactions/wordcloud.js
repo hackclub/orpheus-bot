@@ -48,26 +48,27 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   
   
   
+  
 \`\`\``
   const firstMessage = `\`\`\`
   cheap!
-
-             
-
-      
+  
+  
+  
+  
 \`\`\``
   const secondMessage = `\`\`\`
   cheap!
-
+  
              cheap!
-
-      
+  
+  
 \`\`\``
   const thirdMessage = `\`\`\`
   cheap!
-
+  
              cheap!
-
+  
       cheap!
 \`\`\``
   const states = [firstMessage, secondMessage, thirdMessage]
@@ -75,6 +76,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   let index = 0
   setInterval(async () => {
     index = (index + 1) % 3
+    console.log(text)
     const newText = text.replace(zeroMessage, states[index])
     if (newText !== text) {
       console.log('moving to state', index)
