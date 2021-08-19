@@ -40,8 +40,8 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   const ts = tsString.slice(0, 10) + '.' + tsString.slice(10, 16)
 
   const text = await getMessage({channel, ts})
-  let updatedText
-  let shouldUpdate = false
+  // let updatedText
+  // let shouldUpdate = false
 
   const zeroMessage = `\`\`\`
   
