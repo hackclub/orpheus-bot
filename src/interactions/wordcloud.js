@@ -44,6 +44,36 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   // let updatedText
   // let shouldUpdate = false
 
+  const banner = `
+  .d8888b.        d8888 888      8888888888       
+  d88P  Y88b      d88888 888      888             
+  Y88b.          d88P888 888      888             
+   "Y888b.      d88P 888 888      8888888         
+      "Y88b.   d88P  888 888      888             
+        "888  d88P   888 888      888             
+  Y88b  d88P d8888888888 888      888             
+   "Y8888P" d88P     888 88888888 8888888888      `
+
+  const bannerLines= banner.split('\n')
+  const maxFrames = 50
+  const contentForFrame = (frame) => {
+    const updatedArray = bannerLines.map(line => {
+      currentFrame = frame % maxFrames
+      return line.slice(currentFrame)+line.substring(0, currentFrame)
+    })
+    return updatedArray.join('\n')
+  }
+  // let i = 0
+  // setInterval(() => {
+  //   console.log(contentForFrame(i))
+  //   i++
+
+  // }, 1000)
+  '  x'
+  ' x '
+  'x  '
+  '   '
+
   const zeroMessage = `\`\`\`
  💵 
   
@@ -75,12 +105,24 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   const states = [zeroMessage, firstMessage, secondMessage, thirdMessage]
 
   let index = 0
+  // setInterval(async () => {
+  //   const text = await getMessage({channel, ts})
+  //   index = (index + 1) % states.length
+  //   const newText = text.replace(/(```([^`])*```)/g, states[index])
+  //   if (newText !== text) {
+  //     console.log('moving to state', index)
+  //     await updateMessage({channel, ts, text: newText})
+  //   } else {
+  //     console.log('no change')
+  //   }
+  // }, 1000)
+
   setInterval(async () => {
     const text = await getMessage({channel, ts})
-    index = (index + 1) % states.length
-    const newText = text.replace(/(```([^`])*```)/g, states[index])
+    index++
+    const newText = text.replace(/(```([^`])*```)/g, "```\n" + contentForFrame(index) + "\n```")
     if (newText !== text) {
-      console.log('moving to state', index)
+      console.log('moving to frame #', index)
       await updateMessage({channel, ts, text: newText})
     } else {
       console.log('no change')
