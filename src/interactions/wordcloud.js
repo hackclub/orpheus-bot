@@ -45,28 +45,28 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   // let shouldUpdate = false
 
   const zeroMessage = `\`\`\`
-        💵
+ 💵 
   
   
   
   
 \`\`\``
   const firstMessage = `\`\`\`
-  cheap!💵
+ 💵 cheap!
   
   
   
   
 \`\`\``
   const secondMessage = `\`\`\`
-  cheap!💵
+ 💵 cheap!
   
              cheap!
   
   
 \`\`\``
   const thirdMessage = `\`\`\`
-  cheap!💵
+ 💵 cheap!
   
              cheap!
   
@@ -86,55 +86,6 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
       console.log('no change')
     }
   }, 1000)
-
-  // const firstMessage = ':blank::blank:c'
-  // const secondMessage = ':blank::blank::blank::blank:c'
-  // const thirdMessage = ':blank:c'
-  // const newline = '\n\u200C'
-  // console.log(text)
-  // const states = [
-  //   newline + newline + newline + newline,
-  //   newline + firstMessage.replace('c', '***cheap!***') + newline + newline + newline,
-  //   newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '***cheap!***') + newline + newline,
-  //   newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '***cheap!***') + newline,
-  //   newline + firstMessage.replace('c', '_cheap!_') + newline + secondMessage.replace('c', '_cheap!_') + newline + thirdMessage.replace('c', '_cheap!_') + newline,
-  // ]
-
-  // states.forEach((state, i) => {
-  //   const nextStateNumber = states.length == i ? 0 : i + 1
-  //   if (text.includes(state)) {
-  //     updatedText = text.replace(state, states[nextStateNumber])
-  //     console.log(`I've changed to state ${i} => ${nextStateNumber}`)
-  //     shouldUpdate = true
-  //   }
-  // })
-
-  // if (text.includes(states[0])) {
-  //   updatedText = text.replace(states[0], states[1])
-  //   console.log("I've changed to state 0 => 1")
-  //   shouldUpdate = true
-  // }
-  // if (text.includes(states[1])) {
-  //   updatedText = text.replace(states[1], states[2])
-  //   console.log("I've changed to state 1 => 2")
-  //   shouldUpdate = true
-  // }
-  // if (text.includes(states[2])) {
-  //   updatedText = text.replace(states[2], states[3])
-  //   console.log("I've changed to state 2 => 3")
-  //   shouldUpdate = true
-  // }
-  // if (text.includes(states[3])) {
-  //   updatedText = text.replace(states[3], states[0])
-  //   console.log("I've changed to state 3 => 0")
-  //   shouldUpdate = true
-  // }
-
-  // if (shouldUpdate) {
-  //   await updateMessage({channel, ts, text: updatedText})
-  // } else {
-  //   console.log("No change")
-  // }
 }
 
 export default interactionWordcloud
