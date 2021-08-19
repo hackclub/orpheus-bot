@@ -106,7 +106,7 @@ controller.hears(
 
 controller.hears(
   ['wahoo', 'fish'],
-  'mention,indirect_mention,direct_mention,direct_message,ambient',
+  'mention,indirect_mention,direct_mention,direct_message,ambient,message_replied',
   (bot, message) => {
     bot.replyInThread(message, transcript("wahooFish"));
   }
