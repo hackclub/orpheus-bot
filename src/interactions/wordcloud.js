@@ -37,10 +37,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   // const messageUrl = 'https://hackclub.slack.com/archives/DM4F8ES8P/p1629324742000400'
   // const messageUrl = 'https://hackclub.slack.com/archives/C02AJJSKVTK/p1629335289006600'
   // const messageUrl = 'https://hackclub.slack.com/archives/C0274DWBZQC/p1629335857002800'
-  const messageUrl = 'https://hackclub.slack.com/archives/C0274DWBZQC/p1629345325393300'
-  const channel = messageUrl.split('/')[4]
-  const tsString = messageUrl.split('/')[5].replace('p','')
-  const ts = tsString.slice(0, 10) + '.' + tsString.slice(10, 16)
+  // const messageUrl = 'https://hackclub.slack.com/archives/C0274DWBZQC/p1629345325393300'
 
   // let updatedText
   // let shouldUpdate = false
@@ -115,6 +112,10 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   // }, 1000)
 
   setInterval(async () => {
+    const messageUrl = process.env.WORDCLOUD_URL
+    const channel = messageUrl.split('/')[4]
+    const tsString = messageUrl.split('/')[5].replace('p','')
+    const ts = tsString.slice(0, 10) + '.' + tsString.slice(10, 16)
     const text = await getMessage({channel, ts})
     index = index+3
     let currentContent = contentForFrame(index)
