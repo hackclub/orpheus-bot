@@ -116,15 +116,18 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   setInterval(async () => {
     const text = await getMessage({channel, ts})
     index = index+2
-    const newText = text.replace(/(```([^`])*```)/g, "```\n" + contentForFrame(index) + "\n```")
+    let currentContent = contentForFrame(index)
+    console.log(currentContent)
+    const newText = text.replace(/(```([^`])*```)/g, "```\n" + currentContent + "\n```")
     console.log('testing frame #', index)
     if (newText !== text) {
       console.log('moving to frame #', index)
-      // await updateMessage({channel, ts, text: newText})
+      await updateMessage({channel, ts, text: newText})
     } else {
       console.log('no change')
     }
-      await updateMessage({channel, ts, text: newText})
+    // console.log(newText)
+      // await updateMessage({channel, ts, text: newText})
   }, 1000)
 }
 
