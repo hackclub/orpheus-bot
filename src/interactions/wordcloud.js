@@ -62,7 +62,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   //  "Y8888P" d88P     888 88888888 8888888888      `
 
   const bannerLines= banner.split('\n')
-  const maxFrames = 50
+  const maxFrames = bannerLines[1].length
   const contentForFrame = (frame) => {
     const updatedArray = bannerLines.map(line => {
       let currentFrame = frame % maxFrames
@@ -118,7 +118,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     const text = await getMessage({channel, ts})
     index = index+2
     const newText = text.replace(/(```([^`])*```)/g, "```\n" + contentForFrame(index) + "\n```")
-      console.log('testing frame #', index)
+    console.log('testing frame #', index)
     if (newText !== text) {
       console.log('moving to frame #', index)
       await updateMessage({channel, ts, text: newText})
