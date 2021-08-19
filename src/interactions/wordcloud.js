@@ -77,7 +77,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   setInterval(async () => {
     index = (index + 1) % 3
     console.log(text)
-    const newText = text.replace(zeroMessage, states[index])
+    const newText = text.replace(/(```([^`])*```)/g, states[index])
     if (newText !== text) {
       console.log('moving to state', index)
       await updateMessage({channel, ts, text: newText})
