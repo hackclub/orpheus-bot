@@ -43,21 +43,34 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
   let updatedText
   let shouldUpdate = false
 
-  const firstMessage = `
+  const zeroMessage = `\`\`\`
+  
+
+             
+
+      
+\`\`\``
+  const firstMessage = `\`\`\`
   cheap!
-  `
-  const secondMessage = `
+
+             
+
+      
+\`\`\``
+  const secondMessage = `\`\`\`
   cheap!
 
              cheap!
-  `
-  const thirdMessage = `
+
+      
+\`\`\``
+  const thirdMessage = `\`\`\`
   cheap!
 
              cheap!
 
       cheap!
-  `
+\`\`\``
   const states = [firstMessage, secondMessage, thirdMessage]
 
   let index = 0
