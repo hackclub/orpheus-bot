@@ -127,7 +127,7 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     } else {
       console.log('no change')
     }
-  }, 500)
+  }, 1000)
 }
 
 export default interactionWordcloud
