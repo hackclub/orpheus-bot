@@ -122,8 +122,10 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     console.log(currentContent)
     let newText = text.replace(/(```([^`])*```)/g, "```\n" + currentContent + "\n```")
     if (newText.includes('**STARTING YOUR OWN HACK CLUB.**')) {
+      console.log('condition 1')
       newText = newText.replace('**STARTING YOUR OWN HACK CLUB.**', 'STARTING YOUR OWN HACK CLUB.')
     } else {
+      console.log('condition 2')
       newText = newText.replace('STARTING YOUR OWN HACK CLUB.', 'STARTING YOUR OWN HACK CLUB.')
     }
     console.log('testing frame #', index)
