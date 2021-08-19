@@ -120,10 +120,11 @@ const interactionWordcloud = async (bot = initBot(true), message) => {
     console.log('testing frame #', index)
     if (newText !== text) {
       console.log('moving to frame #', index)
-      await updateMessage({channel, ts, text: newText})
+      // await updateMessage({channel, ts, text: newText})
     } else {
       console.log('no change')
     }
+      await updateMessage({channel, ts, text: newText})
   }, 1000)
 }
 
