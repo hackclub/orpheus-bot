@@ -37,7 +37,7 @@ const createUniqueChannel = async channel => {
       {
         name,
       },
-      (err, res) => {
+      async (err, res) => {
         if (err) {
           if (err == 'name_taken') {
             resolve(await createUniqueChannel(channel))
