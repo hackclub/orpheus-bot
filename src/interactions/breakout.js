@@ -27,7 +27,9 @@ const getChannelName = async channel =>
 
 const createUniqueChannel = async channel => {
   const baseName = await getChannelName(channel)
-  const name = baseName + '-for-' + plural(animals())
+  const appendedName = '-for-' + plural(animals())
+  const nameLengthLimit = 22 // this is Slack's limit
+  const name = baseName.slice(0, nameLengthLimit - appendedName.length)
 
   return new Promise((resolve, reject) => {
     initBot().api.conversations.create(
