@@ -1,8 +1,6 @@
 import animals from 'animals'
 import { plural } from 'pluralize'
 
-import interactionJoinChannel from './joinChannel'
-
 import { getInfoForUser, initBot, airCreate, transcript, reaction } from '../utils'
 
 const getChannelName = async channel =>
@@ -72,8 +70,6 @@ const interactionBreakout = async (bot, message) => {
     text: transcript('breakout.intro', { channel }),
   })
   bot.reply(message, transcript('breakout.created', { channel: breakout.id }))
-
-  interactionJoinChannel(bot, { channel: breakout })
 
   await airCreate('Breakout Channel', {
     'Breakout Channel ID': breakout.id,
