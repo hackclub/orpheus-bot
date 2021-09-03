@@ -32,7 +32,7 @@ const createUniqueChannel = async channel => {
   const name = baseName.slice(0, nameLengthLimit - appendedName.length)
   console.log({baseName, appendedName, name})
 
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     initBot().api.conversations.create(
       {
         name,
