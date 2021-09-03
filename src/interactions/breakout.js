@@ -29,7 +29,7 @@ const createUniqueChannel = async channel => {
   const baseName = await getChannelName(channel)
   const appendedName = '-for-' + plural(animals())
   const nameLengthLimit = 80 // this is Slack's limit
-  const name = baseName.slice(0, nameLengthLimit - appendedName.length)
+  const name = baseName.slice(0, nameLengthLimit - appendedName.length) + appendedName
   console.log({baseName, appendedName, name})
 
   return new Promise(async (resolve, reject) => {
