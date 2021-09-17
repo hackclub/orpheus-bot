@@ -1,6 +1,8 @@
 import { initBot } from '../controller'
 export { initBot } from '../controller'
 
+test
+
 import yaml from 'js-yaml'
 import Bottleneck from 'bottleneck'
 import fs from 'fs'
