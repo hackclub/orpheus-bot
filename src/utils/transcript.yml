@@ -453,7 +453,7 @@ promos:
   notion: Go to hack.af/ntn for instructions on how to get your free Notion account
   adafruit: Go to adafruit.com and use \`HACKCLUB\` as a promo code to get a 10% discount! 
   replit:
-    success: Go to https://repl.it/claim?code=h4ckc1ub21 to claim a free Hacker Plan. Feel free to share this with your coleads and club members, but nobody else (we have a limited amount of codes available).
+    success: Hmmmm.... our code stopped working. We're chatting with the replit team about getting it replaced, so try checking back in a week or so!
     notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
   githubGrant:
     programClosed: |
