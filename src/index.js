@@ -107,14 +107,6 @@ controller.hears(
 );
 
 controller.hears(
-  ['wahoo', 'fish'],
-  'mention,indirect_mention,direct_mention,direct_message,ambient,message_replied',
-  (bot, message) => {
-    bot.replyInThread(message, transcript("wahooFish"));
-  }
-)
-
-controller.hears(
   "add this team to the leaders channel",
   "direct_mention",
   interactionLeaderInvite

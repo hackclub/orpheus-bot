@@ -661,4 +661,3 @@ wildWildWest:
 olympics:
   ticket: |
     Welcome to the games <@${this.user}>! We're so excited to have you join us, check your email for more details!
-wahooFish: wahoo!
