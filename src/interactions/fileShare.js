@@ -71,7 +71,7 @@ export default async (bot = initBot(), message) => {
   })
   const extFlavor = extFlavorOptions[Math.floor(Math.random() * extFlavorOptions.length)]
 
-  if (Math.random() < 0.5 && extFlavor) {
+  if (extFlavor) {
     bot.replyInThread(message, { text: extFlavor })
   }
 
