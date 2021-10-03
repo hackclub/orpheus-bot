@@ -99,7 +99,7 @@ controller.hears(/^dm/, "direct_message,direct_mention", interactionDM);
 controller.hears("forget", "direct_mention,direct_message", interactionForget);
 
 controller.hears(
-  ["thanks", "thank", "thnx", "thanx", "thx", "thnk"],
+  ["thanks", "thank", "thnx", "thanx", "thx", "thnk", "u da best dino"],
   "mention,indirect_mention,direct_mention,direct_message",
   (bot, message) => {
     bot.reply(message, transcript("thanks"));
