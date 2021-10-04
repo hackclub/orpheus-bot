@@ -104,7 +104,7 @@ export default async (bot = initBot(), message) => {
     }
   } catch (err) {
     if (Math.random() > 0.5) {
-      bot.replyInThread(message, transcript('fileShare.error')),
+      await bot.replyInThread(message, transcript('fileShare.error'))
     }
 
     await Promise.all([
