@@ -521,6 +521,13 @@ fileShare:
   success: |
     Yeah! Here's yo' links <@${this.user}>
     ${this.links.join('\n')}
+  error:
+    - |
+      _orpheus sneezes and drops the files on the ground before blowing her nose on a blank jpeg._
+    - |
+      _orpheus trips and your files slip out of her hands and into an inconveniently placed sewer grate._
+    - |
+      _orpheus accidentally slips the files into a folder in her briefcase labeled "homework". she starts sweating profusely._
   extensions:
     gif:
       - _gif_ that file to me and i'll upload it
