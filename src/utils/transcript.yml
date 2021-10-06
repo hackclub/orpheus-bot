@@ -437,6 +437,8 @@ promos:
       - "VRRRRRRRROOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMM:racecar: <- that's our Zoom account racing towards our license limit. Could someone lay down some track for me?"
       - Not crazy time sensitive, but could you upgrade the Zoom licenses? <@${this.user}> just got an account & now we have ${this.hosts-this.usage} license left. https://cloud-1desdbmuy.vercel.app/bhb-gg.gif
   stickerEnvelope:
+    deprecate: |
+      This method of getting stickers is out of date! If you need stickers for your club, reach out to <@U0278J0HRJ6>. If you are in APAC, reach out to <@U010XUNLX40>.
     help: |
       Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
 
