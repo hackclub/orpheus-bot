@@ -8,6 +8,15 @@ export const details = 'Available to active club leaders.'
 export async function run(bot, message) {
   const creator = await getInfoForUser(message.user)
 
+  // we're removing the old sticker shipping system in favor of having people
+  // reach out to Tev & Harsh directly.
+
+  await bot.replyPrivateDelayed(
+    message,
+    transcript('promos.stickerEnvelope.deprecate')
+  )
+  return
+
   if (!creator.leader || !creator.club) {
     await bot.replyPrivateDelayed(
       message,
