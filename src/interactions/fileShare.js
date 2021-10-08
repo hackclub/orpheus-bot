@@ -2,50 +2,17 @@ import fetch from 'isomorphic-unfetch'
 
 import { initBot, transcript, reaction } from '../utils'
 
-const generateLink = file => {
-  console.log('generating link for file', file.id)
-  return new Promise((resolve, reject) => {
-    initBot(true).api.files.sharedPublicURL({ file: file.id }, (err, res) => {
-      if (err) {
-        if (err == 'already_public') {
-          resolve(file.permalink_public)
-        }
-        console.error(err)
-        reject(err)
-      }
-      if (res?.file?.permalink_public) {
-        resolve(res?.file?.permalink_public)
-      } else {
-        reject(new Error('Slack could not generate public link'))
-      }
-    })
-  })
-}
-
 const uploadToCDN = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
-  console.log(Object.keys(files[0]))
 
-  const fileURLs = await Promise.all(
-    files.map(async file => {
-      const pageURL = await generateLink(file)
-      console.log('public page url', pageURL)
-      const urlRegex = /([A-Za-z0-9]+)/g
-      const urlChunks = pageURL
-        .replace('https://slack-files.com/', '')
-        .match(urlRegex)
-      const [teamID, fileID, pubSecret] = urlChunks
-      console.log('url chunks', urlChunks)
-      const fileURL = `${file.url_private}?pub_secret=${pubSecret}`
-      return fileURL
-    })
-  )
+  const fileURLs = files.map(f => f['url_private'])
 
   return new Promise((resolve, reject) => {
     fetch('https://cdn.hackclub.com/api/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.SLACK_BOT_TOKEN}`
       },
       body: JSON.stringify(fileURLs),
     })
