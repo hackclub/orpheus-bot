@@ -13,8 +13,8 @@ const generateLink = file => {
         console.error(err)
         reject(err)
       }
-      if (res.file.permalink_public) {
-        resolve(res.file.permalink_public)
+      if (res?.file?.permalink_public) {
+        resolve(res?.file?.permalink_public)
       } else {
         reject(new Error('Slack could not generate public link'))
       }
