@@ -24,6 +24,7 @@ const generateLink = file => {
 
 const uploadToCDN = async files => {
   console.log('Generating links for ', files.length, 'file(s)')
+  console.log(Object.keys(files[0]))
 
   const fileURLs = await Promise.all(
     files.map(async file => {
