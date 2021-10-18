@@ -4,7 +4,7 @@ import * as hackPack from './promos/hackPack'
 import * as stickerEnvelope from './promos/stickerEnvelope'
 // import * as notionPremium from './promos/notionPremium'
 import * as stickermule from './promos/stickermule'
-import * as adafruitDiscount from './promos/adafruitDiscount'
+// import * as adafruitDiscount from './promos/adafruitDiscount'
 import * as zoom from './promos/zoom'
 import * as replitHackerPlan from './promos/replitHackerPlan'
 
@@ -15,7 +15,7 @@ const promos = [
   hackPack,
   //githubGrant,
   replitHackerPlan,
-  adafruitDiscount,
+  // adafruitDiscount,
   zoom,
 ]
 
