@@ -4,7 +4,7 @@ import { getInfoForUser, airFind, airPatch, transcript } from '../../utils'
 
 export const names = ['Zoom Pro', 'zoom', 'zoompro']
 export const details =
-  'Available for one club leader at each club (the point of contact). They can add their co-leaders and members to their account.'
+  'Available to all clubs and anyone on the Slack'
 export async function run(bot, message) {
   const { user } = message
   const { leader, club } = await getInfoForUser(user)

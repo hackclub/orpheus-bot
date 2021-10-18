@@ -4,7 +4,7 @@ import interactionTutorial from '../tutorial'
 import interactionAddress from '../address'
 
 export const names = ['Sticker Envelope']
-export const details = 'Available to active club leaders.'
+export const details = 'Available to active club leaders'
 export async function run(bot, message) {
   const creator = await getInfoForUser(message.user)
 
