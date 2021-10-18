@@ -138,7 +138,7 @@ hi:
   - hiiiiiiiiiii!!!!!!!
   - hELLLOOOOOOOOOOOO
   - wasup?
-  - ":cooll-thumbs:"
+  - ":cooll-dino:"
   - ":hyper-dino-wave:"
 thanks:
   - you're welcome!
@@ -499,7 +499,7 @@ promos:
         - dollaringos
         - ezBUCKS
 get:
-  help: 'Get stuff from Hack Club. Try \`/get Free Notion\`'
+  help: 'Get stuff from Hack Club. Try \`/get Replit\`'
   list: Here's the list of things you can get ${this.promos.map(p => this.t('get.bullet', { p }))}
   bullet: \n- \`/get ${this.p.names[0]}\` _${this.p.details}_
 som:
