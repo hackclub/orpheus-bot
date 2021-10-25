@@ -23,6 +23,9 @@ bases.som = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
 bases.conduct = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
   'appWBF7Y4iVV3dI5q'
 )
+bases.clubsV2 = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(
+  'appSUAc40CDu6bDAp'
+)
 
 const airtableRatelimiter = new Bottleneck({
   // maxConcurrent: 5,
@@ -273,6 +276,9 @@ export const getInfoForUser = user =>
           results.permissionedAmbassador = ambassador.fields['Permissioned']
         }
       }),
+      airFind('Club Leaders', 'Slack ID', user, { base: 'clubsV2' }).then(leaderV2 => {
+        results.leaderV2 = leaderV2
+      })
     ])
       .then(async () => {
         if (!results.person && results.slackUser) {

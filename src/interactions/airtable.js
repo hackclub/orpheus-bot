@@ -24,6 +24,10 @@ export default async (bot, message) => {
     if (info.address && info.address.id) {
       results.addressAirtableRecord = `<https://airtable.com/tblbcZKrj9gFPzj1l/${info.address.id}?blocks=hide|Address record>`
     }
+    if (info.leaderV2) {
+      results.leaderV2Record = `<https://airtable.com/tblF84agXEjAX9pOh/${info.leaderV2.id}?blocks=hide|Leader V2 record>`
+      results.leaderV2Status = info.leaderV2.fields['Status']
+    }
     if (info.club && info.club.id) {
       results.clubAirtableRecord = `<https://airtable.com/tbloCEFJtbxsKYJEv/${info.club.id}?blocks=hide|Club record>`
     }
