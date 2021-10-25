@@ -3,7 +3,7 @@
   "author": "Max Wofford <max@hackclub.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "babel-node ./src/index.js",
+    "dev": "babel-node -r dotenv/config ./src/index.js",
     "start": "node ./build/index.js",
     "fmt": "npx prettier \"{src/**,}/*.js\" --single-quote --no-semi --arrow-parens avoid --trailing-comma es5 --write",
     "build": "npm run clean && npm run build-babel",
@@ -22,6 +22,7 @@
     "bottleneck": "^2.19.5",
     "cheerio": "^1.0.0-rc.3",
     "chrono-node": "^2.2.4",
+    "dotenv": "^10.0.0",
     "form-data": "^3.0.0",
     "humanize-duration": "^3.20.1",
     "isomorphic-unfetch": "^3.0.0",
