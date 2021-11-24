@@ -59,7 +59,7 @@ export default async function interactionRename(bot, message) {
         `token=${process.env.SLACK_LEGACY_TOKEN}`,
         `real_name=${email.split("@")[0]}`,
         "restricted=true",
-        `channels=C74HZS5A5`,
+        `channels=${club.fields["Slack Channel ID"]}`,
         "resend=true",
       ].join("&");
       const url = `https://slack.com/api/users.admin.invite?${params}`;
