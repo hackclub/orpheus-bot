@@ -32,6 +32,23 @@ startup:
     - Alive in interesting times!
     - '*0* days since last accident!'
     - Now with startup messages!
+    - Due to unfortunate circumstances, I am once again awake.
+    - Now in ${this.t('startup.juiceFlavor')} flavor!
+    - And I'm about to make it everybody's problem
+    - I live, I crash, I live again.
+  juiceFlavor:
+    - verry-berry blast
+    - dino nugget
+    - tomato
+    - guava
+    - sugarcane
+    - trash
+    - carrot
+    - lemon-lime
+    - cherry
+    - grapefruit
+    - butterscotch
+    - cinnamon
 mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
 hello:
   - hellp
