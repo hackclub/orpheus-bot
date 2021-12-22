@@ -49,6 +49,8 @@ startup:
     - grapefruit
     - butterscotch
     - cinnamon
+    - wahoo fish
+    - eeby deeby
 mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
 hello:
   - hellp
