@@ -293,7 +293,7 @@ errors:
     ${Math.random() < 0.1 ? this.t('errors.video'):''}
   stack: |
     \`\`\`
-    // Here's my stacktrace from my code at https://github.com/maxwofford/orpheus-bot-hackclub\:
+    // Here's my stacktrace from my code at https://github.com/hackclub/orpheus-bot\:
     ${this.err.stack}
     \`\`\`
   memory:
