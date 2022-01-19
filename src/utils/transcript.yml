@@ -36,6 +36,7 @@ startup:
     - Now in ${this.t('startup.juiceFlavor')} flavor!
     - And I'm about to make it everybody's problem
     - I live, I crash, I live again.
+    - Didja miss me <@${this.t('otherBots')}>?
   juiceFlavor:
     - verry-berry blast
     - dino nugget
@@ -51,6 +52,13 @@ startup:
     - cinnamon
     - wahoo fish
     - eeby deeby
+otherBots:
+  - U015D6A36AG # @scrappy
+  - URZHZS3L6 # @maildog
+  - U012H797734 # @clippy
+  - U012FPRJEVB # @clippy's boss
+  - ULG7GRP0A # @bouncer
+  - USYUBKF1A # @The Fuzz
 mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
 hello:
   - hellp
