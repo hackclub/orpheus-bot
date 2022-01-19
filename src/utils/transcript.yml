@@ -563,7 +563,7 @@ fileShare:
         type: plain_text
         text: File too big!
         emoji: true
-      image_url: this.t('fileShare.errorTooBigImages')
+      image_url: ${this.t('fileShare.errorTooBigImages')}
       alt_text: file too large
   errorGenericImages:
     - https://cloud-3tq9t10za-hack-club-bot.vercel.app/0generic_3.png
@@ -582,7 +582,7 @@ fileShare:
           type: plain_text
           text: Error!
           emoji: true
-        image_url: this.t('fileShare.errorGenericImages')
+        image_url: ${this.t('fileShare.errorGenericImages')}
         alt_text: Something went wrong
   extensions:
     gif:
