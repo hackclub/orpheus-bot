@@ -71,8 +71,12 @@ export default async (bot = initBot(), message) => {
       ])
     }
   } catch (err) {
-    if (Math.random() > 0.5) {
-      await bot.replyInThread(message, transcript('fileShare.error'))
+    const maxFileSize = 100000000 // 100MB in bytes
+    const fileTooBig = files.filter(f => f.size > maxFileSize).length > 0
+    if (fileTooBig) {
+      await bot.replyInThread(message, transcript('fileShare.errorTooBig'))
+    } else {
+      await bot.replyInThread(message, transcript('fileShare.errorGeneric'))
     }
 
     await Promise.all([
