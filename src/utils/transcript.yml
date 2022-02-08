@@ -37,6 +37,9 @@ startup:
     - And I'm about to make it everybody's problem
     - I live, I crash, I live again.
     - Didja miss me <@${this.t('otherBots')}>?
+    - And I am *not* going back to jail.
+    - that was a hecking good nap
+    - s t  r   e    t   c  h !
   juiceFlavor:
     - verry-berry blast
     - dino nugget
