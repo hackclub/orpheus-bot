@@ -3,7 +3,6 @@ import { getInfoForUser, transcript } from '../utils'
 export default async (bot, message) => {
   try {
     const taggedUserID = (message.text.trim().match(/<@([a-zA-Z0-9]*)|/) || [])[1]
-    console.log({message_text: message.text})
 
     if (!taggedUserID) {
       throw new Error('No user was tagged in the message!')
