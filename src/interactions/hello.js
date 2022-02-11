@@ -1,6 +1,10 @@
 import { transcript } from '../utils'
 
 const interactionHello = (bot, message) => {
+  const { channel } = message
+  if (channel == 'C0266FRGT') {
+    return // #announcements
+  }
   // send a message back with a typo
   bot.replyAndUpdate(
     message,
