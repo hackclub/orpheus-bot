@@ -181,7 +181,7 @@ controller.hears(
 // catch-all for direct messages
 // controller.hears(".*", "direct_message,indirect_mention,direct_mention", interactionCatchall);
 
-controller.hears(".*", "direct_message,indirect_mention,direct_mention", interactionGamelab)
+controller.hears(".*", "mention,direct_message,indirect_mention,direct_mention", interactionGamelab)
 
 controller.on("view_submission", async (bot, message) => {
   bot.replyAcknowledge();
