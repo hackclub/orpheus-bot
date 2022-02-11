@@ -42,6 +42,7 @@ import interactionFindOrCreate from "./interactions/findOrCreate";
 import interactionDocumentation from "./interactions/documentation";
 import interactionWildWildWest from "./interactions/wildWildWest";
 import interactionOlympics from "./interactions/olympics";
+import interactionGamelab from "./interactions/gamelab";
 
 import interactionBreakout from "./interactions/breakout";
 import interactionBreakoutUpdate from "./interactions/trigger/updateBreakouts";
