@@ -729,7 +729,7 @@ olympics:
     Welcome to the games <@${this.user}>! We're so excited to have you join us, check your email for more details!
 gamelab:
   autoReply: |
-    _I've set an auto-reply using <@U017VA2PN3V> until <!date^${Date.parse(2022, 02, 25)}^{date_short_pretty}|on Fri, Feb 25th>_
+    _I've set an auto-reply using <@U017VA2PN3V> until <!date^1640995200000^{date_short_pretty}|on Fri, Feb 25th>_
     <https://hackclub.slack.com/archives/C0P5NE354/p1644606215597029|HELP!!!1!>
-  gamelabEmoji: gamelab
+  melabEmoji: gamelab
   warningEmoji: warning
