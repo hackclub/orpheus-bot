@@ -1,6 +1,7 @@
 import Botkit from 'botkit'
 import redisStorage from 'botkit-storage-redis'
 import { get } from 'lodash'
+import { transcript } from './utils'
 
 const controller = new Botkit.slackbot({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -166,6 +167,13 @@ controller.setupWebserver(process.env.PORT || 3000, (err, webserver) => {
   controller.createWebhookEndpoints(controller.webserver)
   controller.createOauthEndpoints(controller.webserver)
   controller.createHomepageEndpoint(controller.webserver)
+
+  webserver.get('/ping', (req, res) => {
+    res.json({
+      pong: true,
+      message: transcript('statusCheck')
+    })
+  })
 })
 
 export default controller
