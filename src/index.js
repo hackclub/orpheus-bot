@@ -55,6 +55,7 @@ import interactionClubInit from "./interactions/clubInit";
 import interactionReportForm from "./interactions/reportForm";
 import interactionReportFormSubmit from "./interactions/reportFormSubmit";
 import interactionEmail from "./interactions/email";
+import interactionHaiku from "./interactions/haiku";
 
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY);
 
@@ -180,6 +181,9 @@ controller.hears(
 
 // catch-all for direct messages
 controller.hears(".*", "direct_message,indirect_mention,direct_mention", interactionCatchall);
+
+// catch-all for any message in slack
+controller.hears(".*", "ambient", interactionHaiku);
 
 // controller.hears(".*", "mention,direct_message,indirect_mention,direct_mention", interactionGamelab)
 

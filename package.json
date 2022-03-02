@@ -24,6 +24,7 @@
     "chrono-node": "^2.2.4",
     "dotenv": "^10.0.0",
     "form-data": "^3.0.0",
+    "haiku-detect": "^1.1.0",
     "humanize-duration": "^3.20.1",
     "isomorphic-unfetch": "^3.0.0",
     "js-yaml": "^3.13.1",

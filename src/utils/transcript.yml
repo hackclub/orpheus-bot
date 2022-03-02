@@ -734,4 +734,9 @@ gamelab:
     <https://hackclub.slack.com/archives/C0P5NE354/p1644606215597029|HELP!!!1!>
   melabEmoji: gamelab
   warningEmoji: warning
+haiku: |
+  > ${this.haikuLines[0]}
+  > ${this.haikuLines[1]}
+  > ${this.haikuLines[2]}
+  _– a haiku by <@${this.user}>_
 statusCheck: pong!
