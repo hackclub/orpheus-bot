@@ -38,11 +38,15 @@ startup:
     - I live, I crash, I live again.
     - Didja miss me <@${this.t('otherBots')}>?
     - And I am *not* going back to jail.
-    - that was a hecking good nap
+    - that was a _hecking_ good nap
     - s t  r   e    t   c  h !
     - In my defense, I was left unattended.
     - All Rights Reversed.
     - IAMNOWHERE
+    - Bonjour!
+    - Bone apple tea!
+    - Alaka-blam!
+    - Did you know? The human eye can read over 100 messages in <#${this.t('channels.botSpam')}>
   juiceFlavor:
     - verry-berry blast
     - dino nugget
@@ -58,6 +62,11 @@ startup:
     - cinnamon
     - wahoo fish
     - eeby deeby
+    - flavorful
+    - rainbow
+    - meteor
+    - 8-bit
+    - retro
 otherBots:
   - U015D6A36AG # @scrappy
   - URZHZS3L6 # @maildog
@@ -65,6 +74,8 @@ otherBots:
   - U012FPRJEVB # @clippy's boss
   - ULG7GRP0A # @bouncer
   - USYUBKF1A # @The Fuzz
+channels:
+  botSpam: C0P5NE354
 mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
 hello:
   - hellp
