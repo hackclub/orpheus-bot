@@ -278,7 +278,10 @@ export const getInfoForUser = user =>
       }),
       airFind('Club Leaders', 'Slack ID', user, { base: 'clubsV2' }).then(leaderV2 => {
         results.leaderV2 = leaderV2
-      })
+      }),
+      // @msw: see hackclub/toriel for usage
+      // https://github.com/hackclub/toriel/commit/d0e79852a0f200d8cae58bc3da6e1d0ae68ad946
+      fetch(`https://toriel.hackclub.com/slack-tutorial/${user}`).then(r => r.json()).then(r => results.torielInvite = r.invite),
     ])
       .then(async () => {
         if (!results.person && results.slackUser) {
