@@ -21,7 +21,7 @@ const pusher = new Pusher({
 const interactionCSS = async (bot, message) => {
   const { text, channel, ts } = message
   let trimmedText = replaceAll(text, '```', '')
-  validateCss({trimmedText}, async function (_, data) {
+  validateCss({text: trimmedText}, async function (_, data) {
     if(data.validity){
       await reaction(bot, 'add', channel, ts, 'art')
       pusher.trigger("css", "new", {
