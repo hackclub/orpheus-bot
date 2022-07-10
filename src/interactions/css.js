@@ -2,6 +2,14 @@ import { reaction } from "../utils"
 let validateCss = require('css-validator');
 let Pusher = require("pusher");
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
 const pusher = new Pusher({
   appId: "1435548",
   key: "de6cd13556d73c05beed",
@@ -12,11 +20,12 @@ const pusher = new Pusher({
 
 const interactionCSS = async (bot, message) => {
   const { text, channel, ts } = message
-  validateCss({text}, async function (_, data) {
+  let trimmedText = replaceAll(text, '```', '')
+  validateCss({trimmedText}, async function (_, data) {
     if(data.validity){
       await reaction(bot, 'add', channel, ts, 'art')
       pusher.trigger("css", "new", {
-        message: text
+        message: trimmedText
       });
     }
   });
