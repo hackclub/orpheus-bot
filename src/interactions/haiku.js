@@ -2,7 +2,7 @@ import { reaction, transcript } from "../utils"
 import { format } from "haiku-detect"
 
 const interactionHaiku = async (bot, message) => {
-  const { text, user, ts } = message
+  const { text, user, ts, channel } = message
   const noLineText = text.replace(/\n/g, ' ')
   const haikuLines = format(noLineText)
   if (haikuLines.length == 3) {
