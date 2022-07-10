@@ -1,7 +1,6 @@
 import { reaction } from "../utils"
 let validateCss = require('css-validator');
-
-const Pusher = require("pusher");
+let Pusher = require("pusher");
 
 const pusher = new Pusher({
   appId: "1435548",
