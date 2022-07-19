@@ -2,6 +2,7 @@ import { airGet, initBot, airPatch, transcript } from '../../utils'
 import interactionJoinChannel from '../joinChannel'
 
 export default async (bot = initBot(), message) => {
+  console.log({message })
   const breakoutChannels = await airGet(
     'Breakout Channel',
     '{Archived Channel Name} = BLANK()'
