@@ -27,7 +27,7 @@ export default async (bot = initBot(), message) => {
           // we should close the channel if the last post was @orpheus' warning that archiving is coming
           if (
             overTimeLimit &&
-            latestTimestamp == breakout.fields['Archive Warning Timestamp']
+            latestTimestamp == breakout?.fields['Archive Warning Timestamp']
           ) {
             bot.replyInThread(
               message,
