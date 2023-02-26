@@ -8,7 +8,7 @@ const uploadToCDN = async files => {
   const fileURLs = files.map(f => f['url_private'])
 
   return new Promise((resolve, reject) => {
-    fetch('https://cdn.hackclub.com/api/new', {
+    fetch('https://cdn-2moycvmxo.hackclub.dev/api/v1/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
