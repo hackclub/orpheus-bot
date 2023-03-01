@@ -1,5 +1,3 @@
-_⚠️ GitHub & Heroku have turned off their integration while investigating a [breach](https://github.blog/2022-04-15-security-alert-stolen-oauth-user-tokens/), so changes will not automatically deploy after pushing to `main`. If you have access to do so, please [push your changes to the `main` branch of the Heroku git remote](https://devcenter.heroku.com/articles/git) once your PR is merged. Otherwise, please mention it in the PR and assign [@maxwofford](https://github.com/maxwofford) or [@sampoder](https://github.com/sampoder) for review._
-
 ![](https://raw.githubusercontent.com/hackclub/dinosaurs/master/club_dinosaur.png)
 
 - [Commands](#commands)
@@ -23,12 +21,14 @@ _⚠️ GitHub & Heroku have turned off their integration while investigating a 
 § = full Slack user only (not multi-channel or single-channel guest)  
 Δ = club leader only  
 ◊ = Slack owner/admin only  
-**†** = deprecated  
+**†** = deprecated
 
 ### Slash Commands
+
 _Every Slash command comes with a help message. For example, to learn to use `/stats`, type `/stats help` in Slack._
 
 #### Anyone ‡
+
 - ‡[`/airtable`](/src/interactions/airtable.js) Post the database links of a Slack user
 - ‡[`/address` `/leader-address`](src/interactions/address.js) Post the current user's address with a link to edit
 - ‡[`/stats @USER`](/src/interactions/stats.js) Get tagged user's meeting stats
@@ -44,6 +44,7 @@ _‡ = anyone_
 _**†** = deprecated_
 
 #### Full Slack Users §
+
 _This excludes Slack guests, such as multi-channel or single-channel users._
 
 - §[`/som-lookup`](src/interactions/som/lookup.js) Lookup who promoted a multi-channel guest to a full Slack user during the Summer of Making.
@@ -54,6 +55,7 @@ _§ = full Slack user only (not multi-channel or single-channel guest)_
 _**†** = deprecated_
 
 #### Club leaders Δ
+
 - Δ[`/club-address`](src/interactions/clubAddress.js) Post the current user's club address with a link to edit
 - Δ[`/rename-channel`](src/interactions/rename.js) Rename your club channel
 - Δ[`/slack-invite`](src/interactions/slack-invite.js) Get custom club Slack invite link & optionally invite an email to Slack
@@ -82,6 +84,7 @@ _‡ = anyone_
 _**†** = deprecated_
 
 #### Slack Owner/Admin ◊
+
 - ◊[`/announcement`](src/interactions/announcement.js) Send an announcement to all clubs in Airtable queued for announcements
   - ◊[`/announcement address`](src/interactions/announcement.js) See a list of the enqueued clubs
   - ◊[`/announcement status`](src/interactions/announcement.js) Get the number of successful messages sent / the total messages to send
@@ -96,21 +99,24 @@ _**†** = deprecated_
 ### Message commands
 
 #### Anyone ‡
+
 - ‡[`@orpheus breakout`](src/interactions/breakout.js) creates an ephemeral channel based on the current channel
 - ‡[`@orpheus info`](src/interactions/info.js) Print the current uptime (used as a [startup message](src/interactions/startup.js))
 - ‡[`@orpheus forget`](src/interactions/forget.js) Deletes a Slack user from @orpheus' memory. Used for debugging.
 - ‡[`@orpheus find or create @USER`](src/interactions/findOrCreate.js) Finds or creates a user record in the Airtable database. Used by automations.
 - ‡[`@orpheus date`](src/interactions/date.js) Command that returns a parsed date. Used for debugging.
 
-_‡ = anyone_  
+_‡ = anyone_
 
 #### Club leaders Δ
+
 - **†** Δ[`@orpheus checkin`](src/interactions/checkin.js) Start a check-in with the current user
 
 _Δ = club leader only_  
 _**†** = deprecated_
 
 #### Slack Owner/Admin ◊
+
 - ◊[`thump`](src/interactions/trigger/index.js) Trigger scheduled tasks (ex. close inactive breakout channels)
 - ◊[`@orpheus dm`](src/interactions/dm.js) Send a message as @orpheus
   - ◊[`@orpheus dm @USER Hello world`](src/interactions/dm.js) Send a DM to @USER of "Hello world"
