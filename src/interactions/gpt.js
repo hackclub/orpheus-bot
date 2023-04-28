@@ -42,11 +42,20 @@ const interactionGPT = (bot, message) => {
   if (channel == "C0266FRGT") {
     return; // #announcements
   }
-  bot.reply(message, transcript(returntext), (err, src) => {
-    if (err) {
-      console.error(err);
-      return;
+  returntext.then((result) => {
+    if (result.includes("Orpheus:")) {
+      result = result.replace("Orpheus:", "").trim();
     }
+    if (result.includes("<@")) {
+      result =
+        "Response cannot contain a ping, please try to avoid pinging people.";
+    }
+    bot.reply(message, transcript(result), (err, src) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
   });
 };
 
