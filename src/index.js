@@ -94,11 +94,14 @@ controller.hears(
   interactionBreakoutUpdate
 );
 
+if (process.env.OPENAI_API_KEY) {
+// temporarily gate this to only run when the key is set
 controller.hears(
   ["Orpheus", "orpheus", "OrpheusGPT", "orpheusgpt", "Orpheusgpt"],
   "direct_message,indirect_mention,direct_mention",
   interactionGPT
 );
+}
 
 controller.hears("info", "direct_message,direct_mention", interactionInfo);
 
