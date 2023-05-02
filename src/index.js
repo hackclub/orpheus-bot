@@ -30,6 +30,7 @@ import interactionLeaderInvite from "./interactions/leaderInvite";
 import interactionAddress from "./interactions/address";
 import interactionClubAddress from "./interactions/clubAddress";
 import interactionDM from "./interactions/dm";
+import interactionGPT from "./interactions/gpt";
 import interactionStartup from "./interactions/startup";
 import interactionWordcloud from "./interactions/wordcloud";
 import interactionReport from "./interactions/report";
@@ -92,6 +93,15 @@ controller.hears(
   "direct_mention",
   interactionBreakoutUpdate
 );
+
+if (process.env.OPENAI_API_KEY) {
+// temporarily gate this to only run when the key is set
+controller.hears(
+  ["Orpheus", "orpheus", "OrpheusGPT", "orpheusgpt", "Orpheusgpt"],
+  "direct_message,indirect_mention,direct_mention",
+  interactionGPT
+);
+}
 
 controller.hears("info", "direct_message,direct_mention", interactionInfo);
 
