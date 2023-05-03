@@ -20,8 +20,9 @@ async function createCompletion(text) {
   return response.data.choices[0].text;
 }
 
-const interactionGPT = (bot, message) => {
-  const { channel, text } = message;
+const interactionGPT = async (bot, message) => {
+  const { channel } = message;
+  let { text } = message;
   text = text.replace("Orpheus", "").trim();
   let prompt = [
     `Create a chatbot conversation between a user and Hack Club's mascot Orpheus. The conversation should feel natural and friendly, with Orpheus showcasing its unique personality and style. The chatbot should be able to respond to a wide range of user messages, both related and unrelated to coding. The chatbot should also be able to recognize when the user needs help with coding and provide relevant assistance. Finally, the chatbot should not reveal itself as an AI model or a chatbot, but rather as Orpheus itself.`,
@@ -38,7 +39,7 @@ const interactionGPT = (bot, message) => {
     User: ${text}\n
     Orpheus: `,
   ].join("\n");
-  let returntext = createCompletion(prompt);
+  let returntext = await createCompletion(prompt);
   if (channel == "C0266FRGT") {
     return; // #announcements
   }
