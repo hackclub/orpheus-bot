@@ -42,22 +42,19 @@ const interactionGPT = async (bot, message) => {
   let returntext = await createCompletion(prompt);
   if (channel == "C0266FRGT") {
     return; // #announcements
-  }
-  returntext.then((result) => {
-    if (result.includes("Orpheus:")) {
-      result = result.replace("Orpheus:", "").trim();
-    }
-    if (result.includes("<@")) {
-      result =
-        "Response cannot contain a ping, please try to avoid pinging people.";
-    }
-    bot.reply(message, transcript(result), (err, src) => {
+  } else if (returntext.includes("Orpheus:")) {
+    returntext = returntext.replace("Orpheus:", "").trim();
+  } else if (returntext.includes("<@")) {
+    returntext =
+      "Response cannot contain a ping, please try to avoid pinging people.";
+  } else {
+    bot.reply(message, transcript(returntext), (err, src) => {
       if (err) {
         console.error(err);
         return;
       }
     });
-  });
+  };
 };
 
 export default interactionGPT;
