@@ -4,6 +4,8 @@ import fetch from 'isomorphic-unfetch'
 
 const approveUser = async user =>
   new Promise((resolve, reject) => {
+    console.log("DISABLED-TEMP")
+    /*
     const form = new FormData()
     form.append('user', user)
     form.append('token', process.env.SLACK_INVITE_TOKEN)
@@ -18,7 +20,7 @@ const approveUser = async user =>
         console.log(res)
         resolve(res)
       })
-      .catch(err => reject(err))
+      .catch(err => reject(err))*/
   })
 
 const clippyApprove = async ({ promoterId, promotedId }) => {
