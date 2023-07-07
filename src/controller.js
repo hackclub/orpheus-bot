@@ -8,7 +8,7 @@ const controller = new Botkit.slackbot({
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   clientSigningSecret: process.env.SLACK_CLIENT_SIGNING_SECRET,
   scopes: ['bot', 'chat:write:bot'],
-  storage: redisStorage({ url: process.env.REDISCLOUD_URL }),
+  storage: redisStorage({ url: process.env.REDISCLOUD }),
 })
 
 export const initBot = (admin = false) =>
