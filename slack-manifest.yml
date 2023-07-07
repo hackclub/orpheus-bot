@@ -1,0 +1,189 @@
+display_information:
+  name: orpheus
+  description: Howdy!
+  background_color: "#e42d42"
+features:
+  bot_user:
+    display_name: orpheus
+    always_online: true
+  shortcuts:
+    - name: Test Flag post
+      type: message
+      callback_id: flag_comment
+      description: Flag this message for Community Team review
+  slash_commands:
+    - command: /address
+      url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+      description: View/edit your address
+      should_escape: false
+    - command: /airtable
+      url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+      description: Get user's Airtable record
+      usage_hint: (admin only)
+      should_escape: true
+    - command: /my-email
+      url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+      description: Check what address is used by HQ
+      should_escape: false
+    # - command: /rename-channel
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Rename your club channel
+    #   usage_hint: meme-academy
+    #   should_escape: false
+    # - command: /meeting-list
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: See your club's record
+    #   should_escape: false
+    # - command: /meeting-add
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Record a new meeting
+    #   usage_hint: "[help]"
+    #   should_escape: false
+    # - command: /meeting-time
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Shows future meeting dates
+    #   usage_hint: "[help]"
+    #   should_escape: false
+    # - command: /meeting-tutorial
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Learn how to use @orpheus
+    #   should_escape: false
+    # - command: /leader-add
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Adds a leader to your club
+    #   usage_hint: "@orpheus"
+    #   should_escape: true
+    # - command: /leader-list
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: List all this channel's leaders
+    #   should_escape: false
+    # - command: /orpheus-tutorial
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Learn how to use @orpheus
+    #   should_escape: false
+    # - command: /announcement
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Send an announcement
+    #   usage_hint: "[help]"
+    #   should_escape: false
+    # - command: /club-address
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: View/edit your club's address
+    #   should_escape: false
+    # - command: /meeting-remove
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Remove a meeting
+    #   usage_hint: "[help]"
+    #   should_escape: false
+    # - command: /get
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Get things from Hack Club
+    #   usage_hint: "[help]"
+    #   should_escape: true
+    # - command: /club-card
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Get your club's card nuber
+    #   should_escape: false
+    # - command: /som-promote
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Promote SOM to full user
+    #   should_escape: true
+    # - command: /som-lookup
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Lookup who promoted a guest
+    #   should_escape: true
+    # - command: /som-ban
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Deactivates a user (admin only)
+    #   should_escape: true
+    # - command: /club-init
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Starts a new club!
+    #   should_escape: false
+    # - command: /meeting-stats
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: See club's meeting stats
+    #   usage_hint: "[help]"
+    #   should_escape: true
+    # - command: /stats
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Post club stats for user
+    #   usage_hint: "[help]"
+    #   should_escape: true
+    # - command: /slack-invite
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Get your club's custom Slack Invite link!
+    #   should_escape: false
+    # - command: /moderate
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Use this command to moderate your club's community channel
+    #   usage_hint: <slack message link>
+    #   should_escape: false
+    # - command: /report
+    #   url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    #   description: Report misconduct
+    #   should_escape: true
+oauth_config:
+  redirect_urls:
+    - https://orpheus-bot-hackclub.herokuapp.com/oauth
+  scopes:
+    user:
+      - channels:history
+      - channels:write
+      - groups:history
+      - im:history
+      - mpim:history
+      - reactions:read
+      - users:read
+      - users:read.email
+    bot:
+      - calls:read
+      - calls:write
+      - channels:history
+      - channels:join
+      - channels:manage
+      - channels:read
+      - chat:write
+      - commands
+      - dnd:read
+      - emails:write
+      - files:read
+      - groups:history
+      - groups:read
+      - groups:write
+      - im:history
+      - im:read
+      - im:write
+      - mpim:history
+      - mpim:read
+      - mpim:write
+      - pins:write
+      - reactions:read
+      - reactions:write
+      - remote_files:read
+      - remote_files:share
+      - remote_files:write
+      - team:read
+      - users.profile:read
+      - users:read
+      - users:read.email
+      - users:write
+      - files:write
+settings:
+  event_subscriptions:
+    request_url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+    user_events:
+      - message.channels
+    bot_events:
+      - message.channels
+      - message.groups
+      - message.im
+      - message.mpim
+      - reaction_added
+      - user_change
+  interactivity:
+    is_enabled: true
+    request_url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

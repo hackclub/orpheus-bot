@@ -265,12 +265,26 @@ controller.on("slash_command", async (bot, message) => {
 
       try {
         switch (command) {
-          case "/som-promote":
-            await interactionSOMPromote(bot, message);
+
+          case "/airtable":
+            await interactionAirtable(bot, message);
             break;
-          case "/som-lookup":
-            await interactionSOMLookup(bot, message);
+
+          case "/address":
+          // case "/leader-address":
+            await interactionAddress(bot, message);
             break;
+
+          case "/my-email":
+            await interactionEmail(bot, message);
+            break;
+
+          // case "/som-promote":
+          //   await interactionSOMPromote(bot, message);
+          //   break;
+          // case "/som-lookup":
+          //   await interactionSOMLookup(bot, message);
+          //   break;
           // case '/som-report':
           //   await interactionSOMReport(bot, message)
           //   break
@@ -280,88 +294,75 @@ controller.on("slash_command", async (bot, message) => {
           // case '/som-invite':
           //   await interactionSOMInvite(bot, message)
           //   break
-          case "/meeting-stats":
-          case "/stats":
-            await interactionStats(bot, message);
-            break;
+          // case "/meeting-stats":
+          // case "/stats":
+          //   await interactionStats(bot, message);
+          //   break;
 
-          case "/announcement":
-            await interactionAnnouncement(bot, message);
-            break;
+          // case "/announcement":
+          //   await interactionAnnouncement(bot, message);
+          //   break;
 
-          case "/airtable":
-            await interactionAirtable(bot, message);
-            break;
+          // case "/club-address":
+          //   await interactionClubAddress(bot, message);
+          //   break;
 
-          case "/address":
-          case "/leader-address":
-            await interactionAddress(bot, message);
-            break;
+          // case "/club-card":
+          //   await interactionClubCard(bot, message);
+          //   break;
 
-          case "/club-address":
-            await interactionClubAddress(bot, message);
-            break;
+          // case "/promo":
+          //   await interactionPromo(bot, message);
+          //   break;
 
-          case "/club-card":
-            await interactionClubCard(bot, message);
-            break;
+          // case "/get":
+          //   await interactionGet(bot, message);
+          //   break;
 
-          case "/promo":
-            await interactionPromo(bot, message);
-            break;
+          // case "/rename-channel":
+          //   await interactionRename(bot, message);
+          //   break;
 
-          case "/get":
-            await interactionGet(bot, message);
-            break;
+          // case "/moderate":
+          //   await interactionModerate(bot, message);
+          //   break;
 
-          case "/my-email":
-            await interactionEmail(bot, message);
-            break;
+          // case "/slack-invite":
+          //   await interactionSlackInvite(bot, message);
+          //   break;
 
-          case "/rename-channel":
-            await interactionRename(bot, message);
-            break;
+          // case "/report":
+          //   await interactionReport(bot, message);
+          //   break;
 
-          case "/moderate":
-            await interactionModerate(bot, message);
-            break;
+          // case "/meeting-time":
+          //   await interactionMeetingTime(bot, message);
+          //   break;
 
-          case "/slack-invite":
-            await interactionSlackInvite(bot, message);
-            break;
+          // case "/meeting-add":
+          //   await interactionMeetingAdd(bot, message);
+          //   break;
 
-          case "/report":
-            await interactionReport(bot, message);
-            break;
+          // case "/meeting-remove":
+          //   await interactionMeetingRemove(bot, message);
+          //   break;
 
-          case "/meeting-time":
-            await interactionMeetingTime(bot, message);
-            break;
+          // case "/meeting-list":
+          //   await interactionMeetingList(bot, message);
+          //   break;
 
-          case "/meeting-add":
-            await interactionMeetingAdd(bot, message);
-            break;
+          // case "/orpheus-tutorial":
+          // case "/meeting-tutorial":
+          //   await interactionTutorial(bot, message);
+          //   break;
 
-          case "/meeting-remove":
-            await interactionMeetingRemove(bot, message);
-            break;
+          // case "/leader-add":
+          //   await interactionLeaderAdd(bot, message);
+          //   break;
 
-          case "/meeting-list":
-            await interactionMeetingList(bot, message);
-            break;
-
-          case "/orpheus-tutorial":
-          case "/meeting-tutorial":
-            await interactionTutorial(bot, message);
-            break;
-
-          case "/leader-add":
-            await interactionLeaderAdd(bot, message);
-            break;
-
-          case "/leader-list":
-            await interactionLeaderList(bot, message);
-            break;
+          // case "/leader-list":
+          //   await interactionLeaderList(bot, message);
+          //   break;
 
           default:
             bot.replyPrivateDelayed(
