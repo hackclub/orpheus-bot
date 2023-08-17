@@ -13,7 +13,8 @@ export default async (bot = initBot(), message) => {
         { channel: breakout.fields['Breakout Channel ID'] },
         (err, res) => {
           if (err) {
-            console.error(err)
+            console.error(`Unable to close channel ID ${breakout.fields['Breakout Channel ID']}:`,err)
+            return
           }
           const { messages } = res
 
