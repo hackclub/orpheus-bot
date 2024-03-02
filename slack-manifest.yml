@@ -16,6 +16,11 @@ features:
       url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
       description: View/edit your address
       should_escape: false
+    - command: /roll
+      url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+      description: Roll a dice
+      usage_hint: 1d20
+      should_escape: true
     - command: /airtable
       url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
       description: Get user's Airtable record

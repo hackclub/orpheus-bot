@@ -36,6 +36,7 @@ import interactionStartup from "./interactions/startup";
 // import interactionReport from "./interactions/report";
 import interactionForget from "./interactions/forget";
 import interactionAirtable from "./interactions/airtable";
+import interactionRoll from "./interactions/roll";
 import interactionCheckinNotification from "./interactions/checkinNotification";
 import interactionCheckinReply from "./interactions/checkinReply";
 // import interactionClubCard from "./interactions/clubCard";
@@ -277,6 +278,10 @@ controller.on("slash_command", async (bot, message) => {
 
           case "/my-email":
             await interactionEmail(bot, message);
+            break;
+
+          case "/roll":
+            await interactionRoll(bot, message);
             break;
 
           // case "/som-promote":

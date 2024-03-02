@@ -23,6 +23,7 @@
     "cheerio": "^1.0.0-rc.3",
     "chrono-node": "^2.2.4",
     "css-validator": "^0.11.0",
+    "dnd5e-dice-roller": "^0.0.13",
     "dotenv": "^10.0.0",
     "form-data": "^3.0.0",
     "haiku-detect": "^1.1.0",

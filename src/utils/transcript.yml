@@ -752,3 +752,67 @@ haiku: |
   > ${this.haikuLines[2]}
   _– a haiku by <@${this.user}>_
 statusCheck: pong!
+roll:
+  help: Roll a dice using dnd5e notation. Ex. \`/roll 2d6\`
+  result: |
+    ${this.t(`roll.type.${this.rollType}`)}, roll for ${this.rollType}...
+    You rolled a ${this.rollResult}!
+  rollTypes:
+    - constitution
+    - damage
+    - initiative
+    - stealth
+    - perception
+    - strength
+    - dexterity
+    - charisma
+  spells:
+    - fireball
+    - magic missile
+    - Eldritch Blast
+    - null pointer exception
+  type:
+    constitution:
+        - You eat the questionable sandwich
+        - You drink the suspicious potion
+        - You take a bite of the mystery meat
+        - You take a sip of the glowing liquid
+        - You eat the glowing mushroom
+    damage:
+      - You cast ${this.t('roll.spells')}
+      - You swing your sword
+      - You shoot your bow
+      - You throw a rock
+    initiative:
+      - You see that person you have a crush on
+      - You see a spider
+      - You see a bear
+      - You see a poorly drawn dinosaur
+      - You see a fish screaming 'wahoo'
+      - You see someone in the vents
+    stealth:
+      - You hide behind a rock
+      - The teacher asks for volunteers
+    perception:
+      - You see a trap
+      - You see a secret door
+      - You see a hidden chest
+      - You see a hidden enemy
+      - There's an unstaged change in the repo
+      - The PNG's exif data is strangely large
+      - You realize you had a typo in your 'rm -rf /*'
+    strength:
+      - You clone the repo, but get a GLFS warning
+      - You try to open a jar of pickles
+      - You try to lift a heavy rock
+      - You try to lift a light rock
+      - You try to lift a feather
+      - You try to lift a heavy feather
+      - The enemy mage casts ${this.t('roll.spells')}
+    dexterity:
+      - The enemy mage casts ${this.t('roll.spells')}
+      - You try to dodge the enemy's attack
+      - You realize you had a typo in your 'rm -rf /*'
+    charisma:
+      - You try to convince the enemy to join your party
+      - Your team realizes you forgot to check out a branch and just pushed to prod
