@@ -8,7 +8,8 @@
     "fmt": "npx prettier \"{src/**,}/*.js\" --single-quote --no-semi --arrow-parens avoid --trailing-comma es5 --write",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf build && mkdir build",
-    "build-babel": "babel ./src -d ./build -s --copy-files"
+    "build-babel": "babel ./src -d ./build -s --copy-files",
+    "postinstall": "patch-package"
   },
   "main": "src/index.js",
   "dependencies": {
@@ -17,7 +18,7 @@
     "airtable": "0.7.2",
     "airtable-plus": "^1.0.4",
     "animals": "0.0.3",
-    "botkit": "0.7.5",
+    "botkit": "^0.7.4",
     "botkit-storage-redis": "^1.1.0",
     "bottleneck": "^2.19.5",
     "cheerio": "^1.0.0-rc.3",
@@ -33,6 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "openai": "^3.2.1",
+    "patch-package": "^8.0.0",
     "pluralize": "^8.0.0",
     "pusher": "^5.1.1-beta"
   },

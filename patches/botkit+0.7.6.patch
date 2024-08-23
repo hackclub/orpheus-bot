@@ -1,0 +1,13 @@
+diff --git a/node_modules/botkit/lib/SlackBot.js b/node_modules/botkit/lib/SlackBot.js
+index 8074ea3..8bc3762 100755
+--- a/node_modules/botkit/lib/SlackBot.js
++++ b/node_modules/botkit/lib/SlackBot.js
+@@ -646,7 +646,7 @@ function Slackbot(configuration) {
+         var scopes = slack_botkit.config.scopes;
+         var api_root = slack_botkit.config.api_root ? slack_botkit.config.api_root : 'https://slack.com';
+ 
+-        var url = api_root + '/oauth/authorize' + '?client_id=' +
++        var url = api_root + '/oauth/authorize/v2' + '?client_id=' +
+             slack_botkit.config.clientId + '&scope=' + scopes.join(',') + '&state=botkit';
+ 
+         if (team_id)
