@@ -30,6 +30,14 @@ features:
       url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
       description: Check what address is used by HQ
       should_escape: false
+    - command: /disable-haiku
+      url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+      description: Disable haiku detection for your messages
+      should_escape: false
+    - command: /enable-haiku
+      url: https://orpheus-bot-hackclub.herokuapp.com/slack/receive
+      description: Enable haiku detection for your messages
+      should_escape: false
 oauth_config:
   redirect_urls:
     - https://orpheus-bot-hackclub.herokuapp.com/oauth

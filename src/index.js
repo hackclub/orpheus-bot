@@ -60,6 +60,9 @@ import interactionEmail from "./interactions/email";
 import interactionHaiku from "./interactions/haiku";
 import interactionCSS from "./interactions/css";
 
+// Import the new command handlers
+import { disableHaiku, enableHaiku } from './interactions/haikuToggle'
+
 export const bugsnagClient = bugsnag(process.env.BUGSNAG_API_KEY);
 
 controller.hears(
@@ -368,6 +371,14 @@ controller.on("slash_command", async (bot, message) => {
           // case "/leader-list":
           //   await interactionLeaderList(bot, message);
           //   break;
+
+          case "/disable-haiku":
+            await disableHaiku(bot, message);
+            break;
+            
+          case "/enable-haiku":
+            await enableHaiku(bot, message);
+            break;
 
           default:
             bot.replyPrivateDelayed(
