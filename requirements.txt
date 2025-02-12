@@ -26,7 +26,6 @@ slack_sdk==3.34.0
 syllables==1.0.9
 tracery==0.1.1
 urllib3==2.3.0
-uvloop==0.21.0
 yarl==1.18.3
 zipp==3.21.0
 zope.event==5.0

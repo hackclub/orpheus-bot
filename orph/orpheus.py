@@ -7,15 +7,10 @@ from orph.interaction_support import InteractionManager
 import orph.interactions
 from orph.util.transcript import Transcript
 
-try:
-    import uvloop
-    uvloop.install()
-except ImportError:
-    uvloop = None
 class Orpheus:
     __slots__ = ["config", "logger", "env", "slack_app", "interactions", 'transcript']
 
-    from orph.slack import init_slack_app, start_slack_app, bind_event_handlers
+    from orph.slack import init_slack_app, start_socket_mode_app, bind_event_handlers
 
     def __init__(self, config):
         orph.i = self
@@ -37,12 +32,14 @@ class Orpheus:
         self.logger.info('initializing the dinosaur...')
         self.logger.info('creating slack app...')
         self.init_slack_app()
+        self.slack_app.logger.addHandler(console_handler)
+
         self.logger.info('loading transcript...')
         self.transcript = Transcript(self.logger)
         orph.transcript = self.transcript
 
 
-    async def start(self):
+    async def setup(self):
         self.logger.info("loading interactions...")
         self.interactions = InteractionManager(self)
         await self.interactions.setup(orph.interactions)
@@ -55,5 +52,4 @@ class Orpheus:
 
         self.bind_event_handlers()
         self.logger.info('"my wife,,,"')
-        await self.start_slack_app()
 

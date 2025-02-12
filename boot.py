@@ -20,8 +20,9 @@ if __name__ == '__main__':
         load_dotenv()
 
     inst = Orpheus(args)
-    try:
-        asyncio.run(inst.start())
 
-    except KeyboardInterrupt:
-        logger.info('Shutting down...')
+    asyncio.run(inst.setup())
+    if args.socket_mode:
+        asyncio.run(inst.start_socket_mode_app())
+
+    inst.slack_app.start(3000)

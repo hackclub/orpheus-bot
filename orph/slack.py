@@ -1,21 +1,23 @@
 import orph
 
+import asyncio
+from aiohttp import web
+
 from slack_bolt.app.async_app import AsyncApp
 from slack_bolt.adapter.socket_mode.async_handler import AsyncSocketModeHandler
 
 
+import logging
+
 def init_slack_app(self):
     self.slack_app = AsyncApp()  # set the env vars :-P
+    self.slack_app.logger.level = logging.DEBUG
     orph.slack_client = self.slack_app.client
     orph.slack_app = self.slack_app
 
 
-async def start_slack_app(self):
-    if self.config.socket_mode:
-        await AsyncSocketModeHandler(self.slack_app).start_async()
-    else:
-        self.slack_app.start(self.config.port or 3000)
-
+async def start_socket_mode_app(self):
+    await AsyncSocketModeHandler(self.slack_app).start_async()
 
 def bind_event_handlers(self):
     self.slack_app.event('message')(self.interactions.handle_message)
