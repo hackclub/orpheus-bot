@@ -1,5 +1,19 @@
 ![](https://raw.githubusercontent.com/hackclub/dinosaurs/master/club_dinosaur.png)
 
+# orpheus!
+the helpful dinosaur who is everybody's friend!
+
+## contributing:
+drop something in the orph/interactions folder!
+
+things should autoload if you do the decorator-y thing
+
+## her purpose:
+
+somewhere to throw all the functionality we don't want to bother writing another slackbot for
+
+## none of the following is true anymore:
+## it might be true again someday!
 - [Commands](#commands)
   - [Legend](#legend)
   - [Slash Commands](#slash-commands)

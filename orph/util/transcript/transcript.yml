@@ -1,0 +1,835 @@
+catchall:
+  emoji:
+    - parrot_confused
+    - confused-dino
+    - confused-dino-2
+    - question
+    - thonk
+    - thenk
+    - thunj
+  reply:
+    - '*tilts head in confusion*'
+    - '*slowly blinks one eye*'
+    - '*stares off into the distance, dazed*'
+    - '*eyes slowly glaze over in boredom*'
+    - "OwO what's this??"
+    - "UwU what's this??"
+    - new phone who dis?
+    - whaaaa?
+    - tbh i don't understand
+    - I DON'T UNDERSTAND?!?!?
+    - what does this mean?!?
+  botReply:
+    - What's up bot brother?
+    - Hey fam, this ain't the right endpoint
+    - What's up virtual sibling?
+    - Hope the 'nets treating you well
+    - Think you're looking for another endpoint
+    - Hey automated friendo!
+startup:
+  message: ":white_check_mark: Successfully deployed. _${this.t('startup.flavor')}_"
+  flavor:
+    - Alive in interesting times!
+    - '*0* days since last accident!'
+    - Now with startup messages!
+    - Due to unfortunate circumstances, I am once again awake.
+    - Now in ${this.t('startup.juiceFlavor')} flavor!
+    - And I'm about to make it everybody's problem
+    - I live, I crash, I live again.
+    - Didja miss me <@${this.t('otherBots')}>?
+    - And I am *not* going back to jail.
+    - that was a *hecking* good nap
+    - s t  r   e    t   c  h !
+    - In my defense, I was left unattended.
+    - All Rights Reversed.
+    - IAMNOWHERE
+    - Bonjour!
+    - Bone apple tea!
+    - Alaka-blam!
+    - Did you know? The human eye can read over 100 messages in <#${this.t('channels.botSpam')}>
+  juiceFlavor:
+    - verry-berry blast
+    - dino nugget
+    - tomato
+    - guava
+    - sugarcane
+    - trash
+    - carrot
+    - lemon-lime
+    - cherry
+    - grapefruit
+    - butterscotch
+    - cinnamon
+    - wahoo fish
+    - eeby deeby
+    - flavorful
+    - rainbow
+    - meteor
+    - 8-bit
+    - retro
+otherBots:
+  - U015D6A36AG # @scrappy
+  - URZHZS3L6 # @maildog
+  - U012H797734 # @clippy
+  - U012FPRJEVB # @clippy's boss
+  - ULG7GRP0A # @bouncer
+  - USYUBKF1A # @The Fuzz
+channels:
+  botSpam: C0P5NE354
+mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
+hello:
+  - hellp
+  - helli
+  - helo
+  - hwllo
+  - helllo
+  - hell
+  - hllo
+  - ehllo
+  - heoll
+clubCard:
+  noClub: Hmmm... I couldn't find your club in my database. Are you supposed to be a leader or something?
+  noCard: Your club doesn't have a card. You'll get one next time you apply for a semesterly grant.
+  dmNotification: So I don't accidentally leak the card number where I shouldn't, I'm going to DM you the link to the club card.
+  url: Here's your card link ${this.url}
+clubAddress: |
+  Here's the current address we have on record for your club.
+  \`\`\`
+  Street (First Line)\: ${this.address['Street (First Line)'] || ''}
+  Street (Second Line)\: ${this.address['Street (Second Line)'] || ''}
+  City\: ${this.address['City'] || ''}
+  State/Province\: ${this.address['State/Province'] || ''}
+  Postal Code\: ${this.address['Postal Code'] || ''}
+  Country\: ${this.address['Country'] || ''}
+
+  Delivery Notes\: ${this.address['Delivery Notes'] || ''}
+  \`\`\`
+
+  You can update your club's address using this form. ${this.address['Update Form URL']}
+address: |
+  Here's the current address we have on record for shipping to you.
+  \`\`\`
+  Street (First Line)\: ${this.address['Street (First Line)'] || ''}
+  Street (Second Line)\: ${this.address['Street (Second Line)'] || ''}
+  City\: ${this.address['City'] || ''}
+  State/Province\: ${this.address['State/Province'] || ''}
+  Postal Code\: ${this.address['Postal Code'] || ''}
+  Country\: ${this.address['Country'] || ''}
+
+  Delivery Notes\: ${this.address['Delivery Notes'] || ''}
+  \`\`\`
+
+  You can update your address using this form. ${this.address['Update Form URL']}
+hacktoberfest: Hey! heard you were talking about hacktoberfest. if you're interested in submitting PRs to me, but don't know where to start, message <@U0C7B14Q3>– he can help you get started!
+trigger:
+  dinoBadge:
+    notifyRecipient: Hey, you've earned the :dinoisseur-badge:! You can use it by typing \`:dinoisseur-badge:\` or \`:smug-dino:\`
+leaderInvite:
+  notAdmin: I can't do that for you, you're not an admin!
+  notClubChannel: I can only do that in a club channel!
+  finished: Success!
+  bullets:
+    success: ':white_check_box: Invited <@${this.slackID}> (<@${this.slackID}>)'
+    failure: ":no_entry: Couldn't invite <@${this.slackID}> (<@${this.slackID}>): ${this.errString}"
+announcement:
+  help: |
+    Send an announcement to selected clubs. Usage below.
+    \- \`/announcement stop\` Cancel in-progress announcements
+    \- \`/announcement status\` See what announcements are queued to who
+    \- \`/announcement record\` Records a message to your user account
+    \- \`/announcement address\` Sets who the message is delivered to
+    \- \`/announcement send\` Sends the message
+  starting:
+    Starting to send announcements. Cancel with \`/announcement stop\`. Due to limitations in Slack's API, I can only post progress updates in channels I'm already in
+  progress:
+    start: Priming to post to \`${this.recordID}\` in <#${this.channel}> (${this.channel})...
+    complete: Just posted in <#${this.channel}> (${this.channel})!
+  finished:
+    Finished sending out announcements!
+  status: |
+    The following information is stored in the announcement command's memory
+    \> ${this.announcementData.split('\n').join('\n> ')}
+  address: 
+    To prevent a race condition where 2 admins try sending announcements at the same time, the address verb is disabled. To queue up clubs for an announcement, check the "Announcement Queued" checkbox for your target clubs in Airtable
+  unrecognizedCommand: |
+    I couldn't figure out what action you're trying to take. Here's the help text.
+    ${this.t('announcement.help')}
+  notExactSlackMatch: |
+    I couldn't pull up that Slack message. This is probably a limitation of Slack's permissions for bots– we can't query ephemeral messages, private channels, etc.
+whatAreYouDoing:
+  - my best...
+  - ¯\\_(ツ)_/¯
+  - ':shrug:'
+whoAreYou: # also 'what are you'
+  - I'm a poorly drawn dinosaur!
+  - I'm a baby dinosaur!
+  - I'm a dinosaur!
+  - Check out my social! hack.af/dinos
+  - Check out my codebase! https://github.com/hackclub/orpheus-bot
+  - Check out my docs! https://github.com/hackclub/orpheus-bot
+  - I asked you first! Who are *you*?
+  - No, who are you?
+whereAreYou:
+  - in the cloud!
+  - hanging out with the other bots
+  - I'm chilling at 127.0.0.1
+  - i'm just hang'n out in heroku
+hi:
+  - hello
+  - hey
+  - howdy 🤠
+  - hiiiiiiiiiii!!!!!!!
+  - hELLLOOOOOOOOOOOO
+  - wasup?
+  - ":cooll-dino:"
+  - ":hyper-dino-wave:"
+thanks:
+  - you're welcome!
+  - sure thing!
+  - sure!
+  - doin' my best!
+  - it's nothing
+  - you got it!
+  - don't mention it
+  - not a problem
+  - my pleasure
+  - it's my pleasure
+  - no bother!
+  - happy to help
+  - not at all
+  - anytime
+  - happy to be of service!
+  - no, thank *you*
+checkinNotification:
+  named: |
+    Hey <@${this.user}>! My calendar shows you had a meeting recently. :point_right: *you are responsible* :point_left: for recording it.
+    ${this.t('checkinNotification.content')}
+  unnamed: |
+    Hey! My calendar shows you had a meeting recently.
+    ${this.t('checkinNotification.content')}
+  content: |
+    - If you *did* meet, reply to this thread with the number of members you had (e.g. "15").
+  threadDetails: |
+    - if you *didn't* meet, reply to this thread with "no".
+    - if you *won't* meet for a while, use the command \`/meeting-time\` with the day/time of your next meeting (e.g. "/meeting-time a month from today at 2 pm").
+  log:
+    lookingForPOC: "*Running checkin on channel '${this.channel}' with no default leader, I'll look for a default leader now!*"
+    foundPOC: "*Found a POC! I'll post a checkin notification in channel '${this.channel}' & tag the POC: '${this.user}'!*"
+    noPOCFound: "*I didn't find a POC for the club in channel '${this.channel}', so I'll just post the notification without tagging anyone*"
+    posting: "*Posting a checkin notification in channel '${this.channel}' & tagging user '${this.user}'!*"
+stats:
+  help: |
+    Get a graph of a club's stats. Ex.
+    - \`/stats\` Post your own club's stats
+    - \`/stats @USER\` Post the tagged user's stats
+    - \`/stats #CLUB-CHANNEL\` Post the tagged club's stats 
+    Include the keyword "hidden" to post privately. Ex. \`/stats @USER hidden\`
+  loadingMessage: ":beachball: ${this.t('stats.loadingFlavor')}"
+  loadingFlavor:
+    - chugging the data juice
+    - chugging *Stat-Cola©*, for those who want to know things™
+    - that's numberwang!
+    - crunching the numbers
+    - munching the numbers
+    - gurgling the bits
+    - juggling the electrons
+    - chomping the bytes
+    - playing the photons on bass
+    - reticulating the splines
+    - rolling down data hills
+    - frolicking through fields of numbers
+    - skiing the data slopes
+    - zooming through the cyber-pipes
+    - grabbing the stats
+    - switching the dependent and independent variables
+    - flipping a coin to choose which axis to use
+    - warming up the powerhouse of the cell
+    - calculating significant figures...
+    - p-hacking the n value
+    - computing P = NP
+    - realizing P ≠ NP
+    - so, uh... come here often?
+    - "*powertool noises*"
+    - spinning violently around the y-axis
+    - serializing first-time coders experiences
+    - tokenizing personal experiences
+    - waking up the bits
+    - petting the bits
+    - testing patience
+    - npm installing 3 of 27594 packages
+    - spinning the rgbs
+    - Installing dependencies
+    - shoveling the overflowed pixels
+    - ".split() === :large_blue_circle::large_green_circle::large_yellow_circle::large_orange_circle::red_circle::large_purple_circle: "
+  notFound:
+    - ":confused-dino: I can't find that club in my files"
+    - ":confused-dino-2: I don't see that club's records"
+    - ":angry-dino: I don't see any records about that club– what are you trying to pull here?"
+  noMeeting: I don't see any meetings recorded for the club. If this is your club, you can record new meetings with the \`/meeting-add\` command, or DM'ing me \`checkin\`
+  error:
+    - ':warning: Hmmm... something’s wrong. I got \`${this.err}\`'
+    - ':warning: Shoot! \`${this.err}\`. Now I’ve spilled stats all over my desk'
+    - ':warning: I pulled the graph out of my printer, but it’s just a blank page that says \`${this.err}\`'
+    - ':warning: I tried printing your club’s graph, but it’s just a blank page that says \`${this.err}\`'
+tutorial:
+  notAuthed: Sorry to say your Slack account isn't tied to a registered club. If you know you're a club leader this is probably just an error you can resolve by letting the staff know.
+  start: >
+    Hey <@${this.user}>! I'm a tool you can use to manage & get resources for your club.
+  finished: >
+    That's it for the tutorial!
+  renameChannel:
+    start: >
+      Let's rename your club's channel to something more presentable (it's
+      currently <#${this.channel}>). Run \`/rename-channel new-channel-name\`
+      (but with a name you actually want to use).
+    finished: >
+      Fantastic! Your channel is your own space for your co-leaders and club members. You can rename it at anytime.
+  getSticker:
+    start: |
+      Now let's get some goodies. Hack Club has a long tradition of club stickers (hackclub.com/stickers), and we want to get some shipped to you ASAP.
+      Run \`/get sticker envelope\` to get a envelope of stickers.
+    finished: |
+      Great! Now that you've ordered one sticker envelope you can always order another– we're happy to give more stickers to clubs in need.
+      There are a couple more promos available, but some of them are only available to clubs that are actively meeting. We'll play around with that later on in the tutorial, but we'll need to record a meeting.
+  meetingAdd:
+    start: |
+      Let's record a meeting. Normally you'd do this after each of your meetings, but to get through the tutorial we'll have you record 2 right now.
+      No worries if you haven't met yet, just make something up for the tutorial– we'll cover how to remove meetings later on.
+
+      Record a first meeting today:
+        - \`/meeting-add today, 24 members\`
+    progress: Great! Now add another \`/meeting-add last friday, 21 members\`
+    finished: 
+      Great! Now that you've got meetings recorded, your club is "active". Active clubs get access to a couple exclusive tools and services.
+errors:
+  video: This footage was taken moments before the incident ${this.t('errors.videoURLs')}
+  videoURLs:
+    - https://www.youtube.com/watch?v=O6WE5C__a70
+    - https://youtu.be/8tAu79kB57s
+    - https://youtu.be/yZ5AVxKf0EM
+    - https://youtu.be/fYM0RuKElIQ
+    - https://youtu.be/r1gNHREgecI
+    - https://youtu.be/ljbSoFJSn1U
+    - https://www.youtube.com/watch?v=lMUSyvTBokc
+  general: |
+    Something went wrong\: \`${this.err}\`
+    ${this.err.stack ? this.t('errors.stack', {err:this.err}):''}
+    ${Math.random() < 0.1 ? this.t('errors.video'):''}
+  stack: |
+    \`\`\`
+    // Here's my stacktrace from my code at https://github.com/hackclub/orpheus-bot\:
+    ${this.err.stack}
+    \`\`\`
+  memory:
+    - 'I think I’m suffering from amnesia... I’m trying to recall what we were talking about, but all that comes to mind is \`{${this.err}}\`'
+    - 'Hmmm... something’s on the tip of my tongue, but all I can think is \`${this.err}\`'
+    - 'Do you ever try to remember something, but end up thinking \`${this.err}\` instead? Wait... what were we talking about?'
+    - 'Hmmm... I’m having trouble thinking right now. Whenever I focus, \`${this.err}\` is the only thing that comes to mind'
+    - 'Aw jeez, this is embarrassing. My database just texted me \`${this.err}\`'
+    - 'I just opened my notebook to take a note, but it just says \`${this.err}\` all over the pages'
+  transcript:
+    - "Uh oh, I can't read my script. There's a smudge on the next line."
+    - 'Super embarrasing, but I just forgot my next line.'
+    - 'I totally forgot what I was talking about.'
+renameChannel:
+  help: Use this command to rename your club's channel \`/rename-channel new-channel-name\`
+  invalidChannel: You can't rename this channel. Did you mean to run this in <#${this.channel}>?
+  noClubChannel: I couldn't find a club channel owned by you
+  invalidUser: Only club leaders can use this command
+  progress: You got it boss! Renaming the channel to "${this.name}"...
+  success: I don't have permission to change channel names directly, but I've got <@U0C7B14Q3>'s password (he stashes them under his mattress), so I logged in as him to rename it.
+  error: hmmm... something went wrong. I tried saving "${this.name}", but it says \`${this.err}\` in red
+moderate:
+  help: Use this command to moderate your club's community channel, first run `/moderate` to link the channel and then `/moderate <slack message link>` to delete an inappropriate message.
+  linked: Linked ${this.channel} to your club!
+  invalidLink: This doesn't seem to be a Slack link, it should be something like https://hackclub.slack.com/archives/C0266FRGV/p1628490555411100.
+  notInChannel: This message needs to be in your club channel
+  invalidUser: Only club leaders can use this command
+  success: Deleted! Now go tell those naughty messengers to keep to the CoC ;)
+  error: hmmm... something went wrong. I tried deleting that message, but it says \`${this.err}\` in red
+slackInvite:
+  invalidChannel: You can't create an invite for this channel. Did you mean to run this in <#${this.channel}>?
+  noClubChannel: I couldn't find a club channel owned by you
+  invalidUser: Only club leaders can use this command
+  instructions: |
+      <#${this.channel}>'s invite link is: https://hack.af/slack?c=${this.channel}. If you'd like to put it on a poster, you can use <https://api.qrserver.com/v1/create-qr-code/?data=https://hack.af/slack?c=${this.channel}&size=900x900|this QR code>! Or if you'd like to introduce Slack through a workshop you can try out the <https://workshops.hackclub.com/your_first_ship/|"Your First Ship" workshop> (<https://your-first-ship.hackclub.com/${this.channel}|your club's slide link>). Lastly, you can append an email address to this command to invite that email to the Slack.
+  invited: Invited ${this.email} to the Slack and your club channel!
+meetingRemove:
+  help: |
+    This command will remove a club meeting for your club's history. Example usage\:
+    \`/meeting-remove recWh9CTlR7QnNspQ\`
+
+    You can get the meeting's ID from \`/meeting-list\`.
+  success: Meeting removed! It won't show up in your meeting list anymore.
+checkinReply:
+  notAuth: I assume you wanted to record a meeting of ${this.attendance} members, but I don't see you listed as a leader of <#${this.channel}>.
+  notNumber: Please just enter digits– I'm fragile.
+  success: |
+    I've recorded a club meeting <!date^${new Date(this.date).getTime()/1000}^{date_long_pretty}|on ${this.date}> with ${this.attendance} members!
+    \- Upload meeting pics :camera\: here\: ${this.photoURL}
+    \- Run \`/stats\` to see your club's history
+    \- Run \`/meeting-add\` to add a meeting on another day
+meetingAdd:
+  help: |
+    This command will record the date & attendance of a club meeting for your club. Usage\:
+    \- \`/meeting-add [date], [attendance]\`
+    \- \`/meeting-add today, 12 people attended\`
+    \- \`/meeting-add last ${this.day}, 15 members\`
+  success: |
+    ${this.t('meetingAdd.successFlavor')} Recorded your club meeting's attendance!
+    \- Save photos :camera\: from the meeting here\: ${this.formUrl}
+    \- Run \`/stats\` to see your club's history
+  successThread:
+    confirmation:
+      - Someone just added a meeting!
+      - Another meeting added.
+      - \`meetingCount++\`
+      - Meeting added!
+      - Another meeting was added. Hope it went well!
+    count:
+      - That makes ${this.meetingCount} in total.
+      - That brings it up to ${this.meetingCount} meetings.
+      - Now you're at ${this.meetingCount} in total.
+      - If you were paid $1 per meeting you'd have $${this.meetingCount} and you can take that to the bank.
+      - In chickens, that'd be ${'🐓'.repeat(this.meetingCount)}. That's ${this.meetingCount} meetings in regular numbers.
+      - Hope it went well! That brings the total meeting count to ${this.meetingCount}.
+      - The total meeting count in binary is \`${this.meetingCount.toString(2)}\`. That's ${this.meetingCount} meetings in regular numbers.
+      - The total meeting count in hexadecimal is \`${this.meetingCount.toString(16)}\`. That's ${this.meetingCount} meetings in regular numbers.
+      - The total meeting count converted to a color is \#${this.meetingCount.toString(16).padStart(3, '0').split('').map(m => m + m).join('')}. That's ${this.meetingCount} meetings in regular numbers.
+  successFlavor:
+    - Nice!
+    - ':yay:'
+    - _orpheus gets up and does a little happy dance_
+    - You bet'cha!
+    - Got it!
+    - Saved!
+    - Added to your club's history
+forget:
+  success: ${this.t('forget.successFlavor')} Just joking– I've successfully wiped my memories about <@${this.user}>.
+  successFlavor:
+    - On it... wait, what was I doing?
+    - What did you just ask me?
+    - Authorization error! I can't find you in my records.
+    - "*beep* Caroline deleted."
+  notAuthed: This is a potentially destructive action, so it's limited to admins only for the time being.
+meetingTime:
+  help:
+    This command will set your weekly meeting time (which informs when I ask
+    about your club meeting). Just run the command \`/meeting-time next
+    tuesday at 3 pm\` (using your own day and time)
+  invalidUser: Only club leaders can use this command
+  invalidClub: I couldn't find your club in my records!
+  success: Ok, I'll post a message in <#${this.channelID}> around <!date^${Math.floor(this.offsetDate.getTime()/1000)}^{time} {date_long_pretty}|on ${this.offsetDate.toLocaleString()}>
+  parsingError: I couldn't figure out what day and time you meant
+leaderAdd:
+  help: >
+    Registers a new leader to your club. Ex. \`/leader-add @orpheus\`
+    _Needs to be run by a club leader in their own club channel_
+    Additionally, you can see a list of who is already a leader with \`/leader-list\`
+  invalidAuth: I couldn't find your club. Only registered leaders or operations team members can run this command.
+  invalidChannel: This isn't your club channel. Please run this in a channel you lead.
+  clubNotFound: This channel isn't tied to a club! Please run this in a club channel.
+  alreadyLeader: They're already a leader in your club!
+  success: And... done! I've added <@${this.taggedUserID}> to the club in <#${this.channel}>.
+leaderList:
+  invalidUser: Only club leaders can use this command.
+  invalidClub: I couldn't find your club.
+  invalidChannel: This isn't your club channel. Please run this in a channel you lead.
+  leaderFlavor:
+    - leaders
+    - big bosses
+    - head honchos
+    - rulers
+    - commanding officers
+  list: >
+    \*The ${this.t('leaderList.leaderFlavor')} of <#${this.channel}>:*
+    ${this.leaders.map(leader => this.t('leaderList.leader', { leader } ))}
+  leader: "\n- <@${this.leader.fields['Slack ID']}>"
+promos:
+  zoom:
+    discontinued: |
+      You don't need this promo anymore!
+
+      At the start of the 2020 school year we gave out Zoom Pro accounts to a single leader from each club through this command. Now we've built an even better platform that everyone in the Slack can use to run Zoom Pro meetings.
+
+      You can now start a Zoom Pro meeting anywhere in the Slack by running \`/z\`.
+
+      There's also a Google Calendar scheduling addon that will let you add Zoom Pro meetings to your calendar. You can join the beta by going to the app's homepage: <@U01MQRGUG5P>.
+    help: |
+      Help message
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+    notPOC:
+      exists: This promo is for your club's "point of contact" (looks like that'd be <@${this.pocID}>).
+      doesntExist: This promo is for your club's "point of contact".
+    createdAccount: Your Zoom Pro account was just created! Next step is to open the invite email sent to you (${this.email}) to accept the invite.
+    pendingAccount: Your Zoom Pro account is waiting activation. Accept the invite email sent to *${this.email}*. Also check your spam folder!
+    toggleAccount: ":white_check_mark: You have a Pro account already, so normally this would toggle your account or something, but that's not yet implemented."
+    upgradeLink: https://zoom.us/account/billing/buy?plan=biz&subPlan=none&type=edit&oldPlanCode=business_monthly_c50&oldHosts=${this.usage + 10}
+    reachedLimit: Uhhh....
+      - Oh boy. Ok. Everything is on fire. ZOom is screaming at me PLEASE UPGRADE THE plan https://cloud-maxaw9s1x.vercel.app/fsv89.gif
+      - OhKay.
+    dangerZone:
+      - ":warning: Officially reaching **the danger zone**. We're at ${this.usage}/${this.hosts} licenses used"
+      - We're at 87 miles per hour! ${this.usage} of the ${this.hosts} Zoom licenses have been used. https://cloud-n152gnfmx.vercel.app/qsoi5ab.gif
+      - Ok, the engine is really starting to heat up. Can y'all upgrade the Zoom plan ASAP? https://cloud-yupgj2ro4.vercel.app/1cc65fbecd5ff0f7c8dedd01b9e5aced.jpg
+      - <@${this.user}> just activated a Zoom Pro license. Seriously, call Kenny Loggins, cause you're in the _danger zone_. (fr tho, we're at ${this.usage}/${this.hosts} licenses used)
+    approachingLimit:
+      - Hey, just a heads up that <@${this.user}> just got a Zoom Pro account & now we're at ${this.usage}/${this.hosts} licenses used. Might want to check into upping our licenses. https://cloud-cyd4mmnr0.vercel.app/check-engine-light.gif
+      - The engine's running a little hot captain! Maybe ya could look into upgrading our Zoom account to increase our licenses? https://cloud-6dzm602ef.vercel.app/1392905439649605409.gif
+      - Oh boy, uh, we uh, hmmmmmmmm. Our Zoom Pro account is almost out of open licenses. We're at ${this.usage} of ${this.hosts} used. Can someone bump the billing up for me?
+      - "VRRRRRRRROOOOOOOOOOOOOOOOMMMMMMMMMMMMMMMMMMM:racecar: <- that's our Zoom account racing towards our license limit. Could someone lay down some track for me?"
+      - Not crazy time sensitive, but could you upgrade the Zoom licenses? <@${this.user}> just got an account & now we have ${this.hosts-this.usage} license left. https://cloud-1desdbmuy.vercel.app/bhb-gg.gif
+  stickerEnvelope:
+    deprecate: |
+      This method of getting stickers is out of date! If you need stickers for your club, reach out to <@U0278J0HRJ6>. If you are in APAC, reach out to <@U010XUNLX40>.
+    help: |
+      Run this command to order stickers for yourself or your club members. Use a username or email. Ex. */get sticker envelope <@${this.user}>* or */get sticker envelope ${this.email}*
+
+      Please keep in mind we're doing this on a trust system –please just send one to yourself and your members– each request is reviewed by a human.
+    success: ":white_check_mark: Your stickers are on the way! Now just hang tight- your envelope has been sent to the Mail Team and you can expect it in 2-3 weeks."
+    alreadyOrdered: ":white_check_mark: You've already got a sticker envelope on the way! Just hang tight for now."
+    alreadyEnroute: ":white_check_mark: There's already a sticker envelope enroute (ordered <!date^${this.missionTS}^{date_short_pretty}|on ${this.missionTS}>)! Just sit tight, it will get there eventually."
+  stickermule:
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+    success: Go to hack.af/stickermule to get your StickerMule promo code
+  githubSDP:
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+    success: You and all your club members can use this link to apply hack.af/pack. Make sure to select "${this.referrer}" in the "Hack Club / Hackathon" field.
+  notion: Go to hack.af/ntn for instructions on how to get your free Notion account
+  adafruit: Go to adafruit.com and use \`HACKCLUB\` as a promo code to get a 10% discount! 
+  replit:
+    success: Hmmmm.... our code stopped working. We're chatting with the replit team about getting it replaced, so try checking back in a week or so!
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+  githubGrant:
+    programClosed: |
+      We've given out all the money from GitHub's grant fund from the 2019-2020 school year. We're currently talking to them about renewing the fund for next year, so check back later.
+    alreadyGranted: |
+      I already see a grant request submitted <!date^${this.lastGrantDate.getTime()/1000}^{date_short_pretty}|on ${this.lastGrantDate}> submitted by <@${this.requester}> this semester.
+      We can only automatically send grants once per semester, but if you think there's an error or are looking for an exception reach out to staff.
+    otherSuccess: I've just reached out to staff to get your grant fulfilled. Save time by double-checking your shipping address is correct with \`/address\`.
+    usShipping: I've just posted a mission to Mail Team and you'll get a notification about package tracking shortly once the mission is accepted by a Node Master. Save time by double-checking your shipping address is correct with \`/address\`.
+    hcbFulfillment: I've just told the Bank team about your grant and they'll send it over ASAP. The grant will show up in your account (${this.hcbLink}). If you need to change accounts or have any issues/questions, reach out to your Bank point of contact.
+    notAuthorized: This can only be run by club leaders. I can't find your club's record in my database.
+    requestForm: |
+      You betcha'! The next step is to fill out a grant request form: https://hack.af/gh-grant?prefill_Grant%20Record%20ID=${this.id}.
+    inactive: >
+      Your club doesn't have the "active" status (run \`/stats\` to see your
+      club's status and \`/meeting-add\` to record meetings). While not
+      required for grants, having "active" status will go a long way in
+      getting your grant approved. If you've forgotten to add any meetings
+      you can record them now before your grant is reviewed by staff.
+    loading:
+      message:
+        - converting the dollaringos
+        - converting to yen and back again
+        - flippin the bits
+        - deep frying the cents
+        - rounding the cents
+        - grinding out the pennies
+        - counting that out in ${this.t('promos.githubGrant.loading.demonimations')}
+        - contacting the **Smoothmunny™℠®** api
+        - issuing the ${this.t('promos.githubGrant.loading.demonimations')}
+        - stealing ${this.t('promos.githubGrant.loading.demonimations')} to give out
+        - hacking the bank
+        - breaking into the bank
+      denominations:
+        - bitcoin
+        - dogecoin
+        - pennies
+        - cents
+        - dollars
+        - yen
+        - dollaringos
+        - ezBUCKS
+get:
+  help: 'Get stuff from Hack Club. Try \`/get Replit\`'
+  list: Here's the list of things you can get ${this.promos.map(p => this.t('get.bullet', { p }))}
+  bullet: \n- \`/get ${this.p.names[0]}\` _${this.p.details}_
+som:
+  approve:
+    restricted: This can only be called by a full Slack user, not a guest.
+    notRestricted: That user isn't a guest. I can only promote guests to full Slack users.
+    notAdmin: Only Slack admins can promote a user.
+    notGuest: No guest history found for <@${this.user}>. I can't promote them to a full Slack user.
+    alreadyApproved: That person already has a fully approved Slack account! There isn't anything more I can approve them for.
+    success: 'https://www.youtube.com/watch?v=SBCw4_XgouA'
+  lookup:
+    stillGuest: <@${this.user}> is still a guest! Someone needs to approve them as a full Slack user before I can lookup who approved them.
+    found: <@${this.user}> was promoted from guest user to a full slack member by <@${this.approver}>.
+    notFound: No guest history found for <@${this.user}>. This probably means they joined the Slack as a full user instead of being invited as a guest and approved by another member.
+breakout:
+  loading: ":beachball:"
+  created: Just created <#${this.channel}>. It will be archived after 30 minutes of inactivity.
+  intro: This channel was created as a breakout of <#${this.channel}>. It will be archived after 30 minutes of inactivity.
+  warning: This channel will be archived soon due to inactivity.
+fileShare:
+  success: |
+    Yeah! Here's yo' links <@${this.user}>
+    ${this.links}
+  errorTooBigImages:
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/2too_big_4.png
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/3too_big_2.png
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/4too_big_1.png
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/6too_big_5.png
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/7too_big_3.png
+  errorTooBig:
+    blocks:
+    - type: image
+      title:
+        type: plain_text
+        text: File too big!
+        emoji: true
+      image_url: ${this.t('fileShare.errorTooBigImages')}
+      alt_text: file too large
+  errorGenericImages:
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/0generic_3.png
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/1generic_2.png
+    - https://cloud-3tq9t10za-hack-club-bot.vercel.app/5generic_1.png
+  errorGeneric:
+    - |
+      _orpheus sneezes and drops the files on the ground before blowing her nose on a blank jpeg._
+    - |
+      _orpheus trips and your files slip out of her hands and into an inconveniently placed sewer grate._
+    - |
+      _orpheus accidentally slips the files into a folder in her briefcase labeled "homework". she starts sweating profusely._
+    - blocks:
+      - type: image
+        title:
+          type: plain_text
+          text: Error!
+          emoji: true
+        image_url: ${this.t('fileShare.errorGenericImages')}
+        alt_text: Something went wrong
+  extensions:
+    gif:
+      - _gif_ that file to me and i'll upload it
+      - _gif_ me all all your files!
+    heic:
+      - What the heic???
+    mov:
+      - I'll _mov_ that to a permanent link for you
+    html:
+      - Oh, launching a new website?
+      - uwu, what's this site?
+      - WooOOAAah hey! Are you serving a site?
+      - "h-t-m-ello :wave:"
+    rar:
+      - .rawr xD
+      - i also go "rar" sometimes!
+  generic:
+    - thanks!
+    - thanks, i'm gonna sell these to adfly!
+    - tysm!
+    - file away!
+clubInit: Hey! You've found a command that's still unfinished. The recommended way to start a club with Hack Club is going to https://apply.hackclub.com.
+report: Here's the form to fill out a CoC report. ${this.reportFormUrl}
+documentation:
+  url: https://github.com/hackclub/orpheus-bot
+  formatLink: <${this.t('documentation.url')}|${this.text}>
+  typos:
+    - EATME
+    - REAMDE
+    - REMEAD
+    - MEREAD
+  flavor:
+    - README!
+    - Read my docs!
+    - Check out these docs!
+    - Docs, Docs, get 'em while they're hot!
+    - READIT!
+    - RTFM– read the _fabulous_ manual!
+reportForm:
+  type: modal
+  title:
+    type: plain_text
+    text: Flag a post
+  submit:
+    type: plain_text
+    text: Submit
+  blocks:
+    - type: section
+      text:
+        type: mrkdwn
+        text: ${this.quote}
+    - type: input
+      block_id: notes
+      element:
+        type: plain_text_input
+        multiline: True
+        action_id: notesValue
+      optional: true
+      hint:
+        type: plain_text
+        text: This is the hint for the form
+      label:
+        type: plain_text
+        text: Extra details
+        emoji: true
+    - type: context
+      elements:
+        - type: 'mrkdwn'
+          text: 'Optionally include extra details in the notes field.'
+wildWildWest:
+  ticket: |
+    Howdy partner, or should I say howdy ${this.t('wildWildWest.adjective')} <@${this.user}>! I've got a new look for you, how about you try it out as a new PFP? You're going to want to download a nice crisp copy <http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}|here>.
+  image:  http://cowboy-pfp.hackclub.dev/api/ticket?username=${this.user}
+  adjective:
+    - Curly
+    - Django
+    - Billy
+    - Smiley
+    - Blueridge
+    - Poppy
+    - Buckey
+    - Whitey
+    - Mojo
+    - Lefty
+    - Smokey
+    - Shorty
+    - Whiskey
+    - Bronco
+    - Trapper
+    - Amarillo
+    - Dakota
+    - Cactus
+    - Buck
+    - Pat
+    - Paco
+    - Gonzales
+    - Bob
+    - The Lucky
+    - The Terrible
+    - The Fearsome
+    - The Hot-Tempered
+    - The Lone
+    - The Back-Stabbing
+    - The Cross-Eyed
+    - The Bad
+    - The One-Eyed
+    - The Ruthless
+    - The Wanted
+    - The Stubborn
+    - The Desperate
+    - The Mule-Headed
+    - The Happy
+    - The Crazy
+    - The Lawless
+    - The Saddlesore
+    - The Sharp-Eyed
+    - The Wild
+    - The Unruly
+    - The Paranoid
+    - The Angry
+    - The Blood-Thirsty
+    - Stagecoach-Robber
+    - Bull of the Woods
+    - Sharpshooter
+    - Farmer
+    - Flapjack
+    - Sundance Kid
+    - Gunslinger
+    - Rustler
+    - Buffalo Hunter
+    - Rattlesnake
+    - Cotton-Mouth
+    - Dude
+    - Deadwood
+    - Mustang
+    - Cowbox
+    - Gambler
+    - Apache
+    - Water trough diver
+    - Gunslinger
+    - Outlaw
+    - Bushwacker
+    - Bearcat
+    - Jailbreaker
+    - Itchy-Trigger
+olympics:
+  ticket: |
+    Welcome to the games <@${this.user}>! We're so excited to have you join us, check your email for more details!
+gamelab:
+  autoReply: |
+    _I've set an auto-reply using <@U017VA2PN3V> until on Fri, Feb 25th_
+    <https://hackclub.slack.com/archives/C0P5NE354/p1644606215597029|HELP!!!1!>
+  melabEmoji: gamelab
+  warningEmoji: warning
+haiku: |
+  > ${this.haikuLines[0]}
+  > ${this.haikuLines[1]}
+  > ${this.haikuLines[2]}
+  _– a haiku by <@${this.user}>, ${this.year}_
+statusCheck: pong!
+roll:
+  help: Roll a dice using dnd5e notation. Ex. \`/roll 2d6\`
+  result: |
+    ${this.t(`roll.type.${this.rollType}`)}, roll for ${this.rollType}...
+    You rolled a ${this.rollResult}!
+  rollTypes:
+    - constitution
+    - damage
+    - initiative
+    - stealth
+    - perception
+    - strength
+    - dexterity
+    - charisma
+  spells:
+    - fireball
+    - magic missile
+    - Eldritch Blast
+    - null pointer exception
+  type:
+    constitution:
+        - You eat the questionable sandwich
+        - You drink the suspicious potion
+        - You take a bite of the mystery meat
+        - You take a sip of the glowing liquid
+        - You eat the glowing mushroom
+    damage:
+      - You cast ${this.t('roll.spells')}
+      - You swing your sword
+      - You shoot your bow
+      - You throw a rock
+    initiative:
+      - You see that person you have a crush on
+      - You see a spider
+      - You see a bear
+      - You see a poorly drawn dinosaur
+      - You see a fish screaming 'wahoo'
+      - You see someone in the vents
+    stealth:
+      - You hide behind a rock
+      - The teacher asks for volunteers
+    perception:
+      - You see a trap
+      - You see a secret door
+      - You see a hidden chest
+      - You see a hidden enemy
+      - There's an unstaged change in the repo
+      - The PNG's exif data is strangely large
+      - You realize you had a typo in your 'rm -rf /*'
+    strength:
+      - You clone the repo, but get a GLFS warning
+      - You try to open a jar of pickles
+      - You try to lift a heavy rock
+      - You try to lift a light rock
+      - You try to lift a feather
+      - You try to lift a heavy feather
+      - The enemy mage casts ${this.t('roll.spells')}
+    dexterity:
+      - The enemy mage casts ${this.t('roll.spells')}
+      - You try to dodge the enemy's attack
+      - You realize you had a typo in your 'rm -rf /*'
+    charisma:
+      - You try to convince the enemy to join your party
+      - Your team realizes you forgot to check out a branch and just pushed to prod
+heart_emoji:
+  - sparkling_heart
+  - gift_heart
+  - heart_mona
+  - 8bit-heart
+ping:
+  - pong!
+  - ....pong!
+  - 🏓
