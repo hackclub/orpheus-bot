@@ -13,7 +13,6 @@ cleanup = re.compile(r'[^a-zA-Z0-9\s\.$]')
 
 @listen_for("message")
 @message_shorter_than(250)  # adjust to taste, but keep in mind this runs on every message
-@only_in_channel("C0854JXKB1S")
 async def haiku_interaction(args):
     message = args.message
     text = cleanup.sub('', message['text']).strip().replace('\n', ' ')
