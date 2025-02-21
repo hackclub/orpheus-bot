@@ -24,5 +24,5 @@ if __name__ == '__main__':
     asyncio.run(inst.setup())
     if args.socket_mode:
         asyncio.run(inst.start_socket_mode_app())
-
-    inst.slack_app.start(3000)
+    else:
+        inst.slack_app.start(int(args.port))
