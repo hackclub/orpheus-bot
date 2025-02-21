@@ -11,7 +11,7 @@ import logging
 
 def init_slack_app(self):
     self.slack_app = AsyncApp()  # set the env vars :-P
-    self.slack_app.logger.level = logging.DEBUG
+    # self.slack_app.logger.level = logging.DEBUG
     orph.slack_client = self.slack_app.client
     orph.slack_app = self.slack_app
 
