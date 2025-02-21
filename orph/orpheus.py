@@ -33,6 +33,7 @@ class Orpheus:
         self.logger.info('creating slack app...')
         self.init_slack_app()
         self.slack_app.logger.addHandler(console_handler)
+        self.slack_app.logger.setLevel(level)
 
         self.logger.info('loading transcript...')
         self.transcript = Transcript(self.logger)
