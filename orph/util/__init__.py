@@ -28,7 +28,7 @@ async def remove_reaction_from_message(message, emoji):
 
 async def reply_in_thread(message, content, **kwargs):
     channel, ts = extract_channel_and_ts(message)
-    args = {**kwargs, 'channel': channel, 'ts': ts}
+    args = {**kwargs, 'channel': channel, 'thread_ts': ts}
     if type(content) == str:
         args['text'] = content
     else:
