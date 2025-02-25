@@ -74,6 +74,7 @@ otherBots:
   - U012FPRJEVB # @clippy's boss
   - ULG7GRP0A # @bouncer
   - USYUBKF1A # @The Fuzz
+  - U07LEF1PBTM # @Zeon
 channels:
   botSpam: C0P5NE354
 mailMission: <@${this.postmaster}> ${this.command} ${this.scenario} ${this.recipient} ${this.note}
