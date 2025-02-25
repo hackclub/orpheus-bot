@@ -10,7 +10,7 @@ async def upload_to_cdn(files):
     orph.logger.info(f"[cdn] generating links for {len(files)} file(s)")
 
     file_urls = [f['url_private'] for f in files]
-    url = 'https://cdn-2moycvmxo.hackclub.dev/api/v1/new'
+    url = 'https://cdn.hackclub.com/api/v1/new'
 
     headers = {
         'Content-Type': 'application/json',
