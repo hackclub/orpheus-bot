@@ -14,7 +14,7 @@ async def upload_to_cdn(files):
 
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'beans',
+        'Authorization': 'Bearer beans',
         'X-Download-Authorization': f"Bearer {orph.env['SLACK_BOT_TOKEN']}"
     }
 
