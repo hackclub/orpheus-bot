@@ -20,7 +20,7 @@ async def upload_to_cdn(files):
     async with aiohttp.ClientSession() as session:
         async with session.post(url, headers=headers, json=file_urls) as response:
             if response.status == 200:
-                return await response.json(content_type='text/plain')
+                return await response.json()
             else:
                 raise Exception(f"cdn returned error {response.status}: {await response.text()}")
 
