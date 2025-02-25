@@ -30,3 +30,4 @@ yarl==1.18.3
 zipp==3.21.0
 zope.event==5.0
 zope.interface==7.2
+aioconsole

@@ -1,3 +1,4 @@
+import orph
 from orph.orpheus import Orpheus
 import argparse
 import asyncio
@@ -13,6 +14,8 @@ if __name__ == '__main__':
                                default='INFO',
                                dest='logging_level',
                                help='Logging level')
+    parser.add_argument('-c', '--console', action='store_true', help='drop to interactive console')
+
     args = parser.parse_args()
 
     if args.load_dotenv:
@@ -21,7 +24,10 @@ if __name__ == '__main__':
 
     inst = Orpheus(args)
 
-    asyncio.run(inst.setup())
+    asyncio.get_event_loop().run_until_complete(inst.setup())
+    if args.console:
+        asyncio.run(orph.drop_to_console())
+        exit(0)
     if args.socket_mode:
         asyncio.run(inst.start_socket_mode_app())
     else:

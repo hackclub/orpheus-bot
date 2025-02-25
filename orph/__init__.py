@@ -35,3 +35,10 @@ i = logger = slack_client = transcript = None
 
 env = defaultdict(type(None))
 env |= os.environ
+
+async def drop_to_console():
+    import aioconsole
+    import inspect
+    frame = inspect.currentframe()
+    print(globals())
+    await aioconsole.interact(locals=globals())
