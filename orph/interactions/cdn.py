@@ -14,7 +14,8 @@ async def upload_to_cdn(files):
 
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': f"Bearer {orph.env['SLACK_BOT_TOKEN']}"
+        'Authorization': 'beans',
+        'X-Download-Authorization': f"Bearer {orph.env['SLACK_BOT_TOKEN']}"
     }
 
     async with aiohttp.ClientSession() as session:
