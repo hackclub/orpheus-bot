@@ -26,9 +26,14 @@ async def remove_reaction_from_message(message, emoji):
     channel, ts = extract_channel_and_ts(message)
     return await remove_reaction(channel, ts, emoji)
 
-async def reply_in_thread(message, text, **kwargs):
+async def reply_in_thread(message, content, **kwargs):
     channel, ts = extract_channel_and_ts(message)
-    return await orph.slack_client.chat_postMessage(channel=channel, text=text, thread_ts=ts, **kwargs)
+    args = {**kwargs, 'channel': channel, 'ts': ts}
+    if type(content) == str:
+        args['text'] = content
+    else:
+        args.update(content)
+    return await orph.slack_client.chat_postMessage(**args)
 
 def extract_channel_and_ts(event):
     return (

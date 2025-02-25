@@ -592,14 +592,14 @@ fileShare:
       _orpheus trips and your files slip out of her hands and into an inconveniently placed sewer grate._
     - |
       _orpheus accidentally slips the files into a folder in her briefcase labeled "homework". she starts sweating profusely._
-#    - blocks:
-#      - type: image
-#        title:
-#          type: plain_text
-#          text: Error!
-#          emoji: true
-#        image_url: ${this.t('fileShare.errorGenericImages')}
-#        alt_text: Something went wrong
+    - blocks:
+      - type: image
+        title:
+          type: plain_text
+          text: Error!
+          emoji: true
+        image_url: ${this.t('fileShare.errorGenericImages')}
+        alt_text: Something went wrong
   extensions:
     gif:
       - _gif_ that file to me and i'll upload it
