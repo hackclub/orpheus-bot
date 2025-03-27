@@ -9,3 +9,4 @@ COPY . .
 
 EXPOSE 1312
 CMD [ "pypy3", "boot.py", "-p", "1312", "-l", "WARN"]
+VOLUME /data
