@@ -5,16 +5,41 @@ from num2words import num2words
 import re
 from orph import transcript, logger
 from orph.util import react_to_message, reply_in_thread
+from orph.decorators import slash_command
 import asyncio
 import datetime
 
 
 cleanup = re.compile(r'[^a-zA-Z0-9\s\.$]')
 
+FILE = '/data/haiku_blacklist.txt'
+
+def is_blacklisted(user_id):
+    unbreak()
+    try:
+        with open(FILE, 'r') as f:
+            blacklisted = {line.strip() for line in f if line.strip()}
+        return user_id in blacklisted
+    except FileNotFoundError:
+        return False
+
+import os
+
+def unbreak():
+    if not os.path.exists(FILE):
+        with open(FILE, 'w') as f:
+            pass
+
 @listen_for("message")
 @message_shorter_than(250)  # adjust to taste, but keep in mind this runs on every message
 async def haiku_interaction(args):
     message = args.message
+    user_id = message['user']
+
+    if is_blacklisted(user_id):
+        logger.info(f"[haiku] user {user_id} is on blacklist")
+        return
+
     text = cleanup.sub('', message['text']).strip().replace('\n', ' ')
     haiku_lines = format_haiku(text)
 
@@ -22,12 +47,36 @@ async def haiku_interaction(args):
         await asyncio.wait([
             reply_in_thread(message, transcript('haiku', {
                 'haikuLines': haiku_lines,
-                'user': message['user'],
+                'user': user_id,
                 'year': datetime.date.today().year
             })),
             react_to_message(message, 'haiku')
         ])
 
+@slash_command('/haiku_opt')
+async def toggle_haiku_opt_out(args):
+    unbreak()
+    user_id = args.payload['user_id']
+
+    try:
+        with open(FILE, 'r') as f:
+            blacklisted = {line.strip() for line in f if line.strip()}
+
+        if user_id in blacklisted:
+            blacklisted.remove(user_id)
+            message = ":noted: oki! if i detect a haiku i will let you know!"
+        else:
+            blacklisted.add(user_id)
+            message = ":noted: aww oki, i wont bother you anymore if you send a really cool haiku..."
+
+        with open(FILE, 'w') as f:
+            f.write('\n'.join(blacklisted) + '\n')
+
+        await args.respond(message)
+
+    except Exception as e:
+        logger.error(f"[haiku] could not set opt status {user_id}: {str(e)}")
+        await args.respond(":confused-dino: uhh somehow i could not do that as something on the backend goofed up, pls report the bug!")
 
 def format_haiku(text):
     text = text.lower()
