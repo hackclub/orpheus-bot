@@ -1,8 +1,0 @@
-services:
-  orpheus:
-    image: orpheus-bot
-    build:
-      context: .
-    command: pypy3 boot.py -p 1312 -l DEBUG
-    volumes:
-      - ./haiku_blacklist.txt:/data/haiku_blacklist.txt

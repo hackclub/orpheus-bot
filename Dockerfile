@@ -1,12 +1,11 @@
-FROM pypy:3
+FROM ruby:3.3.6
 
 WORKDIR /dino
+COPY Gemfile Gemfile.lock /dino/
+RUN bundle install
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . /dino
 
-COPY . .
+CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "1312"]
 
 EXPOSE 1312
-CMD [ "pypy3", "boot.py", "-p", "1312", "-l", "WARN"]
-VOLUME /data
