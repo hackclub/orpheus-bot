@@ -17,7 +17,7 @@ module Haiku
 
       return unless haiku
 
-      react_to_message(event, "haiku")
+      global_react(event, "haiku")
       reply_in_thread(event, Orpheus.transcript("haiku.template", { haiku:, user: }))
 
       unless Orpheus.kv.get("haiku_hinted_#{user}")
