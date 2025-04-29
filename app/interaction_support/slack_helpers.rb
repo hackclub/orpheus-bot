@@ -11,7 +11,11 @@ module SlackHelpers
 
   def react_to_message(message, emoji)
     channel, ts = extract_channel_and_ts(message)
-    react(channel, ts, emoji)
+    begin
+      react(channel, ts, emoji)
+    rescue Slack::Web::Api::Errors::AlreadyReacted => e
+      # pick up a foot ball
+    end
   end
 
   def remove_reaction_from_message(message, emoji)
