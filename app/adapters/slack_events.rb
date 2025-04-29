@@ -46,9 +46,11 @@ module Adapters
         when "url_verification"
           data[:challenge]
         when "event_callback"
-          Sentry.with_scope do |scope|
-            scope.clear_breadcrumbs
-            settings.event_callback.call(data)
+          Thread.new do
+            Sentry.with_scope do |scope|
+              scope.clear_breadcrumbs
+              settings.event_callback.call(data)
+            end
           end
           "ok!"
         end
@@ -56,9 +58,11 @@ module Adapters
 
       post "/slash_commands_go_here" do
         verify_slack_request!
-        Sentry.with_scope do |scope|
-          scope.clear_breadcrumbs
-          settings.command_callback.call(params)
+        Thread.new do
+          Sentry.with_scope do |scope|
+            scope.clear_breadcrumbs
+            settings.command_callback.call(params)
+          end
         end
       end
 
