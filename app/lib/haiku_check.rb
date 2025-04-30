@@ -18,7 +18,19 @@ module HaikuCheck
 
         def get_cmu_syllable_count(word)
             @syllable_counts ||= initialize_syllable_counts
-            @syllable_counts[word.downcase]
+            return nil if word.nil? || word.empty?
+
+            count = @syllable_counts[word]
+            return count if count
+
+            # british people...
+            if word.length > 3 && word.end_with?("ise")
+                word_american = word.sub(/ise$/, 'ize')
+                count = @syllable_counts[word_american]
+                return count if count
+            end
+
+            nil
         end
 
         def test(text)
@@ -26,9 +38,8 @@ module HaikuCheck
             
             # Clean up the text
             text = text.downcase
-            text = text.gsub(/[^a-zA-Z0-9\s\.$]/, '')
+            text = text.gsub(/[^a-zA-Z0-9\s\.'$]/, '')
             text = text.gsub(/\$/, 'dollar ')
-            text = text.gsub(/\bise\b/, 'ize') # british people...
             
             # Convert numbers to words
             text = text.gsub(/\d+/) { |num| num.to_i.humanize }
