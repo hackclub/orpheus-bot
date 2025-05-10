@@ -1,11 +1,7 @@
-FROM ruby:3.3.6
+from 24c02/snarf:latest
 
-WORKDIR /dino
-COPY Gemfile Gemfile.lock /dino/
-RUN bundle install
+copy . /app
 
-COPY . /dino
+workdir /app
 
-CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "1312"]
-
-EXPOSE 1312
+run bundle install
