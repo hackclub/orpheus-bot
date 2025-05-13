@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class SlashCommand
+  include HasChecklist
+
   class << self
-    include HasChecklist
     include SlackHelpers
 
     def command(command)

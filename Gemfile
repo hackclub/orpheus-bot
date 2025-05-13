@@ -30,6 +30,7 @@ gem "syllables"
 
 gem "humanize"
 
-gem "sentry-ruby", "~> 5.23"
 
 gem "dalli", "~> 3.2"
+
+gem "honeybadger", "~> 5.28"
