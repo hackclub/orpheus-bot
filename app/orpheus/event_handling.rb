@@ -11,17 +11,16 @@ module Orpheus
         Orpheus.logger.info "I just learned how to #{interaction.inspect}!"
 
         target_array = if message_subtype
-                         (@subtype_handlers ||= {})[message_subtype] ||= []
-                       else
-                         (@handlers ||= {})[type] ||= []
-                       end
+            (@subtype_handlers ||= {})[message_subtype] ||= []
+          else
+            (@handlers ||= {})[type] ||= []
+          end
 
         if high_pri
           target_array.unshift(interaction)
         else
           target_array << interaction
         end
-
       end
 
       def register_command(command:, interaction:)
@@ -34,17 +33,18 @@ module Orpheus
         event = payload[:event]
         type = event[:type].to_sym
 
-        Sentry.add_breadcrumb(
-          Sentry::Breadcrumb.new(
-            type: "user",
-            category: "slack",
-            message: "Slack event: #{event[:type]} @ #{event[:event_ts]}",
-            data: event
-          )
+        Honeybadger.add_breadcrumb(
+          "Slack event",
+          metadata: {
+            type: event[:type],
+            event_ts: event[:event_ts],
+            data: event,
+          },
+          category: "slack",
         )
 
         handler_queue = []
-        
+
         if type == :message
           subtype = event[:subtype]&.to_sym
           if subtype_handlers&.[](subtype)
@@ -65,37 +65,35 @@ module Orpheus
             Orpheus.logger.debug("#{handler.inspect} aborted handler chain.")
             break
           rescue StandardError => e
-            Sentry.capture_exception(e)
+            Honeybadger.notify(e)
             Orpheus.logger.error(e) unless Orpheus.production?
           end
         end
       end
 
       def fire_command!(payload)
-
         command = payload[:command]
-        Sentry.add_breadcrumb(
-          Sentry::Breadcrumb.new(
-            type: "user",
-            category: "slack",
-            message: "Slack slash command: #{command}",
-            data: payload
-          )
+        Honeybadger.add_breadcrumb(
+          "Slack slash command",
+          metadata: {
+            command: command,
+            data: payload,
+          },
+          category: "slack",
         )
         handler = @slash_commands[command]
         if handler
           begin
             handler.call(payload)
           rescue StandardError => e
-            Sentry.capture_exception(e)
+            Honeybadger.notify(e)
             Orpheus.logger.error(e) unless Orpheus.production?
           end
         else
           Orpheus.logger.warn("uhh i just got asked to #{command} and i'm not really sure what to do about it...")
-          Sentry.capture_message("unhandled slash command #{command}? wtf??")
+          Honeybadger.notify("unhandled slash command #{command}")
         end
       end
     end
   end
-
 end

@@ -1,9 +1,8 @@
-require 'slack-ruby-socket-mode-bot'
+require "slack-ruby-socket-mode-bot"
 
 module Adapters
   class SlackSocketMode
     attr_reader :app_token, :socket_mode_client, :callback
-
 
     def initialize(event_callback, command_callback, app_token)
       @event_callback = event_callback
@@ -13,28 +12,28 @@ module Adapters
         app_token:,
         logger: Orpheus.logger,
         callback: proc do |event|
-          Sentry.with_scope do |scope|
-            scope.clear_breadcrumbs
-            ts = event.dig(:event, :event_ts)
-            scope.set_transaction_name("slack_socket_mode_#{ts}") if ts
+          Honeybadger.context(
+            transaction_name: "slack_socket_mode_#{event.dig(:event, :event_ts)}",
+          ) do
 
-            Sentry.add_breadcrumb(
-              Sentry::Breadcrumb.new(
-                type: "user",
-                category: "slack",
-                message: "Slack socket mode event: #{event[:type]} @ #{event.dig(:event, :event_ts)}",
-                data: event
-              )
-            )
+          Honeybadger.add_breadcrumb(
+            "Slack socket mode event",
+            metadata: {
+              type: event[:type],
+              event_ts: event.dig(:event, :event_ts),
+              data: event,
+            },
+            category: "slack",
+          )
 
-            if event[:command]
-              command_callback.call(event)
-            else
-              event_callback.call(event)
-            end
-
+          if event[:command]
+            command_callback.call(event)
+          else
+            event_callback.call(event)
           end
-        end
+          end
+          Honeybadger.context.clear!
+        end,
       )
     end
 

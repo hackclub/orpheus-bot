@@ -1,13 +1,13 @@
-require 'faraday'
-require 'json'
+require "faraday"
+require "json"
 
 class CDN < Interaction
-  URL = 'https://cdn.hackclub.com/api/v3/new'
+  URL = "https://cdn.hackclub.com/api/v3/new"
 
   handle message_subtype: :file_share
 
   checklist do
-    only_in_channel Utils.get_env!('CDN_CHANNEL')
+    only_in_channel Utils.get_env!("CDN_CHANNEL")
   end
 
   class << self
@@ -17,9 +17,9 @@ class CDN < Interaction
       file_urls = files.map { |f| f[:url_private] }
 
       response = Faraday.post(URL) do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['Authorization'] = 'Bearer beans'
-        req.headers['X-Download-Authorization'] = "Bearer #{Utils.get_env!('SLACK_BOT_TOKEN')}"
+        req.headers["Content-Type"] = "application/json"
+        req.headers["Authorization"] = "Bearer beans"
+        req.headers["X-Download-Authorization"] = "Bearer #{Utils.get_env!("SLACK_BOT_TOKEN")}"
         req.body = file_urls.to_json
       end
 
@@ -34,7 +34,7 @@ class CDN < Interaction
       files = event[:files] || []
 
       begin
-        ext_flavor_options = [Orpheus.transcript('fileShare.generic')]
+        ext_flavor_options = [Orpheus.transcript("fileShare.generic")]
         files.each do |file|
           begin
             ext_flavor_options << Orpheus.transcript("fileShare.extensions.#{file[:filetype]}")
@@ -47,41 +47,40 @@ class CDN < Interaction
         upload_thread = Thread.new { upload_to_cdn(files) }
 
         # Start with initial reactions and reply
-        react_to_message(event, 'beachball')
+        react_to_message(event, "beachball")
         reply_in_thread(event, ext_flavor_options.sample)
 
         # Wait for upload to complete
         cdn_links = upload_thread.value["files"].map { |file| file["deployedUrl"] }
 
         # Remove beachball and add success reactions
-        remove_reaction_from_message(event, 'beachball')
-        react_to_message(event, 'white_check_mark')
+        remove_reaction_from_message(event, "beachball")
+        react_to_message(event, "white_check_mark")
 
         # Send success message
         reply_in_thread(
           event,
-          Orpheus.transcript('fileShare.success', {
+          Orpheus.transcript("fileShare.success", {
             links: cdn_links.join("\n"),
-            user: event[:user]
+            user: event[:user],
           }),
           unfurl_media: false,
-          unfurl_links: false
+          unfurl_links: false,
         )
-
       rescue StandardError => err
-        Sentry.capture_exception(err)
+        uuid = Honeybadger.notify(err)
         max_file_size = 100_000_000
         file_too_big = files.any? { |f| (f[:size] || 0) > max_file_size }
 
         if file_too_big
-          reply_in_thread(event, Orpheus.transcript('fileShare.errorTooBig'))
+          reply_in_thread(event, Orpheus.transcript("fileShare.errorTooBig"))
         else
-          reply_in_thread(event, Orpheus.transcript('fileShare.errorGeneric'))
+          reply_in_thread(event, Orpheus.transcript("fileShare.errorGeneric"))
         end
 
-        remove_reaction_from_message(event, 'beachball')
-        react_to_message(event, 'no_entry')
-        reply_in_thread(event, Orpheus.transcript('errors.general', { err: }))
+        remove_reaction_from_message(event, "beachball")
+        react_to_message(event, "no_entry")
+        reply_in_thread(event, Orpheus.transcript("errors.general", { err:, uuid: }))
       end
     end
   end

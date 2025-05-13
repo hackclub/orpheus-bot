@@ -1,7 +1,8 @@
-require 'sinatra/base'
-require 'sinatra/custom_logger'
-require 'json'
-require 'slack-ruby-client'
+require "sinatra/base"
+require "sinatra/custom_logger"
+require "json"
+require "slack-ruby-client"
+require 'honeybadger'
 
 module Adapters
   class SlackEvents
@@ -17,7 +18,7 @@ module Adapters
       @app ||= App.with(
         event_callback: event_callback,
         command_callback: command_callback,
-        signing_secret: signing_secret
+        signing_secret: signing_secret,
       )
     end
 
@@ -26,7 +27,7 @@ module Adapters
 
       # HEALTHCHECK:
       # doesn't test anything real, just sees if app booted
-      get '/u_up?' do
+      get "/u_up?" do
         "not now heidi i'm at work"
       end
 
@@ -47,9 +48,11 @@ module Adapters
           data[:challenge]
         when "event_callback"
           Thread.new do
-            Sentry.with_scope do |scope|
-              scope.clear_breadcrumbs
-              settings.event_callback.call(data)
+            Honeybadger.context(
+              transaction_name: "slack_event_#{data.dig(:event, :event_ts)}",
+            ) do
+            settings.event_callback.call(data)
+            Honeybadger.context.clear!
             end
           end
           "ok!"
@@ -59,9 +62,11 @@ module Adapters
       post "/slash_commands_go_here" do
         verify_slack_request!
         Thread.new do
-          Sentry.with_scope do |scope|
-            scope.clear_breadcrumbs
-            settings.command_callback.call(params)
+          Honeybadger.context(
+            transaction_name: "slack_command_#{params[:command]}",
+          ) do
+          settings.command_callback.call(params)
+          Honeybadger.context.clear!
           end
         end
       end
@@ -83,7 +88,7 @@ module Adapters
 
       error 404 do
         <<~EOH
-<!DOCTYPE html>
+          <!DOCTYPE html>
 <html>
     <head>
         <title>
@@ -120,7 +125,7 @@ module Adapters
       end
 
       error do
-        Sentry.capture_exception(env['sinatra.error'])
+        Honeybadger.notify(env["sinatra.error"])
       end
     end
   end
