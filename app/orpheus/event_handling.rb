@@ -35,11 +35,7 @@ module Orpheus
 
         Honeybadger.add_breadcrumb(
           "Slack event",
-          metadata: {
-            type: event[:type],
-            event_ts: event[:event_ts],
-            data: event,
-          },
+          metadata: Utils.step_on_with_dino_hoof(event, :event),
           category: "slack",
         )
 

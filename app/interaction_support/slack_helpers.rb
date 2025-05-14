@@ -25,14 +25,15 @@ module SlackHelpers
 
   # use with caution!
   def global_react(message, emoji)
+    channel, ts = extract_channel_and_ts(message)
     begin
       react_to_message(message, emoji)
-    rescue Slack::Web::Api::Errors::SlackError => e
-      if e.response["error"] == "not_in_channel"
-        Orpheus.client.conversations_join(channel: message["channel"])
+    rescue Slack::Web::Api::Errors::NotInChannel => e
+      Orpheus.client.conversations_join(channel:)
+      begin
         react_to_message(message, emoji)
-      else
-        raise e
+      rescue Slack::Web::Api::Errors::NotInChannel
+        Orpheus.logger.error("Failed to react to message #{ts} in channel #{channel}: #{e.message}")
       end
     end
   end
