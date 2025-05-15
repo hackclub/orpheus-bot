@@ -7,5 +7,7 @@ class NotCanon < Interaction
 
   def self.call(event)
     react_to_message event, Orpheus.transcript(:love_emoji)
+  rescue Slack::Web::Api::Errors::NotInChannel
+    # who gaf
   end
 end
