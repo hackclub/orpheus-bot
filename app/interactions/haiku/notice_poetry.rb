@@ -22,7 +22,12 @@ module Haiku
       return unless haiku
 
       global_react(event, "haiku")
-      reply_in_thread(event, Orpheus.transcript("haiku.template", { haiku:, user: }))
+      begin
+        reply_in_thread(event, Orpheus.transcript("haiku.template", { haiku:, user: }))
+      rescue Slack::Web::Api::Errors::NotInChannel
+        Orpheus.logger.info("[haiku] not in channel: #{event[:channel]}")
+        return
+      end
 
       unless Orpheus.kv.get("haiku_hinted_#{user}")
         reply_ephemerally(event, Orpheus.transcript("haiku.optout_hint"), threaded: true)
