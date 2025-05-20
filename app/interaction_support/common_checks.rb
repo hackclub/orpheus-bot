@@ -36,6 +36,13 @@ module CommonChecks
     end
   end
 
+  def event_has_user
+    check do |event|
+      user = SlackHelpers.extract_user(event)
+      !user.nil?
+    end
+  end
+
   alias_method :only_from_user, :only_from_users
   alias_method :only_in_channel, :only_in_channels
 end

@@ -5,6 +5,7 @@ module Haiku
     handle :message
 
     checklist do
+      event_has_user
       message_shorter_than 300 # adjust to taste, but remember that this is slow and runs on every not-opted-out message
       check do |event|
         !Orpheus.kv.get("haiku_disabled_#{SlackHelpers.extract_user(event)}")
