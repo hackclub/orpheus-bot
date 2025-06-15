@@ -182,4 +182,13 @@ end,
       ],
     },
   },
+  thank_you: {
+    response: [
+      h { "awww <@#{user}>! :#{t('love_emoji')}:" },
+      h { "you're welcome :cool-glasses_dino:" },
+      h { "anytime <@#{user}>! :#{t('love_emoji')}:" },
+      h { "no problem bucko! :#{t('love_emoji')}:" },
+      h { "my pluuuursure :#{t('love_emoji')}:" },
+    ],
+  },
 }
