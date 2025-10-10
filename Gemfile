@@ -8,7 +8,7 @@ gem "activesupport", "~> 8.0"
 
 gem "slack-ruby-client", "~> 2.5"
 
-gem "sinatra", "~> 4.1"
+gem "sinatra", "~> 4.2"
 
 gem "puma", "~> 6.6"
 
