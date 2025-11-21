@@ -24,6 +24,8 @@ module Haiku
       global_react(event, "haiku")
       begin
         reply_in_thread(event, Orpheus.transcript("haiku.template", { haiku:, user: }))
+        thread_ts = event[:thread_ts] || event[:ts]
+        Orpheus.cache.write("haikued_#{thread_ts}", true, expires_in: 12.hours) # used in thankyou interaction
       rescue Slack::Web::Api::Errors::NotInChannel
         Orpheus.logger.info("[haiku] not in channel: #{event[:channel]}")
         return
