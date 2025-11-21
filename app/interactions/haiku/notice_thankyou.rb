@@ -28,30 +28,8 @@ module Haiku
     private
 
     def self.orpheus_posted_haiku_in_thread?(event)
-      channel = event[:channel]
       thread_ts = event[:thread_ts]
-      cache_key = "haiku_in_thread_#{channel}_#{thread_ts}"
-      
-      Orpheus.cache.fetch(cache_key, expires_in: 10.minutes) do
-        begin
-          response = Orpheus.client.conversations_replies(
-            channel: channel,
-            ts: thread_ts,
-            limit: 10 
-          )
-          
-          response.messages.any? do |message|
-            is_bot_message = message[:bot_id].present? || message[:app_id].present?
-            
-            contains_haiku = message[:text]&.match?(/_– a haiku by <@\w+>, \d{4}_/) # must give thanks to chatgpt for this wonderful regex
-            
-            is_bot_message && contains_haiku
-          end
-        rescue StandardError => e
-          Orpheus.logger.error("[thankyou] error checking for haiku: #{e.message}")
-          false 
-        end
-      end
+      Orpheus.cache.read("haikued_#{thread_ts}").present?
     end
   end
 end 
