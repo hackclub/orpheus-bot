@@ -184,11 +184,11 @@ end,
   },
   thank_you: {
     response: [
-      h { "awww <@#{user}>! :#{t('love_emoji')}:" },
-      h { "you're welcome :cool-glasses_dino:" },
-      h { "anytime <@#{user}>! :#{t('love_emoji')}:" },
+      h { "awww! :#{t('love_emoji')}:" },
+      h { "you're welcome :cool_glasses_dino:" },
       h { "no problem bucko! :#{t('love_emoji')}:" },
       h { "my pluuuursure :#{t('love_emoji')}:" },
+      h { "your gratitude warms\nthis dinosaur heart so much\nalways here for you\n_- a haiku by :orpheus:, #{Date.today.year}_" },
     ],
   },
 }
