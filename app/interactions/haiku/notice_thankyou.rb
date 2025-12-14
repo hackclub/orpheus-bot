@@ -14,10 +14,12 @@ module Haiku
 
     def self.call(event)
       user = extract_user(event)
+      thread_ts = event[:thread_ts]
       
       begin
         react_to_message(event, Orpheus.transcript(:love_emoji))
         reply_in_thread(event, Orpheus.transcript("thank_you.response", { user: }))
+        Orpheus.cache.delete("haikued_#{thread_ts}")
       rescue Slack::Web::Api::Errors::NotInChannel
         Orpheus.logger.info("[thankyou] not in channel: #{event[:channel]}")
       rescue StandardError => e
