@@ -5,8 +5,8 @@ module Haiku
     handle :message
 
     checklist do
-      message_text_matches /thank\s*you|thanks|thx|ty/i # regex is hard
-      message_text_matches /(?i).*orph.*/i
+      message_text_matches /thank\s*you|thanks|tanx|thx|ty/i # regex is hard
+      message_text_matches /(?i).*(orph|opreus).*/i
       check do |event|
         event[:thread_ts].present? && Haiku::NoticeThankyou.orpheus_posted_haiku_in_thread?(event)
       end
