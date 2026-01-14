@@ -13,6 +13,9 @@ module Haiku
       check do |event|
         !Orpheus.kv.get("haiku_disabled_#{SlackHelpers.extract_user(event)}")
       end
+      check do |event|
+        event[:channel] != "C09MATKQM8C"
+      end
     end
 
     def self.call(event)
