@@ -4,7 +4,7 @@ require "json"
 class CDN < Interaction
   URL = "https://cdn.hackclub.com/api/v3/new"
 
-  handle message_subtype: :file_share
+  # handle message_subtype: :file_share
 
   checklist do
     only_in_channel Utils.get_env!("CDN_CHANNEL")
