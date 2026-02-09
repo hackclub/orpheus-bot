@@ -50,7 +50,7 @@ GEM
     dalli (3.2.8)
     dotenv (3.1.7)
     drb (2.2.1)
-    faraday (2.12.2)
+    faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -59,8 +59,8 @@ GEM
       hashie
     faraday-multipart (1.1.0)
       multipart-post (~> 2.0)
-    faraday-net_http (3.4.0)
-      net-http (>= 0.5.0)
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     fiber-annotation (0.2.0)
     fiber-local (1.1.0)
       fiber-storage
@@ -77,7 +77,7 @@ GEM
     io-endpoint (0.15.2)
     io-event (1.10.0)
     io-stream (0.6.1)
-    json (2.10.2)
+    json (2.18.1)
     logger (1.7.0)
     metrics (0.12.2)
     minitest (5.25.5)
@@ -85,8 +85,8 @@ GEM
     multipart-post (2.4.1)
     mustermann (3.0.4)
       ruby2_keywords (~> 0.0.1)
-    net-http (0.6.0)
-      uri
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     nio4r (2.7.4)
     ostruct (0.6.1)
     protocol-hpack (1.5.1)
@@ -149,7 +149,7 @@ GEM
     traces (0.15.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.0.4)
+    uri (1.1.1)
     zeitwerk (2.7.2)
 
 PLATFORMS
