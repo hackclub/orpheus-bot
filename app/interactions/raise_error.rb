@@ -5,7 +5,7 @@ class RaiseError < SlashCommand
     only_from_user "U06QK6AG3RD"
   end
 
-  def self.call(event)
+  def call
     raise "frick frack snick snack #{event[:text]}"
   end
 end

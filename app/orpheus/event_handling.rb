@@ -44,21 +44,20 @@ module Orpheus
         if type == :message
           subtype = event[:subtype]&.to_sym
           if subtype_handlers&.[](subtype)
-            # For message subtypes, check handlers registered for that specific subtype
-            handler_queue += subtype_handlers[subtype].select { |handler| handler.checks_pass? event }
+            handler_queue += subtype_handlers[subtype].map { |h| h.new(event) }.select(&:checks_pass?)
           end
         end
 
         # Always check type-specific handlers
         if handlers&.[](type)
-          handler_queue += handlers[type].select { |handler| handler.checks_pass? event }
+          handler_queue += handlers[type].map { |h| h.new(event) }.select(&:checks_pass?)
         end
 
-        handler_queue.each do |handler|
+        handler_queue.each do |instance|
           begin
-            handler.call(event)
+            instance.call
           rescue Orpheus::AbortHandlerChain
-            Orpheus.logger.debug("#{handler.inspect} aborted handler chain.")
+            Orpheus.logger.debug("#{instance.class.inspect} aborted handler chain.")
             break
           rescue StandardError => e
             Honeybadger.notify(e)
@@ -79,11 +78,14 @@ module Orpheus
         )
         handler = @slash_commands[command]
         if handler
-          begin
-            handler.call(payload)
-          rescue StandardError => e
-            Honeybadger.notify(e)
-            Orpheus.logger.error(e) unless Orpheus.production?
+          instance = handler.new(payload)
+          if instance.checks_pass?
+            begin
+              instance.call
+            rescue StandardError => e
+              Honeybadger.notify(e)
+              Orpheus.logger.error(e) unless Orpheus.production?
+            end
           end
         else
           Orpheus.logger.warn("uhh i just got asked to #{command} and i'm not really sure what to do about it...")

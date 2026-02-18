@@ -1,46 +1,47 @@
 module SlackHelpers
   def react(channel, thread_ts, emoji)
-    Orpheus.client.reactions_add(channel:, name: emoji, timestamp: thread_ts)
+    slack_client.reactions_add(channel:, name: emoji, timestamp: thread_ts)
   end
 
   def remove_reaction(channel, thread_ts, emoji)
-    Orpheus.client.reactions_remove(channel:, name: emoji, timestamp: thread_ts)
+    slack_client.reactions_remove(channel:, name: emoji, timestamp: thread_ts)
   rescue Slack::Web::Api::Errors::NoReaction
     # who cares
   end
 
-  def react_to_message(message, emoji)
-    channel, ts = extract_channel_and_ts(message)
+  def react_to_message(emoji, message: nil)
+    message ||= @event
     begin
-      react(channel, ts, emoji)
-    rescue Slack::Web::Api::Errors::AlreadyReacted => e
+      react(message[:channel] || message[:channel_id], message[:event_ts], emoji)
+    rescue Slack::Web::Api::Errors::AlreadyReacted
       # pick up a foot ball
     end
   end
 
-  def remove_reaction_from_message(message, emoji)
-    channel, ts = extract_channel_and_ts(message)
-    remove_reaction(channel, ts, emoji)
+  def remove_reaction_from_message(emoji, message: nil)
+    message ||= @event
+    remove_reaction(message[:channel] || message[:channel_id], message[:event_ts], emoji)
   end
 
   # use with caution!
-  def global_react(message, emoji)
-    channel, ts = extract_channel_and_ts(message)
+  def global_react(emoji, message: nil)
+    message ||= @event
+    channel = message[:channel] || message[:channel_id]
     begin
-      react_to_message(message, emoji)
+      react_to_message(emoji, message: message)
     rescue Slack::Web::Api::Errors::NotInChannel => e
-      Orpheus.client.conversations_join(channel:)
+      slack_client.conversations_join(channel:)
       begin
-        react_to_message(message, emoji)
+        react_to_message(emoji, message: message)
       rescue Slack::Web::Api::Errors::NotInChannel
-        Orpheus.logger.error("Failed to react to message #{ts} in channel #{channel}: #{e.message}")
+        Orpheus.logger.error("Failed to react to message #{message[:event_ts]} in channel #{channel}: #{e.message}")
       end
     end
   end
 
-  def reply_in_thread(message, content = nil, **kwargs)
-    channel, ts = extract_channel_and_ts(message)
-    args = kwargs.merge(channel:, thread_ts: ts)
+  def reply_in_thread(content = nil, message: nil, **kwargs)
+    message ||= @event
+    args = kwargs.merge(channel: message[:channel] || message[:channel_id], thread_ts: message[:event_ts])
 
     if content.is_a?(String)
       args[:text] = content
@@ -50,24 +51,14 @@ module SlackHelpers
       args.merge!(content)
     end
 
-    Orpheus.client.chat_postMessage(args)
+    slack_client.chat_postMessage(args)
   end
 
-  def extract_channel_and_ts(event)
-    [
-      event[:channel] || event[:channel_id],
-      event[:event_ts],
-    ]
-  end
-
-  def extract_user(event)
-    event[:user_id] ||
-      (event[:user].is_a?(String) ? event[:user] : event.dig(:user, :id))
-  end
-
-  def reply_ephemerally(message, content = nil, threaded: false, **kwargs)
-    channel, ts = extract_channel_and_ts(message)
-    args = kwargs.merge(channel:, user: extract_user(message))
+  def reply_ephemerally(content = nil, message: nil, threaded: false, **kwargs)
+    message ||= @event
+    channel = message[:channel] || message[:channel_id]
+    user_id = message[:user_id] || (message[:user].is_a?(String) ? message[:user] : message.dig(:user, :id))
+    args = kwargs.merge(channel:, user: user_id)
 
     if content.is_a?(String)
       args[:text] = content
@@ -77,14 +68,13 @@ module SlackHelpers
       args.merge!(content)
     end
 
-    if threaded
-      args[:thread_ts] = ts
-    end
+    args[:thread_ts] = message[:event_ts] if threaded
 
-    Orpheus.client.chat_postEphemeral(args)
+    slack_client.chat_postEphemeral(args)
   end
 
-  def respond_to_event(event, content = nil, in_channel: false, threaded: false, **kwargs)
+  def respond_to_event(content = nil, message: nil, in_channel: false, threaded: false, **kwargs)
+    message ||= @event
     args = kwargs
 
     if content.is_a?(String)
@@ -95,15 +85,10 @@ module SlackHelpers
       args.merge!(content)
     end
 
-    if in_channel
-      args[:response_type] = "in_channel"
-    end
+    args[:response_type] = "in_channel" if in_channel
+    args[:thread_ts] = message[:event_ts] if threaded
 
-    if threaded
-      args[:thread_ts] = event[:event_ts]
-    end
-
-    Faraday.new(url: event[:response_url]).post do |req|
+    Faraday.new(url: message[:response_url]).post do |req|
       req.headers["Content-Type"] = "application/json"
       req.body = args.to_json
     end
@@ -111,13 +96,11 @@ module SlackHelpers
 
   def users_info_cached(user_id)
     Orpheus.cache.fetch("users_info_#{user_id}", expires_in: 1.hour) do
-      Orpheus.client.users_info(user: user_id)
+      slack_client.users_info(user: user_id)
     end
   end
 
-  def check_admin(user_id)
-    users_info_cached(user_id).dig(:user, :is_admin)
-  end
+  def is_admin?(user_id) = users_info_cached(user_id).dig(:user, :is_admin)
 
-  module_function :react, :remove_reaction, :react_to_message, :remove_reaction_from_message, :global_react, :reply_in_thread, :extract_channel_and_ts, :extract_user, :reply_ephemerally, :respond_to_event, :users_info_cached, :check_admin
+  module_function :react, :remove_reaction, :react_to_message, :remove_reaction_from_message, :global_react, :reply_in_thread, :reply_ephemerally, :respond_to_event, :users_info_cached, :is_admin?
 end

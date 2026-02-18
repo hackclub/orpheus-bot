@@ -10,33 +10,30 @@ module Haiku
         !%w(channel_join).include?(event[:subtype])
       end
       message_shorter_than 300 # adjust to taste, but remember that this is slow and runs on every not-opted-out message
-      check do |event|
-        !Orpheus.kv.get("haiku_disabled_#{SlackHelpers.extract_user(event)}")
-      end
+      check { |event| !kv.get("haiku_disabled_#{user_from(event)}") }
       check do |event|
         event[:channel] != "C09MATKQM8C"
       end
     end
 
-    def self.call(event)
-      user = extract_user(event)
+    def call
       haiku = HaikuCheck.test(event[:text])
 
       return unless haiku
 
-      global_react(event, "haiku")
+      global_react "haiku"
       begin
-        reply_in_thread(event, Orpheus.transcript("haiku.template", { haiku:, user: }))
+        reply_in_thread t["haiku.template", { haiku:, user: }]
         thread_ts = event[:thread_ts] || event[:ts]
-        Orpheus.cache.write("haikued_#{thread_ts}", true, expires_in: 12.hours) # used in thankyou interaction
+        cache.write("haikued_#{thread_ts}", true, expires_in: 12.hours) # used in thankyou interaction
       rescue Slack::Web::Api::Errors::NotInChannel
-        Orpheus.logger.info("[haiku] not in channel: #{event[:channel]}")
+        logger.info "[haiku] not in channel: #{event[:channel]}"
         return
       end
 
-      unless Orpheus.kv.get("haiku_hinted_#{user}")
-        reply_ephemerally(event, Orpheus.transcript("haiku.optout_hint"), threaded: true)
-        Orpheus.kv.set("haiku_hinted_#{user}", true)
+      unless kv.get("haiku_hinted_#{user}")
+        reply_ephemerally t["haiku.optout_hint"], threaded: true
+        kv.set "haiku_hinted_#{user}", true
       end
     end
   end

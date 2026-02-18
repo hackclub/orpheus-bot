@@ -9,11 +9,10 @@ class WhatsMySlackId < Interaction
     user_not_bot
   end
 
-  def self.call(event)
-    poster_id = extract_user(event)
+  def call
     text = event[:text] || ""
 
-    lines = ["<@#{poster_id}> your Slack ID is `#{poster_id}`"]
+    lines = ["<@#{user}> your Slack ID is `#{user}`"]
 
     # Grab any <@...> or <#...> mentions, then use the correct prefix
     # based on the ID itself: U = user (@), everything else = channel/group (#)
@@ -23,6 +22,6 @@ class WhatsMySlackId < Interaction
       lines << "<#{prefix}#{id}> is `#{id}`"
     end
 
-    reply_in_thread(event, lines.join("\n"))
+    reply_in_thread lines.join("\n")
   end
 end

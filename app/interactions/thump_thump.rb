@@ -8,15 +8,14 @@ class ThumpThump < Interaction
     message_text_matches /thump/
   end
 
-  def self.call(event)
-    unless check_admin(extract_user(event))
-      Orpheus.logger.info 'who do they think they are, playing with my heart like that?'
+  def call
+    unless is_admin?(user)
+      logger.info 'who do they think they are, playing with my heart like that?'
 
-      react_to_message event, Orpheus.transcript(:heartbreak_emoji)
-      return
+      react_to_message t[:heartbreak_emoji] and return
     end
 
-    Orpheus.logger.info 'I can hear my heart beat in my chest... it fills me with determination'
-    react_to_message event, 'heartbeat'
+    logger.info 'I can hear my heart beat in my chest... it fills me with determination'
+    react_to_message 'heartbeat'
   end
 end

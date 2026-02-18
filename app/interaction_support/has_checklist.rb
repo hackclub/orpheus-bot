@@ -7,6 +7,8 @@ module HasChecklist
     self.class.attr_reader :_checklist
   end
 
+  def checks_pass? = self.class.checks_pass?(@event)
+
   module ClassMethods
     def checklist(&block)
       @_checklist ||= Checklist.new

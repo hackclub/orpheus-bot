@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 module CommonChecks
+  include OrpheusContext
+
   def only_from_users(users)
     users = Array(users)
-    check do |event|
-      user = SlackHelpers.extract_user(event)
-      users.include?(user)
-    end
+    check { |event| users.include?(user_from(event)) }
   end
 
   def only_in_channels(channels)
@@ -18,37 +17,31 @@ module CommonChecks
   end
 
   def admin_only
-    check do |event|
-      event.dig(:user, :is_admin)
-    end
+    check { |event| event.dig(:user, :is_admin) }
   end
 
   def message_text_matches(regex)
-    check do |event|
-      text = event[:text]
-      regex.match?(text)
-    end
+    check { |event| regex.match?(event[:text]) }
   end
 
   def message_shorter_than(length)
-    check do |event|
-      event[:text]&.length&.< length
-    end
+    check { |event| event[:text]&.length&.< length }
   end
 
   def event_has_user
-    check do |event|
-      user = SlackHelpers.extract_user(event)
-      !user.nil?
-    end
+    check { |event| !user_from(event).nil? }
   end
 
   def user_not_bot
-    check do |event|
-      event[:bot_id].nil? && event[:subtype] != "bot_message"
-    end
+    check { |event| event[:bot_id].nil? && event[:subtype] != "bot_message" }
   end
 
   alias_method :only_from_user, :only_from_users
   alias_method :only_in_channel, :only_in_channels
+
+  private
+
+  def user_from(event)
+    event[:user_id] || (event[:user].is_a?(String) ? event[:user] : event.dig(:user, :id))
+  end
 end

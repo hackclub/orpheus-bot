@@ -5,8 +5,8 @@ class NotCanon < Interaction
     message_text_matches /:rac_(shy|cute|yap):/
   end
 
-  def self.call(event)
-    react_to_message event, Orpheus.transcript(:love_emoji)
+  def call
+    react_to_message t[:love_emoji]
   rescue Slack::Web::Api::Errors::NotInChannel
     # who gaf
   end

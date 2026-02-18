@@ -4,9 +4,9 @@ module Haiku
   class DisableHaiku < SlashCommand
     command "/disable-haiku"
 
-    def self.call(event)
-      Orpheus.kv.set("haiku_disabled_#{event[:user_id]}", true)
-      respond_to_event(event, Orpheus.transcript("haiku.disabled"))
+    def call
+      kv.set "haiku_disabled_#{event[:user_id]}", true
+      respond_to_event t["haiku.disabled"]
     end
   end
 end

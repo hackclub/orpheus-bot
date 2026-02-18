@@ -16,21 +16,30 @@ subclass `SlashCommand`, register a command with.... `command`.
 class Foo < SlashCommand
   command "/bar"
 
-  def self.call(event)
-    reply_in_thread(event, "baz!!!")
+  def call
+    reply_in_thread t[:dino_test2]
   end
 end
 ```
 ### doing stuff:
-both slash commands and interactions need to implement the class method `call(event)` – this gets passed the Slack event body when a relevant event fires.
+both slash commands and interactions need to implement `call` - this gets invoked when a relevant event fires.
 
-there are some helpers for common slack interaction stuff in [SlackHelpers](../interaction_support/slack_helpers.rb) included by default:
+the current event is available as `event`, and there are helpers and delegators available by default:
 ```ruby
-reply_in_thread(event, "<cute little dinosaur roar>")
-```
-if you're doing something more complicated, there's a `Slack::Web::Client` available at `Orpheus.client` like so:
-```ruby
-Orpheus.client.usergroups_create(name: 'the-chosen-ones')
+# event accessors
+user      # the posting user's ID
+channel   # channel ID
+ts        # event timestamp
+
+# slack helpers
+reply_in_thread "cute little dinosaur roar"
+react_to_message "heartbeat"
+
+# orpheus delegators
+t["some.transcript.key"]          # transcript lookup (also available as transcript(...))
+cache.write("key", val)           # cache
+logger.info("something happened") # logger
+slack_client.usergroups_create(name: 'the-chosen-ones') # full Slack client for anything else
 ```
 ### checklists:
 checklists decide whether an interaction runs for an event!
@@ -51,6 +60,21 @@ end
 
 ### transcript
 
-when she says things, please have her read them from the [Transcript](../../transcript_data.rb) to facilitate easy flavor rewriting.
+all her words live in [transcript_data.rb](../../transcript_data.rb) - please keep it that way so flavor is easy to tweak without hunting through handlers.
 
-just `Orpheus.transcript(:root_key)` or `Orpheus.transcript "path.with.several.subkeys"`!
+```ruby
+t[:love_emoji]                             # root key
+t["haiku.template", { haiku:, user: }]     # dotted path + vars
+```
+
+arrays are randomly sampled on every call. `h { }` blocks in the transcript are evaluated at lookup time - vars you pass in are accessible by name inside them:
+
+```ruby
+# in transcript_data.rb:
+success: h { "here are your files <@#{user}>!" }
+
+# in your handler:
+t["success", { user: }]  # user is now in scope inside the h block
+```
+
+raises `TranscriptError` if the path doesn't exist - worth catching if the key is optional.
