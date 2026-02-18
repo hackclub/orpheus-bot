@@ -28,22 +28,22 @@ Initialize.do_it!
 
 include Utils
 
-event_handler = Orpheus::EventHandling.method(:fire_event!)
-command_handler = Orpheus::EventHandling.method(:fire_command!)
+EVENT_HANDLER = Orpheus::EventHandling.method(:fire_event!)
+COMMAND_HANDLER = Orpheus::EventHandling.method(:fire_command!)
 
 Orpheus.logger.info(Orpheus.transcript(:startup_log))
 if ENV['SOCKET_MODE']
   adapter = Adapters::SlackSocketMode.new(
-    Orpheus::EventHandling.method(:fire_event!),
-    Orpheus::EventHandling.method(:fire_command!),
+    EVENT_HANDLER,
+    COMMAND_HANDLER,
     get_env!("SLACK_APP_TOKEN")
   )
   adapter.run!
 else
   def get_app
     adapter = Adapters::SlackEvents.new(
-      Orpheus::EventHandling.method(:fire_event!),
-      Orpheus::EventHandling.method(:fire_command!),
+      EVENT_HANDLER,
+      COMMAND_HANDLER,
       get_env!("SLACK_SIGNING_SECRET")
     )
     adapter.app
