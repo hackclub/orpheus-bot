@@ -6,6 +6,7 @@ class WhatsMySlackId < Interaction
   checklist do
     only_in_channel "C0159TSJVH8"
     event_has_user
+    user_not_bot
   end
 
   def self.call(event)

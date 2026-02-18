@@ -43,6 +43,12 @@ module CommonChecks
     end
   end
 
+  def user_not_bot
+    check do |event|
+      event[:bot_id].nil? && event[:subtype] != "bot_message"
+    end
+  end
+
   alias_method :only_from_user, :only_from_users
   alias_method :only_in_channel, :only_in_channels
 end
