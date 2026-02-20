@@ -22,6 +22,7 @@ class WhatsMySlackId < Interaction
       lines << "<#{prefix}#{id}> is `#{id}`"
     end
 
+    reply_in_thread t("self_tag.block") if lines.length == 1
     reply_in_thread lines.join("\n")
   end
 end
