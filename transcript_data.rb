@@ -191,4 +191,28 @@ end,
       h { "your gratitude warms\nthis dinosaur heart so much\nalways here for you\n_- a haiku by :orpheus:, #{Date.today.year}_" },
     ],
   },
+  whats_my_slack_id: {
+    block: {
+      "blocks": [
+        {
+          "type": "context",
+          "elements": [
+            {
+              "type": "mrkdwn",
+              "text": t("whats_my_slack_id.self_tag")
+            }
+          ]
+        }
+      ]
+    }
+    self_tag: [
+      h { "it #{%w[you U].sample}!" },
+      h { "pulls out her filing cabinet labelled \"#{%w[troublemakers goofs SSNs passports IDs bounties].sample}\"" },
+      "despite everything, it's still you...",
+      "hands you a mirror",
+      "typing noises as she pulls up HCA",
+      "who else would it be...",
+      "grabs you by the shoulders and turns you towards a mirror",
+    ]
+  }
 }
