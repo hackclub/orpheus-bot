@@ -114,7 +114,16 @@ end,
   },
   ping: %w[pong pong! 🏓],
   fileShare: {
-    generic: "thanks, i'm gonna sell these to adfly!",
+    generic: [
+      h { "*#{%w[obnoxious mysterious loud obnoxious digital].sample} #{%w[slurping sucking guzzling vaccuuming].sample} #{%w[noises sounds].sample}*" },
+      h { "*#{%w[om nom].sample} nom nom*" },
+      "thanks, i'm gonna sell these to adfly!",
+      "she opens her mouth and pretends to be kirby",
+      "UwU, notices your big data",
+      "*downloads your upload*",
+      "*latches onto your files with her mouth and starts chewing*",
+      "*grabs your files in her big dinosaur hands* **YEET**",
+    ],
     success: h { "Yeah! Here's yo' links <@#{user}>\n#{links}" },
     errorTooBigImages: [
       "https://cloud-3tq9t10za-hack-club-bot.vercel.app/2too_big_4.png",
