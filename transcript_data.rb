@@ -97,7 +97,7 @@ end,
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "don't want me\nto notice your poems?\n`/disable-haiku`",
+            "text": "you don't want me to\nnotice and speak your poems?\n`/disable-haiku`",
           },
         },
         {
