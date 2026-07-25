@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class WhatsMySlackId < Interaction
-  handle :message
-
   checklist do
     only_in_channel "C0159TSJVH8"
     event_has_user
