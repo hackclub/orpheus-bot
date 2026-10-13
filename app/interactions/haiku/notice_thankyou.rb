@@ -1,12 +1,23 @@
 # frozen_string_literal: true
+load "./expressions_of_gratitude.rb"
 
 module Haiku
   class NoticeThankyou < Interaction
     handle :message
 
     checklist do
-      message_text_matches /thank\s*you|thanks|tanx|thx|ty/i # regex is hard
-      message_text_matches /(?i).*(orph|opreus).*/i
+      
+      thanks_formula = "/"
+      for string in gratitudes do
+        if string == gratitudes[0] then
+          thanks_formula = thanks_formula + string
+        else
+          thanks_formula = thanks_formula + "|" + string
+        end
+      end
+      
+      message_text_matches Regexp.new(thanks_formula, Regexp::IGNORECASE)
+      message_text_matches /(?i).*(orph|opreus|morpheus).*/i
       check do |event|
         event[:thread_ts].present? && cache.read("haikued_#{event[:thread_ts]}").present?
       end
