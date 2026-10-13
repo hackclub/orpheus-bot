@@ -17,7 +17,7 @@ module Haiku
       end
       
       message_text_matches Regexp.new(thanks_formula, Regexp::IGNORECASE)
-      message_text_matches /(?i).*(orph|opreus).*/i
+      message_text_matches /(?i).*(orph|opreus|morpheus).*/i
       check do |event|
         event[:thread_ts].present? && cache.read("haikued_#{event[:thread_ts]}").present?
       end
