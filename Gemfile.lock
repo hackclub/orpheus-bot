@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (8.0.4.1)
+    activesupport (8.0.5.2)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -10,7 +10,7 @@ GEM
       drb
       i18n (>= 1.6, < 2)
       logger (>= 1.4.2)
-      minitest (>= 5.1, < 6)
+      minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
@@ -40,8 +40,8 @@ GEM
     awesome_print (1.9.2)
     base64 (0.3.0)
     benchmark (0.5.0)
-    bigdecimal (4.0.1)
-    concurrent-ruby (1.3.7)
+    bigdecimal (4.1.3)
+    concurrent-ruby (1.3.8)
     connection_pool (2.5.0)
     console (1.30.2)
       fiber-annotation
@@ -72,7 +72,7 @@ GEM
       logger
       ostruct
     humanize (3.1.0)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     io-endpoint (0.15.2)
     io-event (1.10.0)
@@ -80,7 +80,9 @@ GEM
     json (2.21.2)
     logger (1.7.0)
     metrics (0.12.2)
-    minitest (5.27.0)
+    minitest (6.1.0)
+      drb (~> 2.0)
+      prism (>= 1.5, < 3)
     multi_json (1.15.0)
     multipart-post (2.4.1)
     mustermann (3.0.4)
@@ -89,6 +91,8 @@ GEM
       uri (>= 0.11.1)
     nio4r (2.7.5)
     ostruct (0.6.1)
+    prism (2.1.0)
+    prism (2.1.0-arm64-darwin)
     protocol-hpack (1.5.1)
     protocol-http (0.49.0)
     protocol-http1 (0.34.0)
@@ -149,7 +153,7 @@ GEM
     traces (0.15.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.1.1)
+    uri (1.1.2)
     zeitwerk (2.7.2)
 
 PLATFORMS
